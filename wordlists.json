@@ -1,0 +1,44 @@
+{
+  "animals": [
+    {
+      "word": "elephant",
+      "definition": "A large mammal with a trunk"
+    },
+    {
+      "word": "lion",
+      "definition": "A big cat known as the king of the jungle"
+    },
+    {
+      "word": "penguin",
+      "definition": "A flightless bird that swims"
+    }
+  ],
+  "colors": [
+    {
+      "word": "azure",
+      "definition": "A bright blue color"
+    },
+    {
+      "word": "crimson",
+      "definition": "A rich deep red color"
+    },
+    {
+      "word": "chartreuse",
+      "definition": "A color between yellow and green"
+    }
+  ],
+  "verbs": [
+    {
+      "word": "extrapolate",
+      "definition": "To infer beyond known data"
+    },
+    {
+      "word": "ruminate",
+      "definition": "To think deeply about something"
+    },
+    {
+      "word": "sprint",
+      "definition": "To run at full speed over a short distance"
+    }
+  ]
+}
