@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Sentence Analysis Tool</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+            background-color: #f9f9f9;
+        }
+        
+        /* Header section */
+        #header {
+            text-align: center;
+            padding: 15px 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+        }
+        
+        .banner {
+            height: 60px;
+            width: auto;
+        }
+        
+        /* Input section */
+        #input-section {
+            padding: 25px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        #article-input {
+            width: 100%;
+            height: 200px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        
+        #process-btn {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 25px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        #process-btn:hover {
+            background: #2980b9;
+        }
+        
+        /* Article display */
+        #article-display-container {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 150px; /* Space for floating toolbar */
+        }
+        
+        #font-size-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .font-size-btn {
+            width: 25px;
+            height: 25px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .font-size-btn:hover {
+            background: #f0f0f0;
+        }
+        
+        #article-display {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        
+        .paragraph {
+            margin-bottom: 1.5em;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+        
+        /* Floating toolbar */
+        #toolbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 15px;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            overflow-x: auto;
+        }
+        
+        .tool-btn {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+            background: white;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .tool-btn.active {
+            background-color: #f0f8ff;
+            box-shadow: 0 0 0 2px #b3e0ff;
+        }
+        
+        /* Apply text effects to button labels */
+        /* 1. Core elements: Different highlight colors */
+        .tool-btn[data-group="core"][data-style="subject"] span {
+            font-weight: bold;
+            background-color: #fff9c4; /* Light yellow */
+            padding: 0 2px;
+        }
+        
+        .tool-btn[data-group="core"][data-style="predicate"] span {
+            font-weight: bold;
+            background-color: #ffd6e0; /* Light pink */
+            padding: 0 2px;
+        }
+        
+        .tool-btn[data-group="core"][data-style="linking-verb"] span {
+            font-weight: bold;
+            background-color: #d0f0ff; /* Light blue */
+            padding: 0 2px;
+        }
+        
+        .tool-btn[data-group="core"][data-style="object"] span {
+            font-weight: bold;
+            background-color: #d4edda; /* Light green */
+            padding: 0 2px;
+        }
+        
+        .tool-btn[data-group="core"][data-style="predicative"] span {
+            font-weight: bold;
+            background-color: #e6d3ff; /* Light purple */
+            padding: 0 2px;
+        }
+        
+        /* 2. Appositives: Bolded only */
+        .tool-btn[data-group="appositive"] span {
+            font-weight: bold;
+        }
+        
+        /* 3. Attributives: Yellow underline */
+        .tool-btn[data-group="attributive"] span {
+            border-bottom: 2px solid #f1c40f;
+        }
+        
+        /* 4. Adverbials: Green underline */
+        .tool-btn[data-group="adverbial"] span {
+            border-bottom: 2px solid #2ecc71;
+        }
+        
+        /* 5. Complement: Blue underline */
+        .tool-btn[data-group="complement"] span {
+            border-bottom: 2px solid #3498db;
+        }
+        
+        /* 6. Parenthesis: Brown wave underline */
+        .tool-btn[data-group="parenthesis"] span {
+            text-decoration: underline wavy #795548;
+        }
+        
+        /* Six distinct text effects for article text */
+        /* 1. Core elements: Different highlight colors */
+        .subject {
+            font-weight: bold;
+            background-color: #fff9c4; /* Light yellow */
+            padding: 0 2px;
+        }
+        
+        .predicate {
+            font-weight: bold;
+            background-color: #ffd6e0; /* Light pink */
+            padding: 0 2px;
+        }
+        
+        .linking-verb {
+            font-weight: bold;
+            background-color: #d0f0ff; /* Light blue */
+            padding: 0 2px;
+        }
+        
+        .object {
+            font-weight: bold;
+            background-color: #d4edda; /* Light green */
+            padding: 0 2px;
+        }
+        
+        .predicative {
+            font-weight: bold;
+            background-color: #e6d3ff; /* Light purple */
+            padding: 0 2px;
+        }
+        
+        /* 2. Appositives: Bolded only */
+        .appositive, .appositive-clause {
+            font-weight: bold;
+        }
+        
+        /* 3. Attributives: Yellow underline */
+        .attributive, .attributive-clause {
+            border-bottom: 2px solid #f1c40f;
+        }
+        
+        /* 4. Adverbials: Green underline */
+        .adverbial, .adverbial-clause {
+            border-bottom: 2px solid #2ecc71;
+        }
+        
+        /* 5. Complement: Blue underline */
+        .complement {
+            border-bottom: 2px solid #3498db;
+        }
+        
+        /* 6. Parenthesis: Brown wave underline */
+        .parenthesis {
+            text-decoration: underline wavy #795548;
+        }
+        
+        /* Word selection */
+        .word {
+            cursor: default; /* Changed from pointer to default */
+            transition: all 0.2s;
+            padding: 0 2px;
+            border-radius: 2px;
+            white-space: nowrap;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .word.selectable {
+            cursor: pointer;
+        }
+        
+        .word.selectable:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .word.selected {
+            background: rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section -->
+    <div id="header">
+        <img class="banner" src="https://tonysew.wordpress.com/wp-content/uploads/2025/07/65f184bef6ff0c132cc9c1e0482569f5.png" alt="English Analysis Banner">
+    </div>
+    
+    <!-- Input section -->
+    <div id="input-section">
+        <textarea id="article-input" placeholder="Paste your English article here..."></textarea>
+        <button id="process-btn">Display the Article</button>
+    </div>
+    
+    <!-- Article display -->
+    <div id="article-display-container">
+        <div id="font-size-controls">
+            <button class="font-size-btn" id="decrease-font">-</button>
+            <button class="font-size-btn" id="increase-font">+</button>
+        </div>
+        <div id="article-display"></div>
+    </div>
+    
+    <!-- Floating toolbar -->
+    <div id="toolbar">
+        <!-- Group 1: Core elements -->
+        <button class="tool-btn" data-style="subject" data-group="core"><span>主语 (Subject)</span></button>
+        <button class="tool-btn" data-style="predicate" data-group="core"><span>谓语 (Predicate)</span></button>
+        <button class="tool-btn" data-style="linking-verb" data-group="core"><span>系动词 (Linking Verb)</span></button>
+        <button class="tool-btn" data-style="object" data-group="core"><span>宾语 (Object)</span></button>
+        <button class="tool-btn" data-style="predicative" data-group="core"><span>表语 (Predicative)</span></button>
+        
+        <!-- Group 6: Parenthesis -->
+        <button class="tool-btn" data-style="parenthesis" data-group="parenthesis"><span>插入语 (Parenthesis)</span></button>
+        
+        <!-- Group 2: Appositives -->
+        <button class="tool-btn" data-style="appositive" data-group="appositive"><span>同位语 (Appositive)</span></button>
+        <button class="tool-btn" data-style="appositive-clause" data-group="appositive"><span>同位语从句 (Appositive Clause)</span></button>
+        
+        <!-- Group 3: Attributives -->
+        <button class="tool-btn" data-style="attributive" data-group="attributive"><span>定语 (Attributive)</span></button>
+        <button class="tool-btn" data-style="attributive-clause" data-group="attributive"><span>定语从句 (Attributive Clause)</span></button>
+        
+        <!-- Group 4: Adverbials -->
+        <button class="tool-btn" data-style="adverbial" data-group="adverbial"><span>状语 (Adverbial)</span></button>
+        <button class="tool-btn" data-style="adverbial-clause" data-group="adverbial"><span>状语从句 (Adverbial Clause)</span></button>
+        
+        <!-- Group 5: Complement -->
+        <button class="tool-btn" data-style="complement" data-group="complement"><span>补语 (Complement)</span></button>
+        
+        <!-- Utility buttons -->
+        <button class="tool-btn" id="clear-btn" style="background: #f1c40f;"><span>Clear All</span></button>
+        <button class="tool-btn" id="print-btn" style="background: #27ae60; color: white;" onclick="printArticle()"><span>Print/PDF</span></button>
+    </div>
+    
+    <script>
+        let activeStyle = null;
+        let selectedWords = [];
+        let activeButton = null;
+        let isSelecting = false;
+        let currentFontSize = 12; // Default font size in pixels
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const toolButtons = document.querySelectorAll('.tool-btn[data-style]');
+            const clearBtn = document.getElementById('clear-btn');
+            const processBtn = document.getElementById('process-btn');
+            const articleDisplay = document.getElementById('article-display');
+            const increaseFontBtn = document.getElementById('increase-font');
+            const decreaseFontBtn = document.getElementById('decrease-font');
+            
+            // Handle tool button clicks
+            toolButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Toggle active state
+                    if (activeButton === this) {
+                        this.classList.remove('active');
+                        activeButton = null;
+                        activeStyle = null;
+                        clearSelection();
+                        makeWordsUnselectable();
+                    } else {
+                        // Deactivate all other buttons
+                        toolButtons.forEach(btn => btn.classList.remove('active'));
+                        
+                        // Activate current button
+                        this.classList.add('active');
+                        activeButton = this;
+                        activeStyle = this.getAttribute('data-style');
+                        
+                        // Make words selectable
+                        makeWordsSelectable();
+                    }
+                });
+            });
+            
+            // Clear button
+            clearBtn.addEventListener('click', function() {
+                clearHighlights();
+                if (activeButton) {
+                    activeButton.classList.remove('active');
+                    activeButton = null;
+                    activeStyle = null;
+                }
+                clearSelection();
+                makeWordsUnselectable();
+            });
+            
+            // Process article button
+            processBtn.addEventListener('click', function() {
+                processArticle();
+                document.getElementById('input-section').style.display = 'none';
+                makeWordsUnselectable();
+            });
+            
+            // Font size controls
+            increaseFontBtn.addEventListener('click', function() {
+                currentFontSize = Math.min(24, currentFontSize + 1);
+                updateFontSize();
+            });
+            
+            decreaseFontBtn.addEventListener('click', function() {
+                currentFontSize = Math.max(8, currentFontSize - 1);
+                updateFontSize();
+            });
+            
+            // Word selection handling
+            articleDisplay.addEventListener('mousedown', function(e) {
+                if (e.target.classList.contains('word') && e.target.classList.contains('selectable')) {
+                    isSelecting = true;
+                    e.target.classList.toggle('selected');
+                    updateSelection();
+                    e.preventDefault(); // Prevent text selection
+                }
+            });
+            
+            articleDisplay.addEventListener('mousemove', function(e) {
+                if (isSelecting && e.target.classList.contains('word') && e.target.classList.contains('selectable')) {
+                    e.target.classList.add('selected');
+                    updateSelection();
+                }
+            });
+            
+            document.addEventListener('mouseup', function() {
+                isSelecting = false;
+                
+                // If we have a selection and a style is active, apply the style
+                if (selectedWords.length > 0 && activeStyle) {
+                    applyStyleToSelection();
+                    clearSelection();
+                    makeWordsUnselectable();
+                    
+                    // Keep the button active for further selections
+                    if (activeButton) {
+                        makeWordsSelectable();
+                    }
+                }
+            });
+        });
+        
+        function updateFontSize() {
+            document.getElementById('article-display').style.fontSize = currentFontSize + 'px';
+        }
+        
+        function makeWordsSelectable() {
+            const words = document.querySelectorAll('#article-display .word');
+            words.forEach(word => {
+                word.classList.add('selectable');
+            });
+        }
+        
+        function makeWordsUnselectable() {
+            const words = document.querySelectorAll('#article-display .word');
+            words.forEach(word => {
+                word.classList.remove('selectable', 'selected');
+            });
+        }
+        
+        function processArticle() {
+            const inputText = document.getElementById('article-input').value;
+            const displayDiv = document.getElementById('article-display');
+            
+            // Split into paragraphs while preserving line breaks and spacing
+            const paragraphs = inputText.split(/(\n\s*\n)/);
+            
+            displayDiv.innerHTML = '';
+            
+            paragraphs.forEach(para => {
+                if (para.trim() === '') {
+                    // Preserve empty lines between paragraphs
+                    displayDiv.appendChild(document.createElement('br'));
+                    return;
+                }
+                
+                const paraDiv = document.createElement('div');
+                paraDiv.className = 'paragraph';
+                
+                // Split paragraph into words and punctuation
+                const tokens = para.match(/(\w+'\w+|\w+|\s+|[^\w\s])/g) || [];
+                
+                tokens.forEach(token => {
+                    if (token.trim() === '') {
+                        // Handle spaces
+                        paraDiv.appendChild(document.createTextNode(token));
+                    } else {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.className = 'word';
+                        wordSpan.textContent = token;
+                        
+                        paraDiv.appendChild(wordSpan);
+                    }
+                });
+                
+                displayDiv.appendChild(paraDiv);
+            });
+        }
+        
+        function updateSelection() {
+            selectedWords = Array.from(document.querySelectorAll('#article-display .word.selected'));
+        }
+        
+        function clearSelection() {
+            document.querySelectorAll('#article-display .word.selected').forEach(word => {
+                word.classList.remove('selected');
+            });
+            selectedWords = [];
+        }
+        
+        function applyStyleToSelection() {
+            selectedWords.forEach(word => {
+                // Remove all existing style classes first
+                const classList = word.classList;
+                classList.remove('subject', 'predicate', 'linking-verb', 'object', 'predicative',
+                                 'appositive', 'appositive-clause', 'attributive', 'attributive-clause',
+                                 'adverbial', 'adverbial-clause', 'complement', 'parenthesis');
+                
+                // Add the active style
+                classList.add(activeStyle);
+            });
+        }
+        
+        function clearHighlights() {
+            const words = document.querySelectorAll('#article-display .word');
+            words.forEach(word => {
+                word.className = 'word';
+            });
+        }
+        
+        function printArticle() {
+            const displayDiv = document.getElementById('article-display');
+            const originalContents = document.body.innerHTML;
+            
+            document.body.innerHTML = `
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        line-height: 1.5;
+                        padding: 30px;
+                        font-size: 12pt;
+                    }
+                    /* Core elements with different colors */
+                    .subject {
+                        font-weight: bold;
+                        background-color: #fff9c4;
+                        padding: 0 2px;
+                    }
+                    .predicate {
+                        font-weight: bold;
+                        background-color: #ffd6e0;
+                        padding: 0 2px;
+                    }
+                    .linking-verb {
+                        font-weight: bold;
+                        background-color: #d0f0ff;
+                        padding: 0 2px;
+                    }
+                    .object {
+                        font-weight: bold;
+                        background-color: #d4edda;
+                        padding: 0 2px;
+                    }
+                    .predicative {
+                        font-weight: bold;
+                        background-color: #e6d3ff;
+                        padding: 0 2px;
+                    }
+                    /* 2. Appositives */
+                    .appositive, .appositive-clause {
+                        font-weight: bold;
+                    }
+                    /* 3. Attributives */
+                    .attributive, .attributive-clause {
+                        border-bottom: 2px solid #f1c40f;
+                    }
+                    /* 4. Adverbials */
+                    .adverbial, .adverbial-clause {
+                        border-bottom: 2px solid #2ecc71;
+                    }
+                    /* 5. Complement */
+                    .complement {
+                        border-bottom: 2px solid #3498db;
+                    }
+                    /* 6. Parenthesis */
+                    .parenthesis {
+                        text-decoration: underline wavy #795548;
+                    }
+                    .paragraph {
+                        margin-bottom: 1.5em;
+                        text-align: left;
+                        white-space: pre-wrap;
+                    }
+                </style>
+                <h1 style="text-align: center; margin-bottom: 30px;">English Sentence Analysis</h1>
+                <div style="max-width: 900px; margin: 0 auto;">
+                    ${displayDiv.innerHTML}
+                </div>
+                <div style="page-break-before: always; margin-top: 50px; max-width: 900px; margin: 0 auto;">
+                    <h2 style="border-bottom: 1px solid #ddd; padding-bottom: 10px;">Legend:</h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                        <div><span class="subject">主语 (Subject)</span> - Bold with yellow highlight</div>
+                        <div><span class="predicate">谓语 (Predicate)</span> - Bold with pink highlight</div>
+                        <div><span class="linking-verb">系动词 (Linking Verb)</span> - Bold with blue highlight</div>
+                        <div><span class="object">宾语 (Object)</span> - Bold with green highlight</div>
+                        <div><span class="predicative">表语 (Predicative)</span> - Bold with purple highlight</div>
+                        <div><span class="appositive">同位语 (Appositive)</span> - Bold text</div>
+                        <div><span class="appositive-clause">同位语从句 (Appositive Clause)</span> - Bold text</div>
+                        <div><span class="attributive">定语 (Attributive)</span> - Yellow underline</div>
+                        <div><span class="attributive-clause">定语从句 (Attributive Clause)</span> - Yellow underline</div>
+                        <div><span class="adverbial">状语 (Adverbial)</span> - Green underline</div>
+                        <div><span class="adverbial-clause">状语从句 (Adverbial Clause)</span> - Green underline</div>
+                        <div><span class="complement">补语 (Complement)</span> - Blue underline</div>
+                        <div><span class="parenthesis">插入语 (Parenthesis)</span> - Brown wave underline</div>
+                    </div>
+                </div>
+            `;
+            
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+</body>
+</html>
