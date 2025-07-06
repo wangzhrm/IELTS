@@ -1,0 +1,3164 @@
+{
+  "topics": [
+    {
+      "topic": "名词",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Last night, there was a food accident. The ________ were ill, but no ________ were lost.",
+          "options": [
+            "A. child, lives",
+            "B. children, life",
+            "C. children, lives",
+            "D. child, life"
+          ],
+          "correct_answer": "C",
+          "explanation": "child的复数形式是children，life的复数形式是lives。根据句意'多人患病但无人死亡'，需用复数形式。"
+        },
+        {
+          "id": 2,
+          "question": "--This is a photo of ________ when they were young. --OK, how happy they both looked!",
+          "options": [
+            "A. my father and mother",
+            "B. my mother and father's",
+            "C. my mother's and father's",
+            "D. my father's and my mother"
+          ],
+          "correct_answer": "A",
+          "explanation": "表示两人共同拥有的照片时，只需在最后一个人名后加所有格's。此处指父母两人的合照，正确形式为my father and mother。"
+        },
+        {
+          "id": 3,
+          "question": "The new student is in ________ , Grade Two.",
+          "options": [
+            "A. Class Third",
+            "B. Third Class",
+            "C. Class Three",
+            "D. Three class"
+          ],
+          "correct_answer": "C",
+          "explanation": "班级编号用'Class+基数词'表示，且首字母大写。'三班'的正确表达是Class Three。"
+        },
+        {
+          "id": 4,
+          "question": "Today is September 10th. It's ________ Day. Let's go and buy some flowers for our teachers.",
+          "options": [
+            "A. Teachers",
+            "B. Teachers'",
+            "C. the Teachers'",
+            "D. Teacher's"
+          ],
+          "correct_answer": "B",
+          "explanation": "Teachers' Day表示'教师节'，以复数名词的所有格形式表示全体教师的节日，不需要定冠词the。"
+        },
+        {
+          "id": 5,
+          "question": "The market isn't far from here. It's only ________ bicycle ride.",
+          "options": [
+            "A. half an hours'",
+            "B. half an hour's",
+            "C. half an hour",
+            "D. an hour and a half"
+          ],
+          "correct_answer": "B",
+          "explanation": "表示'半小时的自行车程'需用所有格形式。half an hour是单数概念，所有格为half an hour's。"
+        },
+        {
+          "id": 6,
+          "question": "-- What would you like to drink, girls? -- ________ , please.",
+          "options": [
+            "A. Two cup of coffee",
+            "B. Two cups of coffe",
+            "C. Two cups of coffee",
+            "D. Two cups of coffees"
+          ],
+          "correct_answer": "C",
+          "explanation": "coffee是不可数名词，'两杯咖啡'用two cups of coffee表示。选项B有拼写错误（coffe），D错误使用复数coffees。"
+        },
+        {
+          "id": 7,
+          "question": "During Christmas, people get together and sing Christmas songs for ________.",
+          "options": [
+            "A. fun",
+            "B. wishes",
+            "C. interest",
+            "D. thanks"
+          ],
+          "correct_answer": "A",
+          "explanation": "for fun是固定搭配，意为'为了娱乐'。句意表达'人们唱歌是为了娱乐'，符合圣诞节氛围。"
+        },
+        {
+          "id": 8,
+          "question": "Some ________ are flying kites near the river.",
+          "options": [
+            "A. child",
+            "B. boy",
+            "C. boys",
+            "D. childs"
+          ],
+          "correct_answer": "C",
+          "explanation": "some后接可数名词复数。child的复数是children（非childs），boy的复数是boys。根据动词are确定用复数boys。"
+        },
+        {
+          "id": 9,
+          "question": "After the exam, we'll have ________ holiday.",
+          "options": [
+            "A. two weeks",
+            "B. two-weeks",
+            "C. two weeks'",
+            "D. two week's"
+          ],
+          "correct_answer": "C",
+          "explanation": "表示'两周的假期'需用所有格。以s结尾的复数名词直接加'，正确形式是two weeks' holiday。"
+        },
+        {
+          "id": 10,
+          "question": "They are those ________ bags. Please put them on the bus.",
+          "options": [
+            "A. visitor",
+            "B. visitors",
+            "C. visitor's",
+            "D. visitors'"
+          ],
+          "correct_answer": "D",
+          "explanation": "bags属于多个访客（复数），需用复数所有格visitors'。句意'那些是游客们的包'。"
+        },
+        {
+          "id": 11,
+          "question": "-- How many workers are there in your factory? -- There are two ________.",
+          "options": [
+            "A. hundreds",
+            "B. hundred",
+            "C. hundred of",
+            "D. hundreds of"
+          ],
+          "correct_answer": "B",
+          "explanation": "hundred前有具体数字two时用单数形式。hundreds of表示约数'数百'，但此处有具体数字two。"
+        },
+        {
+          "id": 12,
+          "question": "--What do you think of the ________ the Moonlight Sonata by Beethoven? -- It sounds really wonderful.",
+          "options": [
+            "A. subject",
+            "B. music",
+            "C. book",
+            "D. animal"
+          ],
+          "correct_answer": "B",
+          "explanation": "Moonlight Sonata（月光奏鸣曲）是音乐作品，且回答'sounds wonderful'指向听觉体验，故选music。"
+        },
+        {
+          "id": 13,
+          "question": "There is not enough ________ in the corner for the fridge.",
+          "options": [
+            "A. place",
+            "B. room",
+            "C. field",
+            "D. ground"
+          ],
+          "correct_answer": "B",
+          "explanation": "room作不可数名词时表示'空间'。句意'角落没有足够空间放冰箱'，其他选项无此含义。"
+        },
+        {
+          "id": 14,
+          "question": "________ comes from sheep and some people like eating it.",
+          "options": [
+            "A. Wool",
+            "B. Pork",
+            "C. Mutton",
+            "D. Milk"
+          ],
+          "correct_answer": "C",
+          "explanation": "mutton（羊肉）来自绵羊且可食用。wool（羊毛）不可食用，pork（猪肉）来自猪，milk（牛奶）来自牛。"
+        },
+        {
+          "id": 15,
+          "question": "If you don't take more ________ , you'll get fat.",
+          "options": [
+            "A. medicine",
+            "B. lessons",
+            "C. photos",
+            "D. exercise"
+          ],
+          "correct_answer": "D",
+          "explanation": "take exercise是固定搭配，意为'锻炼'。句意'不多锻炼会发胖'，其他选项不符合逻辑。"
+        },
+        {
+          "id": 16,
+          "question": "My school is about twenty ________ walk from here.",
+          "options": [
+            "A. minute",
+            "B. minutes'",
+            "C. minutes's",
+            "D. minutes"
+          ],
+          "correct_answer": "B",
+          "explanation": "表示'二十分钟的步行'需用复数所有格。minute以e结尾，复数加s后直接加'，即minutes' walk。"
+        },
+        {
+          "id": 17,
+          "question": "Mum, I have ________ to tell you!",
+          "options": [
+            "A. a good news",
+            "B. some good news",
+            "C. some good newes",
+            "D. much good news"
+          ],
+          "correct_answer": "B",
+          "explanation": "news是不可数名词，无复数形式。表达'一些好消息'用some修饰，选项B是唯一正确形式。"
+        },
+        {
+          "id": 18,
+          "question": "Which is the ________ to the post office?",
+          "options": [
+            "A. street",
+            "B. way",
+            "C. road",
+            "D. address"
+          ],
+          "correct_answer": "B",
+          "explanation": "the way to表示'去...的路'。address是地址，street/road需搭配介词on，而此处问的是'路线'。"
+        },
+        {
+          "id": 19,
+          "question": "I stayed at ________ last Sunday.",
+          "options": [
+            "A. my uncles",
+            "B. my uncles'",
+            "C. my uncle's",
+            "D. my uncle's family"
+          ],
+          "correct_answer": "C",
+          "explanation": "stayed at后接地点。my uncle's=my uncle's home（叔叔家），所有格's表示住所。uncles'是复数所有格（多位叔叔的家），不符合单数语境。"
+        },
+        {
+          "id": 20,
+          "question": "Maths ________ not easy to learn.",
+          "options": [
+            "A. are",
+            "B. is",
+            "C. am",
+            "D. were"
+          ],
+          "correct_answer": "B",
+          "explanation": "学科名称（如maths）作主语时，谓语动词用单数。尽管以s结尾，但表示单一学科概念。"
+        }
+      ]
+    },
+    {
+      "topic": "冠词",
+      "questions": [
+        {
+          "id": 1,
+          "question": "They are living ______ happy life now.",
+          "options": ["A. /", "B. a", "C. an", "D. the"],
+          "correct_answer": "B",
+          "explanation": "固定搭配live a...life表示'过...的生活'，此处需用不定冠词a修饰单数可数名词life"
+        },
+        {
+          "id": 2,
+          "question": "______ bag on ______ desk is mine.",
+          "options": ["A. /", "B. a", "C. an", "D. the"],
+          "correct_answer": "D",
+          "explanation": "两处都需用the：第一空特指特定书包，第二空固定搭配on the desk表示'在桌子上'"
+        },
+        {
+          "id": 3,
+          "question": "There is ______ empty box on the table.",
+          "options": ["A. /", "B. a", "C. an", "D. the"],
+          "correct_answer": "C",
+          "explanation": "empty以元音音素/ɪ/开头，需用an表示'一个空盒子'"
+        },
+        {
+          "id": 4,
+          "question": "Do you like ______ music of the film 'Titanic'?",
+          "options": ["A. /", "B. a", "C. an", "D. the"],
+          "correct_answer": "D",
+          "explanation": "特指某部电影的原声音乐需用the，表示'那部电影的特定音乐'"
+        },
+        {
+          "id": 5,
+          "question": "On ______ Saturday, I stay in ______ bed till 12:00.",
+          "options": ["A. /", "B. a", "C. an", "D. the"],
+          "correct_answer": "A",
+          "explanation": "两处都不加冠词：星期名称前零冠词；in bed是固定短语表示'卧床休息'"
+        },
+        {
+          "id": 6,
+          "question": "______ Browns have been to China twice.",
+          "options": ["A. /", "B. a", "C. an", "D. the"],
+          "correct_answer": "D",
+          "explanation": "姓氏复数前加the表示'布朗一家人'，指整个家庭"
+        },
+        {
+          "id": 7,
+          "question": "Don't make any noise in ______ class.",
+          "options": ["A. /", "B. a", "C. an", "D. the"],
+          "correct_answer": "A",
+          "explanation": "固定短语in class表示'在课堂上'，抽象概念前不加冠词"
+        },
+        {
+          "id": 8,
+          "question": "This is such ______ interesting story that you must listen to it.",
+          "options": ["A. /", "B. a", "C. an", "D. the"],
+          "correct_answer": "C",
+          "explanation": "interesting以元音音素/ɪ/开头，需用an表示'一个有趣的故事'"
+        },
+        {
+          "id": 9,
+          "question": "Next week they will go to Australia by ______ air.",
+          "options": ["A. /", "B. a", "C. an", "D. the"],
+          "correct_answer": "A",
+          "explanation": "固定搭配by air表示'乘飞机'，交通工具类短语前不加冠词"
+        },
+        {
+          "id": 10,
+          "question": "Which is bigger, ______ sun or ______ moon?",
+          "options": ["A. /", "B. a", "C. an", "D. the"],
+          "correct_answer": "D",
+          "explanation": "两处都需用the：表示宇宙中独一无二的天体名称前必须加定冠词"
+        }
+      ]
+    },
+    {
+      "topic": "代词",
+      "questions": [
+        {
+          "id": 1,
+          "question": "This isn't ______ pencil case. I left ______ at home.",
+          "options": [
+            "A. my, mine",
+            "B. me, my",
+            "C. I, my",
+            "D. my, myself"
+          ],
+          "correct_answer": "A",
+          "explanation": "第一空：形容词性物主代词my修饰名词pencil case；第二空：名词性物主代词mine=my pencil case，避免重复"
+        },
+        {
+          "id": 2,
+          "question": "The English novel is quite easy for you. There are ______ new words in it.",
+          "options": [
+            "A. a little",
+            "B. little",
+            "C. a few",
+            "D. few"
+          ],
+          "correct_answer": "D",
+          "explanation": "few修饰可数复数名词words，表否定含义'几乎没有'，符合句意'生词很少'"
+        },
+        {
+          "id": 3,
+          "question": "-- Can I come this evening or tomorrow morning? -- ______ OK. I'm free today and tomorrow.",
+          "options": [
+            "A. Either",
+            "B. Neither",
+            "C. Both",
+            "D. None"
+          ],
+          "correct_answer": "A",
+          "explanation": "either指'两者中任意一个'，符合语境'今天明天都行'"
+        },
+        {
+          "id": 4,
+          "question": "The population of China is much larger than ______.",
+          "options": [
+            "A. this",
+            "B. those",
+            "C. it",
+            "D. that"
+          ],
+          "correct_answer": "D",
+          "explanation": "that指代不可数名词population，避免重复，构成比较结构"
+        },
+        {
+          "id": 5,
+          "question": "-- When shall we meet again? -- Make it ______ day you like. It's all the same to me.",
+          "options": [
+            "A. one",
+            "B. any",
+            "C. another",
+            "D. all"
+          ],
+          "correct_answer": "B",
+          "explanation": "any表示'任意一天'，强调不限选择范围"
+        },
+        {
+          "id": 6,
+          "question": "He said ______ at the meeting and just sat there silently.",
+          "options": [
+            "A. something",
+            "B. anything",
+            "C. nothing",
+            "D. everything"
+          ],
+          "correct_answer": "C",
+          "explanation": "nothing表示'什么都没说'，与'sat silently'形成逻辑呼应"
+        },
+        {
+          "id": 7,
+          "question": "-- Do you know the lady ______ is interviewing our headmaster? -- Yes, she is a journalist from CCTV.",
+          "options": [
+            "A. which",
+            "B. who",
+            "C. whom",
+            "D. whose"
+          ],
+          "correct_answer": "B",
+          "explanation": "关系代词who引导定语从句，在从句中作主语指代人lady"
+        }
+      ]
+    },
+    {
+      "topic": "数词",
+      "questions": [
+        {
+          "id": 1,
+          "question": "______ of people in the world are sending information by E-mail ever day.",
+          "options": [
+            "A. Many million",
+            "B. Several million",
+            "C. Several millions",
+            "D. Many millions"
+          ],
+          "correct_answer": "D",
+          "explanation": "表示“数以千万计”，many millions of people 是正确的固定搭配，表示大范围数量"
+        },
+        {
+          "id": 2,
+          "question": "About ______ of the surface of the earth ______ covered with water.",
+          "options": [
+            "A. three quarter, is",
+            "B. three quarters, has",
+            "C. three quarters, is",
+            "D. three quarter, are"
+          ],
+          "correct_answer": "C",
+          "explanation": "分子大于1时分母用复数quarters；主语three quarters是单数概念，谓语用is"
+        },
+        {
+          "id": 3,
+          "question": "It will take ______ time to finish the work.",
+          "options": [
+            "A. one and a half years'",
+            "B. a year and half",
+            "C. one and a half year's",
+            "D. a year and half's"
+          ],
+          "correct_answer": "A",
+          "explanation": "one and a half years表示'一年半'，所有格加在years后，即years' time"
+        },
+        {
+          "id": 4,
+          "question": "-- How long will your stay here? -- For ______.",
+          "options": [
+            "A. one and two day's",
+            "B. one and two day",
+            "C. a day or two",
+            "D. one or two day"
+          ],
+          "correct_answer": "C",
+          "explanation": "固定表达a day or two表示'一两天'，相当于one or two days"
+        },
+        {
+          "id": 5,
+          "question": "When he moved to Germany in ______ , he was already in ______.",
+          "options": [
+            "A. the fifties; his sixties",
+            "B. fifties; his sixties",
+            "C. the fifties; his sixty",
+            "D. fifty; sixty"
+          ],
+          "correct_answer": "A",
+          "explanation": "in the fifties表示'在50年代'；in his sixties表示'在他60多岁时'"
+        },
+        {
+          "id": 6,
+          "question": "My brother lives in ______ on ______ floor.",
+          "options": [
+            "A. six Room; second",
+            "B. Room six; the second",
+            "C. Room six; two floor",
+            "D. the room six; the second"
+          ],
+          "correct_answer": "B",
+          "explanation": "房间号表达：Room + 基数词（Room six）；楼层表达：the + 序数词 + floor（the second floor）"
+        },
+        {
+          "id": 7,
+          "question": "December is ______ month of the year.",
+          "options": [
+            "A. twelve",
+            "B. twelfth",
+            "C. the twelfth",
+            "D. the twelve"
+          ],
+          "correct_answer": "C",
+          "explanation": "序数词前加定冠词the，twelfth表示'第十二个月'"
+        },
+        {
+          "id": 8,
+          "question": "This took place in the ______.",
+          "options": [
+            "A. 1940",
+            "B. 1940s",
+            "C. 1940es",
+            "D. 1940th"
+          ],
+          "correct_answer": "B",
+          "explanation": "1940s表示'20世纪40年代'，正确形式为年份后加s"
+        },
+        {
+          "id": 9,
+          "question": "It is only ______ from my home to the train station.",
+          "options": [
+            "A. ten minutes walk",
+            "B. ten-minutes walk",
+            "C. ten minutes 's walk",
+            "D. ten minutes' walk"
+          ],
+          "correct_answer": "D",
+          "explanation": "复数名词所有格：以s结尾的复数名词直接加'（ten minutes' walk）"
+        },
+        {
+          "id": 10,
+          "question": "There are ______ in this building, I live on ______.",
+          "options": [
+            "A. nine floors, the ninth floor",
+            "B. nine floor, the ninth floor",
+            "C. nine floor, nine floors",
+            "D. ninth floor, the ninth floor"
+          ],
+          "correct_answer": "A",
+          "explanation": "基数词+floors表总层数；序数词+ninth floor表具体楼层"
+        },
+        {
+          "id": 11,
+          "question": "The water behind the Three Gorges Dams should be ______ higher than downstream.",
+          "options": [
+            "A. sixty-five meter",
+            "B. sixty-fifth meter",
+            "C. sixty-five meters",
+            "D. sixty-fifth meters"
+          ],
+          "correct_answer": "C",
+          "explanation": "数量单位用复数形式：数词+连字符+单数名词作定语（sixty-five meters）"
+        },
+        {
+          "id": 12,
+          "question": "There are ______ days in a year.",
+          "options": [
+            "A. three hundred sixty-five",
+            "B. three hundred and sixty-five",
+            "C. three hundred and sixty-five",
+            "D. two hundreds and sixty-five"
+          ],
+          "correct_answer": "B",
+          "explanation": "百位数表达：hundred后加and，如three hundred and sixty-five"
+        },
+        {
+          "id": 13,
+          "question": "-- How many teachers are there in your school? -- ______, but I'm not sure.",
+          "options": [
+            "A. Hundreds",
+            "B. Hundred",
+            "C. Hundreds of",
+            "D. One hundred"
+          ],
+          "correct_answer": "D",
+          "explanation": "hundred前有具体数字时用单数形式，one hundred表示'一百'的约数"
+        },
+        {
+          "id": 14,
+          "question": "There are ______ doctors and nurses working hard in that hospital.",
+          "options": [
+            "A. thousand",
+            "B. two thousand",
+            "C. two thousands",
+            "D. two thousands of"
+          ],
+          "correct_answer": "B",
+          "explanation": "thousand前有具体数字two时用单数形式（two thousand）"
+        },
+        {
+          "id": 15,
+          "question": "-- What's one fourth and a half, do you know? -- Yes, it's ______.",
+          "options": [
+            "A. two sixths",
+            "B. three fourths",
+            "C. one three",
+            "D. three sixth"
+          ],
+          "correct_answer": "B",
+          "explanation": "1/4 + 1/2 = 1/4 + 2/4 = 3/4，分数表达：分子基数词分母序数词（three fourths）"
+        },
+        {
+          "id": 16,
+          "question": "Now children, turn to page ______ and look at the ______ picture in Lesson Two.",
+          "options": [
+            "A. twentieth, one",
+            "B. twenty, one",
+            "C. twentieth, first",
+            "D. twenty, first"
+          ],
+          "correct_answer": "D",
+          "explanation": "页码用基数词（page twenty）；顺序用序数词（the first picture）"
+        },
+        {
+          "id": 17,
+          "question": "Both of the two rulers are broken. I want to buy a ______ one.",
+          "options": [
+            "A. three",
+            "B. third",
+            "C. forth",
+            "D. /"
+          ],
+          "correct_answer": "B",
+          "explanation": "third表示'第三把尺子'，序数词前省略冠词a表示'再一、又一'"
+        },
+        {
+          "id": 18,
+          "question": "December is the ______ month in year.",
+          "options": [
+            "A. twenty",
+            "B. twelve",
+            "C. twentieth",
+            "D. twelfth"
+          ],
+          "correct_answer": "D",
+          "explanation": "twelfth是twelve的序数词形式，表示'第十二个月'"
+        },
+        {
+          "id": 19,
+          "question": "-- What is the date today? -- It's ______.",
+          "options": [
+            "A. Thursday",
+            "B. June the sixteenth",
+            "C. the best day",
+            "D. June fifteen"
+          ],
+          "correct_answer": "B",
+          "explanation": "日期表达：月份+序数词（June the sixteenth），也可写作June 16th"
+        },
+        {
+          "id": 20,
+          "question": "She knows a lot about China as she has been to China ______.",
+          "options": [
+            "A. for the forth time",
+            "B. four times",
+            "C. a fourth time",
+            "D. for four times"
+          ],
+          "correct_answer": "B",
+          "explanation": "four times表示'四次'，time作'次数'解时用复数形式"
+        }
+      ]
+    },
+    {
+      "topic": "动词",
+      "questions": [
+        {
+          "id": 1,
+          "subtopic": "动词形式",
+          "question": "A policeman saw two thieves ______ a girl's mobile phone on the bus and he caught them at once.",
+          "options": [
+            "A. to steal",
+            "B. stealing",
+            "C. stole",
+            "D. stolen"
+          ],
+          "correct_answer": "B",
+          "explanation": "see sb doing sth表示'看见某人正在做某事'，强调动作进行中"
+        },
+        {
+          "id": 2,
+          "subtopic": "动词搭配",
+          "question": "The Chinese pingpong players will join in the match. Let's ______ them success.",
+          "options": [
+            "A. wish",
+            "B. to wish",
+            "C. hope",
+            "D. to hope"
+          ],
+          "correct_answer": "A",
+          "explanation": "wish sb sth是固定搭配，表示'祝愿某人...'；hope后不接双宾语"
+        },
+        {
+          "id": 3,
+          "subtopic": "动词辨析",
+          "question": "He is so careless that he always ______ his school things at home.",
+          "options": [
+            "A. forgets",
+            "B. forgot",
+            "C. leaves",
+            "D. left"
+          ],
+          "correct_answer": "C",
+          "explanation": "leave表示'遗忘（物品）'，forget表示'忘记（事情）'"
+        },
+        {
+          "id": 4,
+          "subtopic": "动词时态",
+          "question": "---Who ______ the computer? I want to use it. ---Timmy. He ______ it for a week.",
+          "options": [
+            "A. borrowed, has borrowed",
+            "B. has borrowed, bought",
+            "C. has borrowed, has kept",
+            "D. bought, has borrowed"
+          ],
+          "correct_answer": "C",
+          "explanation": "第一空：现在完成时强调影响；第二空：keep表示'保管'，用完成时强调持续时间"
+        },
+        {
+          "id": 5,
+          "subtopic": "动词时态",
+          "question": "Look! One of the girls ______ the door.",
+          "options": [
+            "A. cleans",
+            "B. is cleaning",
+            "C. clean",
+            "D. are cleaning"
+          ],
+          "correct_answer": "B",
+          "explanation": "Look!提示现在进行时；one of...作主语时谓语用单数"
+        },
+        {
+          "id": 6,
+          "subtopic": "动词形式",
+          "question": "If you don't feel well, you may just ______.",
+          "options": [
+            "A. stopped reading",
+            "B. stop reading",
+            "C. stopped to read",
+            "D. stop to read"
+          ],
+          "correct_answer": "B",
+          "explanation": "stop doing停止正在做的事；stop to do停下来去做另一件事"
+        },
+        {
+          "id": 7,
+          "subtopic": "动词辨析",
+          "question": "---Where can we get a baseball? ---Let's ______.",
+          "options": [
+            "A. lend Jim one",
+            "B. lend one to Jim",
+            "C. borrow one from Jim",
+            "D. borrow one of Jim"
+          ],
+          "correct_answer": "C",
+          "explanation": "borrow from表示'从...借入'；lend to表示'借给'"
+        },
+        {
+          "id": 8,
+          "subtopic": "动词形式",
+          "question": "---My model ship doesn't work. ---Don't worry. I'll have it ______ this afternoon.",
+          "options": [
+            "A. repairing",
+            "B. made",
+            "C. repaired",
+            "D. mend"
+          ],
+          "correct_answer": "C",
+          "explanation": "have sth done表示'让他人做某事'，此处用过去分词repaired"
+        },
+        {
+          "id": 9,
+          "subtopic": "情态动词",
+          "question": "You ______ wash your hands before meals.",
+          "options": [
+            "A. need",
+            "B. must",
+            "C. can",
+            "D. may"
+          ],
+          "correct_answer": "B",
+          "explanation": "must表示'必须'，强调必要性；can/may表示可能性"
+        },
+        {
+          "id": 10,
+          "subtopic": "动词短语",
+          "question": "Will you ______ the light? It's dark in the room.",
+          "options": [
+            "A. get on",
+            "B. get off",
+            "C. turn on",
+            "D. turn off"
+          ],
+          "correct_answer": "C",
+          "explanation": "turn on打开（电器）；turn off关闭；get on/off上/下车"
+        },
+        {
+          "id": 11,
+          "subtopic": "动词辨析",
+          "question": "My name is Zhang Mingjian. You may ______ me Zhang Mingjian or Mr Zhang.",
+          "options": [
+            "A. ask",
+            "B. say",
+            "C. tell",
+            "D. call"
+          ],
+          "correct_answer": "D",
+          "explanation": "call sb sth表示'称呼某人...'；say/tell需要接说话内容"
+        },
+        {
+          "id": 12,
+          "subtopic": "动词形式",
+          "question": "There is going to ______ a game in our school this afternoon.",
+          "options": [
+            "A. has",
+            "B. have",
+            "C. be",
+            "D. are"
+          ],
+          "correct_answer": "C",
+          "explanation": "There be句型将来时：There is going to be"
+        },
+        {
+          "id": 13,
+          "subtopic": "动词短语",
+          "question": "You'd better ______ smoking. It's bad for your health.",
+          "options": [
+            "A. eat up",
+            "B. give up",
+            "C. come up",
+            "D. get up"
+          ],
+          "correct_answer": "B",
+          "explanation": "give up放弃；eat up吃光；come up出现；get up起床"
+        },
+        {
+          "id": 14,
+          "subtopic": "动词短语",
+          "question": "---How do you like this book? ---I think it has nothing to ______ with our study.",
+          "options": [
+            "A. make",
+            "B. do",
+            "C. take",
+            "D. hold"
+          ],
+          "correct_answer": "B",
+          "explanation": "have nothing to do with固定搭配，表示'与...无关'"
+        },
+        {
+          "id": 15,
+          "subtopic": "动词时态",
+          "question": "---Where is Mr Brown? I have some questions to ask him. ---He ______ the office.",
+          "options": [
+            "A. has been to",
+            "B. has been in",
+            "C. has gone to",
+            "D. has gone in"
+          ],
+          "correct_answer": "C",
+          "explanation": "has gone to表示'已去某地（未返回）'；has been to表示'曾经去过'"
+        },
+        {
+          "id": 16,
+          "subtopic": "动词形式",
+          "question": "The bus kept the people ______ for twenty minutes.",
+          "options": [
+            "A. wait",
+            "B. to wait",
+            "C. waiting",
+            "D. waits"
+          ],
+          "correct_answer": "C",
+          "explanation": "keep sb doing使某人持续做某事，用现在分词形式"
+        },
+        {
+          "id": 17,
+          "subtopic": "动词短语",
+          "question": "I believe the scientists will ______ a better way to heal the disease.",
+          "options": [
+            "A. get on with",
+            "B. come up with",
+            "C. go on with",
+            "D. catch up with"
+          ],
+          "correct_answer": "B",
+          "explanation": "come up with提出（想法）；get on with相处；go on with继续；catch up with赶上"
+        },
+        {
+          "id": 18,
+          "subtopic": "动词辨析",
+          "question": "---Why do you often ______ this pink blouse? ---Because it fits me well.",
+          "options": [
+            "A. put on",
+            "B. wear",
+            "C. buy",
+            "D. try on"
+          ],
+          "correct_answer": "B",
+          "explanation": "wear表示'穿着'状态；put on表示'穿上'动作；try on试穿"
+        },
+        {
+          "id": 19,
+          "subtopic": "动词短语",
+          "question": "Jack always runs faster than Peter, but this time he ______ him.",
+          "options": [
+            "A. went over",
+            "B. fell behind",
+            "C. put off",
+            "D. dropped off"
+          ],
+          "correct_answer": "B",
+          "explanation": "fell behind落后；went over复习；put off推迟；dropped off掉落"
+        },
+        {
+          "id": 20,
+          "subtopic": "动词辨析",
+          "question": "The Internet ______ it easy to get much new information in a short time.",
+          "options": [
+            "A. finds",
+            "B. makes",
+            "C. feels",
+            "D. takes"
+          ],
+          "correct_answer": "B",
+          "explanation": "make it + adj. + to do使做某事变得...；其他动词无此用法"
+        },
+        {
+          "id": 21,
+          "subtopic": "动词时态",
+          "question": "We ______ out by that time that he ______ a thief for a longtime.",
+          "options": [
+            "A. had found, had been",
+            "B. had found, was",
+            "C. found, had been",
+            "D. found, was"
+          ],
+          "correct_answer": "C",
+          "explanation": "主句用过去时found；从句动作发生在主句前，用过去完成时had been"
+        },
+        {
+          "id": 22,
+          "subtopic": "动词时态",
+          "question": "It so happened that they ______ the novel before.",
+          "options": [
+            "A. had read",
+            "B. would read",
+            "C. were reading",
+            "D. read"
+          ],
+          "correct_answer": "A",
+          "explanation": "before表示'之前'，用过去完成时had read"
+        },
+        {
+          "id": 23,
+          "subtopic": "动词时态",
+          "question": "She ______ for nearly two hours.",
+          "options": [
+            "A. kept talking",
+            "B. kept to talk",
+            "C. has kept talking",
+            "D. kept to talking"
+          ],
+          "correct_answer": "A",
+          "explanation": "keep doing持续做某事；nearly two hours可用一般过去时"
+        },
+        {
+          "id": 24,
+          "subtopic": "动词时态",
+          "question": "Spring ______ after winter.",
+          "options": [
+            "A. comes",
+            "B. came",
+            "C. has come",
+            "D. had come"
+          ],
+          "correct_answer": "A",
+          "explanation": "自然规律用一般现在时"
+        },
+        {
+          "id": 25,
+          "subtopic": "动词时态",
+          "question": "---I hear some noise in the next room. ---Oh, yes. Your sister ______ there.",
+          "options": [
+            "A. cries",
+            "B. is crying",
+            "C. cried",
+            "D. was crying"
+          ],
+          "correct_answer": "B",
+          "explanation": "hear提示正在发生的动作，用现在进行时"
+        },
+        {
+          "id": 26,
+          "subtopic": "动词时态",
+          "question": "All the students ______ to plant trees and there's nobody in the classroom.",
+          "options": [
+            "A. go",
+            "B. will go",
+            "C. have gone",
+            "D. would go"
+          ],
+          "correct_answer": "C",
+          "explanation": "have gone表示'已去未归'，与'nobody in classroom'呼应"
+        },
+        {
+          "id": 27,
+          "subtopic": "动词时态",
+          "question": "Stop! A little boy ______ the street.",
+          "options": [
+            "A. is crossing",
+            "B. crosses",
+            "C. crossed",
+            "D. has crossed"
+          ],
+          "correct_answer": "A",
+          "explanation": "Stop!提示正在进行的动作，用现在进行时"
+        },
+        {
+          "id": 28,
+          "subtopic": "动词时态",
+          "question": "The girl ______ to milk since last winter.",
+          "options": [
+            "A. learns",
+            "B. learned",
+            "C. has learned",
+            "D. would learn"
+          ],
+          "correct_answer": "C",
+          "explanation": "since last winter表示从过去持续到现在，用现在完成时"
+        },
+        {
+          "id": 29,
+          "subtopic": "动词时态",
+          "question": "What ______ to you this morning?",
+          "options": [
+            "A. happens",
+            "B. is happened",
+            "C. happened",
+            "D. was happened"
+          ],
+          "correct_answer": "C",
+          "explanation": "this morning（已过去）用一般过去时；happen无被动语态"
+        },
+        {
+          "id": 30,
+          "subtopic": "动词时态",
+          "question": "---The old man looks healthy. ---Yes. He ______ some running after he gets up.",
+          "options": [
+            "A. does",
+            "B. did",
+            "C. has done",
+            "D. will do"
+          ],
+          "correct_answer": "C",
+          "explanation": "强调习惯性动作对现在的影响，用现在完成时"
+        },
+        {
+          "id": 31,
+          "subtopic": "动词时态",
+          "question": "She didn't pass the exams because she ______ her lessons well.",
+          "options": [
+            "A. wasn't prepared",
+            "B. wasn't been prepared",
+            "C. hadn't prepared",
+            "D. was preparing"
+          ],
+          "correct_answer": "C",
+          "explanation": "准备考试发生在考试失败前，用过去完成时"
+        },
+        {
+          "id": 32,
+          "subtopic": "动词时态",
+          "question": "This story ______ in a faraway village in Europe many years ago.",
+          "options": [
+            "A. is happened",
+            "B. was happened",
+            "C. happened",
+            "D. has been happened"
+          ],
+          "correct_answer": "C",
+          "explanation": "ago用一般过去时；happen无被动语态"
+        },
+        {
+          "id": 33,
+          "subtopic": "动词时态",
+          "question": "---Mr King came back to our village. ---Really? For what? ---The old man ______ the noise in the city.",
+          "options": [
+            "A. is hating",
+            "B. hates",
+            "C. was hating",
+            "D. has hated"
+          ],
+          "correct_answer": "B",
+          "explanation": "hate表示长期心理状态，用一般现在时"
+        },
+        {
+          "id": 34,
+          "subtopic": "动词时态",
+          "question": "His father ______ for a week.",
+          "options": [
+            "A. died",
+            "B. will die",
+            "C. has been died",
+            "D. has been dead"
+          ],
+          "correct_answer": "D",
+          "explanation": "for a week需用延续性状态；dead是形容词表状态"
+        },
+        {
+          "id": 35,
+          "subtopic": "情态动词",
+          "question": "My mother is ill. I ______ stay at home and look after her.",
+          "options": [
+            "A. has to",
+            "B. must",
+            "C. would",
+            "D. have to"
+          ],
+          "correct_answer": "D",
+          "explanation": "have to强调客观需要；must强调主观义务；would表意愿"
+        },
+        {
+          "id": 36,
+          "subtopic": "动词时态",
+          "question": "---Do you know the Frenchman? ---Yes. I ______ him for two years.",
+          "options": [
+            "A. know",
+            "B. have known",
+            "C. knew",
+            "D. have been known"
+          ],
+          "correct_answer": "B",
+          "explanation": "for two years用现在完成时，表示持续状态"
+        },
+        {
+          "id": 37,
+          "subtopic": "动词时态",
+          "question": "They ______ all their money, so they have to walk home.",
+          "options": [
+            "A. spend",
+            "B. had spent",
+            "C. have spent",
+            "D. will spend"
+          ],
+          "correct_answer": "C",
+          "explanation": "现在完成时强调结果'钱已花光'"
+        },
+        {
+          "id": 38,
+          "subtopic": "动词语态",
+          "question": "Great changes ______ in the city, and a lot of factories ______.",
+          "options": [
+            "A. have been taken place, have been set up",
+            "B. have taken place, have been set up",
+            "C. have taken place, have set up",
+            "D. were taken place, were set up"
+          ],
+          "correct_answer": "B",
+          "explanation": "take place无被动语态；set up factories需用被动语态"
+        },
+        {
+          "id": 39,
+          "subtopic": "动词时态",
+          "question": "---When did Kate's grandma die? ---While the doctors ______ on her.",
+          "options": [
+            "A. are operating",
+            "B. were operating",
+            "C. operate",
+            "D. operated"
+          ],
+          "correct_answer": "B",
+          "explanation": "while引导过去进行时，表示'当医生正在手术时'"
+        },
+        {
+          "id": 40,
+          "subtopic": "动词时态",
+          "question": "---Who are you looking for? ---Mr White. ---Wait here for a while. The class meeting ______ over in half an hour.",
+          "options": [
+            "A. is",
+            "B. will be",
+            "C. was",
+            "D. has been"
+          ],
+          "correct_answer": "B",
+          "explanation": "in half an hour表示将来时间，用将来时"
+        },
+        {
+          "id": 41,
+          "subtopic": "情态动词",
+          "question": "If she's not at home, you ______ try telephoning her at the office.",
+          "options": [
+            "A. will",
+            "B. could",
+            "C. would",
+            "D. need"
+          ],
+          "correct_answer": "A",
+          "explanation": "will表示'可以'，提出建议；could/would更委婉"
+        },
+        {
+          "id": 42,
+          "subtopic": "动词语态",
+          "question": "All the new words ______ up in the dictionary yet.",
+          "options": [
+            "A. have looked",
+            "B. haven't looked",
+            "C. have been looked",
+            "D. haven't been looked"
+          ],
+          "correct_answer": "D",
+          "explanation": "words与look up是被动关系；yet用于否定句完成时"
+        },
+        {
+          "id": 43,
+          "subtopic": "情态动词",
+          "question": "I don't want to speak to her, but I ______.",
+          "options": [
+            "A. do",
+            "B. have to",
+            "C. have to speak",
+            "D. must to"
+          ],
+          "correct_answer": "B",
+          "explanation": "have to表示'不得不'；must后接动词原形"
+        },
+        {
+          "id": 44,
+          "subtopic": "动词时态",
+          "question": "Hurry up, or you ______ the train.",
+          "options": [
+            "A. miss",
+            "B. lose",
+            "C. will miss",
+            "D. will lose"
+          ],
+          "correct_answer": "C",
+          "explanation": "or引导的将来情况，用将来时；miss the train固定搭配"
+        },
+        {
+          "id": 45,
+          "subtopic": "动词语态",
+          "question": "The new library ______ next week.",
+          "options": [
+            "A. will build",
+            "B. will be built",
+            "C. would build",
+            "D. would be built"
+          ],
+          "correct_answer": "B",
+          "explanation": "library与build是被动关系；next week用将来时被动语态"
+        },
+        {
+          "id": 46,
+          "subtopic": "动词时态",
+          "question": "---Where's Mabel? ---She ______ ping pong behind the teaching building.",
+          "options": [
+            "A. is playing",
+            "B. was playing",
+            "C. played",
+            "D. had played"
+          ],
+          "correct_answer": "A",
+          "explanation": "问现在位置，用现在进行时表示正在进行的动作"
+        },
+        {
+          "id": 47,
+          "subtopic": "动词语态",
+          "question": "Quite a few tall buildings ______ the last two years.",
+          "options": [
+            "A. have been put up",
+            "B. were put up",
+            "C. had put up",
+            "D. put up"
+          ],
+          "correct_answer": "A",
+          "explanation": "buildings与put up是被动关系；the last two years用完成时"
+        },
+        {
+          "id": 48,
+          "subtopic": "动词语态",
+          "question": "Man-made-satellites ______ into space by many countries.",
+          "options": [
+            "A. was sent up",
+            "B. is sent up",
+            "C. have been sent up",
+            "D. has been sent up"
+          ],
+          "correct_answer": "C",
+          "explanation": "复数主语用have been sent；强调至今已完成的动作"
+        },
+        {
+          "id": 49,
+          "subtopic": "动词时态",
+          "question": "I ______ all the words on the black board. May I go home now?",
+          "options": [
+            "A. copy",
+            "B. will copy",
+            "C. copied",
+            "D. have copied"
+          ],
+          "correct_answer": "D",
+          "explanation": "现在完成时强调动作已完成，与'May I go now'呼应"
+        },
+        {
+          "id": 50,
+          "subtopic": "动词形式",
+          "question": "Nobody knew ______ a living in that country.",
+          "options": [
+            "A. to do",
+            "B. to make",
+            "C. how to do",
+            "D. how to make"
+          ],
+          "correct_answer": "D",
+          "explanation": "make a living谋生；how to do it需接宾语，how to make a living正确"
+        },
+        {
+          "id": 51,
+          "subtopic": "动词辨析",
+          "question": "The old man needs at most five hour's sleep a night, but he ______ for over seven hours tonight.",
+          "options": [
+            "A. has fallen asleep",
+            "B. has slept",
+            "C. has gone to bed",
+            "D. has gone to sleep"
+          ],
+          "correct_answer": "B",
+          "explanation": "sleep表示睡眠状态；fall asleep/go to sleep表示入睡动作"
+        },
+        {
+          "id": 52,
+          "subtopic": "动词时态",
+          "question": "I'm really getting too fat. From now on, I ______ more exercise and eat less food.",
+          "options": [
+            "A. have done",
+            "B. do",
+            "C. am doing",
+            "D. will do"
+          ],
+          "correct_answer": "D",
+          "explanation": "From now on表示从今以后，用将来时"
+        },
+        {
+          "id": 53,
+          "subtopic": "动词形式",
+          "question": "You don't need ______ her. I ______ her for several times.",
+          "options": [
+            "A. describe, had met",
+            "B. describe, meet",
+            "C. to describe, have met",
+            "D. describe, met"
+          ],
+          "correct_answer": "C",
+          "explanation": "need to do需要做某事；for several times用现在完成时"
+        },
+        {
+          "id": 54,
+          "subtopic": "动词形式",
+          "question": "His speech in English was difficult ______.",
+          "options": [
+            "A. in following",
+            "B. for being followed",
+            "C. to follow",
+            "D. to be followed by"
+          ],
+          "correct_answer": "C",
+          "explanation": "形容词+to do结构，主动形式表被动：difficult to follow"
+        },
+        {
+          "id": 55,
+          "subtopic": "动词形式",
+          "question": "When he was a child, he tried to find ways ______ people ______ life more.",
+          "options": [
+            "A. to help, enjoy",
+            "B. help, to enjoy",
+            "C. help, enjoying",
+            "D. to be helped, to enjoy"
+          ],
+          "correct_answer": "A",
+          "explanation": "ways to do sth做某事的方法；help sb do sth帮助某人做某事"
+        },
+        {
+          "id": 56,
+          "subtopic": "动词辨析",
+          "question": "What did your class teacher ______ you to ______ at the meeting?",
+          "options": [
+            "A. tell, say",
+            "B. ask, speak",
+            "C. tell, speak",
+            "D. ask, talk"
+          ],
+          "correct_answer": "A",
+          "explanation": "tell sb to do告诉某人做某事；say强调说话内容"
+        },
+        {
+          "id": 57,
+          "subtopic": "动词形式",
+          "question": "______ the bus until it ______.",
+          "options": [
+            "A. Get off, stops",
+            "B. get off, will stop",
+            "C. Don't get off, stops",
+            "D. Don't get off, will stop"
+          ],
+          "correct_answer": "C",
+          "explanation": "否定祈使句；until引导时间状语从句，主将从现（主句祈使句，从句现在时）"
+        },
+        {
+          "id": 58,
+          "subtopic": "动词辨析",
+          "question": "The living standard of the people in Shanghai ______ in the last ten years.",
+          "options": [
+            "A. has raised",
+            "B. has risen",
+            "C. has been raised",
+            "D. has been risen"
+          ],
+          "correct_answer": "B",
+          "explanation": "rise不及物动词（rise-rose-risen），表示'上升'；raise及物动词需接宾语"
+        },
+        {
+          "id": 59,
+          "subtopic": "动词时态",
+          "question": "--What did Mr Jones do before he moved here? --He ______ a city bus for over twenty-five years.",
+          "options": [
+            "A. has driven",
+            "B. drove",
+            "C. drives",
+            "D. is driving"
+          ],
+          "correct_answer": "B",
+          "explanation": "before he moved用过去时；for over...表示过去持续的动作"
+        },
+        {
+          "id": 60,
+          "subtopic": "动词时态",
+          "question": "Hurry up! The play ______ for ten minutes.",
+          "options": [
+            "A. had begun",
+            "B. began",
+            "C. has been on",
+            "D. has begun"
+          ],
+          "correct_answer": "C",
+          "explanation": "for ten minutes需用延续性动词；be on表示'（演出）进行中'"
+        }
+      ]
+    },
+    {
+      "topic": "形容词和副词",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Don't worry, sir. I'm sure I can run ______ to catch up with them.",
+          "options": [
+            "A. slowly enough",
+            "B. enough slowly",
+            "C. fast enough",
+            "D. enough fast"
+          ],
+          "correct_answer": "C",
+          "explanation": "enough修饰形容词/副词需后置；根据catch up需要'足够快'，用fast enough"
+        },
+        {
+          "id": 2,
+          "question": "The text is very easy for you. There are ______ new words in it.",
+          "options": [
+            "A. a few",
+            "B. a little",
+            "C. few",
+            "D. little"
+          ],
+          "correct_answer": "C",
+          "explanation": "few修饰可数名词words，表否定'几乎没有'；a few表肯定'有一些'"
+        },
+        {
+          "id": 3,
+          "question": "It's such an ______ film that all the students are ______ in it.",
+          "options": [
+            "A. interesting; interested",
+            "B. interested; interesting",
+            "C. interesting; interesting",
+            "D. interested; interested"
+          ],
+          "correct_answer": "A",
+          "explanation": "interesting描述事物特性；interested描述人的感受，be interested in固定搭配"
+        },
+        {
+          "id": 4,
+          "question": "Mingming got up very ______, so he came to school half an hour ______.",
+          "options": [
+            "A. late; lately",
+            "B. lately; late",
+            "C. lately; lately",
+            "D. late; late"
+          ],
+          "correct_answer": "D",
+          "explanation": "late作副词'晚地'；lately表示'最近'。句意'起得晚导致迟到半小时'"
+        },
+        {
+          "id": 5,
+          "question": "I am ______ worried about my parents' healthy conditions.",
+          "options": [
+            "A. some times",
+            "B. sometime",
+            "C. sometimes",
+            "D. some times"
+          ],
+          "correct_answer": "C",
+          "explanation": "sometimes表示'有时'；sometime指'某时'；some times指'几次'"
+        },
+        {
+          "id": 6,
+          "question": "We don't have ______ every day.",
+          "options": [
+            "A. a lot of school works",
+            "B. many school work",
+            "C. any school works",
+            "D. much school work"
+          ],
+          "correct_answer": "D",
+          "explanation": "work作'功课'解时不可数，用much修饰；many修饰可数名词"
+        },
+        {
+          "id": 7,
+          "question": "--Look! How fast the two horses are running! --Oh, yes! They are nearly ______.",
+          "options": [
+            "A. up and down",
+            "B. slower and slower",
+            "C. more or less",
+            "D. neck and neck"
+          ],
+          "correct_answer": "D",
+          "explanation": "neck and neck表示'并驾齐驱'，描述两匹马速度几乎相同"
+        },
+        {
+          "id": 8,
+          "question": "______ children there are in family, ______ their life will be.",
+          "options": [
+            "A. The less; the better",
+            "B. The fewer; the better",
+            "C. Fewer; richer",
+            "D. More; poorer"
+          ],
+          "correct_answer": "B",
+          "explanation": "the more...the more...结构；children可数用fewer；life更好用better"
+        },
+        {
+          "id": 9,
+          "question": "Most of the people in Guangdong are getting ______.",
+          "options": [
+            "A. more and more rich",
+            "B. more rich and more rich",
+            "C. richer and richer",
+            "D. richer and richest"
+          ],
+          "correct_answer": "C",
+          "explanation": "比较级叠用表示'越来越...'，rich的比较级是richer"
+        },
+        {
+          "id": 10,
+          "question": "Which lesson is ______, this one or that one?",
+          "options": [
+            "A. difficult",
+            "B. much difficult",
+            "C. more difficult",
+            "D. the most difficult"
+          ],
+          "correct_answer": "C",
+          "explanation": "两者比较用比较级，difficult是多音节词，加more构成比较级"
+        },
+        {
+          "id": 11,
+          "question": "\"A ______ accident happened at 7:30 a.m.\" said the policeman ______.",
+          "options": [
+            "A. serious, serious",
+            "B. seriously, seriously",
+            "C. seriously, serious",
+            "D. serious, seriously"
+          ],
+          "correct_answer": "D",
+          "explanation": "第一空形容词serious修饰名词accident；第二空副词seriously修饰动词said"
+        },
+        {
+          "id": 12,
+          "question": "______ is it from our school to Lupu Bridge?",
+          "options": [
+            "A. How long",
+            "B. How often",
+            "C. How far",
+            "D. How much"
+          ],
+          "correct_answer": "C",
+          "explanation": "how far询问距离；how long问时间长度；how often问频率"
+        },
+        {
+          "id": 13,
+          "question": "In our city, it is ______ in July, but it is even ______ in August.",
+          "options": [
+            "A. hotter; hottest",
+            "B. hot; hot",
+            "C. hotter; hot",
+            "D. hot; hotter"
+          ],
+          "correct_answer": "D",
+          "explanation": "第一空原级hot描述天气；第二空even+比较级hotter表示'更热'"
+        },
+        {
+          "id": 14,
+          "question": "This pencil is ______ that one.",
+          "options": [
+            "A. so long as",
+            "B. as longer as",
+            "C. longer than",
+            "D. not as longest as"
+          ],
+          "correct_answer": "C",
+          "explanation": "两者比较用比较级longer than；as...as中间用原级"
+        },
+        {
+          "id": 15,
+          "question": "The station is two kilometers ______ the hospital.",
+          "options": [
+            "A. away to",
+            "B. far away",
+            "C. far from",
+            "D. away from"
+          ],
+          "correct_answer": "D",
+          "explanation": "away from表示'距离...有多远'，常与具体距离连用"
+        },
+        {
+          "id": 16,
+          "question": "Beijing has ______ many buses that there is often a traffic jam in rush hours.",
+          "options": [
+            "A. so",
+            "B. very",
+            "C. too",
+            "D. much"
+          ],
+          "correct_answer": "A",
+          "explanation": "so...that固定结构，表示'如此...以至于'"
+        },
+        {
+          "id": 17,
+          "question": "This box is ______ heavy ______ I can't carry it.",
+          "options": [
+            "A. too, to",
+            "B. so, that",
+            "C. very, that",
+            "D. too, that"
+          ],
+          "correct_answer": "B",
+          "explanation": "so...that引导结果状语从句，表示'如此重以至于搬不动'"
+        },
+        {
+          "id": 18,
+          "question": "India has the second ______ population in the world.",
+          "options": [
+            "A. larger",
+            "B. most",
+            "C. smallest",
+            "D. largest"
+          ],
+          "correct_answer": "D",
+          "explanation": "序数词+最高级，largest表示'第二大人口'，smallest不符合事实"
+        },
+        {
+          "id": 19,
+          "question": "Mary received ______ many postcards at Christmas.",
+          "options": [
+            "A. so",
+            "B. such",
+            "C. too",
+            "D. even"
+          ],
+          "correct_answer": "A",
+          "explanation": "so修饰形容词many；such修饰名词（such a lot of postcards）"
+        },
+        {
+          "id": 20,
+          "question": "The cake smells ______. Please throw it away.",
+          "options": [
+            "A. good",
+            "B. badly",
+            "C. bad",
+            "D. well"
+          ],
+          "correct_answer": "C",
+          "explanation": "smell作系动词后接形容词bad，表示'闻起来坏了'"
+        },
+        {
+          "id": 21,
+          "question": "-- What was the weather like yesterday? -- It was terrible. It rained so ______ that people could ______ go out.",
+          "options": [
+            "A. hardly...hard",
+            "B. hardly... hardly",
+            "C. hard... hardly",
+            "D. hard... hard"
+          ],
+          "correct_answer": "C",
+          "explanation": "rain hard下大雨；hardly几乎不。句意'雨太大几乎无法出门'"
+        },
+        {
+          "id": 22,
+          "question": "The meeting will be held in half an hour, but they haven't got everything ready______.",
+          "options": [
+            "A. ever",
+            "B. already",
+            "C. yet",
+            "D. still"
+          ],
+          "correct_answer": "C",
+          "explanation": "yet用于否定句句末，表示'尚未'；already用于肯定句"
+        },
+        {
+          "id": 23,
+          "question": "-- What about the English novel? -- It's not very difficult. There are only ______ new words in it.",
+          "options": [
+            "A. few",
+            "B. a few",
+            "C. many",
+            "D. a little"
+          ],
+          "correct_answer": "B",
+          "explanation": "a few表肯定'有一些'，符合'不难'的语境；few表否定'几乎没有'"
+        },
+        {
+          "id": 24,
+          "question": "How beautiful she sings! I've never heard ______.",
+          "options": [
+            "A. the better voice",
+            "B. a good voice",
+            "C. the best voice",
+            "D. a better voice"
+          ],
+          "correct_answer": "D",
+          "explanation": "否定词+比较级表最高级，a better voice表示'从未听过更好的声音'"
+        },
+        {
+          "id": 25,
+          "question": "Mr Smith always has ______ to tell us.",
+          "options": [
+            "A. some good pieces of news",
+            "B. some pieces of good news",
+            "C. some good piece of news",
+            "D. some piece of good new"
+          ],
+          "correct_answer": "B",
+          "explanation": "news不可数，用pieces of修饰；形容词good修饰news需后置"
+        },
+        {
+          "id": 26,
+          "question": "I'm afraid the headmaster is ______ busy to meet the visitors.",
+          "options": [
+            "A. too much",
+            "B. much too",
+            "C. so much",
+            "D. very much"
+          ],
+          "correct_answer": "B",
+          "explanation": "much too修饰形容词busy表示'过于忙碌'；too much修饰不可数名词"
+        },
+        {
+          "id": 27,
+          "question": "-- Dad, when will you be free? You agreed to go to the seaside with me four days ago. -- I am sorry, Jean. But I think I will have a ______ holiday soon.",
+          "options": [
+            "A. four-days",
+            "B. four-day",
+            "C. four days",
+            "D. four day"
+          ],
+          "correct_answer": "B",
+          "explanation": "复合形容词作定语，用连字符连接，名词用单数（four-day holiday）"
+        },
+        {
+          "id": 28,
+          "question": "The scenery in Sanya looks ______, especially \"Tian Ya Hai Jiao\" is ______.",
+          "options": [
+            "A. well, best",
+            "B. fine, the most famous",
+            "C. nice, better",
+            "D. beautifully, the best"
+          ],
+          "correct_answer": "B",
+          "explanation": "look后接形容词fine；最高级前加the，the most famous表示'最著名的'"
+        },
+        {
+          "id": 29,
+          "question": "What a ______ day it is! Let's go out for a walk.",
+          "options": [
+            "A. windy",
+            "B. lovely",
+            "C. rainy",
+            "D. cloudy"
+          ],
+          "correct_answer": "B",
+          "explanation": "lovely表示'宜人的'，符合外出散步的语境；其他选项天气不佳"
+        },
+        {
+          "id": 30,
+          "question": "Of the two Australian students, Masha is ______ one. I think you can find her easily.",
+          "options": [
+            "A. tallest",
+            "B. the taller",
+            "C. taller",
+            "D. the tallest"
+          ],
+          "correct_answer": "B",
+          "explanation": "两者比较用比较级，且需加the表示特指（the taller one）"
+        }
+      ]
+    },
+    {
+      "topic": "介词",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Last Saturday I was busy ______ my homework.",
+          "correct_answer": ["with"],
+          "explanation": "be busy with固定搭配，表示'忙于某事'"
+        },
+        {
+          "id": 2,
+          "question": "My teacher was very angry ______ me because I was late ______ school again.",
+          "correct_answer": ["with", "for"],
+          "explanation": "be angry with sb 对某人生气；be late for 迟到"
+        },
+        {
+          "id": 3,
+          "question": "Kathy prefers a hula hoop ______ a book.",
+          "correct_answer": ["to"],
+          "explanation": "prefer A to B 固定搭配，表示'比起B更喜欢A'"
+        },
+        {
+          "id": 4,
+          "question": "I will invite some friends ______ my eighteenth birthday party.",
+          "correct_answer": ["to"],
+          "explanation": "invite sb to 邀请某人参加"
+        },
+        {
+          "id": 5,
+          "question": "How long has he worked ______ an inventor?",
+          "correct_answer": ["as"],
+          "explanation": "work as 表示'作为...工作'"
+        },
+        {
+          "id": 6,
+          "question": "My uncle arrived ______ the airport ______ the morning of May 3.",
+          "correct_answer": ["at", "on"],
+          "explanation": "arrive at+小地点；具体日期上午用on"
+        },
+        {
+          "id": 7,
+          "question": "I will always help my friends when they are ______ trouble.",
+          "correct_answer": ["in"],
+          "explanation": "in trouble 固定搭配，表示'处于困境'"
+        },
+        {
+          "id": 8,
+          "question": "There is nothing ______ air ______ space.",
+          "correct_answer": ["but", "in"],
+          "explanation": "nothing but 除了；in space 在太空中"
+        },
+        {
+          "id": 9,
+          "question": "I won't be back ______ June.",
+          "correct_answer": ["until"],
+          "explanation": "not...until 直到...才"
+        },
+        {
+          "id": 10,
+          "question": "______ the age ______ twenty, he had written two books.",
+          "correct_answer": ["At", "of"],
+          "explanation": "at the age of 固定搭配，表示'在...岁时'"
+        },
+        {
+          "id": 11,
+          "question": "Mary fell ______ her bike and hurt her right leg.",
+          "correct_answer": ["off"],
+          "explanation": "fall off 从...上摔下"
+        },
+        {
+          "id": 12,
+          "question": "He has been away ______ China ______ three years ago.",
+          "correct_answer": ["from", "since"],
+          "explanation": "away from 离开；since+过去时间点"
+        },
+        {
+          "id": 13,
+          "question": "When I was ______ school, I was ______ the school football team.",
+          "correct_answer": ["in", "on"],
+          "explanation": "in school 在校求学；on the team 在队中"
+        },
+        {
+          "id": 14,
+          "question": "I think he will be ______ two o'clock.",
+          "correct_answer": ["in"],
+          "explanation": "in+时间段 表示'在...之后'"
+        },
+        {
+          "id": 15,
+          "question": "The teacher was given some flowers ______ his students.",
+          "correct_answer": ["by"],
+          "explanation": "被动句中动作执行者用by引出"
+        },
+        {
+          "id": 16,
+          "question": "Look, the birds are singing ______ the tree.",
+          "correct_answer": ["in"],
+          "explanation": "鸟在树内部用in；在表面用on"
+        },
+        {
+          "id": 17,
+          "question": "He left the classroom ______ all the windows open.",
+          "correct_answer": ["with"],
+          "explanation": "with+复合结构 表示伴随状态"
+        },
+        {
+          "id": 18,
+          "question": "My sister is ill today. She doesn't feel ______ eating anything.",
+          "correct_answer": ["like"],
+          "explanation": "feel like doing 想要做某事"
+        },
+        {
+          "id": 19,
+          "question": "It's too dangerous. You must keep the children away ______ the fire.",
+          "correct_answer": ["from"],
+          "explanation": "keep away from 远离"
+        },
+        {
+          "id": 20,
+          "question": "My parents arrived ______ a cold night.",
+          "correct_answer": ["on"],
+          "explanation": "具体某天的夜晚用on"
+        },
+        {
+          "id": 21,
+          "question": "You should apologize ______ her ______ stepping on her foot.",
+          "correct_answer": ["to", "for"],
+          "explanation": "apologize to sb for sth 为某事向某人道歉"
+        },
+        {
+          "id": 22,
+          "question": "The students are sitting ______ the table, reading the newspaper.",
+          "correct_answer": ["at"],
+          "explanation": "sit at table 坐在桌旁（准备用餐）"
+        },
+        {
+          "id": 23,
+          "question": "The city is famous ______ its football, and people there are very proud ______ their city football team.",
+          "correct_answer": ["for", "of"],
+          "explanation": "be famous for 以...闻名；be proud of 以...自豪"
+        },
+        {
+          "id": 24,
+          "question": "We are doing better ______ English ______ our teacher's help.",
+          "correct_answer": ["in", "with"],
+          "explanation": "do better in 在...做得更好；with help 在帮助下"
+        },
+        {
+          "id": 25,
+          "question": "Don't worry ______ me. Everything is going well ______ me.",
+          "correct_answer": ["about", "with"],
+          "explanation": "worry about 担心；go well with 进展顺利"
+        },
+        {
+          "id": 26,
+          "question": "He was late ______ school today, and she came late ______ school, too.",
+          "correct_answer": ["for", "to"],
+          "explanation": "be late for 迟到；come to school 来学校"
+        },
+        {
+          "id": 27,
+          "question": "--- Do you know what happened ______ Peter yesterday? --- He was hit ______ a car.",
+          "correct_answer": ["to", "by"],
+          "explanation": "happen to sb 某人发生某事；被动句中动作执行者用by"
+        },
+        {
+          "id": 28,
+          "question": "I like clothes made ______ cotton.",
+          "correct_answer": ["from"],
+          "explanation": "be made from 由...制成（原料不可见）"
+        },
+        {
+          "id": 29,
+          "question": "He will go to Hangzhou ______ his car tomorrow.",
+          "correct_answer": ["in"],
+          "explanation": "in one's car 乘私家车（在车内）"
+        },
+        {
+          "id": 30,
+          "question": "______ my surprise, the Englishman gave up halfway ______ the end.",
+          "correct_answer": ["To", "in"],
+          "explanation": "to one's surprise 令某人惊讶；in the end 最终"
+        },
+        {
+          "id": 31,
+          "question": "I saw the great changes ______ my own eyes.",
+          "correct_answer": ["with"],
+          "explanation": "with one's own eyes 亲眼目睹"
+        },
+        {
+          "id": 32,
+          "question": "You look tired. Instead ______ working indoors you should be out ______ a walk.",
+          "correct_answer": ["of", "for"],
+          "explanation": "instead of 代替；go out for a walk 出去散步"
+        },
+        {
+          "id": 33,
+          "question": "Wushu is becoming more and more popular ______ foreigners.",
+          "correct_answer": ["among"],
+          "explanation": "popular among 在...群体中受欢迎"
+        },
+        {
+          "id": 34,
+          "question": "If you are able to get the tickets tomorrow, please tell me ______ phone.",
+          "correct_answer": ["by"],
+          "explanation": "by phone 通过电话（方式）"
+        },
+        {
+          "id": 35,
+          "question": "There is going to be a report ______ Chinese history ______ our school this evening.",
+          "correct_answer": ["on", "in"],
+          "explanation": "report on 关于...的报告；in school 在学校"
+        },
+        {
+          "id": 36,
+          "question": "Before 1990 there was no airline ______ the two cities.",
+          "correct_answer": ["between"],
+          "explanation": "between 在两者之间"
+        },
+        {
+          "id": 37,
+          "question": "She is dressed ______ a white skirt ______ red flowers.",
+          "correct_answer": ["in", "with"],
+          "explanation": "dressed in 穿着；with 表示'带有...装饰'"
+        },
+        {
+          "id": 38,
+          "question": "It's bad ______ you to go to work ______ breakfast.",
+          "correct_answer": ["without"],
+          "explanation": "without breakfast 没吃早餐"
+        },
+        {
+          "id": 39,
+          "question": "It's very nice ______ you to get me two tickets ______ the World Cup.",
+          "correct_answer": ["of", "for"],
+          "explanation": "It's nice of sb 某人真好；tickets for 某活动的票"
+        },
+        {
+          "id": 40,
+          "question": "--- Where have you been these days? --- I have been to Bei Daihe ______ a friend ______ Canada.",
+          "correct_answer": ["with", "from"],
+          "explanation": "with a friend 和朋友一起；from Canada 来自加拿大"
+        },
+        {
+          "id": 41,
+          "question": "--- Would you like some coffee? --- Yes, and please get me some milk, too. I prefer coffee ______ milk.",
+          "correct_answer": ["to"],
+          "explanation": "prefer A to B 比起B更喜欢A"
+        },
+        {
+          "id": 42,
+          "question": "--- When did Mr Smith come here? --- ______ nine o'clock yesterday morning.",
+          "correct_answer": ["At"],
+          "explanation": "at+具体钟点时间"
+        },
+        {
+          "id": 43,
+          "question": "You must stand ______ line when you are waiting ______ a bus.",
+          "correct_answer": ["in", "for"],
+          "explanation": "stand in line 排队；wait for 等候"
+        },
+        {
+          "id": 44,
+          "question": "--- Jack, will you be home ______ time to see the children before they go to bed? --- No problem.",
+          "correct_answer": ["in"],
+          "explanation": "in time 及时"
+        },
+        {
+          "id": 45,
+          "question": "China lies ______ the east of Asia and ______ the North of Australia.",
+          "correct_answer": ["in", "to"],
+          "explanation": "in+大区域内部；to+大区域外部"
+        },
+        {
+          "id": 46,
+          "question": "If you can't pass the exam, you'll fall ______ others.",
+          "correct_answer": ["behind"],
+          "explanation": "fall behind 落后"
+        },
+        {
+          "id": 47,
+          "question": "I have a swim every day ______ yesterday.",
+          "correct_answer": ["except"],
+          "explanation": "except 除...之外（不包括）"
+        },
+        {
+          "id": 48,
+          "question": "We all know that the earth moves ______ the sun.",
+          "correct_answer": ["around"],
+          "explanation": "move around 围绕...旋转"
+        },
+        {
+          "id": 49,
+          "question": "The sunlight is coming in ______ the window.",
+          "correct_answer": ["through"],
+          "explanation": "through 穿过（透明介质）"
+        },
+        {
+          "id": 50,
+          "question": "This room is full ______ students and that one is filled ______ teachers.",
+          "correct_answer": ["of", "with"],
+          "explanation": "be full of 充满；be filled with 被...填满"
+        }
+      ]
+    },
+    {
+      "topic": "连词",
+      "questions": [
+        {
+          "id": 1,
+          "question": "Which is bigger, the sun ______ the moon?",
+          "options": [
+            "A. or",
+            "B. and",
+            "C. but",
+            "D. so"
+          ],
+          "correct_answer": "A",
+          "explanation": "选择疑问句用or连接两个选项，表示'太阳和月亮哪个更大'"
+        },
+        {
+          "id": 2,
+          "question": "Hurry up, ______ we will miss the train.",
+          "options": [
+            "A. but",
+            "B. and",
+            "C. or",
+            "D. so"
+          ],
+          "correct_answer": "C",
+          "explanation": "or表示'否则'，用于警告性条件句（快点，否则会错过火车）"
+        },
+        {
+          "id": 3,
+          "question": "He hurt her ______ badly ______ she had to see a doctor.",
+          "options": [
+            "A. too, that",
+            "B. so , that",
+            "C. either, or",
+            "D. too, to"
+          ],
+          "correct_answer": "B",
+          "explanation": "so...that...表示'如此...以至于...'，引导结果状语从句"
+        },
+        {
+          "id": 4,
+          "question": "Look out! The traffic is moving fast. It's ______ dangerous ______ cross the street.",
+          "options": [
+            "A. very, to",
+            "B. so, to",
+            "C. much, to",
+            "D. too, to"
+          ],
+          "correct_answer": "D",
+          "explanation": "too...to...表示'太...而不能...'，描述危险程度无法过街"
+        },
+        {
+          "id": 5,
+          "question": "It's ______ far ______ walk home from here. Let's take a bus.",
+          "options": [
+            "A. so, that",
+            "B. too, to",
+            "C. enough, to",
+            "D. such, that"
+          ],
+          "correct_answer": "B",
+          "explanation": "too...to...表示'太远不能步行'，建议坐公交"
+        },
+        {
+          "id": 6,
+          "question": "\"Why didn't Nick come to school yesterday?\" \" ______ he was ill.\"",
+          "options": [
+            "A. After",
+            "B. Where",
+            "C. When",
+            "D. Because"
+          ],
+          "correct_answer": "D",
+          "explanation": "because引导原因状语从句，解释缺勤原因"
+        },
+        {
+          "id": 7,
+          "question": "John fell asleep ______ he was listening to the music.",
+          "options": [
+            "A. after",
+            "B. before",
+            "C. while",
+            "D. as soon as"
+          ],
+          "correct_answer": "C",
+          "explanation": "while表示'当...时'，强调两个动作同时发生（听音乐时睡着）"
+        },
+        {
+          "id": 8,
+          "question": "\"I won't go to the party tomorrow.\" \" ______ you told me you would. What's happening?\"",
+          "options": [
+            "A. But",
+            "B. So",
+            "C. And",
+            "D. Or"
+          ],
+          "correct_answer": "A",
+          "explanation": "but表示转折，对比'之前答应'和'现在反悔'的情况"
+        },
+        {
+          "id": 9,
+          "question": "Stop cutting trees, ______ the earth will become worse and worse.",
+          "options": [
+            "A. and",
+            "B. then",
+            "C. but",
+            "D. or"
+          ],
+          "correct_answer": "D",
+          "explanation": "or表示'否则'，警告性条件句（停止砍树，否则环境恶化）"
+        },
+        {
+          "id": 10,
+          "question": "\"Be careful! Don't break the bottles. Do you hear ______ I said, David?\" \"Yes, mum.\"",
+          "options": [
+            "A. What",
+            "B. that",
+            "C. how",
+            "D. if"
+          ],
+          "correct_answer": "A",
+          "explanation": "what引导宾语从句，作hear的宾语（听到我说的话）"
+        },
+        {
+          "id": 11,
+          "question": "Mr Smith comes from Australia, but he has worked in China for five years. So you can talk with him ______.",
+          "options": [
+            "A. either in English or in Chinese",
+            "B. not in Chinese but in English",
+            "C. just in English, not in Chinese",
+            "D. neither in Chinese nor in English"
+          ],
+          "correct_answer": "A",
+          "explanation": "either...or...表示'或者...或者...'，根据语境他可能双语都会"
+        },
+        {
+          "id": 12,
+          "question": "I can ______ swim ______ skate. Will you please teach me?",
+          "options": [
+            "A. either...or",
+            "B. not only... but also",
+            "C. both... and",
+            "D. neither... nor"
+          ],
+          "correct_answer": "D",
+          "explanation": "neither...nor...表示'既不...也不...'，后接请求教学体现零基础"
+        },
+        {
+          "id": 13,
+          "question": "When I got the news that the ship would sink, I was ______ frightened ______ my legs couldn't move forward.",
+          "options": [
+            "A. so, that",
+            "B. very, that",
+            "C. too, that",
+            "D. too, to"
+          ],
+          "correct_answer": "A",
+          "explanation": "so...that...引导结果状语从句（如此害怕以至于腿软）"
+        },
+        {
+          "id": 14,
+          "question": "She bought a digital camera online ______ she saved a lot of time.",
+          "options": [
+            "A. so that",
+            "B. as soon as",
+            "C. no matter",
+            "D. such that"
+          ],
+          "correct_answer": "A",
+          "explanation": "so that引导目的/结果状语从句（网购相机以节省时间）"
+        },
+        {
+          "id": 15,
+          "question": "Beijing has ______ many buses that there is often a traffic jam in rush hours.",
+          "options": [
+            "A. so",
+            "B. very",
+            "C. too",
+            "D. much"
+          ],
+          "correct_answer": "A",
+          "explanation": "so...that...固定结构，so修饰many表示'公交车如此多'"
+        },
+        {
+          "id": 16,
+          "question": "Hurry up, ______ you will miss the train. It's leaving in ten minutes.",
+          "options": [
+            "A. and",
+            "B. so",
+            "C. however",
+            "D. or"
+          ],
+          "correct_answer": "D",
+          "explanation": "or表示'否则'，紧急警告（十分钟内火车将离站）"
+        },
+        {
+          "id": 17,
+          "question": "Not only his parents but also his brother ______ to the Summer Palace. They haven't been back.",
+          "options": [
+            "A. have been",
+            "B. have gone",
+            "C. has been",
+            "D. has gone"
+          ],
+          "correct_answer": "D",
+          "explanation": "not only...but also...遵循就近原则，brother是单数；has gone表示'去了未归'"
+        },
+        {
+          "id": 18,
+          "question": "You'd better do it ______ your mother did.",
+          "options": [
+            "A. when",
+            "B. as",
+            "C. like",
+            "D. because"
+          ],
+          "correct_answer": "B",
+          "explanation": "as引导方式状语从句，表示'按照你母亲的做法'"
+        },
+        {
+          "id": 19,
+          "question": "______ they are brothers, they don't look like each other at all.",
+          "options": [
+            "A. Because",
+            "B. Though",
+            "C. When",
+            "D. As"
+          ],
+          "correct_answer": "B",
+          "explanation": "though引导让步状语从句，表示'尽管是兄弟，但外貌完全不同'"
+        },
+        {
+          "id": 20,
+          "question": "-- When did you know the news? -- I knew nothing about it ______ my friend told me.",
+          "options": [
+            "A. after",
+            "B. it",
+            "C. because",
+            "D. until"
+          ],
+          "correct_answer": "D",
+          "explanation": "not...until...固定结构，表示'直到朋友告知才知道'"
+        }
+      ]
+    },
+    {
+      "topic": "动词语态",
+      "questions": [
+        {
+          "id": 1,
+          "question": "The question ______ by us soon.",
+          "options": [
+            "A. is going to discuss",
+            "B. will discuss",
+            "C. is going to be discussed",
+            "D. has been discussed"
+          ],
+          "correct_answer": "C",
+          "explanation": "主语question与discuss是被动关系；soon表示将来，用将来被动语态"
+        },
+        {
+          "id": 2,
+          "question": "The old man was quite weak after the accident, so he______.",
+          "options": [
+            "A. must look after",
+            "B. must be taken care",
+            "C. must be looked after",
+            "D. must take care of"
+          ],
+          "correct_answer": "C",
+          "explanation": "主语he与look after是被动关系；must be done表示'必须被照顾'"
+        },
+        {
+          "id": 3,
+          "question": "All the new words ______ up in the dictionary yet.",
+          "options": [
+            "A. have looked",
+            "B. haven't looked",
+            "C. have been looked",
+            "D. haven't been looked"
+          ],
+          "correct_answer": "D",
+          "explanation": "words与look up是被动关系；yet用于否定句完成时被动语态"
+        },
+        {
+          "id": 4,
+          "question": "There was no room for you. All the seats ______.",
+          "options": [
+            "A. are taken",
+            "B. was taken",
+            "C. had taken",
+            "D. had been taken"
+          ],
+          "correct_answer": "D",
+          "explanation": "seats与take是被动关系；动作发生在过去（was no room）之前，用过去完成被动"
+        },
+        {
+          "id": 5,
+          "question": "A model ship ______ his son by Mr More.",
+          "options": [
+            "A. was made for",
+            "B. was made to",
+            "C. made for",
+            "D. makes for"
+          ],
+          "correct_answer": "A",
+          "explanation": "ship与make是被动关系；be made for表示'为...制作'"
+        },
+        {
+          "id": 6,
+          "question": "---Dad, please open the door, it ______. ---OK, dear. I am coming.",
+          "options": [
+            "A. was locked",
+            "B. locks",
+            "C. is locked",
+            "D. locked"
+          ],
+          "correct_answer": "C",
+          "explanation": "门'被锁'的状态用现在被动语态；强调当前状态"
+        },
+        {
+          "id": 7,
+          "question": "This kind of sweater______ very soft.",
+          "options": [
+            "A. is felt",
+            "B. feels",
+            "C. feel",
+            "D. is feeling"
+          ],
+          "correct_answer": "B",
+          "explanation": "feel作系动词表'摸起来'，用主动形式接形容词soft"
+        },
+        {
+          "id": 8,
+          "question": "---Have all the students known that our class will visit the factory this afternoon? ---Yes. Every student______ about it.",
+          "options": [
+            "A. told",
+            "B. has told",
+            "C. was told",
+            "D. tells"
+          ],
+          "correct_answer": "C",
+          "explanation": "student与tell是被动关系；用过去被动表示'被通知'"
+        },
+        {
+          "id": 9,
+          "question": "The cake ______ delicious.",
+          "options": [
+            "A. smell",
+            "B. is smelled",
+            "C. is smelling",
+            "D. smells"
+          ],
+          "correct_answer": "D",
+          "explanation": "smell作系动词表'闻起来'，用主动形式接形容词delicious"
+        },
+        {
+          "id": 10,
+          "question": "My father has given up smoking since he ______ on.",
+          "options": [
+            "A. will operate",
+            "B. will be operated",
+            "C. operated",
+            "D. was operated"
+          ],
+          "correct_answer": "D",
+          "explanation": "he与operate是被动关系；since后接过去时间点用被动语态"
+        },
+        {
+          "id": 11,
+          "question": "A new school ______ these days.",
+          "options": [
+            "A. is building",
+            "B. is built",
+            "C. will build",
+            "D. is being built"
+          ],
+          "correct_answer": "D",
+          "explanation": "school与build是被动关系；these days表示进行中，用现在进行被动"
+        },
+        {
+          "id": 12,
+          "question": "The cake ______ delicious.",
+          "options": [
+            "A. smell",
+            "B. is smelled",
+            "C. is smelling",
+            "D. smells"
+          ],
+          "correct_answer": "D",
+          "explanation": "同第9题，系动词smell用主动形式表特征"
+        },
+        {
+          "id": 13,
+          "question": "I______ there would be a football match on Channel 8 tomorrow.",
+          "options": [
+            "A. will tell",
+            "B. have told",
+            "C. was told",
+            "D. will be told"
+          ],
+          "correct_answer": "C",
+          "explanation": "I与tell是被动关系；用过去被动表示'被告知'"
+        },
+        {
+          "id": 14,
+          "question": "The librarian told me that the book______ for two weeks.",
+          "options": [
+            "A. can be borrowed",
+            "B. can be kept",
+            "C. could be borrowed",
+            "D. could be kept"
+          ],
+          "correct_answer": "D",
+          "explanation": "book与keep是被动关系；for two weeks需用延续性动词keep"
+        },
+        {
+          "id": 15,
+          "question": "When______ this kind of computer ______?",
+          "options": [
+            "A. is; used",
+            "B. was; used",
+            "C. did; use",
+            "D. are; used"
+          ],
+          "correct_answer": "B",
+          "explanation": "computer与use是被动关系；询问过去使用情况用过去被动"
+        },
+        {
+          "id": 16,
+          "question": "The new computers______ to the village school as present last month.",
+          "options": [
+            "A. are given",
+            "B. given",
+            "C. were given",
+            "D. gave"
+          ],
+          "correct_answer": "C",
+          "explanation": "computers与give是被动关系；last month用过去被动"
+        },
+        {
+          "id": 17,
+          "question": "I really don't know______ about it.",
+          "options": [
+            "A. what to do",
+            "B. how to do",
+            "C. to do what",
+            "D. how can I do"
+          ],
+          "correct_answer": "A",
+          "explanation": "疑问词+不定式结构；what to do表示'该做什么'（do缺宾语）"
+        },
+        {
+          "id": 18,
+          "question": "Your shoes______. You'd better come to get them in half an hour.",
+          "options": [
+            "A. are mending",
+            "B. have mended",
+            "C. are being mended",
+            "D. have been mended"
+          ],
+          "correct_answer": "C",
+          "explanation": "shoes与mend是被动关系；in half an hour表示动作进行中"
+        },
+        {
+          "id": 19,
+          "question": "Though he had often made his little sister______, today he was made______ by her.",
+          "options": [
+            "A. cry; to cry",
+            "B. crying; crying",
+            "C. cry; cry",
+            "D. to cry; cry"
+          ],
+          "correct_answer": "A",
+          "explanation": "make sb do使某人做（省略to）；被动时需恢复to（was made to cry）"
+        },
+        {
+          "id": 20,
+          "question": "When______ the accident______?",
+          "options": [
+            "A. was; happened",
+            "B. has; happened",
+            "C. was happening",
+            "D. did; happen"
+          ],
+          "correct_answer": "D",
+          "explanation": "happen是不及物动词，无被动语态；用助动词did构成疑问句"
+        }
+      ]
+    },
+    {
+      "topic": "动词不定式",
+      "questions": [
+        {
+          "question": "Tell him _____ the light.",
+          "options": {
+            "A": "to turn",
+            "B": "not to turn on",
+            "C": "to not turn",
+            "D": "not to turn"
+          },
+          "correct_answer": "B",
+          "explanation": "固定搭配：tell sb not to do sth（告诉某人不要做某事），且 turn on 是固定短语需完整使用"
+        },
+        {
+          "question": "It took us more than two hours _____ the dinner.",
+          "options": {
+            "A": "prepare",
+            "B": "preparing",
+            "C": "to prepare",
+            "D": "to be prepared"
+          },
+          "correct_answer": "B",
+          "explanation": "take time doing sth 表示‘花费时间做某事’，强调动作持续过程"
+        },
+        {
+          "question": "We felt the earth _____.",
+          "options": {
+            "A": "move",
+            "B": "moveing",
+            "C": "to move",
+            "D": "be moved"
+          },
+          "correct_answer": "A",
+          "explanation": "感官动词 feel 后接省略 to 的不定式（动词原形），表示感知完整动作"
+        },
+        {
+          "question": "The students were made _____ the text ten times.",
+          "options": {
+            "A": "read",
+            "B": "reading",
+            "C": "to read",
+            "D": "to be read"
+          },
+          "correct_answer": "C",
+          "explanation": "使役动词 make 在被动语态中需恢复 to，构成 be made to do sth 结构"
+        },
+        {
+          "question": "The chair looks rather hard _____, but in fact it is very comfortable.",
+          "options": {
+            "A": "to sit",
+            "B": "to sit on",
+            "C": "sitting",
+            "D": "sit"
+          },
+          "correct_answer": "B",
+          "explanation": "不及物动词 sit 需加介词 on 才能与逻辑宾语 chair 形成动宾关系"
+        },
+        {
+          "question": "Nobody knows _____ next.",
+          "options": {
+            "A": "what to do",
+            "B": "to do what",
+            "C": "which to do",
+            "D": "how to do"
+          },
+          "correct_answer": "A",
+          "explanation": "疑问词+不定式结构，what 作 do 的宾语，表示‘该做什么’"
+        },
+        {
+          "question": "It is very important _____ us _____ these words.",
+          "options": {
+            "A": "to, to remember",
+            "B": "for, to remember",
+            "C": "for, remember",
+            "D": "for, remembering"
+          },
+          "correct_answer": "B",
+          "explanation": "It is + adj. + for sb + to do sth 固定句型，for 引出逻辑主语"
+        },
+        {
+          "question": "_____ English well, one must have a lot practice.",
+          "options": {
+            "A": "For speaking",
+            "B": "Speaking",
+            "C": "To speak",
+            "D": "Speak"
+          },
+          "correct_answer": "C",
+          "explanation": "不定式作目的状语，表示‘为了说好英语’的目标"
+        },
+        {
+          "question": "I'm going to the library _____ the books.",
+          "options": {
+            "A": "return",
+            "B": "borrow",
+            "C": "to return",
+            "D": "to lend"
+          },
+          "correct_answer": "C",
+          "explanation": "不定式表目的，根据 library 语境应选‘归还’（return）"
+        },
+        {
+          "question": "We went to town _____ some shopping.",
+          "options": {
+            "A": "doing",
+            "B": "did",
+            "C": "to make",
+            "D": "to do"
+          },
+          "correct_answer": "D",
+          "explanation": "固定搭配 do some shopping，不定式表进城目的"
+        },
+        {
+          "question": "The funny story _____ me laugh.",
+          "options": {
+            "A": "make",
+            "B": "making",
+            "C": "to make",
+            "D": "made"
+          },
+          "correct_answer": "D",
+          "explanation": "使役动词 make 的过去式，接省略 to 的不定式 laugh"
+        },
+        {
+          "question": "After the final exam, I think all the students want _____.",
+          "options": {
+            "A": "stop to have a rest",
+            "B": "to stop having a rest",
+            "C": "to stop to have a rest",
+            "D": "stopping to have a rest"
+          },
+          "correct_answer": "C",
+          "explanation": "want to do sth 结构，且 stop to do 表示‘停下来（学习）去休息’"
+        },
+        {
+          "question": "It is very kind _____ you to help me with my housework. It is hard _____ me to do all the work.",
+          "options": {
+            "A": "of, for",
+            "B": "for, of",
+            "C": "of, to",
+            "D": "to, for"
+          },
+          "correct_answer": "A",
+          "explanation": "kind 描述人品质用 of，hard 描述事物特征用 for"
+        },
+        {
+          "question": "Many people think it very difficult _____ English.",
+          "options": {
+            "A": "to say",
+            "B": "to learn",
+            "C": "speak",
+            "D": "for speaking"
+          },
+          "correct_answer": "B",
+          "explanation": "think it + adj. + to do 结构，且 learn English 符合语义"
+        },
+        {
+          "question": "The teacher asked the students _____ her _____ the word again.",
+          "options": {
+            "A": "listen to; to read",
+            "B": "to hear; say",
+            "C": "to listen to; speak",
+            "D": "to listen to; pronounce"
+          },
+          "correct_answer": "D",
+          "explanation": "ask sb to do sth 结构，且 pronounce（发音）是语言学习的准确动作"
+        },
+        {
+          "question": "Remember _____ the book here tomorrow.",
+          "options": {
+            "A": "bring",
+            "B": "to bring",
+            "C": "take",
+            "D": "to take"
+          },
+          "correct_answer": "B",
+          "explanation": "remember to do 表示‘记得要做（未做）’，bring 强调‘带来’"
+        },
+        {
+          "question": "Let's have a rest, shall we? --Not now. I don't want to stop _____ the letter yet.",
+          "options": {
+            "A": "write",
+            "B": "to write",
+            "C": "writing",
+            "D": "and write"
+          },
+          "correct_answer": "C",
+          "explanation": "stop doing 表示‘停止正在进行的动作’（写信未完成）"
+        },
+        {
+          "question": "This physics problem is too difficult. Can you show me _____, Wang Lin? --Sure.",
+          "options": {
+            "A": "what to work it out",
+            "B": "what to work out it",
+            "C": "how to work it out",
+            "D": "how to work out it"
+          },
+          "correct_answer": "C",
+          "explanation": "how 表示方式，代词 it 需放在短语动词 work out 中间"
+        },
+        {
+          "question": "How can I improve my spoken English? --You have to practise _____ as much as you can.",
+          "options": {
+            "A": "speak",
+            "B": "speaking",
+            "C": "spoken",
+            "D": "to speak"
+          },
+          "correct_answer": "B",
+          "explanation": "practise 后接动名词作宾语，表示‘练习说英语’"
+        },
+        {
+          "question": "How about going hiking this weekend? --Sorry. I prefer _____ rather than _____.",
+          "options": {
+            "A": "to stay at home, go out",
+            "B": "to go out, stay at home",
+            "C": "staying at home, go out",
+            "D": "going out, stay at home"
+          },
+          "correct_answer": "A",
+          "explanation": "prefer to do rather than do 固定结构，前后动词形式需一致"
+        }
+      ]
+    },
+    {
+      "topic": "宾语从句",
+      "questions": [
+        {
+          "question": "Do you know when the World Cup _____ next week? -- Next Friday. When it _____, I will ring you.",
+          "options": {
+            "A": "begins, begins",
+            "B": "begins, will begin",
+            "C": "will begin, will begin",
+            "D": "will begin, begins"
+          },
+          "correct_answer": "D",
+          "explanation": "第一空：宾语从句表示将来用will begin；第二空：when引导时间状语从句，主将从现用begins"
+        },
+        {
+          "question": "Today or tomorrow? -- What are you talking about? -- We are talking about _____ to give a talk on WTO.",
+          "options": {
+            "A": "how",
+            "B": "where",
+            "C": "when",
+            "D": "what"
+          },
+          "correct_answer": "C",
+          "explanation": "根据对话'今天还是明天'，应选when表示时间，构成'when to do'结构作宾语"
+        },
+        {
+          "question": "I wonder _____.",
+          "options": {
+            "A": "where does he live",
+            "B": "where he live",
+            "C": "he lives where",
+            "D": "where he lives"
+          },
+          "correct_answer": "D",
+          "explanation": "宾语从句需用陈述语序（连接词+主语+谓语），且谓语动词live需加s保持主谓一致"
+        },
+        {
+          "question": "Are you sure you have to? It's been very late. -- I don't know _____ I can do it if not now.",
+          "options": {
+            "A": "where",
+            "B": "why",
+            "C": "when",
+            "D": "how"
+          },
+          "correct_answer": "C",
+          "explanation": "根据上下文'如果不是现在'，应选when表示'何时能做'，说明时间上的不确定性"
+        },
+        {
+          "question": "Would you please tell me _____? -- In a small village near Ningbo.",
+          "options": {
+            "A": "where was your mother born",
+            "B": "where your mother was born",
+            "C": "when was your mother born",
+            "D": "when your mother was born"
+          },
+          "correct_answer": "B",
+          "explanation": "回答地点用where，且宾语从句需用陈述语序（where+主语+谓语）"
+        },
+        {
+          "question": "The photograph will show you _____.",
+          "options": {
+            "A": "what does our village look like",
+            "B": "what our village looks like",
+            "C": "how does our village look like",
+            "D": "how our village looks like"
+          },
+          "correct_answer": "B",
+          "explanation": "look like是固定搭配，需用what引导宾语从句，且用陈述语序（what+主语+谓语）"
+        },
+        {
+          "question": " Can you guess if they _____ to play basketball with us? -- I think they'll come if they _____ free.",
+          "options": {
+            "A": "will come, will be",
+            "B": "will come, are",
+            "C": "come, are",
+            "D": "come, will be"
+          },
+          "correct_answer": "B",
+          "explanation": "第一空：if引导宾语从句表示是否，可用将来时；第二空：if引导条件状语从句，主将从现用are"
+        },
+        {
+          "question": "--Where does he come from? -- Pardon? -- I asked where_____.",
+          "options": {
+            "A": "did he come from",
+            "B": "he came from",
+            "C": "he comes from",
+            "D": "does he come from"
+          },
+          "correct_answer": "B",
+          "explanation": "宾语从句需用陈述语序，且主句asked是过去时，从句需用过去时态came保持时态一致"
+        },
+        {
+          "question": "She wondered _____.",
+          "options": {
+            "A": "how much he cost the computer",
+            "B": "how much he paid for the computer",
+            "C": "how much the computer will cost him",
+            "D": "how much did he spend on the computer"
+          },
+          "correct_answer": "B",
+          "explanation": "pay for是正确搭配，主句wondered是过去时，从句需用过去时paid，且语序为陈述语序"
+        },
+        {
+          "question": "--Do you know _____? -- I'm not sure. Maybe he is a businessman.",
+          "options": {
+            "A": "who he is",
+            "B": "who is he",
+            "C": "what he does",
+            "D": "what does he do"
+          },
+          "correct_answer": "A",
+          "explanation": "根据回答'他可能是商人'，应询问身份(who)，且宾语从句需用陈述语序who he is"
+        }
+      ]
+    },
+    {
+      "topic": "状语从句",
+      "question_type": "fill_in_blank",
+      "questions": [
+        {
+          "question": "Jim spends a lot of money on books_____he is not rich.",
+          "correct_answer": "though",
+          "explanation": "though引导让步状语从句，表示'尽管他不富裕'的转折关系"
+        },
+        {
+          "question": "Kate fell into sleep _____she was listening to the music.",
+          "correct_answer": "while",
+          "explanation": "while引导时间状语从句，表示'在听音乐过程中'同时发生的动作"
+        },
+        {
+          "question": "---Is David at school today? ---No. He is at home _____he has a bad cold.",
+          "correct_answer": "because",
+          "explanation": "because引导原因状语从句，说明'在家'的原因是'患重感冒'"
+        },
+        {
+          "question": "We won't have supper _____my mother comes back.",
+          "correct_answer": "until",
+          "explanation": "until引导时间状语从句，表示'直到母亲回来才吃饭'的动作延续"
+        },
+        {
+          "question": "Speak to him slowly _____he may understand you better.",
+          "correct_answer": "so that",
+          "explanation": "so that引导目的状语从句，表示'说慢点'的目的是'让他更好理解'"
+        },
+        {
+          "question": "_____ she doesn't come on Sunday, I'll go fishing by myself.",
+          "correct_answer": "Even if",
+          "explanation": "even if引导让步状语从句，表示'即使她不来'的假设条件"
+        },
+        {
+          "question": "It is four years _____I had left that small village.",
+          "correct_answer": "since",
+          "explanation": "since引导时间状语从句，用于'It is+时间段+since...'结构，表示'自从离开已四年'"
+        },
+        {
+          "question": "_____the air moves, it is called wind.",
+          "correct_answer": "When",
+          "explanation": "when引导时间状语从句，表示'当空气流动时'的时间条件"
+        },
+        {
+          "question": "We will go to the park _____it doesn't rain tomorrow.",
+          "correct_answer": "if",
+          "explanation": "if引导条件状语从句，表示'如果不下雨'的前提条件"
+        },
+        {
+          "question": "_____little boys did _____much work.",
+          "correct_answer": "Such, do",
+          "explanation": "such...do构成结果状语从句的省略形式，表示'如此小的孩子做了如此多工作'的强调"
+        },
+        {
+          "question": "There are few new words in the passage _____we can't understand it.",
+          "correct_answer": "but",
+          "explanation": "but引导转折状语从句，表示'生词少'与'不理解'的意外转折"
+        },
+        {
+          "question": "Go back _____you come from.",
+          "correct_answer": "where",
+          "explanation": "where引导地点状语从句，表示'回到你来的地方'"
+        },
+        {
+          "question": "He reached the station _____the train had left.",
+          "correct_answer": "before",
+          "explanation": "before引导时间状语从句，表示'到达车站'发生在'火车离开'之前"
+        },
+        {
+          "question": "---Do you have a swimming pool? ---No, we don't. At least, not _____big _____yours.",
+          "correct_answer": "as/so, as",
+          "explanation": "as/so...as引导比较状语从句，表示'不如你们的大'的比较关系"
+        },
+        {
+          "question": "Give me your paper _____you have finished it.",
+          "correct_answer": "after",
+          "explanation": "after引导时间状语从句，表示'完成之后'的时间顺序"
+        },
+        {
+          "question": "It is raining hard, _____we have to stay at home.",
+          "correct_answer": "so",
+          "explanation": "so引导结果状语从句，表示'雨大'导致'必须待在家'的结果"
+        },
+        {
+          "question": "____you work harder, you'll never pass the final exam.",
+          "correct_answer": "Unless",
+          "explanation": "unless引导条件状语从句，表示'除非更努力'的否定条件"
+        },
+        {
+          "question": "Look after the children _____I am out.",
+          "correct_answer": "while",
+          "explanation": "while引导时间状语从句，表示'我不在期间'的时间段"
+        },
+        {
+          "question": "The village is _____far away _____I can't get there on foot.",
+          "correct_answer": "so, that",
+          "explanation": "so...that引导结果状语从句，表示'如此远以致无法步行到达'的程度结果"
+        },
+        {
+          "question": "That is _____an interesting book _____I can't stop reading it.",
+          "correct_answer": "such, that",
+          "explanation": "such...that引导结果状语从句，强调'如此有趣的书'导致'无法停止阅读'的结果"
+        }
+      ]
+    },
+    {
+      "topic": "定语从句",
+      "questions": [
+        {
+          "question": "Did you find the notebook _____ Jim had given me for my birthday?",
+          "options": {
+            "A": "who",
+            "B": "whom",
+            "C": "which",
+            "D": "whose"
+          },
+          "correct_answer": "C",
+          "explanation": "which引导定语从句修饰notebook（物），在从句中作given的宾语"
+        },
+        {
+          "question": "That's all _____ I have seen and heard.",
+          "options": {
+            "A": "which",
+            "B": "that",
+            "C": "where",
+            "D": "what"
+          },
+          "correct_answer": "D",
+          "explanation": "先行词为all时，通常用that引导定语从句（但此处根据答案选what，需注意特殊用法）"
+        },
+        {
+          "question": "Have you seen the man _____ plan we were talking about _____ yesterday?",
+          "options": {
+            "A": "who, them",
+            "B": "its, them",
+            "C": "whose,/",
+            "D": "whose, them"
+          },
+          "correct_answer": "C",
+          "explanation": "whose表示所属关系（'那人的计划'），第二空about后接宾语从句省略关系代词"
+        },
+        {
+          "question": "The Oscar is one of the film prizes _____ offered to any Chinese actor or actress so far.",
+          "options": {
+            "A": "which are not",
+            "B": "that have not been",
+            "C": "that has not",
+            "D": "that has not been"
+          },
+          "correct_answer": "B",
+          "explanation": "先行词被最高级修饰时用that，且prizes为复数，需用have been完成时被动语态"
+        },
+        {
+          "question": "He never reads anything _____ is not worth reading.",
+          "options": {
+            "A": "that",
+            "B": "as",
+            "C": "who",
+            "D": "which"
+          },
+          "correct_answer": "A",
+          "explanation": "先行词为anything等不定代词时，必须用that引导定语从句"
+        },
+        {
+          "question": "The man _____ coat is black is waiting at the gate.",
+          "options": {
+            "A": "who's",
+            "B": "whose",
+            "C": "that",
+            "D": "of which"
+          },
+          "correct_answer": "B",
+          "explanation": "whose表示所属关系（'那人的外套'），修饰coat作定语"
+        },
+        {
+          "question": "_____ cleans the classroom can go home first.",
+          "options": {
+            "A": "Anyone",
+            "B": "those who",
+            "C": "However",
+            "D": "The one who"
+          },
+          "correct_answer": "D",
+          "explanation": "the one who引导定语从句，表示'打扫教室的人'，who在从句中作主语"
+        },
+        {
+          "question": "The police caught the man _____ stole my handbag.",
+          "options": {
+            "A": "he",
+            "B": "that",
+            "C": "whom",
+            "D": "which"
+          },
+          "correct_answer": "B",
+          "explanation": "that引导定语从句修饰man（人），在从句中作主语（可用who替换）"
+        },
+        {
+          "question": "The girl _____ is reading under the tree _____ my sister.",
+          "options": {
+            "A": "which, is",
+            "B": "whom, was",
+            "C": "who, is",
+            "D": "who, was"
+          },
+          "correct_answer": "C",
+          "explanation": "who引导定语从句修饰girl，在从句中作主语；主句用is表示现在状态"
+        },
+        {
+          "question": "George Mallory was an English teacher _____ loved climbing.",
+          "options": {
+            "A": "who",
+            "B": "whom",
+            "C": "he",
+            "D": "which"
+          },
+          "correct_answer": "A",
+          "explanation": "who引导定语从句修饰teacher（人），在从句中作主语"
+        }
+      ]
+    }
+  ]
+}
