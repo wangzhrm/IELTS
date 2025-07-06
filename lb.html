@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -260,8 +262,9 @@
             margin: 0 auto 20px;
         }
         
+        /* Fixed keyframes syntax for GitHub Pages */
         @keyframes spin {
-            0% { transform: rotate(0deg); }
+            0%   { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
         
@@ -629,10 +632,9 @@
                     };
                 });
                 
-                // Create JSON structure
-                const jsonData = {
-                    [title]: wordList
-                };
+                // Create JSON structure - fixed syntax for GitHub Pages
+                const jsonData = {};
+                jsonData[title] = wordList;
                 
                 // Format JSON for output
                 const jsonString = JSON.stringify(jsonData, null, 2);
