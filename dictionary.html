@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English to Chinese Dictionary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #4b6cb7, #182848);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        h1 i {
+            font-size: 2rem;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        
+        .search-container {
+            display: flex;
+            margin: 20px auto;
+            max-width: 600px;
+            background: white;
+            border-radius: 50px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #wordInput {
+            flex: 1;
+            padding: 18px 25px;
+            border: none;
+            font-size: 1.1rem;
+            outline: none;
+        }
+        
+        #searchBtn {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 0 35px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        #searchBtn:hover {
+            background: #ff5252;
+        }
+        
+        #searchBtn:active {
+            transform: scale(0.98);
+        }
+        
+        main {
+            padding: 30px;
+        }
+        
+        .result-section {
+            display: none;
+        }
+        
+        .word-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .word-title {
+            font-size: 2.2rem;
+            color: #333;
+        }
+        
+        .phonetic {
+            font-size: 1.3rem;
+            color: #666;
+            margin: 5px 0;
+            font-style: italic;
+        }
+        
+        .audio-btn {
+            background: #4b6cb7;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .audio-btn:hover {
+            background: #3a5a9e;
+            transform: scale(1.05);
+        }
+        
+        .meaning-section {
+            margin: 25px 0;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #4b6cb7;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eaeaea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .meaning-item {
+            background: #f9f9ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+            border-left: 4px solid #4b6cb7;
+        }
+        
+        .part-of-speech {
+            font-size: 1.2rem;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .definition {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 10px 0;
+            color: #444;
+        }
+        
+        .example {
+            background: #eef5ff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-style: italic;
+            color: #555;
+            border-left: 3px solid #4b6cb7;
+        }
+        
+        .chinese-translation {
+            background: linear-gradient(to right, #f0f4ff, #e6eeff);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border: 1px solid #d0d8ff;
+        }
+        
+        .translation-title {
+            font-size: 1.3rem;
+            color: #3a5a9e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .translation-text {
+            font-size: 1.4rem;
+            color: #182848;
+            font-weight: 600;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 30px 0;
+            display: none;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        
+        .loading-spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4b6cb7;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .sample-words {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .sample-word {
+            background: #eef5ff;
+            color: #4b6cb7;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .sample-word:hover {
+            background: #4b6cb7;
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            background: #f8f9ff;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                border-radius: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .search-container {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+            
+            #wordInput {
+                padding: 15px;
+            }
+            
+            #searchBtn {
+                padding: 15px;
+                border-radius: 0 0 15px 15px;
+            }
+            
+            .word-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .audio-btn {
+                margin-top: 15px;
+                align-self: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-book"></i> 英汉词典 / English-Chinese Dictionary</h1>
+            <p class="subtitle">Search for English words and get Chinese translations with detailed definitions</p>
+            
+            <div class="search-container">
+                <input type="text" id="wordInput" placeholder="Enter an English word...">
+                <button id="searchBtn">Search <i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="sample-words">
+                <div class="sample-word" data-word="hello">hello</div>
+                <div class="sample-word" data-word="dictionary">dictionary</div>
+                <div class="sample-word" data-word="computer">computer</div>
+                <div class="sample-word" data-word="beautiful">beautiful</div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p>Searching dictionary...</p>
+            </div>
+            
+            <div class="error-message">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p id="errorText">Word not found. Please try another word.</p>
+            </div>
+            
+            <div class="result-section">
+                <div class="word-header">
+                    <div>
+                        <h2 class="word-title" id="wordTitle"></h2>
+                        <p class="phonetic" id="phoneticText"></p>
+                    </div>
+                    <button class="audio-btn" id="audioBtn">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                </div>
+                
+                <div class="chinese-translation">
+                    <h3 class="translation-title"><i class="fas fa-language"></i> 中文翻译 / Chinese Translation</h3>
+                    <p class="translation-text" id="chineseTranslation"></p>
+                </div>
+                
+                <div class="meaning-section">
+                    <h3 class="section-title"><i class="fas fa-align-left"></i> 词义解析 / Meanings</h3>
+                    <div id="meaningsContainer"></div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Powered by Dictionary API | 英汉词典 © 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const wordInput = document.getElementById('wordInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const resultSection = document.querySelector('.result-section');
+            const loading = document.querySelector('.loading');
+            const errorMessage = document.querySelector('.error-message');
+            const errorText = document.getElementById('errorText');
+            const wordTitle = document.getElementById('wordTitle');
+            const phoneticText = document.getElementById('phoneticText');
+            const audioBtn = document.getElementById('audioBtn');
+            const chineseTranslation = document.getElementById('chineseTranslation');
+            const meaningsContainer = document.getElementById('meaningsContainer');
+            const sampleWords = document.querySelectorAll('.sample-word');
+            
+            // Translation mapping for example words
+            const translations = {
+                "hello": "你好, 喂, 您好",
+                "dictionary": "词典, 字典, 辞典",
+                "computer": "计算机, 电脑, 计算器",
+                "beautiful": "美丽的, 漂亮的, 美好的"
+            };
+            
+            // Focus on input when page loads
+            wordInput.focus();
+            
+            // Search when button is clicked
+            searchBtn.addEventListener('click', searchWord);
+            
+            // Search when Enter key is pressed
+            wordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchWord();
+                }
+            });
+            
+            // Sample words click handler
+            sampleWords.forEach(word => {
+                word.addEventListener('click', function() {
+                    const sampleWord = this.getAttribute('data-word');
+                    wordInput.value = sampleWord;
+                    searchWord();
+                });
+            });
+            
+            // Main search function
+            function searchWord() {
+                const word = wordInput.value.trim();
+                if (!word) return;
+                
+                // Reset UI
+                resultSection.style.display = 'none';
+                errorMessage.style.display = 'none';
+                loading.style.display = 'block';
+                
+                // Fetch word data from API
+                fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Word not found');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        displayWordData(data[0]);
+                    })
+                    .catch(error => {
+                        showError(error.message);
+                    });
+            }
+            
+            // Display word data in UI
+            function displayWordData(wordData) {
+                loading.style.display = 'none';
+                resultSection.style.display = 'block';
+                
+                // Set word title
+                wordTitle.textContent = wordData.word;
+                
+                // Set phonetic text
+                phoneticText.textContent = wordData.phonetic || 
+                    (wordData.phonetics.length > 0 ? wordData.phonetics[0].text : '');
+                
+                // Set audio if available
+                const audioPhonetic = wordData.phonetics.find(p => p.audio);
+                if (audioPhonetic && audioPhonetic.audio) {
+                    const audio = new Audio(`https:${audioPhonetic.audio}`);
+                    audioBtn.onclick = () => audio.play();
+                    audioBtn.disabled = false;
+                    audioBtn.style.opacity = '1';
+                } else {
+                    audioBtn.disabled = true;
+                    audioBtn.style.opacity = '0.6';
+                }
+                
+                // Set Chinese translation (simulated for this demo)
+                chineseTranslation.textContent = translations[wordData.word.toLowerCase()] || 
+                    getSimulatedChineseTranslation(wordData.word);
+                
+                // Display meanings
+                meaningsContainer.innerHTML = '';
+                wordData.meanings.forEach(meaning => {
+                    const meaningElement = document.createElement('div');
+                    meaningElement.className = 'meaning-item';
+                    
+                    meaningElement.innerHTML = `
+                        <div class="part-of-speech">${meaning.partOfSpeech}</div>
+                        <div class="definitions">
+                            ${meaning.definitions.map((def, idx) => `
+                                <div class="definition">
+                                    <strong>${idx + 1}.</strong> ${def.definition}
+                                    ${def.example ? `<div class="example">"${def.example}"</div>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    
+                    meaningsContainer.appendChild(meaningElement);
+                });
+                
+                // Scroll to results
+                resultSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Show error message
+            function showError(message) {
+                loading.style.display = 'none';
+                errorText.textContent = message;
+                errorMessage.style.display = 'block';
+            }
+            
+            // Simulate Chinese translation for demo purposes
+            function getSimulatedChineseTranslation(word) {
+                // This is a simulation - in a real app you would use a translation API
+                const translationMap = {
+                    "apple": "苹果",
+                    "book": "书, 书籍, 预订",
+                    "car": "汽车, 轿车, 车辆",
+                    "house": "房子, 房屋, 住宅",
+                    "tree": "树, 树木, 乔木",
+                    "water": "水, 浇水, 水域",
+                    "friend": "朋友, 友人, 好友",
+                    "school": "学校, 学院, 上学",
+                    "love": "爱, 爱情, 热爱",
+                    "time": "时间, 时候, 时期"
+                };
+                
+                return translationMap[word.toLowerCase()] || "未找到翻译";
+            }
+            
+            // Initial example display
+            wordInput.value = "hello";
+            searchWord();
+        });
+    </script>
+</body>
+</html>
