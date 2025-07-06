@@ -54,5 +54,23 @@
       "word": "essential",
       "definition": "必要的，必不可少的"
     }
+  ],
+   "computer-terms": [
+    {
+      "word": "funny",
+      "definition": "A joke."
+    },
+    {
+      "word": "jack",
+      "definition": "A coarse mediaeval coat of defence, especially one made of leather."
+    },
+    {
+      "word": "hieroglyphics",
+      "definition": "(chiefly in the plural) a writing system of ancient Egypt, Minoans, Maya and other civilizations, using pictorial symbols to represent individual sounds as a rebus"
+    },
+    {
+      "word": "champion",
+      "definition": "An ongoing winner in a game or contest."
+    }
   ]
 }
