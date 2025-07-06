@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocabulary Quiz Master</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .banner {
+            background: white;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .banner img {
+            max-width: 100%;
+            height: auto;
+            max-height: 70px;
+        }
+        
+        .header-content {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            padding: 25px 0;
+            text-align: center;
+            border-bottom: 5px solid #fdbb2d;
+        }
+        
+        .header-content h1 {
+            color: white;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        
+        .header-content p {
+            color: #fdbb2d;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .selection-screen, .quiz-screen, .results-screen, .learning-screen {
+            transition: all 0.5s ease;
+        }
+        
+        .quiz-screen, .results-screen, .learning-screen {
+            display: none;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 28px;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #fdbb2d, #b21f1f);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 18px;
+        }
+        
+        select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.8);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+        }
+        
+        select:focus {
+            border-color: #4a6491;
+            box-shadow: 0 0 0 3px rgba(74, 100, 145, 0.2);
+            outline: none;
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #4a6491, #1a2a6c);
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .btn.learning-btn {
+            background: linear-gradient(to right, #2e8540, #1a6c2a);
+        }
+        
+        .btn.learning-btn:hover {
+            background: linear-gradient(to right, #1a6c2a, #2e8540);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            background: linear-gradient(to right, #1a2a6c, #4a6491);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .quiz-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background: #e3f2fd;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #4a6491, #1a2a6c);
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+        
+        .question-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+        
+        .question-text {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            text-align: center;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        @media (min-width: 500px) {
+            .options-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .option:hover {
+            background: #f5f5f5;
+            border-color: #4a6491;
+        }
+        
+        .option.selected {
+            background: #e3f2fd;
+            border-color: #4a6491;
+            font-weight: 600;
+        }
+        
+        .option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+        
+        .option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+        
+        .navigation-btns {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .results-container {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .score-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            margin: 0 auto 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 10px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .score-text {
+            font-size: 3rem;
+            font-weight: 800;
+            z-index: 2;
+        }
+        
+        .score-label {
+            font-size: 1.2rem;
+            color: #6c757d;
+            z-index: 2;
+        }
+        
+        .score-details {
+            margin: 30px 0;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+        }
+        
+        .detail-value {
+            font-weight: 700;
+            color: #4a6491;
+        }
+        
+        .feedback {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+        
+        /* New styles for incorrect words list */
+        .incorrect-words-container {
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .incorrect-words-title {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .incorrect-words-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #fdbb2d, #b21f1f);
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+        
+        .incorrect-word-item {
+            background: #fff;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        
+        .incorrect-word {
+            font-weight: 700;
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .incorrect-definition {
+            font-size: 16px;
+            color: #555;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        
+        .spinner {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #4a6491;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Learning Mode Styles */
+        .learning-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .word-display {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1a2a6c;
+            margin-bottom: 10px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .definition-display {
+            font-size: 22px;
+            color: #555;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        
+        .learning-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .learning-progress {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 15px;
+            color: #4a6491;
+            font-weight: 600;
+        }
+        
+        /* Mobile-specific styles */
+        @media (max-width: 600px) {
+            .header-content h1 {
+                font-size: 2rem;
+            }
+            
+            .header-content p {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .question-text {
+                font-size: 26px;
+            }
+            
+            .option {
+                padding: 12px;
+                font-size: 16px;
+            }
+            
+            .btn {
+                padding: 14px 25px;
+                font-size: 16px;
+                flex-grow: 1;
+            }
+            
+            .navigation-btns {
+                flex-direction: column;
+            }
+            
+            .score-circle {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .score-text {
+                font-size: 2.5rem;
+            }
+            
+            .incorrect-words-title {
+                font-size: 20px;
+            }
+            
+            .incorrect-word {
+                font-size: 16px;
+            }
+            
+            .incorrect-definition {
+                font-size: 14px;
+            }
+            
+            .word-display {
+                font-size: 32px;
+            }
+            
+            .definition-display {
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .header-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .content {
+                padding: 20px 15px;
+            }
+            
+            .btn {
+                padding: 12px 15px;
+                font-size: 15px;
+            }
+            
+            .question-text {
+                font-size: 22px;
+            }
+            
+            .word-display {
+                font-size: 28px;
+            }
+            
+            .definition-display {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="banner">
+                <img src="https://tonysew.wordpress.com/wp-content/uploads/2025/07/65f184bef6ff0c132cc9c1e0482569f5.png" alt="Vocabulary Quiz Banner">
+            </div>
+            <div class="header-content">
+                <h1><i class="fas fa-book"></i> Vocabulary Quiz Master</h1>
+                <p>Test your knowledge or learn new words with our vocabulary tool</p>
+            </div>
+        </header>
+        
+        <div class="content">
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Loading word lists...</p>
+            </div>
+            
+            <!-- Selection Screen -->
+            <div class="selection-screen" id="selectionScreen">
+                <h2 class="section-title">Select a Word List</h2>
+                
+                <div class="form-group">
+                    <label for="wordListSelect">Choose a category:</label>
+                    <select id="wordListSelect">
+                        <option value="">-- Please select --</option>
+                    </select>
+                </div>
+                
+                <div class="btn-container">
+                    <button class="btn" id="startQuizBtn">
+                        <i class="fas fa-play"></i> Start Quiz
+                    </button>
+                    <button class="btn learning-btn" id="learningModeBtn">
+                        <i class="fas fa-graduation-cap"></i> Learning Mode
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Quiz Screen -->
+            <div class="quiz-screen" id="quizScreen">
+                <div class="quiz-progress">
+                    <div class="progress-text">
+                        Question <span id="currentQuestion">1</span> of <span id="totalQuestions">10</span>
+                    </div>
+                    <div class="timer">
+                        <i class="fas fa-clock"></i> Time: <span id="timer">0</span>s
+                    </div>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                
+                <div class="question-container">
+                    <div class="question-text" id="questionText">
+                        <!-- Word will be displayed here -->
+                    </div>
+                    
+                    <div class="options-container" id="optionsContainer">
+                        <!-- Options will be added here by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="navigation-btns">
+                    <button class="btn" id="nextBtn" disabled>
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn" id="finishBtn" style="display: none;">
+                        Finish Quiz <i class="fas fa-flag-checkered"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Results Screen -->
+            <div class="results-screen" id="resultsScreen">
+                <h2 class="section-title">Quiz Results</h2>
+                
+                <div class="results-container">
+                    <div class="score-circle" id="scoreCircle">
+                        <div class="score-text" id="scoreText">0%</div>
+                        <div class="score-label">Your Score</div>
+                    </div>
+                    
+                    <div class="feedback" id="feedback">
+                        Keep practicing!
+                    </div>
+                    
+                    <div class="score-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Total Questions:</span>
+                            <span class="detail-value" id="totalQuestionsResult">0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Correct Answers:</span>
+                            <span class="detail-value" id="correctAnswers">0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Incorrect Answers:</span>
+                            <span class="detail-value" id="incorrectAnswers">0</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Time Taken:</span>
+                            <span class="detail-value" id="timeTaken">0s</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Incorrect words section -->
+                    <div class="incorrect-words-container" id="incorrectWordsContainer">
+                        <h3 class="incorrect-words-title">Words to Review</h3>
+                        <div id="incorrectWordsList"></div>
+                    </div>
+                    
+                    <div class="btn-container">
+                        <button class="btn" id="restartQuizBtn">
+                            <i class="fas fa-redo"></i> Take Another Quiz
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Learning Mode Screen -->
+            <div class="learning-screen" id="learningScreen">
+                <h2 class="section-title">Learning Mode</h2>
+                
+                <div class="learning-container">
+                    <div class="word-display" id="wordDisplay">
+                        <!-- Word will be displayed here -->
+                    </div>
+                    
+                    <div class="definition-display" id="definitionDisplay">
+                        <!-- Definition will be displayed here -->
+                    </div>
+                    
+                    <div class="learning-progress" id="learningProgress">
+                        Word 1 of 10
+                    </div>
+                    
+                    <div class="learning-nav">
+                        <button class="btn" id="prevWordBtn">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button class="btn" id="nextWordBtn">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="btn-container" style="margin-top: 30px;">
+                        <button class="btn" id="backToSelectionBtn">
+                            <i class="fas fa-arrow-left"></i> Back to Selection
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Vocabulary Quiz Master &copy; 2023 | Learn and Test Your Vocabulary</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Global variables
+        let wordLists = {};
+        let currentQuiz = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let quizTimer = 0;
+        let timerInterval;
+        let isOptionSelected = false;
+        let incorrectWords = []; // Store words user got wrong
+        let learningModeWords = [];
+        let currentWordIndex = 0;
+        const jsonUrl = "https://raw.githubusercontent.com/wangzhrm/IELTS/main/wordlists.json";
+        
+        // DOM elements
+        const selectionScreen = document.getElementById('selectionScreen');
+        const quizScreen = document.getElementById('quizScreen');
+        const resultsScreen = document.getElementById('resultsScreen');
+        const learningScreen = document.getElementById('learningScreen');
+        const wordListSelect = document.getElementById('wordListSelect');
+        const startQuizBtn = document.getElementById('startQuizBtn');
+        const learningModeBtn = document.getElementById('learningModeBtn');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const questionText = document.getElementById('questionText');
+        const currentQuestionSpan = document.getElementById('currentQuestion');
+        const totalQuestionsSpan = document.getElementById('totalQuestions');
+        const progressFill = document.getElementById('progressFill');
+        const nextBtn = document.getElementById('nextBtn');
+        const finishBtn = document.getElementById('finishBtn');
+        const timerDisplay = document.getElementById('timer');
+        const scoreText = document.getElementById('scoreText');
+        const feedback = document.getElementById('feedback');
+        const totalQuestionsResult = document.getElementById('totalQuestionsResult');
+        const correctAnswers = document.getElementById('correctAnswers');
+        const incorrectAnswers = document.getElementById('incorrectAnswers');
+        const timeTaken = document.getElementById('timeTaken');
+        const restartQuizBtn = document.getElementById('restartQuizBtn');
+        const loading = document.getElementById('loading');
+        const scoreCircle = document.getElementById('scoreCircle');
+        const incorrectWordsList = document.getElementById('incorrectWordsList');
+        const incorrectWordsContainer = document.getElementById('incorrectWordsContainer');
+        const wordDisplay = document.getElementById('wordDisplay');
+        const definitionDisplay = document.getElementById('definitionDisplay');
+        const learningProgress = document.getElementById('learningProgress');
+        const prevWordBtn = document.getElementById('prevWordBtn');
+        const nextWordBtn = document.getElementById('nextWordBtn');
+        const backToSelectionBtn = document.getElementById('backToSelectionBtn');
+        
+        // Fetch word lists from GitHub
+        async function fetchWordLists() {
+            loading.style.display = 'block';
+            selectionScreen.style.display = 'none';
+            
+            try {
+                const response = await fetch(jsonUrl);
+                if (!response.ok) throw new Error('Failed to fetch word lists');
+                wordLists = await response.json();
+                
+                // Populate dropdown with word list names
+                for (const listName in wordLists) {
+                    const option = document.createElement('option');
+                    option.value = listName;
+                    option.textContent = listName.charAt(0).toUpperCase() + listName.slice(1);
+                    wordListSelect.appendChild(option);
+                }
+                
+                loading.style.display = 'none';
+                selectionScreen.style.display = 'block';
+            } catch (error) {
+                loading.innerHTML = `<p class="error">Error: ${error.message}. Please try again later.</p>`;
+                console.error('Error fetching word lists:', error);
+            }
+        }
+        
+        // Start the quiz
+        function startQuiz() {
+            const selectedList = wordListSelect.value;
+            if (!selectedList) {
+                alert('Please select a word list first!');
+                return;
+            }
+            
+            // Initialize quiz variables
+            currentQuiz = generateQuiz(wordLists[selectedList]);
+            currentQuestionIndex = 0;
+            userAnswers = [];
+            incorrectWords = [];
+            quizTimer = 0;
+            isOptionSelected = false;
+            
+            // Show quiz screen
+            selectionScreen.style.display = 'none';
+            quizScreen.style.display = 'block';
+            
+            // Start timer
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                quizTimer++;
+                timerDisplay.textContent = quizTimer;
+            }, 1000);
+            
+            // Display first question
+            displayQuestion();
+        }
+        
+        // Start learning mode
+        function startLearningMode() {
+            const selectedList = wordListSelect.value;
+            if (!selectedList) {
+                alert('Please select a word list first!');
+                return;
+            }
+            
+            // Initialize learning mode variables
+            learningModeWords = [...wordLists[selectedList]];
+            currentWordIndex = 0;
+            
+            // Show learning screen
+            selectionScreen.style.display = 'none';
+            learningScreen.style.display = 'block';
+            
+            // Display first word
+            displayWord();
+        }
+        
+        // Display current word in learning mode
+        function displayWord() {
+            const currentWord = learningModeWords[currentWordIndex];
+            wordDisplay.textContent = currentWord.word;
+            definitionDisplay.textContent = currentWord.definition;
+            
+            // Update progress
+            learningProgress.textContent = `Word ${currentWordIndex + 1} of ${learningModeWords.length}`;
+            
+            // Update navigation buttons
+            prevWordBtn.disabled = currentWordIndex === 0;
+            nextWordBtn.disabled = currentWordIndex === learningModeWords.length - 1;
+        }
+        
+        // Navigate to next word in learning mode
+        function nextWord() {
+            if (currentWordIndex < learningModeWords.length - 1) {
+                currentWordIndex++;
+                displayWord();
+            }
+        }
+        
+        // Navigate to previous word in learning mode
+        function prevWord() {
+            if (currentWordIndex > 0) {
+                currentWordIndex--;
+                displayWord();
+            }
+        }
+        
+        // Generate quiz questions with 3 options
+        function generateQuiz(wordList) {
+            const quiz = [];
+            
+            // Create a copy of the word list to avoid modifying the original
+            const shuffledWords = [...wordList].sort(() => Math.random() - 0.5);
+            
+            // For each word, create a question
+            shuffledWords.forEach((wordObj, index) => {
+                if (index >= 10) return; // Limit to 10 questions
+                
+                const question = {
+                    word: wordObj.word,
+                    definition: wordObj.definition,
+                    options: []
+                };
+                
+                // Add correct answer
+                question.options.push({
+                    text: wordObj.definition,
+                    isCorrect: true
+                });
+                
+                // Add incorrect answers from other words
+                const otherWords = shuffledWords.filter(w => w.word !== wordObj.word);
+                const shuffledOtherWords = [...otherWords].sort(() => Math.random() - 0.5);
+                
+                for (let i = 0; i < 2; i++) {
+                    if (shuffledOtherWords[i]) {
+                        question.options.push({
+                            text: shuffledOtherWords[i].definition,
+                            isCorrect: false
+                        });
+                    }
+                }
+                
+                // Shuffle the options
+                question.options.sort(() => Math.random() - 0.5);
+                
+                quiz.push(question);
+            });
+            
+            return quiz;
+        }
+        
+        // Display current question
+        function displayQuestion() {
+            const question = currentQuiz[currentQuestionIndex];
+            isOptionSelected = false;
+            
+            // Update question text - just the word
+            questionText.textContent = question.word;
+            
+            // Update progress
+            currentQuestionSpan.textContent = currentQuestionIndex + 1;
+            totalQuestionsSpan.textContent = currentQuiz.length;
+            progressFill.style.width = `${((currentQuestionIndex + 1) / currentQuiz.length) * 100}%`;
+            
+            // Clear previous options
+            optionsContainer.innerHTML = '';
+            
+            // Add new options
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                if (userAnswers[currentQuestionIndex] === index) {
+                    optionElement.classList.add('selected');
+                }
+                
+                optionElement.textContent = option.text;
+                
+                optionElement.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Update navigation buttons
+            nextBtn.disabled = true; // Disabled until answer is selected
+            nextBtn.style.display = currentQuestionIndex < currentQuiz.length - 1 ? 'block' : 'none';
+            finishBtn.style.display = currentQuestionIndex === currentQuiz.length - 1 ? 'block' : 'none';
+            finishBtn.disabled = true;
+        }
+        
+        // Select an option
+        function selectOption(optionIndex) {
+            if (isOptionSelected) return;
+            
+            isOptionSelected = true;
+            
+            const question = currentQuiz[currentQuestionIndex];
+            const options = optionsContainer.querySelectorAll('.option');
+            const isCorrect = question.options[optionIndex].isCorrect;
+            
+            // Remove selected class from all options
+            options.forEach(option => option.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            options[optionIndex].classList.add('selected');
+            
+            // Mark as correct or incorrect
+            if (isCorrect) {
+                options[optionIndex].classList.add('correct');
+                // Save user's answer
+                userAnswers[currentQuestionIndex] = optionIndex;
+                
+                // Automatically go to next question after 1 second
+                setTimeout(() => {
+                    if (currentQuestionIndex < currentQuiz.length - 1) {
+                        nextQuestion();
+                    } else {
+                        finishBtn.disabled = false;
+                    }
+                }, 1000);
+            } else {
+                options[optionIndex].classList.add('incorrect');
+                // Show correct answer
+                question.options.forEach((opt, idx) => {
+                    if (opt.isCorrect) {
+                        options[idx].classList.add('correct');
+                    }
+                });
+                
+                // Add to incorrect words list if not already added
+                const isAlreadyAdded = incorrectWords.some(item => 
+                    item.word === question.word && item.definition === question.definition
+                );
+                
+                if (!isAlreadyAdded) {
+                    incorrectWords.push({
+                        word: question.word,
+                        definition: question.definition
+                    });
+                }
+            }
+            
+            // Enable next/finish button regardless of correctness
+            if (currentQuestionIndex < currentQuiz.length - 1) {
+                nextBtn.disabled = false;
+            } else {
+                finishBtn.disabled = false;
+            }
+        }
+        
+        // Navigate to next question
+        function nextQuestion() {
+            if (currentQuestionIndex < currentQuiz.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            }
+        }
+        
+        // Finish the quiz
+        function finishQuiz() {
+            // Stop timer
+            clearInterval(timerInterval);
+            
+            // Calculate results
+            const totalQuestions = currentQuiz.length;
+            let correctCount = 0;
+            
+            userAnswers.forEach((answerIndex, questionIndex) => {
+                if (answerIndex !== undefined && currentQuiz[questionIndex].options[answerIndex].isCorrect) {
+                    correctCount++;
+                }
+            });
+            
+            const score = Math.round((correctCount / totalQuestions) * 100);
+            
+            // Update results screen
+            scoreText.textContent = `${score}%`;
+            totalQuestionsResult.textContent = totalQuestions;
+            correctAnswers.textContent = correctCount;
+            incorrectAnswers.textContent = totalQuestions - correctCount;
+            timeTaken.textContent = `${quizTimer} seconds`;
+            
+            // Set feedback message
+            if (score >= 90) {
+                feedback.textContent = "Outstanding! You're a vocabulary master!";
+                scoreCircle.style.borderColor = "#28a745";
+            } else if (score >= 70) {
+                feedback.textContent = "Great job! You know your words well!";
+                scoreCircle.style.borderColor = "#17a2b8";
+            } else if (score >= 50) {
+                feedback.textContent = "Good effort! Keep practicing!";
+                scoreCircle.style.borderColor = "#ffc107";
+            } else {
+                feedback.textContent = "Keep learning! You'll improve!";
+                scoreCircle.style.borderColor = "#dc3545";
+            }
+            
+            // Display incorrect words list
+            displayIncorrectWords();
+            
+            // Show results screen
+            quizScreen.style.display = 'none';
+            resultsScreen.style.display = 'block';
+        }
+        
+        // Display incorrect words
+        function displayIncorrectWords() {
+            incorrectWordsList.innerHTML = '';
+            
+            if (incorrectWords.length === 0) {
+                incorrectWordsContainer.style.display = 'none';
+                return;
+            }
+            
+            incorrectWordsContainer.style.display = 'block';
+            
+            incorrectWords.forEach(word => {
+                const wordItem = document.createElement('div');
+                wordItem.className = 'incorrect-word-item';
+                wordItem.innerHTML = `
+                    <div class="incorrect-word">${word.word}</div>
+                    <div class="incorrect-definition">${word.definition}</div>
+                `;
+                incorrectWordsList.appendChild(wordItem);
+            });
+        }
+        
+        // Restart the quiz
+        function restartQuiz() {
+            resultsScreen.style.display = 'none';
+            selectionScreen.style.display = 'block';
+            
+            // Reset selection
+            wordListSelect.value = '';
+        }
+        
+        // Go back to selection screen
+        function backToSelection() {
+            learningScreen.style.display = 'none';
+            resultsScreen.style.display = 'none';
+            selectionScreen.style.display = 'block';
+        }
+        
+        // Event listeners
+        startQuizBtn.addEventListener('click', startQuiz);
+        learningModeBtn.addEventListener('click', startLearningMode);
+        nextBtn.addEventListener('click', nextQuestion);
+        finishBtn.addEventListener('click', finishQuiz);
+        restartQuizBtn.addEventListener('click', restartQuiz);
+        prevWordBtn.addEventListener('click', prevWord);
+        nextWordBtn.addEventListener('click', nextWord);
+        backToSelectionBtn.addEventListener('click', backToSelection);
+        
+        // Initialize the app
+        fetchWordLists();
+    </script>
+</body>
+</html>
