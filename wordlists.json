@@ -13,21 +13,7 @@
       "definition": "A flightless bird that swims"
     }
   ],
-  "colors": [
-    {
-      "word": "azure",
-      "definition": "A bright blue color"
-    },
-    {
-      "word": "crimson",
-      "definition": "A rich deep red color"
-    },
-    {
-      "word": "chartreuse",
-      "definition": "A color between yellow and green"
-    }
-  ],
-  "LUCY0707": [
+  "Lucyachievement": [
     {
       "word": "speed",
       "definition": "n.速度, v.加速"
@@ -75,10 +61,6 @@
     {
       "word": "capital",
       "definition": "n.首都；n.资金，资本"
-    },
-    {
-      "word": "pressure",
-      "definition": "n.压力"
     },
     {
       "word": "deal",
@@ -133,10 +115,6 @@
       "definition": "v.浏览;(使)掠过"
     },
     {
-      "word": "material",
-      "definition": "n.材料"
-    },
-    {
       "word": "extract",
       "definition": "v.提取"
     },
@@ -149,20 +127,12 @@
       "definition": "v.忽略"
     },
     {
-      "word": "irrelevant",
-      "definition": "adj.不相关的"
-    },
-    {
       "word": "detail",
       "definition": "n.细节"
     },
     {
       "word": "style",
       "definition": "n.风格"
-    },
-    {
-      "word": "expectation",
-      "definition": "n.期望"
     },
     {
       "word": "silent",
@@ -215,6 +185,108 @@
     {
       "word": "so on",
       "definition": "等等..."
+    }
+  ]，
+"Lucy0707": [
+    {
+      "word": "pressure",
+      "definition": "n.压力"
+    },
+    {
+      "word": "material",
+      "definition": "n.材料"
+    },
+    {
+      "word": "irrelevant",
+      "definition": "adj.不相关的"
+    },
+    {
+      "word": "expectation",
+      "definition": "n.期望"
+    },
+   {
+      "word": "individual",
+      "definition": "n.个人; adj. 个人的"
+    },
+    {
+      "word": "notice",
+      "definition": "n/v. 通知"
+    },
+    {
+      "word": "previous",
+      "definition": "adj.以前的"
+    },
+    {
+      "word": "vulnerable",
+      "definition": "adj. 脆弱的"
+    },
+    {
+      "word": "amount",
+      "definition": "n. 数量"
+    },
+    {
+      "word": "volume",
+      "definition": "n. 容量"
+    },
+    {
+      "word": "period",
+      "definition": "n. 时期"
+    },
+    {
+      "word": "irregular",
+      "definition": "Definition not found"
+    },
+    {
+      "word": "concentrate",
+      "definition": "集中"
+    },
+    {
+      "word": "comprehend",
+      "definition": "v. 理解"
+    },
+    {
+      "word": "muddle",
+      "definition": "n. 混乱；v.使混乱"
+    },
+    {
+      "word": "disrupt",
+      "definition": "v. 打断"
+    },
+    {
+      "word": "engage",
+      "definition": "v.从事，投入，使参与"
+    },
+    {
+      "word": "practice",
+      "definition": "v. 练习，实践"
+    },
+    {
+      "word": "constantly",
+      "definition": "adv. 不断地"
+    },
+    {
+      "word": "re-read",
+      "definition": "v. 重读"
+    },
+    {
+      "word": "grab",
+      "definition": "v.抓住"
+    },
+    {
+      "word": "pressure",
+      "definition": "n.压力"
+    },
+    {
+      "word": "material",
+      "definition": "n.材料"
+    },
+    {
+      "word": "irrelevant",
+      "definition": "adj. 不相关的"
+    },
+    {
+      "word": "expectation",
+      "definition": "n. 期望"
     }
   ]
 }
