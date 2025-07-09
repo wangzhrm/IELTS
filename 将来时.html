@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语将来时态学习系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 5px solid #f1c40f;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .decoration {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2.5rem;
+            opacity: 0.2;
+        }
+        
+        .content-section {
+            padding: 30px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            margin: 30px 0 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .tense-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .tense-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tense-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .tense-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+        }
+        
+        .tense-card h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tense-card h3 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: #2c3e50;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 10px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .usage-list {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .usage-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .usage-list li::before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+        }
+        
+        .example {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #2196f3;
+            font-style: italic;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(255,230,0,0.3), rgba(255,230,0,0.3));
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .time-markers {
+            background: #e8f5e9;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .time-markers strong {
+            color: #2c3e50;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+        
+        .practice-section {
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        
+        .question {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            position: relative;
+        }
+        
+        .question-number {
+            background: #3498db;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .option {
+            padding: 15px;
+            border-radius: 8px;
+            background: #f1f8ff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #bbdefb;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            background: #bbdefb;
+            border-color: #64b5f6;
+            font-weight: bold;
+        }
+        
+        .feedback {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .correct {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+        }
+        
+        .incorrect {
+            background: #ffebee;
+            border-left: 5px solid #f44336;
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .score-container {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 12px;
+            margin-top: 30px;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .score-container i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #2c3e50;
+            color: white;
+            font-size: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .tense-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .decoration {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="decoration">
+                <i class="fas fa-hourglass-half"></i>
+            </div>
+            <h1>英语将来时态学习系统</h1>
+            <p class="subtitle">掌握一般将来时、将来进行时、将来完成时、将来完成进行时和过去将来时的用法与区别</p>
+        </header>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-chalkboard-teacher"></i> 将来时态详解</h2>
+            
+            <div class="tense-grid">
+                <div class="tense-card">
+                    <h3><i class="fas fa-clock"></i> 一般将来时 (Simple Future Tense)</h3>
+                    <div class="formula">will/shall + 动词原形 或 am/is/are going to + 动词原形</div>
+                    
+                    <p><strong>用法：</strong></p>
+                    <ul class="usage-list">
+                        <li>表示将要发生的动作或存在的状态</li>
+                        <li>表示未来的意图或计划</li>
+                        <li>表示预测或推测</li>
+                    </ul>
+                    
+                    <div class="time-markers">
+                        <strong>时间状语：</strong> tomorrow, next week, in 2025, soon, in the future
+                    </div>
+                    
+                    <div class="example">
+                        <p>I <span class="highlight">will leave</span> for Beijing tomorrow. (明天我将动身去北京。)</p>
+                        <p>She <span class="highlight">is going to study</span> medicine next year. (她明年打算学医。)</p>
+                    </div>
+                </div>
+                
+                <div class="tense-card">
+                    <h3><i class="fas fa-spinner"></i> 将来进行时 (Future Continuous Tense)</h3>
+                    <div class="formula">will be + 现在分词</div>
+                    
+                    <p><strong>用法：</strong></p>
+                    <ul class="usage-list">
+                        <li>表示将来某一时刻正在进行的动作</li>
+                        <li>表示已经安排好的将来事件</li>
+                        <li>表示礼貌地询问他人的计划</li>
+                    </ul>
+                    
+                    <div class="time-markers">
+                        <strong>时间状语：</strong> at this time tomorrow, at 8pm next Friday, when...
+                    </div>
+                    
+                    <div class="example">
+                        <p>This time tomorrow, I <span class="highlight">will be flying</span> to London. (明天的这个时候，我将在飞往伦敦的途中。)</p>
+                        <p>Don't call me at 7 pm; I <span class="highlight">will be having</span> dinner. (晚上7点不要给我打电话，我那时正在吃晚饭。)</p>
+                    </div>
+                </div>
+                
+                <div class="tense-card">
+                    <h3><i class="fas fa-layer-group"></i> 将来完成时 (Future Perfect Tense)</h3>
+                    <div class="formula">will have + 过去分词</div>
+                    
+                    <p><strong>用法：</strong></p>
+                    <ul class="usage-list">
+                        <li>表示在将来某一时间之前完成的动作</li>
+                        <li>表示对将来某个时间点前完成动作的推测</li>
+                    </ul>
+                    
+                    <div class="time-markers">
+                        <strong>时间状语：</strong> by next week, by the time, by 2030, before...
+                    </div>
+                    
+                    <div class="example">
+                        <p>By next month, I <span class="highlight">will have finished</span> this project. (到下个月，我将完成这个项目。)</p>
+                        <p>By the time you arrive, we <span class="highlight">will have set</span> up everything. (等你到达时，我们将已经准备好一切。)</p>
+                    </div>
+                </div>
+                
+                <div class="tense-card">
+                    <h3><i class="fas fa-hourglass-half"></i> 将来完成进行时 (Future Perfect Continuous Tense)</h3>
+                    <div class="formula">will have been + 现在分词</div>
+                    
+                    <p><strong>用法：</strong></p>
+                    <ul class="usage-list">
+                        <li>表示动作从某一时间开始一直持续到将来某一时间</li>
+                        <li>强调动作的持续性和过程</li>
+                        <li>常用于说明原因或解释将来的情况</li>
+                    </ul>
+                    
+                    <div class="time-markers">
+                        <strong>时间状语：</strong> for, since, by the time, by next year
+                    </div>
+                    
+                    <div class="example">
+                        <p>By next month, I <span class="highlight">will have been working</span> here for ten years. (到下个月，我就在这里工作满十年了。)</p>
+                        <p>When she retires, she <span class="highlight">will have been teaching</span> for 40 years. (她退休时，将已经教书40年了。)</p>
+                    </div>
+                </div>
+                
+                <div class="tense-card">
+                    <h3><i class="fas fa-history"></i> 过去将来时 (Future in the Past)</h3>
+                    <div class="formula">would + 动词原形 或 was/were going to + 动词原形</div>
+                    
+                    <p><strong>用法：</strong></p>
+                    <ul class="usage-list">
+                        <li>表示从过去某个时间看将要发生的动作</li>
+                        <li>常用于宾语从句中</li>
+                        <li>表示过去的计划或意图</li>
+                    </ul>
+                    
+                    <div class="time-markers">
+                        <strong>时间状语：</strong> the next day, the following week, when...
+                    </div>
+                    
+                    <div class="example">
+                        <p>He said he <span class="highlight">would come</span> to see me. (他说他会来看我。)</p>
+                        <p>I knew she <span class="highlight">was going to study</span> abroad. (我知道她打算出国留学。)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="practice-section">
+                <h2><i class="fas fa-pencil-alt"></i> 时态练习 (20题)</h2>
+                <p style="margin-bottom: 25px; font-size: 1.1rem; color: #444;">选择正确的选项，提交后立即查看解析</p>
+                
+                <div id="questions-container">
+                    <!-- 问题将通过JavaScript动态生成 -->
+                </div>
+                
+                <div class="score-container">
+                    <i class="fas fa-star"></i>
+                    得分: <span id="score">0</span>/20
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>英语时态学习系统 &copy; 2023 | 掌握将来时态，提升英语表达能力</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 题目数据
+        const questions = [
+            {
+                question: "I ______ for Hong Kong on Saturday. Will you go to see me off at the airport?",
+                options: ["am leaving", "am left", "am going to leaving", "left"],
+                answer: 0,
+                explanation: "解析：趋向动词leave可用现在进行时表将来。选A。"
+            },
+            {
+                question: "I ______ to see grandma and help her with some housework every week.",
+                options: ["came", "am going come", "come", "will come"],
+                answer: 3,
+                explanation: "解析：此题虽然有every week, 但句意中表达的是将要去做的经常性动作。应该用一般将来时。因此选D。"
+            },
+            {
+                question: "We Chinese ______ the Olympic Games in 2008.",
+                options: ["held", "shall holding", "are holding", "are going to hold"],
+                answer: 3,
+                explanation: "解析：本题的时间状语是将来的时间，所以选用一般将来时。shall后面应跟动词原形，故应选D。"
+            },
+            {
+                question: "By the time you arrive, I ______ dinner.",
+                options: ["will cook", "will be cooking", "will have cooked", "cook"],
+                answer: 2,
+                explanation: "解析：表示在你到达之前完成的动作，使用将来完成时。"
+            },
+            {
+                question: "This time next week, we ______ on the beach.",
+                options: ["will lie", "will be lying", "will have lain", "lie"],
+                answer: 1,
+                explanation: "解析：表示下周此时正在进行的动作，使用将来进行时。"
+            },
+            {
+                question: "By 2030, scientists ______ a cure for cancer.",
+                options: ["will find", "will be finding", "will have found", "find"],
+                answer: 2,
+                explanation: "解析：表示在2030年之前完成的动作，使用将来完成时。"
+            },
+            {
+                question: "She told me she ______ to Paris the following month.",
+                options: ["travels", "will travel", "would travel", "is traveling"],
+                answer: 2,
+                explanation: "解析：表示过去将来（从过去某个时间点看将来），使用过去将来时would + 动词原形。"
+            },
+            {
+                question: "In July, we ______ in this house for 20 years.",
+                options: ["will live", "will be living", "will have been living", "lived"],
+                answer: 2,
+                explanation: "解析：表示到将来某个时间点一直持续的动作，使用将来完成进行时。"
+            },
+            {
+                question: "Don't call me at 9 o'clock; I ______ my favorite TV show.",
+                options: ["will watch", "will be watching", "will have watched", "watch"],
+                answer: 1,
+                explanation: "解析：表示将来某个具体时间正在进行的动作，使用将来进行时。"
+            },
+            {
+                question: "By the end of this year, he ______ his novel.",
+                options: ["will write", "will be writing", "will have written", "writes"],
+                answer: 2,
+                explanation: "解析：表示在年底前完成的动作，使用将来完成时。"
+            },
+            {
+                question: "I promise I ______ you as soon as I arrive.",
+                options: ["call", "am calling", "will call", "have called"],
+                answer: 2,
+                explanation: "解析：表示将来的承诺，使用一般将来时will + 动词原形。"
+            },
+            {
+                question: "They ______ married for 25 years next month.",
+                options: ["will be", "will have been", "are", "have been"],
+                answer: 1,
+                explanation: "解析：表示到将来某个时间点为止持续的状态，使用将来完成时。"
+            },
+            {
+                question: "At 8 pm tomorrow, I ______ a business meeting.",
+                options: ["attend", "will attend", "will be attending", "will have attended"],
+                answer: 2,
+                explanation: "解析：表示将来某个具体时间正在进行的动作，使用将来进行时。"
+            },
+            {
+                question: "I knew you ______ the exam because you studied so hard.",
+                options: ["pass", "will pass", "would pass", "passed"],
+                answer: 2,
+                explanation: "解析：表示过去将来（从过去某个时间点看将来），使用过去将来时would + 动词原形。"
+            },
+            {
+                question: "By next summer, I ______ English for ten years.",
+                options: ["study", "will study", "will have studied", "will have been studying"],
+                answer: 3,
+                explanation: "解析：表示到将来某个时间点一直持续的动作，强调过程，使用将来完成进行时。"
+            },
+            {
+                question: "Look at those dark clouds. It ______ rain.",
+                options: ["will", "is going to", "shall", "would"],
+                answer: 1,
+                explanation: "解析：表示根据当前迹象做出的预测，使用be going to结构。"
+            },
+            {
+                question: "He promised he ______ me with my project.",
+                options: ["helps", "will help", "would help", "is helping"],
+                answer: 2,
+                explanation: "解析：表示过去将来（承诺），使用过去将来时would + 动词原形。"
+            },
+            {
+                question: "By the time you get this message, I ______ for New York.",
+                options: ["leave", "will leave", "will be leaving", "will have left"],
+                answer: 3,
+                explanation: "解析：表示在将来某个时间点之前完成的动作，使用将来完成时。"
+            },
+            {
+                question: "This time next year, I ______ at a university.",
+                options: ["study", "will study", "will be studying", "will have studied"],
+                answer: 2,
+                explanation: "解析：表示明年此时正在进行的动作，使用将来进行时。"
+            },
+            {
+                question: "She ______ as a doctor for 30 years when she retires next month.",
+                options: ["works", "will work", "will have worked", "will have been working"],
+                answer: 3,
+                explanation: "解析：表示到将来某个时间点一直持续的工作状态，强调过程，使用将来完成进行时。"
+            }
+        ];
+
+        let score = 0;
+        const questionsContainer = document.getElementById('questions-container');
+        const scoreElement = document.getElementById('score');
+        
+        // 生成题目
+        questions.forEach((q, index) => {
+            const questionElement = document.createElement('div');
+            questionElement.className = 'question';
+            questionElement.innerHTML = `
+                <div class="question-text">
+                    <span class="question-number">${index + 1}</span>
+                    <span>${q.question}</span>
+                </div>
+                <div class="options">
+                    ${q.options.map((option, i) => `
+                        <div class="option" data-index="${i}" data-qindex="${index}">
+                            ${String.fromCharCode(65 + i)}. ${option}
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="feedback" id="feedback-${index}">
+                    <div class="explanation">${q.explanation}</div>
+                </div>
+            `;
+            questionsContainer.appendChild(questionElement);
+        });
+        
+        // 添加事件监听器
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const qIndex = parseInt(this.getAttribute('data-qindex'));
+                const selectedIndex = parseInt(this.getAttribute('data-index'));
+                const correctIndex = questions[qIndex].answer;
+                const feedbackElement = document.getElementById(`feedback-${qIndex}`);
+                const options = document.querySelectorAll(`.question:nth-child(${qIndex+1}) .option`);
+                
+                // 移除所有选项的选中状态
+                options.forEach(opt => opt.classList.remove('selected'));
+                
+                // 添加当前选中状态
+                this.classList.add('selected');
+                
+                // 显示反馈
+                feedbackElement.style.display = 'block';
+                
+                if (selectedIndex === correctIndex) {
+                    feedbackElement.className = 'feedback correct';
+                    feedbackElement.innerHTML = `
+                        <strong><i class="fas fa-check-circle"></i> 正确!</strong>
+                        <div class="explanation">${questions[qIndex].explanation}</div>
+                    `;
+                    // 增加分数
+                    if (!this.classList.contains('answered')) {
+                        score++;
+                        scoreElement.textContent = score;
+                    }
+                } else {
+                    feedbackElement.className = 'feedback incorrect';
+                    feedbackElement.innerHTML = `
+                        <strong><i class="fas fa-times-circle"></i> 不正确!</strong>
+                        <div class="explanation">${questions[qIndex].explanation}</div>
+                        <div>正确答案是: <strong>${String.fromCharCode(65 + correctIndex)}. ${questions[qIndex].options[correctIndex]}</strong></div>
+                    `;
+                }
+                
+                // 标记为已回答
+                this.classList.add('answered');
+            });
+        });
+    </script>
+</body>
+</html>
