@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语过去时态学习系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.97);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 5px solid #f1c40f;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .decoration {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2.5rem;
+            opacity: 0.2;
+        }
+        
+        .content-section {
+            padding: 30px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 15px;
+            margin: 30px 0 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .tense-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .tense-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tense-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .tense-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+        }
+        
+        .tense-card h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tense-card h3 i {
+            margin-right: 10px;
+            color: #3498db;
+        }
+        
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: #2c3e50;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 10px 0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .usage-list {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .usage-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .usage-list li::before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+        }
+        
+        .example {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #2196f3;
+            font-style: italic;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(255,230,0,0.3), rgba(255,230,0,0.3));
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .time-markers {
+            background: #e8f5e9;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .time-markers strong {
+            color: #2c3e50;
+        }
+        
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+        
+        .practice-section {
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        
+        .question {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+            position: relative;
+        }
+        
+        .question-number {
+            background: #3498db;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .option {
+            padding: 15px;
+            border-radius: 8px;
+            background: #f1f8ff;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #bbdefb;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            background: #bbdefb;
+            border-color: #64b5f6;
+            font-weight: bold;
+        }
+        
+        .feedback {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .correct {
+            background: #e8f5e9;
+            border-left: 5px solid #4caf50;
+        }
+        
+        .incorrect {
+            background: #ffebee;
+            border-left: 5px solid #f44336;
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .score-container {
+            text-align: center;
+            padding: 20px;
+            background: #2c3e50;
+            color: white;
+            border-radius: 12px;
+            margin-top: 30px;
+            font-size: 1.3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .score-container i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #2c3e50;
+            color: white;
+            font-size: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .tense-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .decoration {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="decoration">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h1>英语过去时态学习系统</h1>
+            <p class="subtitle">掌握一般过去时、过去进行时、过去完成时和过去完成进行时的用法与区别</p>
+        </header>
+        
+        <div class="content-section">
+            <h2><i class="fas fa-chalkboard-teacher"></i> 过去时态详解</h2>
+            
+            <div class="tense-grid">
+                <div class="tense-card">
+                    <h3><i class="fas fa-clock"></i> 一般过去时 (Simple Past Tense)</h3>
+                    <div class="formula">主语 + 动词过去式</div>
+                    
+                    <p><strong>用法：</strong></p>
+                    <ul class="usage-list">
+                        <li>表示过去某个时间发生的动作或存在的状态</li>
+                        <li>描述过去经常或反复发生的动作</li>
+                        <li>叙述过去连续发生的事件</li>
+                    </ul>
+                    
+                    <div class="time-markers">
+                        <strong>时间状语：</strong> yesterday, last week, three years ago, in 1990, when I was young
+                    </div>
+                    
+                    <div class="example">
+                        <p>She <span class="highlight">visited</span> Paris last summer. (去年夏天她访问了巴黎。)</p>
+                        <p>When I was a child, I <span class="highlight">played</span> football every day. (我小时候每天都踢足球。)</p>
+                    </div>
+                </div>
+                
+                <div class="tense-card">
+                    <h3><i class="fas fa-spinner"></i> 过去进行时 (Past Continuous Tense)</h3>
+                    <div class="formula">was/were + 现在分词</div>
+                    
+                    <p><strong>用法：</strong></p>
+                    <ul class="usage-list">
+                        <li>表示过去某一时刻或时间段正在进行的动作</li>
+                        <li>描述背景场景或氛围</li>
+                        <li>表示过去两个同时进行的动作</li>
+                    </ul>
+                    
+                    <div class="time-markers">
+                        <strong>时间状语：</strong> at 8pm yesterday, while, when, as, all day yesterday
+                    </div>
+                    
+                    <div class="example">
+                        <p>I <span class="highlight">was studying</span> when you called me last night. (昨晚你打电话给我时，我正在学习。)</p>
+                        <p>At 7pm yesterday, they <span class="highlight">were having</span> dinner. (昨晚7点，他们正在吃晚餐。)</p>
+                    </div>
+                </div>
+                
+                <div class="tense-card">
+                    <h3><i class="fas fa-layer-group"></i> 过去完成时 (Past Perfect Tense)</h3>
+                    <div class="formula">had + 过去分词</div>
+                    
+                    <p><strong>用法：</strong></p>
+                    <ul class="usage-list">
+                        <li>表示在过去某个时间或动作之前已经完成的动作（过去的过去）</li>
+                        <li>表示过去某一时间之前开始并持续到该时间的动作或状态</li>
+                    </ul>
+                    
+                    <div class="time-markers">
+                        <strong>时间状语：</strong> by the time, before, after, already, just, never, until then
+                    </div>
+                    
+                    <div class="example">
+                        <p>When I arrived at the party, Tom <span class="highlight">had already left</span>. (当我到达派对时，汤姆已经离开了。)</p>
+                        <p>She <span class="highlight">had lived</span> in London for five years before she moved to Paris. (在搬到巴黎之前，她在伦敦住了五年。)</p>
+                    </div>
+                </div>
+                
+                <div class="tense-card">
+                    <h3><i class="fas fa-hourglass-half"></i> 过去完成进行时 (Past Perfect Continuous Tense)</h3>
+                    <div class="formula">had been + 现在分词</div>
+                    
+                    <p><strong>用法：</strong></p>
+                    <ul class="usage-list">
+                        <li>表示在过去某一时间之前开始并一直持续到该时间的动作</li>
+                        <li>强调动作的持续性和过程</li>
+                        <li>常用于说明原因或解释过去的情况</li>
+                    </ul>
+                    
+                    <div class="time-markers">
+                        <strong>时间状语：</strong> for, since, how long, before, when
+                    </div>
+                    
+                    <div class="example">
+                        <p>I <span class="highlight">had been waiting</span> for two hours when the bus finally arrived. (当公交车终于到达时，我已经等了两个小时。)</p>
+                        <p>Her eyes were red because she <span class="highlight">had been crying</span>. (她的眼睛红红的，因为她一直在哭。)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-divider"></div>
+            
+            <div class="practice-section">
+                <h2><i class="fas fa-pencil-alt"></i> 时态练习 (20题)</h2>
+                <p style="margin-bottom: 25px; font-size: 1.1rem; color: #444;">选择正确的选项，提交后立即查看解析</p>
+                
+                <div id="questions-container">
+                    <!-- 问题将通过JavaScript动态生成 -->
+                </div>
+                
+                <div class="score-container">
+                    <i class="fas fa-star"></i>
+                    得分: <span id="score">0</span>/20
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>英语时态学习系统 &copy; 2023 | 掌握过去时态，提升英语表达能力</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 题目数据
+        const questions = [
+            {
+                question: "Daddy promised me he _____ me a computer.",
+                options: ["was bought", "had bought", "bought", "would buy"],
+                answer: 3,
+                explanation: "解析：'爸爸答应我给我买一台电脑'。宾语从句中的动作是以过去为起点将要发生的动作，应用过去将来时。"
+            },
+            {
+                question: "They said they _____ do some sports if it was fine.",
+                options: ["were going to", "went", "would going", "were going"],
+                answer: 0,
+                explanation: "解析：'他们说如果天气好的话他们打算去运动。'去做运动发生在说话之后，所以应选用过去将来时，'打算作某事'为'be going to do'。"
+            },
+            {
+                question: "He _____ in Shanghai University for four years before he _____ Beijing.",
+                options: ["studied, had gone", "had studied, went", "has studied, goes", "had studied, had gone"],
+                answer: 1,
+                explanation: "解析：'他去北京之前在上大学学习了4年'。在上海学习的动作发生在去北京之前，因此第一个空应用过去完成时。"
+            },
+            {
+                question: "Mary said it was at least five years since he _____ a good drink.",
+                options: ["enjoyed", "was enjoying", "had enjoyed", "would enjoy"],
+                answer: 2,
+                explanation: "解析：It was + 时间段 + since 引导的从句中用过去完成时。"
+            },
+            {
+                question: "Xiao Pei said she _____ Hainan for 3 months.",
+                options: ["has been in", "had been in", "had been to", "had gone to"],
+                answer: 1,
+                explanation: "解析：'小培说她去了海南三个月'。have been to 和have gone to 都是短暂性的动词短语。所以适应表示状态的have been in。"
+            },
+            {
+                question: "Mr. Mott is out. But he _____ here a few minutes ago.",
+                options: ["was", "is", "will be", "would be"],
+                answer: 0,
+                explanation: "解析：时分钟前发生的动作，应该用一般过去时。"
+            },
+            {
+                question: "--Hi, Tom. --Hello, Fancy. I _____ you were here.",
+                options: ["don't know", "won't think", "think", "didn't know"],
+                answer: 3,
+                explanation: "解析：虽然句中没有明确的时间状语，但是可以通过上下文语境判断出，这句话指的是我这段时间并不知道，你前一阵子在这儿。"
+            },
+            {
+                question: "He promised to tell me by himself when I _____.",
+                options: ["come", "would come", "came", "had come"],
+                answer: 2,
+                explanation: "解析：在时间状语从句中，用一般过去时表示过去将来。"
+            },
+            {
+                question: "When I arrived at the party, everyone _____ dinner.",
+                options: ["has", "was having", "had", "had been having"],
+                answer: 1,
+                explanation: "解析：表示到达时正在进行的动作，使用过去进行时。"
+            },
+            {
+                question: "By the time we got to the cinema, the movie _____.",
+                options: ["started", "had started", "was starting", "has started"],
+                answer: 1,
+                explanation: "解析：表示在我们到达之前已经发生的动作（过去的过去），使用过去完成时。"
+            },
+            {
+                question: "She _____ for the company for 20 years when she retired.",
+                options: ["worked", "was working", "had worked", "had been working"],
+                answer: 3,
+                explanation: "解析：表示持续到过去某个时间点的工作状态，强调持续时间长度，使用过去完成进行时。"
+            },
+            {
+                question: "While I _____ breakfast, the phone rang.",
+                options: ["had", "was having", "had had", "had been having"],
+                answer: 1,
+                explanation: "解析：表示当电话响起时正在进行的动作，使用过去进行时。"
+            },
+            {
+                question: "They _____ each other for many years before they got married.",
+                options: ["knew", "had known", "were knowing", "had been knowing"],
+                answer: 1,
+                explanation: "解析：表示在结婚之前已经持续的状态，使用过去完成时。"
+            },
+            {
+                question: "I saw John yesterday. He _____ his car.",
+                options: ["was washing", "washed", "had washed", "has washed"],
+                answer: 0,
+                explanation: "解析：表示昨天看到John时他正在进行的动作，使用过去进行时。"
+            },
+            {
+                question: "The roads were wet because it _____ all night.",
+                options: ["rained", "was raining", "had rained", "had been raining"],
+                answer: 3,
+                explanation: "解析：表示导致道路潮湿的原因（持续整夜的雨），使用过去完成进行时。"
+            },
+            {
+                question: "She _____ in the garden for two hours when it started to rain.",
+                options: ["worked", "was working", "had worked", "had been working"],
+                answer: 3,
+                explanation: "解析：表示在开始下雨之前已经持续一段时间的动作，使用过去完成进行时。"
+            },
+            {
+                question: "When I opened the door, the cat _____ on the table.",
+                options: ["sat", "was sitting", "had sat", "had been sitting"],
+                answer: 1,
+                explanation: "解析：表示开门时正在发生的动作，使用过去进行时。"
+            },
+            {
+                question: "I _____ the report by 5 pm yesterday.",
+                options: ["finished", "was finishing", "had finished", "had been finishing"],
+                answer: 2,
+                explanation: "解析：表示在昨天5点之前已经完成的动作，使用过去完成时。"
+            },
+            {
+                question: "They _____ for three hours before they finally found the solution.",
+                options: ["discussed", "were discussing", "had discussed", "had been discussing"],
+                answer: 3,
+                explanation: "解析：表示在找到解决方案之前持续进行的讨论，强调动作的持续性，使用过去完成进行时。"
+            },
+            {
+                question: "He _____ his leg when he was playing football.",
+                options: ["breaks", "broke", "had broken", "had been breaking"],
+                answer: 1,
+                explanation: "解析：表示过去某个时间点发生的单一事件，使用一般过去时。"
+            }
+        ];
+
+        let score = 0;
+        const questionsContainer = document.getElementById('questions-container');
+        const scoreElement = document.getElementById('score');
+        
+        // 生成题目
+        questions.forEach((q, index) => {
+            const questionElement = document.createElement('div');
+            questionElement.className = 'question';
+            questionElement.innerHTML = `
+                <div class="question-text">
+                    <span class="question-number">${index + 1}</span>
+                    <span>${q.question}</span>
+                </div>
+                <div class="options">
+                    ${q.options.map((option, i) => `
+                        <div class="option" data-index="${i}" data-qindex="${index}">
+                            ${String.fromCharCode(65 + i)}. ${option}
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="feedback" id="feedback-${index}">
+                    <div class="explanation">${q.explanation}</div>
+                </div>
+            `;
+            questionsContainer.appendChild(questionElement);
+        });
+        
+        // 添加事件监听器
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const qIndex = parseInt(this.getAttribute('data-qindex'));
+                const selectedIndex = parseInt(this.getAttribute('data-index'));
+                const correctIndex = questions[qIndex].answer;
+                const feedbackElement = document.getElementById(`feedback-${qIndex}`);
+                const options = document.querySelectorAll(`.question:nth-child(${qIndex+1}) .option`);
+                
+                // 移除所有选项的选中状态
+                options.forEach(opt => opt.classList.remove('selected'));
+                
+                // 添加当前选中状态
+                this.classList.add('selected');
+                
+                // 显示反馈
+                feedbackElement.style.display = 'block';
+                
+                if (selectedIndex === correctIndex) {
+                    feedbackElement.className = 'feedback correct';
+                    feedbackElement.innerHTML = `
+                        <strong><i class="fas fa-check-circle"></i> 正确!</strong>
+                        <div class="explanation">${questions[qIndex].explanation}</div>
+                    `;
+                    // 增加分数
+                    if (!this.classList.contains('answered')) {
+                        score++;
+                        scoreElement.textContent = score;
+                    }
+                } else {
+                    feedbackElement.className = 'feedback incorrect';
+                    feedbackElement.innerHTML = `
+                        <strong><i class="fas fa-times-circle"></i> 不正确!</strong>
+                        <div class="explanation">${questions[qIndex].explanation}</div>
+                        <div>正确答案是: <strong>${String.fromCharCode(65 + correctIndex)}. ${questions[qIndex].options[correctIndex]}</strong></div>
+                    `;
+                }
+                
+                // 标记为已回答
+                this.classList.add('answered');
+            });
+        });
+    </script>
+</body>
+</html>
