@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雅思阅读高频同义词学习系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #2c3e50;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eaeaea;
+            padding: 5px 0;
+        }
+        
+        .mode-btn {
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #555;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .mode-btn.active {
+            color: #3498db;
+            background: white;
+        }
+        
+        .mode-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #3498db;
+        }
+        
+        .mode-btn:hover:not(.active) {
+            background: #eef2f7;
+            color: #3498db;
+        }
+        
+        .content-area {
+            padding: 30px;
+            min-height: 500px;
+        }
+        
+        /* 学习模式样式 */
+        .study-section {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 25px;
+            height: 75vh;
+        }
+        
+        .group-list {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .group-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #e9ecef;
+            border-left: 4px solid #3498db;
+        }
+        
+        .group-item:hover {
+            background: #dee2e6;
+            transform: translateX(5px);
+        }
+        
+        .group-item.active {
+            background: #d1e7ff;
+            border-left: 4px solid #2c3e50;
+            font-weight: bold;
+        }
+        
+        .group-content {
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+        
+        .group-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+        }
+        
+        .synonym-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #3498db;
+        }
+        
+        .synonym-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed #dee2e6;
+        }
+        
+        .synonym-group {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        
+        .group-number {
+            background: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .synonym-words {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .synonym-word {
+            background: #e3f2fd;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+        
+        .examples {
+            background: #f1f8e9;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .example-item {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 3px solid #7cb342;
+            position: relative;
+        }
+        
+        .example-item::before {
+            content: "•";
+            position: absolute;
+            left: 5px;
+            color: #7cb342;
+            font-size: 1.5rem;
+        }
+        
+        .notes {
+            background: #fff3e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        
+        /* 测试模式样式 */
+        .test-mode {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px;
+        }
+        
+        .test-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .test-controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .test-btn {
+            padding: 15px 30px;
+            background: linear-gradient(to bottom, #3498db, #2980b9);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .test-btn:hover {
+            background: linear-gradient(to bottom, #2980b9, #2573a7);
+            transform: translateY(-3px);
+        }
+        
+        .test-area {
+            width: 100%;
+            max-width: 800px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .question-area {
+            margin-bottom: 40px;
+        }
+        
+        .question-text {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        
+        .target-word {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .answer-area {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .answer-input {
+            padding: 15px;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            text-align: center;
+            transition: border 0.3s;
+        }
+        
+        .answer-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.5);
+        }
+        
+        .feedback {
+            font-size: 1.4rem;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .feedback.correct {
+            background: #d5f5e3;
+            color: #27ae60;
+            display: block;
+        }
+        
+        .feedback.incorrect {
+            background: #fadbd8;
+            color: #e74c3c;
+            display: block;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #2ecc71, #3498db);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .nav-btn {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to bottom, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(to bottom, #2980b9, #2573a7);
+        }
+        
+        .next-btn {
+            background: linear-gradient(to bottom, #2ecc71, #27ae60);
+            color: white;
+        }
+        
+        .next-btn:hover {
+            background: linear-gradient(to bottom, #27ae60, #219653);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .test-summary {
+            width: 100%;
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .summary-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .score {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 992px) {
+            .study-section {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+            
+            .group-list {
+                max-height: 300px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .test-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .test-area {
+                padding: 20px;
+            }
+            
+            .target-word {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>雅思阅读高频同义词学习系统</h1>
+            <div class="subtitle">掌握88组高频同义词，提升雅思阅读能力</div>
+        </header>
+        
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="study">
+                <i class="fas fa-book"></i> 学习模式
+            </button>
+            <button class="mode-btn" data-mode="test">
+                <i class="fas fa-pencil-alt"></i> 测试模式
+            </button>
+        </div>
+        
+        <div class="content-area">
+            <!-- 学习模式 -->
+            <div id="study-mode">
+                <div class="study-section">
+                    <div class="group-list" id="group-list">
+                        <!-- 同义词组列表 -->
+                    </div>
+                    
+                    <div class="group-content" id="group-content">
+                        <!-- 同义词组内容 -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 测试模式 -->
+            <div id="test-mode" class="hidden">
+                <div class="test-mode">
+                    <div class="test-header">
+                        <h2><i class="fas fa-tasks"></i> 同义词测试</h2>
+                        <p>测试您对雅思阅读高频同义词的掌握程度</p>
+                        
+                        <div class="test-controls">
+                            <button class="test-btn" id="start-test">
+                                <i class="fas fa-play"></i> 开始测试
+                            </button>
+                            <button class="test-btn" id="reset-test">
+                                <i class="fas fa-redo"></i> 重置测试
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="test-area">
+                        <div class="progress-container">
+                            <div class="progress-bar" id="test-progress"></div>
+                        </div>
+                        
+                        <div class="question-area">
+                            <div class="question-text" id="question-text">请写出下列单词的同义词：</div>
+                            <div class="target-word" id="target-word">limit</div>
+                        </div>
+                        
+                        <div class="answer-area">
+                            <input type="text" class="answer-input" id="answer-input" placeholder="在此输入同义词...">
+                            <div class="feedback" id="feedback"></div>
+                        </div>
+                        
+                        <div class="navigation">
+                            <button class="nav-btn submit-btn" id="submit-answer">
+                                <i class="fas fa-check"></i> 提交答案
+                            </button>
+                            <button class="nav-btn next-btn hidden" id="next-question">
+                                <i class="fas fa-arrow-right"></i> 下一题
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="test-summary hidden" id="test-summary">
+                        <h2 class="summary-title">测试完成!</h2>
+                        <p>您已完成本次同义词测试</p>
+                        <div class="score">得分: <span id="test-score">0</span>/<span id="total-questions">0</span></div>
+                        <p>正确率: <span id="accuracy">0</span>%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 同义词数据（部分示例）
+        const synonymData = [
+            {
+                id: 1,
+                title: "限制类",
+                words: ["limit", "restrict", "confine", "define", "narrow", "tighten", "constrict", "cap"],
+                notes: [
+                    "narrow(v.): 以前使用的时候一般都是作为形容词来用，这里强调下它的动词的用法。",
+                    "E.g. We are working on narrowing the gap between our points of view.",
+                    "E.g. We’re working to narrow down the list of possible suspects.",
+                    "E.g. The smoking causes the same diseases in women as in men and the gap between their death rates is narrowing.",
+                    "define (v.): 意思是给……下定义，这个意思和限制并不矛盾。（define 的英文解释：If you define something, you show, describe, or state clearly what it is and what its limits are, or what it is like）",
+                    "E.g. The Supreme Court decision could define how far Congress can go in trying to determine the outcome of court cases.",
+                    "cap (n./v.): 最常用的意思是帽子。",
+                    "E.g. The government has placed a cap on local council spending.",
+                    "E.g. snow-capped mountains"
+                ]
+            },
+            {
+                id: 2,
+                title: "聚焦类",
+                words: ["focus on", "concentrate on", "aim", "spotlight", "be engrossed in", "lay/place/put emphasis on", "deal only with", "highlight"],
+                notes: [
+                    "spotlight(v./n.): 本意是聚光灯的意思",
+                    "E.g. A new report has turned the spotlight on the problem of poverty in the inner cities.",
+                    "E.g. The report has turned the spotlight on the startling rise in street crime.",
+                    "E.g. Unemployment is once again in the spotlight.",
+                    "E.g. The article spotlights the problems of the homeless.",
+                    "engross (v.): 全神贯注于某事",
+                    "E.g. The scene was stunning, and for a time engrossed all our attention.",
+                    "E.g. He was so engrossed in his book that he didn’t hear her come in.",
+                    "highlight(v./n.): 本意为用高亮度标记",
+                    "E.g. The incident has served to highlight the problems of urban deprivation.",
+                    "highlight 作名词 表示一系列事情的亮点，最精彩所在，",
+                    "E.g. That weekend in Venice was definitely the highlight of our trip.",
+                    "E.g. The highlight of the trip was visiting the Great Wall of China."
+                ]
+            },
+            {
+                id: 3,
+                title: "现代类",
+                words: ["contemporary", "modern", "current", "present", "recent", "up-to-date", "latest"],
+                notes: [
+                    "这里需要注意 latest 不要翻成最晚的，是最新的，最近的意思",
+                    "up-to-date(a.): 最新的",
+                    "E.g. They have access to up-to-date information through a computer database.",
+                    "latest (a.): 最新的",
+                    "E.g. the latest fashions from the Paris catwalks.",
+                    "contemporary: 现代的，这个词准确的来说和最近的（latest）意思还是有区别的，不过阅读考试大部分词考得都是词和词之间的相关性，其实也不太有可能两个词的意思是完全一样的，一般来说只要他们意思相关，并且不发生矛盾的话，我们就可以认为他们之间是同义词。这也就是为什么 contemporary 会和 latest 在一组的原因了。"
+                ]
+            },
+            {
+                id: 4,
+                title: "增长类",
+                words: ["grow", "increase", "expand", "rise", "improve", "soar", "climb", "extend", "rocket"],
+                notes: [
+                    "improve: 这个词在这里需要强调下，这个词在某些特定的场合下甚至可以表示下降的意思，例如：犯罪率在 improve，像这种不好的事情得到了改善",
+                    "soar (v.): 飙升",
+                    "E.g. The price of petrol has soared in recent weeks.",
+                    "rocket(v./n.): 作名词是火箭的意思，动词：直线上升",
+                    "E.g. Stock prices rocketed to their highest level yesterday. 这组词在阅读和写作当中可能会发生词性的变化，主要是形容词、动词和名词这三种词的转换。",
+                    "grow-growing-growth;    increase-increasing-increase;    expand-expanding-expansion;    rise-rising-rise;",
+                    "improve-improved-improvement;   extend-extended-extension; climb-climbing-climb"
+                ]
+            },
+            {
+                id: 5,
+                title: "悲观类",
+                words: ["pessimistic", "gloomy", "gloominess", "depression", "depressed", "depressing", "hopeless", "sad", "sadness", "the blues", "blue", "unhappy", "low spirits", "low-spirited", "mournful", "dismal", "miserable", "glum", "downheartedness", "broken-hearted", "down in the dumps(informal)", "dejection", "despair", "despondency", "melancholy"],
+                notes: [
+                    "pessimistic(a.): 悲观的",
+                    "E.g. Doctors are pessimistic about his chances of making a full recovery.",
+                    "gloomy (a.): 衰退的，忧郁的，",
+                    "E.g. Frank dismissed these gloomy thoughts from her mind.",
+                    "blue (a.): 这个词可以解释为蓝调即悲伤忧郁的音乐,不过只能用复数形式 blues",
+                    "E.g. She usually calls her mother when she's feeling blue.",
+                    "blue 这个词还有高贵的意思，例如这个短语：blue-blooded 表示出生于皇室家族或者社会地位很高的家族",
+                    "blue book 一般指英国官方发布的蓝皮书（封面通常是蓝色的）（yellow pages 黄页即包含电话号码和公司地址的黄色封面的书）",
+                    "blue movie 色情电影，这种用法差不多已经过时了，现在一般都说 porn movie",
+                    "blue chip 蓝筹股即表现优异的，或者值得投资的股票",
+                    "blue collar 蓝领"
+                ]
+            },
+            {
+                id: 6,
+                title: "观点类",
+                words: ["idea", "thought", "concept", "view", "point", "opinion", "belief", "perspective", "explanation", "prediction", "result", "consequence", "conclusion", "outcome", "summary", "aftermath", "expression", "statement", "announcement", "communication", "declaration", "notice", "indicate", "show", "say", "believe", "tell", "suggest", "allege", "conclude", "appear to", "think", "point out", "argue", "remark", "note", "report", "reason", "discover", "uncover", "propose", "imply", "study", "refute", "claim", "disclose", "make known", "broadcast", "communicate", "reveal", "relate", "bring to light", "expose", "unveil", "lay bare", "publicize", "openly"],
+                notes: [
+                    "肖群老师根据阅读课专属素材"
+                ]
+            }
+            // 实际使用时应包含完整的88组数据
+        ];
+
+        // DOM元素
+        const studyMode = document.getElementById('study-mode');
+        const testMode = document.getElementById('test-mode');
+        const groupList = document.getElementById('group-list');
+        const groupContent = document.getElementById('group-content');
+        const modeButtons = document.querySelectorAll('.mode-btn');
+        const startTestBtn = document.getElementById('start-test');
+        const resetTestBtn = document.getElementById('reset-test');
+        const targetWord = document.getElementById('target-word');
+        const answerInput = document.getElementById('answer-input');
+        const submitBtn = document.getElementById('submit-answer');
+        const nextBtn = document.getElementById('next-question');
+        const feedback = document.getElementById('feedback');
+        const testProgress = document.getElementById('test-progress');
+        const testSummary = document.getElementById('test-summary');
+        const testScore = document.getElementById('test-score');
+        const totalQuestionsEl = document.getElementById('total-questions');
+        const accuracy = document.getElementById('accuracy');
+        const questionText = document.getElementById('question-text');
+
+        // 状态变量
+        let currentGroup = 1;
+        let testStarted = false;
+        let testQuestions = [];
+        let currentQuestionIndex = 0;
+        let testScoreValue = 0;
+
+        // 初始化页面
+        function initPage() {
+            renderGroupList();
+            renderGroupContent(currentGroup);
+            addEventListeners();
+        }
+
+        // 渲染同义词组列表
+        function renderGroupList() {
+            groupList.innerHTML = '';
+            
+            synonymData.forEach(group => {
+                const groupItem = document.createElement('div');
+                groupItem.className = 'group-item';
+                if (group.id === currentGroup) groupItem.classList.add('active');
+                groupItem.innerHTML = `
+                    <div>第${group.id}组</div>
+                    <div><strong>${group.title}</strong></div>
+                `;
+                groupItem.dataset.id = group.id;
+                groupList.appendChild(groupItem);
+            });
+        }
+
+        // 渲染同义词组内容
+        function renderGroupContent(groupId) {
+            const group = synonymData.find(g => g.id === groupId);
+            if (!group) return;
+            
+            groupContent.innerHTML = `
+                <div class="group-title">
+                    第${group.id}组：${group.title}
+                    <span class="group-number">${group.words.length}个同义词</span>
+                </div>
+                
+                <div class="synonym-card">
+                    <div class="synonym-header">
+                        <div class="synonym-group">${group.words.join(', ')}</div>
+                    </div>
+                    
+                    <div class="synonym-words">
+                        ${group.words.map(word => `<div class="synonym-word">${word}</div>`).join('')}
+                    </div>
+                    
+                    <div class="examples">
+                        <h3><i class="fas fa-lightbulb"></i> 例句与用法</h3>
+                        ${group.notes.map(note => `<div class="example-item">${note}</div>`).join('')}
+                    </div>
+                    
+                    <div class="notes">
+                        <h3><i class="fas fa-sticky-note"></i> 学习笔记</h3>
+                        <p>本组同义词主要用于表达"${group.title}"的概念，在雅思阅读中常出现在学术类文章中。注意这些词在具体语境中的细微差别。</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 添加事件监听器
+        function addEventListeners() {
+            // 模式切换
+            modeButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const mode = btn.dataset.mode;
+                    modeButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    if (mode === 'study') {
+                        studyMode.classList.remove('hidden');
+                        testMode.classList.add('hidden');
+                    } else {
+                        studyMode.classList.add('hidden');
+                        testMode.classList.remove('hidden');
+                    }
+                });
+            });
+            
+            // 同义词组选择
+            groupList.addEventListener('click', (e) => {
+                const groupItem = e.target.closest('.group-item');
+                if (groupItem) {
+                    currentGroup = parseInt(groupItem.dataset.id);
+                    document.querySelectorAll('.group-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    groupItem.classList.add('active');
+                    renderGroupContent(currentGroup);
+                }
+            });
+            
+            // 测试开始
+            startTestBtn.addEventListener('click', startTest);
+            
+            // 测试重置
+            resetTestBtn.addEventListener('click', resetTest);
+            
+            // 提交答案
+            submitBtn.addEventListener('click', checkAnswer);
+            
+            // 下一题
+            nextBtn.addEventListener('click', showNextQuestion);
+        }
+
+        // 开始测试
+        function startTest() {
+            testStarted = true;
+            testQuestions = [];
+            testScoreValue = 0;
+            currentQuestionIndex = 0;
+            
+            // 生成测试题目（从所有组中随机选择单词）
+            synonymData.forEach(group => {
+                group.words.forEach(word => {
+                    testQuestions.push({
+                        word: word,
+                        groupId: group.id,
+                        groupTitle: group.title
+                    });
+                });
+            });
+            
+            // 打乱题目顺序
+            shuffleArray(testQuestions);
+            
+            // 只取前10题作为测试
+            testQuestions = testQuestions.slice(0, 10);
+            
+            // 更新UI
+            totalQuestionsEl.textContent = testQuestions.length;
+            testSummary.classList.add('hidden');
+            showQuestion();
+        }
+
+        // 重置测试
+        function resetTest() {
+            testStarted = false;
+            testQuestions = [];
+            currentQuestionIndex = 0;
+            testScoreValue = 0;
+            targetWord.textContent = '';
+            answerInput.value = '';
+            feedback.classList.remove('correct', 'incorrect');
+            submitBtn.classList.remove('hidden');
+            nextBtn.classList.add('hidden');
+            testSummary.classList.add('hidden');
+            testProgress.style.width = '0%';
+            questionText.textContent = '请写出下列单词的同义词：';
+        }
+
+        // 显示问题
+        function showQuestion() {
+            if (currentQuestionIndex >= testQuestions.length) {
+                showTestSummary();
+                return;
+            }
+            
+            const question = testQuestions[currentQuestionIndex];
+            targetWord.textContent = question.word;
+            answerInput.value = '';
+            feedback.classList.remove('correct', 'incorrect');
+            submitBtn.classList.remove('hidden');
+            nextBtn.classList.add('hidden');
+            
+            // 更新进度条
+            const progressPercent = (currentQuestionIndex / testQuestions.length) * 100;
+            testProgress.style.width = `${progressPercent}%`;
+        }
+
+        // 检查答案
+        function checkAnswer() {
+            const userAnswer = answerInput.value.trim().toLowerCase();
+            if (!userAnswer) return;
+            
+            const currentQuestion = testQuestions[currentQuestionIndex];
+            const group = synonymData.find(g => g.id === currentQuestion.groupId);
+            
+            // 检查用户答案是否在该组同义词中
+            const isCorrect = group.words.map(w => w.toLowerCase()).includes(userAnswer);
+            
+            if (isCorrect) {
+                feedback.textContent = `✓ 正确！"${userAnswer}" 是 "${currentQuestion.word}" 的同义词。`;
+                feedback.className = 'feedback correct';
+                testScoreValue++;
+            } else {
+                feedback.textContent = `✗ 不正确。与"${currentQuestion.word}"同义的词包括: ${group.words.filter(w => w.toLowerCase() !== currentQuestion.word.toLowerCase()).join(', ')}`;
+                feedback.className = 'feedback incorrect';
+            }
+            
+            submitBtn.classList.add('hidden');
+            nextBtn.classList.remove('hidden');
+        }
+
+        // 显示下一题
+        function showNextQuestion() {
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        // 显示测试总结
+        function showTestSummary() {
+            testScore.textContent = testScoreValue;
+            const accuracyPercent = Math.round((testScoreValue / testQuestions.length) * 100);
+            accuracy.textContent = accuracyPercent;
+            
+            testSummary.classList.remove('hidden');
+            testProgress.style.width = '100%';
+            
+            // 根据得分给出评价
+            let comment = '';
+            if (accuracyPercent >= 90) {
+                comment = '太棒了！您对雅思同义词掌握得非常出色！';
+            } else if (accuracyPercent >= 70) {
+                comment = '做得很好！您对雅思同义词有很好的理解！';
+            } else if (accuracyPercent >= 50) {
+                comment = '不错！继续努力，您会越来越好的！';
+            } else {
+                comment = '需要更多练习，加油！您可以多使用学习模式巩固知识。';
+            }
+            
+            document.querySelector('.test-summary p:last-child').textContent = comment;
+        }
+
+        // 工具函数：打乱数组
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // 初始化页面
+        window.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
