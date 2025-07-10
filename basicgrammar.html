@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Learning Modules</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></svg>');
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            border-radius: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 20px auto;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 200px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-card i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #ff8a00;
+        }
+        
+        .stat-card h3 {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+            color: #ff8a00;
+        }
+        
+        .stat-card p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .module-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            height: 150px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .module-number {
+            background: linear-gradient(135deg, #ff8a00, #e52e71);
+            width: 70px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .module-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+        
+        .module-content h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #ffd700;
+        }
+        
+        .module-btn {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+        }
+        
+        .module-btn:hover {
+            background: linear-gradient(90deg, #ff8a00, #e52e71);
+            transform: scale(1.05);
+            border-color: transparent;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stat-card {
+                min-width: 150px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .stat-card {
+                width: 100%;
+            }
+            
+            .module-card {
+                height: auto;
+                flex-direction: column;
+            }
+            
+            .module-number {
+                width: 100%;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-book-open"></i> Grammar Learning Modules</h1>
+            <p class="subtitle">Master English grammar with our comprehensive 13-module course. Each module focuses on a key grammatical concept with detailed explanations and practical examples.</p>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <i class="fas fa-book"></i>
+                    <h3>13</h3>
+                    <p>Modules</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>100+</h3>
+                    <p>Learning Points</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Pro</h3>
+                    <p>IELTS Preparation</p>
+                </div>
+            </div>
+        </header>
+        
+        <div class="modules-grid">
+            <!-- Module 1 -->
+            <div class="module-card">
+                <div class="module-number">1</div>
+                <div class="module-content">
+                    <h3>名词 (Nouns)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/1%E5%90%8D%E8%AF%8D" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 2 -->
+            <div class="module-card">
+                <div class="module-number">2</div>
+                <div class="module-content">
+                    <h3>冠词 (Articles)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/2%E5%86%A0%E8%AF%8D" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 3 -->
+            <div class="module-card">
+                <div class="module-number">3</div>
+                <div class="module-content">
+                    <h3>代词 (Pronouns)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/3%E4%BB%A3%E8%AF%8D" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 4 -->
+            <div class="module-card">
+                <div class="module-number">4</div>
+                <div class="module-content">
+                    <h3>数词 (Numerals)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/4%E6%95%B0%E8%AF%8D" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 5 -->
+            <div class="module-card">
+                <div class="module-number">5</div>
+                <div class="module-content">
+                    <h3>动词 (Verbs)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/5%E5%8A%A8%E8%AF%8D" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 6 -->
+            <div class="module-card">
+                <div class="module-number">6</div>
+                <div class="module-content">
+                    <h3>形容词和副词 (Adjectives & Adverbs)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/6%E5%BD%A2%E5%AE%B9%E8%AF%8D%E5%92%8C%E5%89%AF%E8%AF%8D" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 7 -->
+            <div class="module-card">
+                <div class="module-number">7</div>
+                <div class="module-content">
+                    <h3>介词 (Prepositions)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/7%E4%BB%8B%E8%AF%8D" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 8 -->
+            <div class="module-card">
+                <div class="module-number">8</div>
+                <div class="module-content">
+                    <h3>连词 (Conjunctions)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/8%E8%BF%9E%E8%AF%8D" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 9 -->
+            <div class="module-card">
+                <div class="module-number">9</div>
+                <div class="module-content">
+                    <h3>动词语态 (Verb Voices)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/9%E5%8A%A8%E8%AF%8D%E8%AF%AD%E6%80%81" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 10 -->
+            <div class="module-card">
+                <div class="module-number">10</div>
+                <div class="module-content">
+                    <h3>动词不定式 (Infinitives)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/10%E5%8A%A8%E8%AF%8D%E4%B8%8D%E5%AE%9A%E5%BC%8F" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 11 -->
+            <div class="module-card">
+                <div class="module-number">11</div>
+                <div class="module-content">
+                    <h3>宾语从句 (Object Clauses)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/11%E5%AE%BE%E8%AF%AD%E4%BB%8E%E5%8F%A5" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 12 -->
+            <div class="module-card">
+                <div class="module-number">12</div>
+                <div class="module-content">
+                    <h3>状语从句 (Adverbial Clauses)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/12%E7%8A%B6%E8%AF%AD%E4%BB%8E%E5%8F%A5" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            
+            <!-- Module 13 -->
+            <div class="module-card">
+                <div class="module-number">13</div>
+                <div class="module-content">
+                    <h3>定语从句 (Attributive Clauses)</h3>
+                    <a href="https://wangzhrm.github.io/IELTS/13%E5%AE%9A%E8%AF%AD%E4%BB%8E%E5%8F%A5" class="module-btn">Learn Now <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Grammar Learning Modules &copy; 2023 | Comprehensive English Grammar for IELTS Preparation</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Add animation to cards when they come into view
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.module-card');
+            
+            cards.forEach((card, index) => {
+                // Add delay for staggered animation
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                // Add hover effect
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
