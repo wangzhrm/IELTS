@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>介词知识学习与练习</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(120deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            opacity: 0.9;
+        }
+        
+        .header-decoration {
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.05;
+            z-index: 1;
+            top: 20px;
+            right: 30px;
+            transform: rotate(15deg);
+        }
+        
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        h2 {
+            color: #2a5298;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e4edf9;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        h2 i {
+            background: linear-gradient(120deg, #1e3c72 0%, #2a5298 100%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        th {
+            background: linear-gradient(120deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #eef2f7;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8fbff;
+        }
+        
+        tr:hover {
+            background-color: #eef5ff;
+        }
+        
+        .exercise-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .exercise {
+            background: #f8fbff;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #2a5298;
+            transition: all 0.3s ease;
+        }
+        
+        .exercise:hover {
+            background: #eef5ff;
+            transform: translateX(5px);
+        }
+        
+        .question {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: #1a3a5f;
+        }
+        
+        .choices {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .choice {
+            padding: 15px;
+            background: white;
+            border: 2px solid #d0ddee;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .choice:hover {
+            border-color: #2a5298;
+            background: #f0f5ff;
+        }
+        
+        .choice.selected {
+            border-color: #2a5298;
+            background: #e1ebff;
+        }
+        
+        .choice.correct {
+            border-color: #28a745;
+            background: #e6ffec;
+        }
+        
+        .choice.incorrect {
+            border-color: #dc3545;
+            background: #ffe6e9;
+        }
+        
+        .choice-prefix {
+            background: #2a5298;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+            background: #f0f7ff;
+            border-radius: 10px;
+        }
+        
+        .explanation.active {
+            max-height: 300px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #d0ddee;
+        }
+        
+        .explanation h4 {
+            color: #28a745;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .explanation p {
+            color: #1a3a5f;
+            line-height: 1.7;
+        }
+        
+        .progress-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            margin-top: 20px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #2a5298;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #6c757d;
+            font-size: 1rem;
+        }
+        
+        .result-message {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .result-message.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .choices {
+                grid-template-columns: 1fr;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header-decoration {
+                font-size: 8rem;
+                top: 40px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-decoration">
+                <i class="fas fa-language"></i>
+            </div>
+            <h1>介词知识学习与练习</h1>
+            <p>掌握介词用法，提高英语表达能力</p>
+        </header>
+        
+        <div class="section">
+            <h2><i class="fas fa-book"></i> 介词知识梳理</h2>
+            <p>介词是一种虚词，用来表示它后面的名词或代词同句中其他某个成分之间的关系。介词在句中不能单独使用，必须连用它的宾语即后面的名词或代词构成介词词组后才能作句子成分。</p>
+            
+            <div style="overflow-x: auto; margin-top: 30px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>介词</th>
+                            <th>地点、方位</th>
+                            <th>时间</th>
+                            <th>动作方向</th>
+                            <th>其他</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>about</td>
+                            <td>在...周围、附近</td>
+                            <td>在...之后</td>
+                            <td>-</td>
+                            <td>关于、大约</td>
+                        </tr>
+                        <tr>
+                            <td>above</td>
+                            <td>在...之上</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>超过，在...以上</td>
+                        </tr>
+                        <tr>
+                            <td>across</td>
+                            <td>横过</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>after</td>
+                            <td>在...后面</td>
+                            <td>在...之后</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>against</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>反对，对着</td>
+                        </tr>
+                        <tr>
+                            <td>along</td>
+                            <td>沿着</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>among</td>
+                            <td>在...之中</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>around</td>
+                            <td>在...周围</td>
+                            <td>大约</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>at</td>
+                            <td>在...位置</td>
+                            <td>在...点钟</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>before</td>
+                            <td>在...前面</td>
+                            <td>在...以前</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>behind</td>
+                            <td>在...后面</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>below</td>
+                            <td>在...以下</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>beside</td>
+                            <td>在...旁边</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>between</td>
+                            <td>在...之间</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>by</td>
+                            <td>在...旁边</td>
+                            <td>到...为止</td>
+                            <td>-</td>
+                            <td>用；有</td>
+                        </tr>
+                        <tr>
+                            <td>from</td>
+                            <td>-</td>
+                            <td>从...起</td>
+                            <td>从...来</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>in</td>
+                            <td>在...里面</td>
+                            <td>在...期间</td>
+                            <td>进入</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>on</td>
+                            <td>在...上面</td>
+                            <td>在...日</td>
+                            <td>-</td>
+                            <td>关于</td>
+                        </tr>
+                        <tr>
+                            <td>to</td>
+                            <td>-</td>
+                            <td>到...之时</td>
+                            <td>到...</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>under</td>
+                            <td>在...下面</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>with</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>和...一起</td>
+                        </tr>
+                        <tr>
+                            <td>without</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>没有</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2><i class="fas fa-pen-alt"></i> 介词练习</h2>
+            <p>请完成以下练习，选择正确的答案。完成后将显示解析。</p>
+            
+            <div class="exercise-container">
+                <!-- 练习1 -->
+                <div class="exercise" id="exercise1">
+                    <div class="question">
+                        <p>1. — What time did you get there this morning?</p>
+                        <p>— ________ eight.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>In</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>On</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>At</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>From</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: C</h4>
+                        <p>此题考查学生是否掌握了 at/in/on 表示时间的用法。表示几点用 at。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习2 -->
+                <div class="exercise" id="exercise2">
+                    <div class="question">
+                        <p>2. He has got a chair to sit ________, but nobody to talk ________.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>on, to</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>/ , with</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>on, /</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>/ , to</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: A</h4>
+                        <p>此题考查位置介词 on 和词组 talk to。sit on a chair（坐在椅子上）是固定搭配，talk to somebody（和某人交谈）也是固定搭配。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习3 -->
+                <div class="exercise" id="exercise3">
+                    <div class="question">
+                        <p>3. Where's Lily? We are all here ________ her.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>beside</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>about</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>except</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>with</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: C</h4>
+                        <p>此题考查四个介词的意思。根据上下文，Lily不在这里，所以用except表示"除了她，我们都在这里"。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习4 -->
+                <div class="exercise" id="exercise4">
+                    <div class="question">
+                        <p>4. Shanghai lies ________ the east of China.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>to</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>in</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>on</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>at</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: B</h4>
+                        <p>此题考查学生是否掌握了表达位置的用法。在表达东、西、南、北的方位时，在范围之内用 in, 在范围之外用 to，相邻用 on。上海在中国境内，所以用 in。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-header">
+                    <span>练习进度</span>
+                    <span id="progress-text">0/4 完成</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+            
+            <div class="result-message" id="result-message">
+                <i class="fas fa-trophy"></i> 恭喜！你已完成所有练习！
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 英语介词学习 | 掌握介词用法，提升英语表达能力</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const exercises = document.querySelectorAll('.exercise');
+            let completedCount = 0;
+            
+            exercises.forEach(exercise => {
+                const choices = exercise.querySelectorAll('.choice');
+                const explanation = exercise.querySelector('.explanation');
+                
+                choices.forEach(choice => {
+                    choice.addEventListener('click', function() {
+                        // 如果已经选择了答案，则不再处理
+                        if (exercise.classList.contains('completed')) return;
+                        
+                        // 移除其他选项的选择状态
+                        choices.forEach(c => c.classList.remove('selected'));
+                        
+                        // 添加当前选项的选择状态
+                        this.classList.add('selected');
+                        
+                        // 获取正确答案
+                        const correctAnswer = explanation.querySelector('h4').textContent.split(': ')[1].trim();
+                        const userAnswer = this.getAttribute('data-choice');
+                        
+                        // 标记正确/错误
+                        if (userAnswer === correctAnswer) {
+                            this.classList.add('correct');
+                        } else {
+                            this.classList.add('incorrect');
+                            // 显示正确答案
+                            choices.forEach(c => {
+                                if (c.getAttribute('data-choice') === correctAnswer) {
+                                    c.classList.add('correct');
+                                }
+                            });
+                        }
+                        
+                        // 显示解析
+                        explanation.classList.add('active');
+                        
+                        // 标记练习已完成
+                        exercise.classList.add('completed');
+                        
+                        // 更新进度
+                        completedCount++;
+                        updateProgress();
+                    });
+                });
+            });
+            
+            function updateProgress() {
+                const progressText = document.getElementById('progress-text');
+                const progressFill = document.getElementById('progress-fill');
+                const resultMessage = document.getElementById('result-message');
+                
+                const percentage = (completedCount / exercises.length) * 100;
+                progressFill.style.width = `${percentage}%`;
+                progressText.textContent = `${completedCount}/${exercises.length} 完成`;
+                
+                if (completedCount === exercises.length) {
+                    resultMessage.classList.add('success');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

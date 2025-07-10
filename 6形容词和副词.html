@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语形容词和副词学习系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.97);
+            border-radius: 15px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #4b6cb7, #182848);
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 15px auto 0;
+            font-weight: 300;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 45px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 4px solid #3498db;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 12px;
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        h3 {
+            color: #2980b9;
+            margin: 25px 0 18px;
+            font-size: 1.5rem;
+            padding-left: 12px;
+            border-left: 4px solid #3498db;
+        }
+        
+        p {
+            margin-bottom: 18px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #444;
+        }
+        
+        ul, ol {
+            margin-left: 35px;
+            margin-bottom: 25px;
+        }
+        
+        li {
+            margin-bottom: 14px;
+            font-size: 1.15rem;
+            padding-left: 8px;
+        }
+        
+        .highlight {
+            background: linear-gradient(to right, #f0f9ff, #e6f7ff);
+            padding: 20px;
+            border-left: 5px solid #3498db;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .example {
+            background: #e8f5e9;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 18px 0;
+            font-style: italic;
+            border-left: 4px solid #2ecc71;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        th {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 14px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .question-container {
+            background: #f0f7ff;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px solid #d1e8ff;
+            position: relative;
+        }
+        
+        .question-container:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, #3498db, #2c3e50);
+            border-radius: 12px 0 0 12px;
+        }
+        
+        .question-number {
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: #3498db;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 15px 0 20px 10px;
+            color: #2c3e50;
+        }
+        
+        .options {
+            margin: 18px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .option {
+            padding: 16px 20px;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #3498db;
+            transform: translateY(-3px);
+        }
+        
+        .option.selected {
+            background: #d1e8ff;
+            border-color: #2980b9;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+        }
+        
+        .option-letter {
+            font-weight: bold;
+            margin-right: 15px;
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .check-answer {
+            background: linear-gradient(to right, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.15rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+        
+        .check-answer:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+            background: linear-gradient(to right, #2980b9, #2573a7);
+        }
+        
+        .answer {
+            display: none;
+            margin-top: 25px;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .correct-answer {
+            font-weight: 800;
+            color: #27ae60;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .explanation {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #444;
+        }
+        
+        .correct {
+            background: #e8f5e9;
+            border-left-color: #2ecc71;
+        }
+        
+        .incorrect {
+            background: #ffebee;
+            border-left-color: #e74c3c;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: white;
+            background: rgba(0, 0, 0, 0.25);
+            margin-top: 20px;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .option {
+                padding: 14px;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>英语形容词和副词学习系统</h1>
+            <p class="subtitle">掌握形容词与副词的用法、位置规则及比较级变化</p>
+        </header>
+        
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2><i class="fas fa-adjective"></i> 一、形容词</h2>
+                <p>用来修饰名词，表示人或事物的性质、状态和特征的词，叫形容词。</p>
+                
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>作用</th>
+                            <th>例句</th>
+                        </tr>
+                        <tr>
+                            <td>定语</td>
+                            <td>You can see a lot of beautiful flowers in the garden.</td>
+                        </tr>
+                        <tr>
+                            <td>表语</td>
+                            <td>Your coat is too small.</td>
+                        </tr>
+                        <tr>
+                            <td>宾语补足语</td>
+                            <td>The old woman keeps everything clean and tidy.</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>注意：</strong>有些形容词只能作表语，如：alone, afraid, asleep等。</p>
+                    <p class="example">Don't wake the sleeping baby up. He is asleep.</p>
+                    <p class="example">The old man is alone.</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>形容词用来修饰something, anything, nothing, everything等不定代词，要放在这些词的后面：</p>
+                    <p class="example">You'd better tell us something interesting.</p>
+                    <p class="example">The police found nothing strange in the room.</p>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>多个形容词做定语时排列顺序：</strong></p>
+                    <ol>
+                        <li>冠词或人称代词</li>
+                        <li>数词</li>
+                        <li>性质</li>
+                        <li>大小</li>
+                        <li>形状</li>
+                        <li>表示老少，新旧</li>
+                        <li>颜色</li>
+                        <li>事务、质地、人的国籍、用途</li>
+                    </ol>
+                    <p class="example">His grandpa still lives in this small short house. (他爷爷还住在这个矮小的房子里)</p>
+                    <p class="example">The woman bought two beautiful Chinese plates. (那个妇女买了两个漂亮的中国盘子)</p>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>形容词名词化：</strong>有些形容词前加定冠词后变成名词，表示一类人，谓语常用复数：</p>
+                    <p>rich/poor; good/bad; young/old; healthy/ill; living/dead; black/white</p>
+                    <p class="example">The young should take good care of the old. (年轻人应该好好照顾老人)</p>
+                    <p class="example">The rich never help the poor in this country. (在这个国家，富人从来不帮助穷人)</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-adverb"></i> 二、副词</h2>
+                <p>英语中副词的位置和汉语不尽相同，它的位置比较灵活。通常用作状语修饰动词、形容词、副词等。</p>
+                
+                <div class="highlight">
+                    <p><strong>1. 多数副词放在所修饰的动词后面：</strong></p>
+                    <p class="example">We are living happily. (我们幸福的生活着)</p>
+                    <p class="example">He runs slowly. (他跑的很慢)</p>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>2. 时间副词、地点副词和方式副词一般放在句末：</strong></p>
+                    <p class="example">They went to the park yesterday morning. (昨天上午他们去公园了)</p>
+                    <p class="example">I heard him sing English songs over there. (我听见他在那边唱英语歌曲)</p>
+                    <p class="example">He drove the jeep carefully. (他小心地开着吉普)</p>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>3. 频度副词位置：</strong></p>
+                    <p>一般放在be动词、情态动词及第一个助动词之后，实义动词之前</p>
+                    <p class="example">He is seldom ill. (他很少生病)</p>
+                    <p class="example">I often write to my parents. (我经常写信给父母)</p>
+                    <p class="example">He has never been to Beijing. (他从来没有去过北京)</p>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>4. 程度副词位置：</strong></p>
+                    <p>修饰动词时，与频度副词相同；修饰形容词和副词时，放在它所修饰的词前面</p>
+                    <p class="example">That's quite early. (那很早)</p>
+                    <p class="example">She did rather badly. (她干得相当糟)</p>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>5. 否定副词位置：</strong></p>
+                    <p>一般放在动词之前、系动词be或助动词之后</p>
+                    <p class="example">She seldom goes out at night. (她晚上很少出门)</p>
+                    <p class="example">I am never late for school. (我上学从不迟到)</p>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>6. 疑问副词位置：</strong></p>
+                    <p>放在特殊疑问句的句首</p>
+                    <p class="example">When can you come? (你什么时候来？)</p>
+                    <p class="example">Why didn't he come? (他为什么没有来？)</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-chart-line"></i> 三、形容词和副词的比较级和最高级</h2>
+                
+                <div class="highlight">
+                    <p><strong>1. 规则变化：</strong></p>
+                    <div class="table-container">
+                        <table>
+                            <tr>
+                                <th>情况</th>
+                                <th>加法</th>
+                                <th>例词</th>
+                            </tr>
+                            <tr>
+                                <td>一般情况</td>
+                                <td>直接加 -er ; -est</td>
+                                <td>tall - taller - tallest</td>
+                            </tr>
+                            <tr>
+                                <td>以e结尾的词</td>
+                                <td>加 -r ; -st</td>
+                                <td>nice - nicer - nicest</td>
+                            </tr>
+                            <tr>
+                                <td>以"辅音+y"结尾的词</td>
+                                <td>变y为i再加-er ; -est</td>
+                                <td>dry - drier - driest<br>heavy - heavier - heaviest</td>
+                            </tr>
+                            <tr>
+                                <td>以一个辅音字母结尾的词</td>
+                                <td>辅音字母双写，再加-er ; -est</td>
+                                <td>thin - thinner - thinnest</td>
+                            </tr>
+                            <tr>
+                                <td>多音节和部分双音节单词</td>
+                                <td>在词前加 more ; most</td>
+                                <td>more delicious<br>most delicious</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>2. 不规则变化：</strong></p>
+                    <div class="table-container">
+                        <table>
+                            <tr>
+                                <th>原级</th>
+                                <th>比较级</th>
+                                <th>最高级</th>
+                            </tr>
+                            <tr>
+                                <td>good, well</td>
+                                <td>better</td>
+                                <td>best</td>
+                            </tr>
+                            <tr>
+                                <td>bad, ill</td>
+                                <td>worse</td>
+                                <td>worst</td>
+                            </tr>
+                            <tr>
+                                <td>many, much</td>
+                                <td>more</td>
+                                <td>most</td>
+                            </tr>
+                            <tr>
+                                <td>little</td>
+                                <td>less</td>
+                                <td>least</td>
+                            </tr>
+                            <tr>
+                                <td>far</td>
+                                <td>farther/further</td>
+                                <td>farthest/furthest</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <p><strong>3. 比较级用法：</strong></p>
+                    <div class="table-container">
+                        <table>
+                            <tr>
+                                <th>级别</th>
+                                <th>比较程度</th>
+                                <th>表达方式</th>
+                                <th>例句</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">原级</td>
+                                <td>同等程度</td>
+                                <td>As + 原级 + as</td>
+                                <td>Art is as interesting as music.</td>
+                            </tr>
+                            <tr>
+                                <td>不同等程度</td>
+                                <td>not + so (as) + 原级 + as</td>
+                                <td>English is not so difficult as science.</td>
+                            </tr>
+                            <tr>
+                                <td>比较级</td>
+                                <td>不同程度</td>
+                                <td>比较级 + than</td>
+                                <td>Jim is older than Lucy.</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2">最高级</td>
+                                <td>最高程度</td>
+                                <td>The + 最高级 + of/in</td>
+                                <td>Spring is the best season of the year.</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p class="example">China is four times as large as Europe. (中国是欧洲的四倍大)</p>
+                    <p class="example">He is growing taller and taller. (他长得越来越高)</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-question-circle"></i> 例题解析</h2>
+                <p class="highlight">举一反三，学的更轻松！</p>
+                
+                <!-- 问题1 -->
+                <div class="question-container">
+                    <div class="question-number">1</div>
+                    <div class="question">He is ________ friends than I.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">much more</div>
+                        </div>
+                        <div class="option" data-value="B">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">many more</div>
+                        </div>
+                        <div class="option" data-value="C">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">very more</div>
+                        </div>
+                        <div class="option" data-value="D">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">too more</div>
+                        </div>
+                    </div>
+                    <button class="check-answer">
+                        <i class="fas fa-check-circle"></i> 查看答案与解析
+                    </button>
+                    <div class="answer">
+                        <div class="correct-answer">
+                            <i class="fas fa-check"></i> 正确答案：B
+                        </div>
+                        <div class="explanation">后面有可数名词复数时，many的比较级形式为many more修饰。应选B。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题2 -->
+                <div class="question-container">
+                    <div class="question-number">2</div>
+                    <div class="question">Which is the ________ country, Japan or Australia?</div>
+                    <div class="options">
+                        <div class="option" data-value="A">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">more developed</div>
+                        </div>
+                        <div class="option" data-value="B">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">more developing</div>
+                        </div>
+                        <div class="option" data-value="C">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">most developed</div>
+                        </div>
+                        <div class="option" data-value="D">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">most developing</div>
+                        </div>
+                    </div>
+                    <button class="check-answer">
+                        <i class="fas fa-check-circle"></i> 查看答案与解析
+                    </button>
+                    <div class="answer">
+                        <div class="correct-answer">
+                            <i class="fas fa-check"></i> 正确答案：A
+                        </div>
+                        <div class="explanation">两者比较用比较级，表示"发达"用developed，而developing是"发展中的"意思。应选A。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题3 -->
+                <div class="question-container">
+                    <div class="question-number">3</div>
+                    <div class="question">There were ________ shops in the city in 1982 than in 1990.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">little</div>
+                        </div>
+                        <div class="option" data-value="B">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">few</div>
+                        </div>
+                        <div class="option" data-value="C">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">fewer</div>
+                        </div>
+                        <div class="option" data-value="D">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">less</div>
+                        </div>
+                    </div>
+                    <button class="check-answer">
+                        <i class="fas fa-check-circle"></i> 查看答案与解析
+                    </button>
+                    <div class="answer">
+                        <div class="correct-answer">
+                            <i class="fas fa-check"></i> 正确答案：C
+                        </div>
+                        <div class="explanation">little不能修饰可数名词，两者比较需用比较级，所以应选C。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题4 -->
+                <div class="question-container">
+                    <div class="question-number">4</div>
+                    <div class="question">If you are not free today, come another day ________.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">too</div>
+                        </div>
+                        <div class="option" data-value="B">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">so</div>
+                        </div>
+                        <div class="option" data-value="C">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">instead</div>
+                        </div>
+                        <div class="option" data-value="D">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">yet</div>
+                        </div>
+                    </div>
+                    <button class="check-answer">
+                        <i class="fas fa-check-circle"></i> 查看答案与解析
+                    </button>
+                    <div class="answer">
+                        <div class="correct-answer">
+                            <i class="fas fa-check"></i> 正确答案：C
+                        </div>
+                        <div class="explanation">instead作副词用时意为"代替，顶替"，表示前面的事情没做，而是做了后面的事。Instead一般位于句首。应选C。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题5 -->
+                <div class="question-container">
+                    <div class="question-number">5</div>
+                    <div class="question">He can't tell us ________, I think.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">important anything</div>
+                        </div>
+                        <div class="option" data-value="B">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">anything important</div>
+                        </div>
+                        <div class="option" data-value="C">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">important something</div>
+                        </div>
+                        <div class="option" data-value="D">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">something important</div>
+                        </div>
+                    </div>
+                    <button class="check-answer">
+                        <i class="fas fa-check-circle"></i> 查看答案与解析
+                    </button>
+                    <div class="answer">
+                        <div class="correct-answer">
+                            <i class="fas fa-check"></i> 正确答案：B
+                        </div>
+                        <div class="explanation">不定代词与形容词联用需后置，否定句中应该用anything而不是something。因此应选B。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题6 -->
+                <div class="question-container">
+                    <div class="question-number">6</div>
+                    <div class="question">The Huang River is the second ________ river in our country.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">long</div>
+                        </div>
+                        <div class="option" data-value="B">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">longer</div>
+                        </div>
+                        <div class="option" data-value="C">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">longest</div>
+                        </div>
+                        <div class="option" data-value="D">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">the longest</div>
+                        </div>
+                    </div>
+                    <button class="check-answer">
+                        <i class="fas fa-check-circle"></i> 查看答案与解析
+                    </button>
+                    <div class="answer">
+                        <div class="correct-answer">
+                            <i class="fas fa-check"></i> 正确答案：C
+                        </div>
+                        <div class="explanation">"定冠词the+序数词+形容词最高级"表示"第几大......"。应选C。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题7 -->
+                <div class="question-container">
+                    <div class="question-number">7</div>
+                    <div class="question">The light in the office wasn't ________ for him to read.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">enough bright</div>
+                        </div>
+                        <div class="option" data-value="B">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">bright enough</div>
+                        </div>
+                        <div class="option" data-value="C">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">brightly</div>
+                        </div>
+                        <div class="option" data-value="D">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">enough brightly</div>
+                        </div>
+                    </div>
+                    <button class="check-answer">
+                        <i class="fas fa-check-circle"></i> 查看答案与解析
+                    </button>
+                    <div class="answer">
+                        <div class="correct-answer">
+                            <i class="fas fa-check"></i> 正确答案：B
+                        </div>
+                        <div class="explanation">enough修饰名词时可前可后，修饰形容词或副词时，要后置。应选B。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题8 -->
+                <div class="question-container">
+                    <div class="question-number">8</div>
+                    <div class="question">There was an accident at the corner. ________, the girl wasn't ________ hurt.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">luckily, badly</div>
+                        </div>
+                        <div class="option" data-value="B">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">luck, hardly</div>
+                        </div>
+                        <div class="option" data-value="C">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">Lucky, heavily</div>
+                        </div>
+                        <div class="option" data-value="D">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">Lucky, strongly</div>
+                        </div>
+                    </div>
+                    <button class="check-answer">
+                        <i class="fas fa-check-circle"></i> 查看答案与解析
+                    </button>
+                    <div class="answer">
+                        <div class="correct-answer">
+                            <i class="fas fa-check"></i> 正确答案：A
+                        </div>
+                        <div class="explanation">第一空修饰全句需用副词，第二空修饰形容词hurt也要用副词，因此选A。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题9 -->
+                <div class="question-container">
+                    <div class="question-number">9</div>
+                    <div class="question">You must keep your eyes ________ when you do eye exercises.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">close</div>
+                        </div>
+                        <div class="option" data-value="B">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">open</div>
+                        </div>
+                        <div class="option" data-value="C">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">closed</div>
+                        </div>
+                        <div class="option" data-value="D">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">opened</div>
+                        </div>
+                    </div>
+                    <button class="check-answer">
+                        <i class="fas fa-check-circle"></i> 查看答案与解析
+                    </button>
+                    <div class="answer">
+                        <div class="correct-answer">
+                            <i class="fas fa-check"></i> 正确答案：C
+                        </div>
+                        <div class="explanation">此处需用形容词做宾语补足语。应选C。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题10 -->
+                <div class="question-container">
+                    <div class="question-number">10</div>
+                    <div class="question">Five days has passed, but I haven't finished half of the work. ________,</div>
+                    <div class="options">
+                        <div class="option" data-value="A">
+                            <div class="option-letter">A</div>
+                            <div class="option-text">already</div>
+                        </div>
+                        <div class="option" data-value="B">
+                            <div class="option-letter">B</div>
+                            <div class="option-text">still</div>
+                        </div>
+                        <div class="option" data-value="C">
+                            <div class="option-letter">C</div>
+                            <div class="option-text">too</div>
+                        </div>
+                        <div class="option" data-value="D">
+                            <div class="option-letter">D</div>
+                            <div class="option-text">yet</div>
+                        </div>
+                    </div>
+                    <button class="check-answer">
+                        <i class="fas fa-check-circle"></i> 查看答案与解析
+                    </button>
+                    <div class="answer">
+                        <div class="correct-answer">
+                            <i class="fas fa-check"></i> 正确答案：D
+                        </div>
+                        <div class="explanation">already与yet都可用于现在完成时态。Already常用于肯定句，而yet常用于否定句。应选D。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>英语形容词和副词学习系统 &copy; 2023 - 掌握语法精髓，提升语言能力</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 选项选择功能
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    // 移除同一问题中其他选项的选中状态
+                    const parentContainer = this.closest('.question-container');
+                    parentContainer.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // 添加当前选项的选中状态
+                    this.classList.add('selected');
+                    
+                    // 更新进度条
+                    updateProgressBar();
+                });
+            });
+            
+            // 查看答案功能
+            const checkButtons = document.querySelectorAll('.check-answer');
+            checkButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const container = this.closest('.question-container');
+                    const selectedOption = container.querySelector('.option.selected');
+                    const answerDiv = container.querySelector('.answer');
+                    
+                    if (!selectedOption) {
+                        alert('请先选择一个答案！');
+                        return;
+                    }
+                    
+                    // 显示答案
+                    answerDiv.style.display = 'block';
+                    
+                    // 滚动到答案位置
+                    answerDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+            
+            // 更新进度条
+            function updateProgressBar() {
+                const totalQuestions = document.querySelectorAll('.question-container').length;
+                const answeredQuestions = document.querySelectorAll('.option.selected').length;
+                const progressPercentage = (answeredQuestions / totalQuestions) * 100;
+                
+                document.getElementById('progress').style.width = `${progressPercentage}%`;
+            }
+        });
+    </script>
+</body>
+</html>

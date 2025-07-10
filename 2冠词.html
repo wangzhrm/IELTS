@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冠词用法详解与练习</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .main-content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f9fbfd;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #4b6cb7;
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #dce6f0;
+            font-size: 1.8rem;
+        }
+        
+        .section h3 {
+            color: #3498db;
+            margin: 20px 0 15px;
+            font-size: 1.4rem;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(139, 198, 236, 0.3) 0%, rgba(149, 153, 226, 0.3) 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .example {
+            background: #e8f4fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-style: italic;
+            border-left: 3px solid #5dade2;
+        }
+        
+        .note {
+            background: #fff8e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 3px solid #f1c40f;
+        }
+        
+        .exercise-section {
+            background: #edf7ff;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+        
+        .exercise-section h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+        
+        .question {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+        
+        .question:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .question p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .blank {
+            display: inline-block;
+            width: 80px;
+            margin: 0 5px;
+            position: relative;
+        }
+        
+        select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .explanation {
+            max-height: 0;
+            overflow: hidden;
+            background: #f8f9fa;
+            padding: 0 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            transition: all 0.4s ease;
+        }
+        
+        .explanation.show {
+            max-height: 200px;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .correct {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .incorrect {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .answer-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+        
+        .answer-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .options {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            .exercise-section {
+                padding: 20px;
+            }
+            
+            .blank {
+                width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>冠词用法详解与练习</h1>
+            <p class="subtitle">掌握不定冠词(a, an)和定冠词(the)的用法</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="section">
+                <h2>一、冠词概述</h2>
+                <p>冠词分为不定冠词(a, an)和定冠词(the)。冠词用于名词前，帮助说明名词的含义。</p>
+            </div>
+            
+            <div class="section">
+                <h2>二、不定冠词的用法</h2>
+                
+                <div class="highlight">
+                    <h3>1. 用于可数名词的单数形式前，指人或事物的某一种类</h3>
+                    <div class="example">
+                        <p>She is <strong>a</strong> girl.</p>
+                        <p>Pass me <strong>an</strong> apple, please.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>2. 指某人或某物，但不具体说明何人或何物</h3>
+                    <div class="example">
+                        <p><strong>A</strong> boy is waiting for you.</p>
+                        <p>We work six days <strong>a</strong> week.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>3. 表示"一"这个数量，但数的概念没有one强烈</h3>
+                    <div class="example">
+                        <p>We are going to have <strong>an</strong> English lesson tomorrow.</p>
+                        <p>I have <strong>a</strong> mouth, <strong>a</strong> nose, two eyes and two ears.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>4. 用于某些固定的词组中</h3>
+                    <div class="example">
+                        <p><strong>a</strong> few, <strong>a</strong> little, <strong>a</strong> lot of</p>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <p><strong>注意：</strong> 用a还是an，要看后面的词读音以辅音开头还是以元音开头。</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>三、定冠词的用法</h2>
+                
+                <div class="highlight">
+                    <h3>1. 特指某(些)人或某(些)物</h3>
+                    <div class="example">
+                        <p><strong>the</strong> photo of <strong>the</strong> boy</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>2. 指双方都知道的人或物</h3>
+                    <div class="example">
+                        <p>- Where are <strong>the</strong> new books, Jim?</p>
+                        <p>- They are on <strong>the</strong> small table.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>3. 指上文提过的人或物</h3>
+                    <div class="example">
+                        <p>Today he is making a machine.</p>
+                        <p>He wants to ride <strong>the</strong> machine like a bike and fly it like a plane.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>4. 用在世界上独一无二的事物前</h3>
+                    <div class="example">
+                        <p><strong>The</strong> sun is bigger than <strong>the</strong> moon.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>5. 用在序数词或形容词最高级前</h3>
+                    <div class="example">
+                        <p><strong>The</strong> first truck is carrying a few baskets.</p>
+                        <p><strong>The</strong> third one is carrying <strong>the</strong> fewest of all.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>6. 用在由普通名词构成的专有名词前</h3>
+                    <div class="example">
+                        <p><strong>the</strong> Great Wall</p>
+                        <p><strong>the</strong> North Street Hospital</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>7. 用在一些习惯用语中</h3>
+                    <div class="example">
+                        <p>in <strong>the</strong> morning (afternoon, evening)</p>
+                        <p>on <strong>the</strong> left(right)</p>
+                        <p>at <strong>the</strong> end of</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>四、不用冠词的情况</h2>
+                
+                <div class="highlight">
+                    <h3>1. 在专有名词前和不可数名词前</h3>
+                    <div class="example">
+                        <p>China, Grade Two, Bill Smith, milk</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>2. 名词前已有作定语用的this, that, my, your, some, any等代词</h3>
+                    <div class="example">
+                        <p>The letter is in her pocket.</p>
+                        <p>I think the shop is closed at this time of day.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>3. 复数名词表示一类人或事物时</h3>
+                    <div class="example">
+                        <p>My father and mother are teachers.</p>
+                        <p>I like cakes.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>4. 在星期、月份、季节、节日前</h3>
+                    <div class="example">
+                        <p>It is Sunday (Monday, Tuesday, etc.)</p>
+                        <p>Today is Mid-Autumn Day.</p>
+                        <p>It is cold in winter.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>5. 在称呼语或表示头衔的名词前</h3>
+                    <div class="example">
+                        <p>Uncle Wang likes making things.</p>
+                        <p>What colour are Mrs Green's shoes?</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>6. 在三餐饭和球类运动的名称前</h3>
+                    <div class="example">
+                        <p>He went to school after breakfast.</p>
+                        <p>Can you play basketball?</p>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <p><strong>注意：</strong> 在某些固定词组中，如：at home, by bus, go to school等的名词前不用冠词。</p>
+                </div>
+            </div>
+            
+            <div class="exercise-section">
+                <h2>冠词用法练习</h2>
+                
+                <div class="question" id="q1">
+                    <p>1. ______ milk is food. ______ milk in this cup has gone bad.</p>
+                    <div class="options">
+                        <div class="blank">
+                            <select id="q1-1">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                        <div class="blank">
+                            <select id="q1-2">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="answer-btn" onclick="showAnswer(1)">查看答案与解析</button>
+                    <div class="explanation" id="exp1">
+                        <p><strong>正确答案：</strong> / , the</p>
+                        <p><strong>解析：</strong> milk 是物质名词，一般不用冠词，但后面加上一个定语 in this cup 后，使其成为特指，所以需要用定冠词 the。</p>
+                    </div>
+                </div>
+                
+                <div class="question" id="q2">
+                    <p>2. ---Do you like playing ______ football?</p>
+                    <p>---Yes. But I have only ______ basketball.</p>
+                    <div class="options">
+                        <div class="blank">
+                            <select id="q2-1">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                        <div class="blank">
+                            <select id="q2-2">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="answer-btn" onclick="showAnswer(2)">查看答案与解析</button>
+                    <div class="explanation" id="exp2">
+                        <p><strong>正确答案：</strong> / , the</p>
+                        <p><strong>解析：</strong> 球类运动前不用 the；指一个物体要用不定冠词 a。</p>
+                    </div>
+                </div>
+                
+                <div class="question" id="q3">
+                    <p>3. Do you know ______ girl on ______ another side of ______ lake?</p>
+                    <div class="options">
+                        <div class="blank">
+                            <select id="q3-1">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                        <div class="blank">
+                            <select id="q3-2">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                        <div class="blank">
+                            <select id="q3-3">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="answer-btn" onclick="showAnswer(3)">查看答案与解析</button>
+                    <div class="explanation" id="exp3">
+                        <p><strong>正确答案：</strong> the, /, the</p>
+                        <p><strong>解析：</strong> 特指这个女孩用 the；名词前已有定语 another；特指湖用 the。</p>
+                    </div>
+                </div>
+                
+                <div class="question" id="q4">
+                    <p>4. There's ______ "u" and ______ "s" in ______ work "use".</p>
+                    <div class="options">
+                        <div class="blank">
+                            <select id="q4-1">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                        <div class="blank">
+                            <select id="q4-2">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                        <div class="blank">
+                            <select id="q4-3">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="answer-btn" onclick="showAnswer(4)">查看答案与解析</button>
+                    <div class="explanation" id="exp4">
+                        <p><strong>正确答案：</strong> a, an, the</p>
+                        <p><strong>解析：</strong> "u" 发音以辅音开头所以用 a；"s" 发音以元音开头所以用 an；特指这个单词用 the。</p>
+                    </div>
+                </div>
+                
+                <div class="question" id="q5">
+                    <p>5. She says ______ animals can't live without ______ air, either.</p>
+                    <div class="options">
+                        <div class="blank">
+                            <select id="q5-1">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                        <div class="blank">
+                            <select id="q5-2">
+                                <option value="">选择</option>
+                                <option value="a">a</option>
+                                <option value="an">an</option>
+                                <option value="the">the</option>
+                                <option value="/">/</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="answer-btn" onclick="showAnswer(5)">查看答案与解析</button>
+                    <div class="explanation" id="exp5">
+                        <p><strong>正确答案：</strong> / , /</p>
+                        <p><strong>解析：</strong> 泛指动物所以不用任何冠词；air 不可数名词，其前一般不用冠词。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 英语语法学习 | 冠词用法详解</p>
+        </footer>
+    </div>
+
+    <script>
+        function showAnswer(questionNum) {
+            const explanation = document.getElementById(`exp${questionNum}`);
+            explanation.classList.toggle('show');
+            
+            // 自动滚动到解释位置
+            explanation.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+        }
+    </script>
+</body>
+</html>

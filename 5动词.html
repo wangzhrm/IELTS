@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语动词学习系统</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        .knowledge-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+        .section-title {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 12px;
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+        .subsection {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #eee;
+        }
+        .subsection-title {
+            color: #2980b9;
+            font-size: 1.4rem;
+            margin-top: 25px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e1e1e1;
+        }
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        tr:hover {
+            background-color: #f1f8ff;
+        }
+        .example {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .quiz-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        .question-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eaeaea;
+        }
+        .question-number {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #3498db;
+            transform: translateY(-3px);
+        }
+        .option.selected {
+            background: #d1e7ff;
+            border-color: #3498db;
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.2);
+        }
+        .explanation {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 0 8px 8px 0;
+            display: none;
+        }
+        .explanation.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        .correct-answer {
+            color: #2e7d32;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .highlight {
+            background-color: #fffde7;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .important-note {
+            background: #ffecb3;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>英语动词学习系统</h1>
+            <div class="subtitle">掌握动词分类与时态用法，提升英语表达能力</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="knowledge-section">
+            <h2 class="section-title">动词知识梳理</h2>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">一、动词分类</h3>
+                <p>动词是表示动作（study, find, swim 等）或状态（be, like, feel 等）的词。动词具有人称、数量、时态、语态和语态变化。</p>
+                
+                <div class="important-note">
+                    <strong>动词分类：</strong> 动词有助动词、情态动词、联系动词和行为动词四类。
+                </div>
+                
+                <h4>1. 助动词 (Auxiliary Verbs)</h4>
+                <p>助动词没有任何含义，不能单独做谓语，只能和行为动词一起构成谓语，帮助行为动词组成各种时态、语态、语气以及疑问或否定形式。</p>
+                
+                <table>
+                    <tr>
+                        <th>助动词</th>
+                        <th>用法</th>
+                        <th>示例</th>
+                    </tr>
+                    <tr>
+                        <td>be</td>
+                        <td>构成进行时态、被动语态、表示计划安排</td>
+                        <td>It <span class="highlight">was raining</span> all day yesterday.<br>The meeting <span class="highlight">was held</span> yesterday.<br>They <span class="highlight">are to see</span> a film.</td>
+                    </tr>
+                    <tr>
+                        <td>do</td>
+                        <td>构成疑问句、否定句、表示强调</td>
+                        <td><span class="highlight">Does</span> he think so?<br>I <span class="highlight">didn't say</span> anything.<br>They <span class="highlight">do study</span> hard.</td>
+                    </tr>
+                    <tr>
+                        <td>have</td>
+                        <td>构成完成时态</td>
+                        <td>He <span class="highlight">has lived</span> here for three years.</td>
+                    </tr>
+                    <tr>
+                        <td>shall/should</td>
+                        <td>构成将来时态</td>
+                        <td>I <span class="highlight">shall send</span> ten letters.<br>She asked if I <span class="highlight">should go</span>.</td>
+                    </tr>
+                </table>
+                
+                <h4>2. 情态动词 (Modal Verbs)</h4>
+                <p>情态动词本身有一定含义，但不能单独作谓语，要和行为动词一起构成谓语。</p>
+                
+                <div class="example">
+                    <p><strong>能力表示：</strong> can/could, be able to</p>
+                    <p>Rose <span class="highlight">can speak</span> now, but she <span class="highlight">couldn't</span> a week ago.</p>
+                    <p>She <span class="highlight">was able to finish</span> the task last night.</p>
+                </div>
+                
+                <div class="example">
+                    <p><strong>许可表示：</strong> may/might, can/could</p>
+                    <p>- <span class="highlight">Could</span> I borrow your book?<br>- Yes, you <span class="highlight">can</span>.</p>
+                </div>
+                
+                <div class="example">
+                    <p><strong>必要表示：</strong> must, have to</p>
+                    <p>You <span class="highlight">must/have to</span> finish the work.</p>
+                    <p><strong>区别：</strong> must表示主观看法；have to表示客观需要</p>
+                </div>
+            </div>
+            
+            <div class="subsection">
+                <h3 class="subsection-title">二、动词时态</h3>
+                
+                <h4>1. 一般现在时 (Simple Present Tense)</h4>
+                <p>表示经常性、习惯性的动作或客观真理。</p>
+                
+                <table>
+                    <tr>
+                        <th>主语</th>
+                        <th>动词变化</th>
+                    </tr>
+                    <tr>
+                        <td>I, we, you, they, 复数名词</td>
+                        <td>动词原形</td>
+                    </tr>
+                    <tr>
+                        <td>he, she, it, 单数名词</td>
+                        <td>动词 + s/es</td>
+                    </tr>
+                </table>
+                
+                <div class="example">
+                    <p>I <span class="highlight">get up</span> at six every morning.</p>
+                    <p>The earth <span class="highlight">goes</span> around the sun.</p>
+                </div>
+                
+                <h4>2. 现在进行时 (Present Continuous Tense)</h4>
+                <p>表示说话时正在进行或现阶段正在进行的动作。</p>
+                <p>结构：am/is/are + 动词-ing</p>
+                
+                <div class="example">
+                    <p>She <span class="highlight">is having</span> a bath now.</p>
+                    <p>Kate <span class="highlight">is learning</span> Italian.</p>
+                </div>
+                
+                <h4>3. 一般将来时 (Simple Future Tense)</h4>
+                <p>表示将要发生的动作或存在的状态。</p>
+                <p>结构：will/shall + 动词原形 或 am/is/are going to + 动词原形</p>
+                
+                <div class="example">
+                    <p>I <span class="highlight">will leave</span> for Beijing tomorrow.</p>
+                    <p>We <span class="highlight">are going to hold</span> the Olympic Games.</p>
+                </div>
+                
+                <h4>4. 一般过去时 (Simple Past Tense)</h4>
+                <p>表示过去发生的动作或状态。</p>
+                <p>结构：动词过去式</p>
+                
+                <div class="example">
+                    <p>I <span class="highlight">bought</span> a book yesterday.</p>
+                    <p>They <span class="highlight">weren't able</span> to come.</p>
+                </div>
+                
+                <h4>5. 现在完成时 (Present Perfect Tense)</h4>
+                <p>表示过去发生的动作对现在造成的影响或结果，或从过去持续到现在的动作。</p>
+                <p>结构：have/has + 过去分词</p>
+                
+                <div class="example">
+                    <p>She <span class="highlight">has never read</span> this novel.</p>
+                    <p>I <span class="highlight">have been</span> a teacher for 10 years.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="quiz-section">
+            <h2 class="section-title">动词时态练习题</h2>
+            <p>请选择下列各题的最佳答案，选择后将显示解析：</p>
+            
+            <!-- 问题1 -->
+            <div class="question-card">
+                <div>
+                    <span class="question-number">1</span>
+                    --What are Mr and Mrs Black doing?<br>
+                    --They ______ tea in the garden.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">A. are drinking</div>
+                    <div class="option" data-value="B">B. drank</div>
+                    <div class="option" data-value="C">C. have drunk</div>
+                    <div class="option" data-value="D">D. drink</div>
+                </div>
+                <div class="explanation">
+                    <p class="correct-answer">正确答案：A. are drinking</p>
+                    <p><strong>解析：</strong>根据问句的现在进行时态，答句时态要一致，表示正在进行的动作。</p>
+                </div>
+            </div>
+            
+            <!-- 问题2 -->
+            <div class="question-card">
+                <div>
+                    <span class="question-number">2</span>
+                    My mother often asks me ______ early.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">A. get up</div>
+                    <div class="option" data-value="B">B. got up</div>
+                    <div class="option" data-value="C">C. getting up</div>
+                    <div class="option" data-value="D">D. to get up</div>
+                </div>
+                <div class="explanation">
+                    <p class="correct-answer">正确答案：D. to get up</p>
+                    <p><strong>解析：</strong>根据句中的谓语动词ask的固定搭配 ask sb to do sth。</p>
+                </div>
+            </div>
+            
+            <!-- 问题3 -->
+            <div class="question-card">
+                <div>
+                    <span class="question-number">3</span>
+                    Soon Wu Dong ______ up with Li Lei, then they were neck and neck.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">A. taught</div>
+                    <div class="option" data-value="B">B. caught</div>
+                    <div class="option" data-value="C">C. bought</div>
+                    <div class="option" data-value="D">D. brought</div>
+                </div>
+                <div class="explanation">
+                    <p class="correct-answer">正确答案：B. caught</p>
+                    <p><strong>解析：</strong>根据固定动词词组 catch up with sb 及第二句的过去时态。</p>
+                </div>
+            </div>
+            
+            <!-- 问题4 -->
+            <div class="question-card">
+                <div>
+                    <span class="question-number">4</span>
+                    The car ______ and stopped at the red traffic light.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">A. got on</div>
+                    <div class="option" data-value="B">B. got off</div>
+                    <div class="option" data-value="C">C. slowed down</div>
+                    <div class="option" data-value="D">D. picked up</div>
+                </div>
+                <div class="explanation">
+                    <p class="correct-answer">正确答案：C. slowed down</p>
+                    <p><strong>解析：</strong>根据后半句在红灯时停下来，选择"减速"。</p>
+                </div>
+            </div>
+            
+            <!-- 问题5 -->
+            <div class="question-card">
+                <div>
+                    <span class="question-number">5</span>
+                    Tom ______ the CD player for two weeks.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">A. has lent</div>
+                    <div class="option" data-value="B">B. has borrowed</div>
+                    <div class="option" data-value="C">C. has bought</div>
+                    <div class="option" data-value="D">D. has had</div>
+                </div>
+                <div class="explanation">
+                    <p class="correct-answer">正确答案：D. has had</p>
+                    <p><strong>解析：</strong>此题考查现在完成时的延续性和非延续性动词，根据for two weeks时间短语，需使用延续性动词have。</p>
+                </div>
+            </div>
+            
+            <!-- 问题6 -->
+            <div class="question-card">
+                <div>
+                    <span class="question-number">6</span>
+                    --Do you know ______?<br>
+                    --Sorry, but if he ______ back, I ______ you know as soon as possible.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">A. when will he be back, comes, will let</div>
+                    <div class="option" data-value="B">B. when he will be back, will come, will let</div>
+                    <div class="option" data-value="C">C. what time will he be back, will come, let</div>
+                    <div class="option" data-value="D">D. what time he will be back, comes, will let</div>
+                </div>
+                <div class="explanation">
+                    <p class="correct-answer">正确答案：D. what time he will be back, comes, will let</p>
+                    <p><strong>解析：</strong>宾语从句要用陈述句语序；if条件句用一般现在时表示将来，主句用一般将来时。</p>
+                </div>
+            </div>
+            
+            <!-- 问题7 -->
+            <div class="question-card">
+                <div>
+                    <span class="question-number">7</span>
+                    We ______ to the park if it is fine tomorrow.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">A. will go</div>
+                    <div class="option" data-value="B">B. have gone</div>
+                    <div class="option" data-value="C">C. go</div>
+                </div>
+                <div class="explanation">
+                    <p class="correct-answer">正确答案：A. will go</p>
+                    <p><strong>解析：</strong>if条件句的主句要用一般将来时。</p>
+                </div>
+            </div>
+            
+            <!-- 问题8 -->
+            <div class="question-card">
+                <div>
+                    <span class="question-number">8</span>
+                    A new shoe factory will ______ in this part of the city.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">A. be building</div>
+                    <div class="option" data-value="B">B. be built</div>
+                    <div class="option" data-value="C">C. build</div>
+                </div>
+                <div class="explanation">
+                    <p class="correct-answer">正确答案：B. be built</p>
+                    <p><strong>解析：</strong>工厂是被建造，因此需要使用被动语态。</p>
+                </div>
+            </div>
+            
+            <!-- 问题9 -->
+            <div class="question-card">
+                <div>
+                    <span class="question-number">9</span>
+                    --______ all your things, Tom! I hate them here and there.<br>
+                    --Ok, Mom.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">A. Put up</div>
+                    <div class="option" data-value="B">B. Put on</div>
+                    <div class="option" data-value="C">C. Put down</div>
+                    <div class="option" data-value="D">D. Put away</div>
+                </div>
+                <div class="explanation">
+                    <p class="correct-answer">正确答案：D. Put away</p>
+                    <p><strong>解析：</strong>put away 意为"把...收拾好"，符合上下文语境。</p>
+                </div>
+            </div>
+            
+            <!-- 问题10 -->
+            <div class="question-card">
+                <div>
+                    <span class="question-number">10</span>
+                    --How about going hiking this weekend?<br>
+                    --Sorry, I prefer ______ rather than ______.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">A. to stay at home, go out</div>
+                    <div class="option" data-value="B">B. to go out, stay at home</div>
+                    <div class="option" data-value="C">C. staying at home, go out</div>
+                    <div class="option" data-value="D">D. going out, stay at home</div>
+                </div>
+                <div class="explanation">
+                    <p class="correct-answer">正确答案：A. to stay at home, go out</p>
+                    <p><strong>解析：</strong>固定结构为 prefer to do sth rather than do sth。</p>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>英语动词学习系统 &copy; 2023 | 掌握动词用法，提升英语表达能力</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    // 移除同问题中其他选项的选中状态
+                    const questionCard = this.closest('.question-card');
+                    const otherOptions = questionCard.querySelectorAll('.option');
+                    otherOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // 添加当前选项的选中状态
+                    this.classList.add('selected');
+                    
+                    // 显示解析
+                    const explanation = questionCard.querySelector('.explanation');
+                    explanation.classList.add('show');
+                    
+                    // 滚动到解析位置
+                    explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

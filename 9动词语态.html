@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语动词语态学习</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .divider {
+            height: 4px;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            margin: 20px auto;
+            width: 80%;
+            border-radius: 2px;
+        }
+        
+        .knowledge-section {
+            padding: 30px 40px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e9ecef;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 15px;
+            color: #4a6491;
+        }
+        
+        h3 {
+            color: #4a6491;
+            font-size: 1.5rem;
+            margin: 25px 0 15px;
+            padding-left: 10px;
+            border-left: 4px solid #ff7e5f;
+        }
+        
+        .knowledge-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e9ecef;
+        }
+        
+        .example {
+            background: #e8f4f8;
+            border-left: 4px solid #4a6491;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 25px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #dee2e6;
+        }
+        
+        th {
+            background-color: #4a6491;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        .exercise-section {
+            background: #f0f5ff;
+            padding: 30px 40px;
+            border-top: 2px solid #dee2e6;
+        }
+        
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .question-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            line-height: 1.8;
+        }
+        
+        .question-number {
+            background: #4a6491;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        @media (max-width: 768px) {
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .option {
+            padding: 15px;
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            border-color: #4a6491;
+            background: #e8f0fe;
+            font-weight: 600;
+        }
+        
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+        }
+        
+        .option-prefix {
+            font-weight: bold;
+            margin-right: 15px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #4a6491;
+            color: white;
+        }
+        
+        .feedback {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feedback.correct {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .feedback.incorrect {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .feedback-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+        
+        .feedback-title i {
+            margin-right: 10px;
+        }
+        
+        .feedback-content {
+            line-height: 1.7;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        .btn-primary {
+            background: #4a6491;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #3a5379;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #2c3e50;
+            color: white;
+            font-size: 1.1rem;
+        }
+        
+        .progress-container {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 12px;
+            margin: 25px 0;
+            overflow: hidden;
+            width: 100%;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #4a6491, #6f87b6);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-exchange-alt"></i> 英语动词语态学习</h1>
+            <p class="subtitle">掌握主动语态与被动语态的核心知识，并通过练习巩固学习效果</p>
+        </header>
+        
+        <div class="divider"></div>
+        
+        <div class="knowledge-section">
+            <h2><i class="fas fa-book"></i> 动词语态知识梳理</h2>
+            
+            <div class="knowledge-box">
+                <h3>主动语态与被动语态</h3>
+                <p>英语动词有两种语态：<span class="highlight">主动语态 (The Active Voice)</span> 和 <span class="highlight">被动语态 (The Passive Voice)</span>。</p>
+                
+                <div class="example">
+                    <p><strong>主动语态:</strong> Many people speak English. (主语是动作的执行者)</p>
+                    <p><strong>被动语态:</strong> English is spoken by many people. (主语是动作的承受者)</p>
+                </div>
+            </div>
+            
+            <div class="knowledge-box">
+                <h3>被动语态的构成</h3>
+                <p>被动语态由<span class="highlight">"助动词be + 及物动词的过去分词"</span>构成。助动词be有人称、数和时态的变化。</p>
+                
+                <div class="example">
+                    <p><strong>肯定句:</strong> 主语 + be + 过去分词 + (by...) <br> He is often asked to do this work (by his boss).</p>
+                    <p><strong>否定句:</strong> 主语 + be not + 过去分词 + (by...) <br> I am not invited to the party (by him).</p>
+                    <p><strong>一般疑问句:</strong> Be + 主语 + 过去分词 + (by...)? <br> Are your clothes washed by yourself?</p>
+                </div>
+                
+                <h3>被动语态的时态变化</h3>
+                <div class="table-container">
+                    <table>
+                        <tr>
+                            <th>时态</th>
+                            <th>一般</th>
+                            <th>进行</th>
+                            <th>完成</th>
+                        </tr>
+                        <tr>
+                            <td>现在</td>
+                            <td>am/is/are + given</td>
+                            <td>am/is/are + being + given</td>
+                            <td>have/has + been + given</td>
+                        </tr>
+                        <tr>
+                            <td>过去</td>
+                            <td>was/were + given</td>
+                            <td>was/were + being + given</td>
+                            <td>had + been + given</td>
+                        </tr>
+                        <tr>
+                            <td>将来</td>
+                            <td>shall/will + be + given</td>
+                            <td>shall/will + be + being + given</td>
+                            <td>shall/will + have been + given</td>
+                        </tr>
+                        <tr>
+                            <td>情态动词</td>
+                            <td colspan="3">can/may/must + be + given</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="knowledge-box">
+                <h3>被动语态的用法</h3>
+                <p>1. 当我们不知道谁是动作的执行者，或没有必要指出时 <br> <span class="highlight">This jacket is made of cotton.</span></p>
+                <p>2. 强调动作的承受者时 <br> <span class="highlight">The boy was saved at last.</span></p>
+                <p>3. 表示客观事实或普遍真理时 <br> <span class="highlight">English is spoken in many countries.</span></p>
+                
+                <h3>主动语态变被动语态的步骤</h3>
+                <div class="example">
+                    <p><strong>主动句:</strong> The boy broke the window yesterday.</p>
+                    <p><strong>被动句:</strong> The window was broken by the boy yesterday.</p>
+                    <p>步骤一：原句中的宾语变成主语</p>
+                    <p>步骤二：谓语动词改为被动形式</p>
+                    <p>步骤三：原句中的主语放在介词by后面</p>
+                    <p>步骤四：其他成分保持不变</p>
+                </div>
+            </div>
+            
+            <div class="knowledge-box">
+                <h3>双宾语句子的被动语态</h3>
+                <p>有些动词可以有两个宾语（直接宾语和间接宾语），这类句子有两种被动语态形式：</p>
+                
+                <div class="example">
+                    <p><strong>主动句:</strong> He gave me the book just now.</p>
+                    <p><strong>被动句1:</strong> The book was given to me (by him) just now.</p>
+                    <p><strong>被动句2:</strong> I was given the book (by him) just now.</p>
+                </div>
+                
+                <p>常见双宾动词：buy, give, leave, lend, offer, pay, teach, tell, show等</p>
+            </div>
+        </div>
+        
+        <div class="exercise-section">
+            <div class="exercise-header">
+                <h2><i class="fas fa-pencil-alt"></i> 动词语态练习</h2>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar" style="width: 20%;"></div>
+            </div>
+            
+            <!-- 问题1 -->
+            <div class="question-container" id="question1">
+                <div class="question-text">
+                    <span class="question-number">1</span>
+                    The question _________ by us soon.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A"><span class="option-prefix">A</span> is going to discuss</div>
+                    <div class="option" data-value="B"><span class="option-prefix">B</span> will discuss</div>
+                    <div class="option" data-value="C"><span class="option-prefix">C</span> is going to be discussed</div>
+                    <div class="option" data-value="D"><span class="option-prefix">D</span> has been discussed</div>
+                </div>
+                
+                <div class="feedback" id="feedback1">
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> 正确答案与解析</div>
+                    <div class="feedback-content">
+                        正确答案是 <strong>C. is going to be discussed</strong>。<br>
+                        解析：此句需要被动语态表示"问题将被讨论"，同时soon表示将来，因此使用be going to的被动形式。
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题2 -->
+            <div class="question-container" id="question2" style="display: none;">
+                <div class="question-text">
+                    <span class="question-number">2</span>
+                    All the new words _________ up in the dictionary yet.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A"><span class="option-prefix">A</span> have looked</div>
+                    <div class="option" data-value="B"><span class="option-prefix">B</span> haven't looked</div>
+                    <div class="option" data-value="C"><span class="option-prefix">C</span> have been looked</div>
+                    <div class="option" data-value="D"><span class="option-prefix">D</span> haven't been looked</div>
+                </div>
+                
+                <div class="feedback" id="feedback2">
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> 正确答案与解析</div>
+                    <div class="feedback-content">
+                        正确答案是 <strong>D. haven't been looked</strong>。<br>
+                        解析：此句需要被动语态表示"单词被查阅"，yet常用于完成时，主语all the new words是复数，因此使用现在完成时的被动语态。
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题3 -->
+            <div class="question-container" id="question3" style="display: none;">
+                <div class="question-text">
+                    <span class="question-number">3</span>
+                    A new school _________ these days.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A"><span class="option-prefix">A</span> is building</div>
+                    <div class="option" data-value="B"><span class="option-prefix">B</span> is built</div>
+                    <div class="option" data-value="C"><span class="option-prefix">C</span> will build</div>
+                    <div class="option" data-value="D"><span class="option-prefix">D</span> is being built</div>
+                </div>
+                
+                <div class="feedback" id="feedback3">
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> 正确答案与解析</div>
+                    <div class="feedback-content">
+                        正确答案是 <strong>D. is being built</strong>。<br>
+                        解析：these days表示动作正在进行，主语a new school是动作的承受者，因此使用现在进行时的被动语态。
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题4 -->
+            <div class="question-container" id="question4" style="display: none;">
+                <div class="question-text">
+                    <span class="question-number">4</span>
+                    The librarian told me that the book _________ for two weeks.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A"><span class="option-prefix">A</span> can be borrowed</div>
+                    <div class="option" data-value="B"><span class="option-prefix">B</span> can be kept</div>
+                    <div class="option" data-value="C"><span class="option-prefix">C</span> could be borrowed</div>
+                    <div class="option" data-value="D"><span class="option-prefix">D</span> could be kept</div>
+                </div>
+                
+                <div class="feedback" id="feedback4">
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> 正确答案与解析</div>
+                    <div class="feedback-content">
+                        正确答案是 <strong>D. could be kept</strong>。<br>
+                        解析：主句told是过去时，从句应使用过去时态。for two weeks表示一段时间，keep表示"保留"比borrow"借"更符合语境。
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题5 -->
+            <div class="question-container" id="question5" style="display: none;">
+                <div class="question-text">
+                    <span class="question-number">5</span>
+                    When _________ the accident _________?
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A"><span class="option-prefix">A</span> was; happened</div>
+                    <div class="option" data-value="B"><span class="option-prefix">B</span> has; happened</div>
+                    <div class="option" data-value="C"><span class="option-prefix">C</span> was; happening</div>
+                    <div class="option" data-value="D"><span class="option-prefix">D</span> did; happen</div>
+                </div>
+                
+                <div class="feedback" id="feedback5">
+                    <div class="feedback-title"><i class="fas fa-check-circle"></i> 正确答案与解析</div>
+                    <div class="feedback-content">
+                        正确答案是 <strong>D. did; happen</strong>。<br>
+                        解析：happen是不及物动词，没有被动语态形式。此处询问事故何时发生，应使用主动语态。
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button class="btn btn-primary" id="prev-btn" disabled><i class="fas fa-arrow-left"></i> 上一题</button>
+                <button class="btn btn-primary" id="next-btn"><i class="fas fa-arrow-right"></i> 下一题</button>
+            </div>
+        </div>
+        
+        <footer>
+            <p>英语动词语态学习平台 &copy; 2023 | 掌握核心语法知识，提高英语应用能力</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 当前问题索引
+        let currentQuestion = 1;
+        const totalQuestions = 5;
+        
+        // 更新进度条
+        function updateProgress() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+        }
+        
+        // 显示当前问题
+        function showQuestion(index) {
+            // 隐藏所有问题
+            for (let i = 1; i <= totalQuestions; i++) {
+                document.getElementById(`question${i}`).style.display = 'none';
+            }
+            
+            // 显示当前问题
+            document.getElementById(`question${index}`).style.display = 'block';
+            
+            // 更新按钮状态
+            document.getElementById('prev-btn').disabled = (index === 1);
+            document.getElementById('next-btn').disabled = (index === totalQuestions);
+            document.getElementById('next-btn').textContent = 
+                (index === totalQuestions) ? '完成练习' : '下一题';
+            
+            updateProgress();
+        }
+        
+        // 选项选择功能
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                // 移除同一问题中其他选项的selected类
+                const questionContainer = this.closest('.question-container');
+                questionContainer.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // 添加selected类到当前选项
+                this.classList.add('selected');
+                
+                // 显示反馈
+                const feedback = questionContainer.querySelector('.feedback');
+                feedback.style.display = 'block';
+            });
+        });
+        
+        // 上一题按钮
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        });
+        
+        // 下一题按钮
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            } else {
+                alert('恭喜！你已完成所有练习题。');
+            }
+        });
+        
+        // 初始化显示第一题
+        showQuestion(1);
+    </script>
+</body>
+</html>

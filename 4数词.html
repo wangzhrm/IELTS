@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语数词学习系统</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        h3 {
+            color: #2980b9;
+            margin: 20px 0 15px;
+            font-size: 1.4rem;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .highlight {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .example {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        
+        .question-container {
+            background: #f5f9ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 25px 0;
+            border: 1px solid #d1e8ff;
+        }
+        
+        .question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .options {
+            margin: 15px 0;
+        }
+        
+        .option {
+            display: block;
+            padding: 12px 15px;
+            margin: 8px 0;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #3498db;
+        }
+        
+        .option.selected {
+            background: #d1e8ff;
+            border-color: #2980b9;
+        }
+        
+        .check-answer {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background 0.3s;
+            margin: 10px 0;
+        }
+        
+        .check-answer:hover {
+            background: #2980b9;
+        }
+        
+        .answer {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .correct-answer {
+            font-weight: 700;
+            color: #27ae60;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .explanation {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .correct {
+            background: #e8f5e9;
+            border-left-color: #2ecc71;
+        }
+        
+        .incorrect {
+            background: #ffebee;
+            border-left-color: #e74c3c;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.2);
+            margin-top: 30px;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .option {
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>英语数词学习系统</h1>
+            <p class="subtitle">掌握基数词与序数词的构成、用法及实际应用</p>
+        </header>
+        
+        <div class="content">
+            <div class="section">
+                <h2>一、基数词的构成</h2>
+                <p><strong>英语数词表示数目或者顺序，可分为基数词和序数词。基数词表示数量，序数词表示顺序。</strong></p>
+                
+                <div class="highlight">
+                    <p>1. 1-12的基数词是独立的单词：</p>
+                    <p>one, two, three, four, five, six, seven, eight, nine, ten, eleven, twelve</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>2. 13-19的基数词以-teen结尾：</p>
+                    <p>fourteen, seventeen等，但13,15,18较特殊：</p>
+                    <p>13 - thirteen &nbsp;&nbsp; 15 - fifteen &nbsp;&nbsp; 18 - eighteen</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>3. 20-90的整十位均以-ty结尾：</p>
+                    <p>sixty, ninety等，但20,30,40,50,80较特殊：</p>
+                    <p>20 - twenty &nbsp;&nbsp; 30 - thirty &nbsp;&nbsp; 40 - forty</p>
+                    <p>50 - fifty &nbsp;&nbsp; 80 - eighty</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>4. 十位数与个位数之间要加连字符号"-"：</p>
+                    <p>28 - twenty-eight &nbsp;&nbsp; 96 - ninety-six</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>5. 百位和十位（若无十位则和个位）之间加and：</p>
+                    <p>148 - one hundred and forty-eight</p>
+                    <p>406 - four hundred and six</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>6. hundred, thousand, million, billion等前面即使有具体的数词，也不能在它们的后面加s：</p>
+                    <p>600 - six hundred &nbsp;&nbsp; 8百万 - eight million</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>7. 1000以上的数字，从后往前数每三位加一个逗号","：</p>
+                    <p>第一个逗号前为千(thousand)，第二个逗号前为百万(million)，第三个逗号前为billion(十亿)</p>
+                    <p>2,510 = two thousand five hundred and ten</p>
+                    <p>84,296 = eighty-four thousand two hundred and ninety-six</p>
+                    <p>274,350 = two hundred and seventy-four thousand three hundred and fifty</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>二、序数词的构成</h2>
+                
+                <div class="highlight">
+                    <p>序数词一般是以与之相应的基数词尾加-th构成：</p>
+                    <p>fourth, tenth</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>1. 特殊变化的序数词：</p>
+                    <p>one → first &nbsp;&nbsp; two → second &nbsp;&nbsp; three → third</p>
+                    <p>five → fifth &nbsp;&nbsp; nine → ninth &nbsp;&nbsp; twelve → twelfth</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>2. 以ty结尾的单词，要先变y为i，再加-eth：</p>
+                    <p>thirty → thirtieth &nbsp;&nbsp; fifty → fiftieth</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>3. 以one, two, three等结尾的多位数词，要将个位数变成序数词：</p>
+                    <p>twenty-one → twenty-first</p>
+                    <p>one hundred and one → one hundred and first</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>注意：序数词前常用定冠词，用不定冠词a/an则表示"又一"的意思：</p>
+                    <p class="example">Mr Brown has a second car. (布朗先生另外还有一辆车)</p>
+                    <p class="example">He has tried a second time. (他又尝试了一次)</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>三、数词的应用</h2>
+                
+                <h3>1. 时刻的表示</h3>
+                <div class="highlight">
+                    <p>① "几点钟"用基数词加o'clock（可省略）：</p>
+                    <p>5点钟 → five (o'clock)</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>② "几点过几分"（≤30分钟）用介词past：</p>
+                    <p>7:05 → five past seven</p>
+                    <p>7:15 → fifteen (a quarter) past seven</p>
+                    <p>7:30 → half past seven</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>③ "差几分几点"用介词to：</p>
+                    <p>7:40 → twenty to eight</p>
+                    <p>7:45 → fifteen (a quarter) to eight</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>④ 日常简化读法：</p>
+                    <p>7:05 → seven o five</p>
+                    <p>7:15 → seven fifteen</p>
+                </div>
+                
+                <h3>2. 年月日的表示</h3>
+                <div class="highlight">
+                    <p>① 年份用基数词：</p>
+                    <p>1999年 → nineteen ninety-nine</p>
+                    <p>1900年 → nineteen hundred</p>
+                    <p>2000年 → two thousand</p>
+                    <p>1905年 → nineteen o five</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>② 年用基数词，日用序数词：</p>
+                    <p>June 8, 1998 读作：</p>
+                    <p>June the eighth, nineteen ninety-eight</p>
+                    <p>或 the eighth of June, nineteen ninety-eight</p>
+                </div>
+                
+                <h3>3. 世纪、年代表示法</h3>
+                <div class="highlight">
+                    <p>(在)90年代 → (in) the nineties</p>
+                    <p>(在)19世纪 → (in) the nineteenth century</p>
+                    <p>(在)18世纪30年代 → (in) 1730s或1730's</p>
+                </div>
+                
+                <h3>4. 编号的表示</h3>
+                <div class="highlight">
+                    <p>Lesson One = the first lesson (第一课)</p>
+                    <p>Bus No.3 = the No.3 bus (3路公共汽车)</p>
+                    <p>302房间 → Room 302 (读作：room three o two)</p>
+                    <p>Page 457 (第457页)</p>
+                    <p>电话号码：3855633 → three eight five five (double five) six three three (double three)</p>
+                </div>
+                
+                <h3>5. 分数的表达</h3>
+                <div class="highlight">
+                    <p>分子用基数词，分母用序数词，分子大于"1"，分母则加"s"：</p>
+                    <p>1/3 → one third &nbsp;&nbsp; 2/3 → two thirds</p>
+                    <p>1/2 → a (one) half &nbsp;&nbsp; 1/4 → one fourth或a (one) quarter</p>
+                    <p>3/4 → three fourths或three quarters</p>
+                    <p>半秒 → half a second</p>
+                    <p>四分之一秒 → a quarter of a second</p>
+                </div>
+                
+                <h3>6. 小数的表达</h3>
+                <div class="highlight">
+                    <p>5.5 → five point five</p>
+                    <p>12.135 → twelve point one three five</p>
+                </div>
+                
+                <h3>7. 百分数的表达</h3>
+                <div class="highlight">
+                    <p>5% → five percent (per cent)</p>
+                    <p>0.8% → zero point eight percent (per cent)</p>
+                </div>
+                
+                <h3>8. 其他用法</h3>
+                <div class="highlight">
+                    <p>① 基数词+单数名词+形容词构成合成形容词：</p>
+                    <p>a five-year-old boy (一个五岁的男孩)</p>
+                    <p>an 800-metre-long bridge (一座800米长的桥)</p>
+                    <p>girls' 400-metre relay race (女子400米接力)</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>② 具体数词+metre(s)/kilometre(s)/kilo(s) long/high/tall/deep/away等：</p>
+                    <p>The Changjiang River is 6,300 kilometres long. (长江长6300公里)</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>③ 表示"几十岁"用序数词：</p>
+                    <p>in his thirties (在他三十几岁时)</p>
+                </div>
+                
+                <div class="highlight">
+                    <p>④ 倍数的表达：</p>
+                    <p>一倍用once，两倍用twice，两倍以上用基数词+times</p>
+                    <p class="example">China is four times as large as Europe.</p>
+                    <p class="example">I am twice as old as you.</p>
+                    <p class="example">China is four times larger than Europe.</p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>四、例题解析</h2>
+                <p class="highlight">举一反三，学的更轻松！</p>
+                
+                <!-- 问题1 -->
+                <div class="question-container">
+                    <div class="question">1. _______ Chinese are looking for ways to learn English well before Beijing 2008 Olympic.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. Thousand</div>
+                        <div class="option" data-value="B">B. Thousands</div>
+                        <div class="option" data-value="C">C. Thousand of</div>
+                        <div class="option" data-value="D">D. Thousands of</div>
+                    </div>
+                    <button class="check-answer">查看答案与解析</button>
+                    <div class="answer">
+                        <div class="correct-answer">正确答案：D</div>
+                        <div class="explanation">此题主要考查基数词hundred, thousand, million, billion等用法。当这些词前面有具体数字时，它们后面不能加s；若这些词后面有介词of（表示"数百"、"成千上万"等），则用thousands of（注意：此时thousands of前面不可用数词修饰，但可用many, some, several等修饰）。根据题意，这里表示"成千上万的中国人"，故选D。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题2 -->
+                <div class="question-container">
+                    <div class="question">2. Both of the rules are broken. I want to buy a _______ one.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. three</div>
+                        <div class="option" data-value="B">B. third</div>
+                        <div class="option" data-value="C">C. forth</div>
+                        <div class="option" data-value="D">D. /</div>
+                    </div>
+                    <button class="check-answer">查看答案与解析</button>
+                    <div class="answer">
+                        <div class="correct-answer">正确答案：B</div>
+                        <div class="explanation">此题主要考查序数词的运用。句意：两个规则都坏了，我想再买一个（第三个）。这里用序数词表示"又一个"，所以选B。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题3 -->
+                <div class="question-container">
+                    <div class="question">3. — Which is the smallest number of the four? — _______.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. Two-thirds</div>
+                        <div class="option" data-value="B">B. A half</div>
+                        <div class="option" data-value="C">C. A quarter</div>
+                        <div class="option" data-value="D">D. Three-fourths</div>
+                    </div>
+                    <button class="check-answer">查看答案与解析</button>
+                    <div class="answer">
+                        <div class="correct-answer">正确答案：C</div>
+                        <div class="explanation">此题主要考查英语中的分数表示法。英语中表示分数时，分母用序数词，分子用基数词，当分子大于1时，表示分母的序数词后要加s。题目问四个分数中最小的数是多少。A.2/3≈0.67，B.1/2=0.5，C.1/4=0.25，D.3/4=0.75。显然1/4最小，故选C。</div>
+                    </div>
+                </div>
+                
+                <!-- 问题4 -->
+                <div class="question-container">
+                    <div class="question">4. Please write down the new words in the text of _______.</div>
+                    <div class="options">
+                        <div class="option" data-value="A">A. Lesson Eleven</div>
+                        <div class="option" data-value="B">B. the Lesson Eleven</div>
+                        <div class="option" data-value="C">C. Lesson Eleventh</div>
+                    </div>
+                    <button class="check-answer">查看答案与解析</button>
+                    <div class="answer">
+                        <div class="correct-answer">正确答案：A</div>
+                        <div class="explanation">此题主要考查基数词的编号。在通常情况下，名词编号有这几种表示法：1.事物名词+基数词，且每个单词的首字母都要大写。如：Lesson Eleven；2.定冠词+基数词+事物名词。如：No.6 Middle School。所以选A。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>英语数词学习系统 &copy; 2023 - 掌握数词用法，提升英语能力</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 选项选择功能
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    // 移除同一问题中其他选项的选中状态
+                    const parentContainer = this.closest('.question-container');
+                    parentContainer.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // 添加当前选项的选中状态
+                    this.classList.add('selected');
+                });
+            });
+            
+            // 查看答案功能
+            const checkButtons = document.querySelectorAll('.check-answer');
+            checkButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const container = this.closest('.question-container');
+                    const selectedOption = container.querySelector('.option.selected');
+                    const answerDiv = container.querySelector('.answer');
+                    
+                    if (!selectedOption) {
+                        alert('请先选择一个答案！');
+                        return;
+                    }
+                    
+                    // 显示答案
+                    answerDiv.style.display = 'block';
+                    
+                    // 滚动到答案位置
+                    answerDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

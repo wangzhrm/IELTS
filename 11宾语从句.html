@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宾语从句学习与练习</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(120deg, #2c3e50 0%, #4a6583 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            opacity: 0.9;
+        }
+        
+        .header-decoration {
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.05;
+            z-index: 1;
+            top: 20px;
+            right: 30px;
+            transform: rotate(15deg);
+        }
+        
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e9ecef;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        h3 {
+            color: #4a6583;
+            margin: 20px 0 15px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h2 i, h3 i {
+            background: linear-gradient(120deg, #2c3e50 0%, #4a6583 100%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        h3 i {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+        
+        .content-block {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #4a6583;
+        }
+        
+        .example {
+            background: #e9f7fe;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-left: 3px solid #3498db;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        th {
+            background: linear-gradient(120deg, #2c3e50 0%, #4a6583 100%);
+            color: white;
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f1f5f9;
+        }
+        
+        tr:hover {
+            background-color: #e2eaf3;
+        }
+        
+        .exercise-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .exercise {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #4a6583;
+            transition: all 0.3s ease;
+        }
+        
+        .exercise:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .question {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: #2c3e50;
+            line-height: 1.8;
+        }
+        
+        .choices {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .choice {
+            padding: 15px;
+            background: white;
+            border: 2px solid #d0ddee;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .choice:hover {
+            border-color: #4a6583;
+            background: #e9ecef;
+        }
+        
+        .choice.selected {
+            border-color: #4a6583;
+            background: #dfe6f0;
+        }
+        
+        .choice.correct {
+            border-color: #28a745;
+            background: #e6ffec;
+        }
+        
+        .choice.incorrect {
+            border-color: #dc3545;
+            background: #ffe6e9;
+        }
+        
+        .choice-prefix {
+            background: #4a6583;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+            background: #e9ecef;
+            border-radius: 10px;
+        }
+        
+        .explanation.active {
+            max-height: 300px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #d0ddee;
+        }
+        
+        .explanation h4 {
+            color: #28a745;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .explanation p {
+            color: #2c3e50;
+            line-height: 1.7;
+        }
+        
+        .progress-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            margin-top: 20px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #4a6583;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4a6583 0%, #6c8eb0 100%);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #6c757d;
+            font-size: 1rem;
+        }
+        
+        .result-message {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .result-message.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        
+        .highlight {
+            background-color: #fff9c4;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .function-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .function-card {
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid #4a6583;
+        }
+        
+        .function-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .function-card h4 i {
+            color: #4a6583;
+            font-size: 1.5rem;
+        }
+        
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .rule-card {
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #4a6583;
+        }
+        
+        @media (max-width: 768px) {
+            .choices {
+                grid-template-columns: 1fr;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header-decoration {
+                font-size: 8rem;
+                top: 40px;
+                right: 10px;
+            }
+            
+            h2 i, h3 i {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .function-grid, .rules-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-decoration">
+                <i class="fas fa-language"></i>
+            </div>
+            <h1>宾语从句学习与练习</h1>
+            <p>掌握宾语从句的用法，提升英语语法能力</p>
+        </header>
+        
+        <div class="section">
+            <h2><i class="fas fa-book"></i> 宾语从句知识梳理</h2>
+            
+            <div class="content-block">
+                <h3><i class="fas fa-lightbulb"></i> 宾语从句概述</h3>
+                <p>在句中担当宾语的从句叫<span class="highlight">宾语从句</span>，宾语从句可作谓语动词的宾语，也可做介词的宾语。</p>
+                
+                <div class="example">
+                    <p>He said <strong class="highlight">he was good at drawing</strong>. (动词宾语)</p>
+                    <p>He asks him <strong class="highlight">how long Mike has been down</strong>. (动词宾语)</p>
+                    <p>Miss Zhang is angry at <strong class="highlight">what you said</strong>. (介词宾语)</p>
+                </div>
+            </div>
+            
+            <div class="content-block">
+                <h3><i class="fas fa-cogs"></i> 宾语从句的引导词</h3>
+                <p>宾语从句的引导词有三类：</p>
+                
+                <div class="rules-grid">
+                    <div class="rule-card">
+                        <h4><i class="fas fa-code"></i> 1. that 引导的宾语从句</h4>
+                        <p>主要用来引导陈述句形式的宾语从句，that可以省略。</p>
+                        <div class="example">
+                            <p>The radio says <strong>(that) the clouds will lift later on</strong>.</p>
+                            <p>She told me <strong>(that) she would like to go with us</strong>.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <h4><i class="fas fa-question"></i> 2. 连接代词/副词引导的宾语从句</h4>
+                        <p>以连接代词 (which, what, who) 或连接副词 (how, where, why) 引导的宾语从句，从句使用陈述语序。</p>
+                        <div class="example">
+                            <p>Could you tell me <strong>what's the matter with you</strong>?</p>
+                            <p>I want to know <strong>how soon it will begin</strong>.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-card">
+                        <h4><i class="fas fa-check-circle"></i> 3. whether/if 引导的宾语从句</h4>
+                        <p>主要用来引导一般疑问句意思或选择疑问句意思的宾语从句，从句使用陈述语序。</p>
+                        <div class="example">
+                            <p>I wonder <strong>if/whether you have told the news to Li Lei</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block">
+                <h3><i class="fas fa-clock"></i> 宾语从句的时态规则</h3>
+                <p>宾语从句的时态受主句时态的影响：</p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>主句时态</th>
+                            <th>从句时态规则</th>
+                            <th>例句</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>一般现在时<br>现在进行时<br>一般将来时</td>
+                            <td>从句可用任何所需时态</td>
+                            <td>I want to know <strong>what time he got up</strong> this morning.</td>
+                        </tr>
+                        <tr>
+                            <td>一般过去时</td>
+                            <td>从句用过去相关时态<br>(一般过去时/过去进行时/过去完成时等)</td>
+                            <td>They asked <strong>what Jean was doing</strong> then.</td>
+                        </tr>
+                        <tr>
+                            <td>任何时态</td>
+                            <td>从句表述客观真理时，使用一般现在时</td>
+                            <td>Lisa asked <strong>whether light travels faster</strong> than sound.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="content-block">
+                <h3><i class="fas fa-exclamation-triangle"></i> whether 和 if 的特殊情况</h3>
+                <p>在以下情况中，只能用 whether，不能用 if：</p>
+                
+                <div class="example">
+                    <p>We are talking about <strong>whether we'll go on the picnic</strong>. (介词宾语)</p>
+                    <p>Could you tell me <strong>whether you go or not</strong>? (与 not 连用)</p>
+                    <p>Please let me know <strong>whether to do next</strong>. (与不定式连用)</p>
+                </div>
+                
+                <div class="note">
+                    <p><i class="fas fa-info-circle"></i> 注意：if 当"如果"讲时，引导条件状语从句，不能用 whether 替代。</p>
+                    <p class="example">You can't work the plan out <strong>if you don't have the meeting</strong>.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2><i class="fas fa-pen-alt"></i> 宾语从句练习</h2>
+            <p>请选择正确的答案完成句子。完成后将显示解析。</p>
+            
+            <div class="exercise-container">
+                <!-- 练习1 -->
+                <div class="exercise" id="exercise1">
+                    <div class="question">
+                        <p>1. The teacher asked the students ________.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>if they were interested in dinosaurs</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>when was Albert Einstein born</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>what they will do with the computers</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>how many trees they have planted</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: A</h4>
+                        <p>宾语从句中从句应保持陈述语序，答案B首先删去。主句是一般过去式，从句要用于过去有关的时态，删去答案C和D。答案A中的if意为"是否"。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习2 -->
+                <div class="exercise" id="exercise2">
+                    <div class="question">
+                        <p>2. Could you tell me ________?</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>what the matter is with you</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>what was the matter with you</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>what's the matter with you</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>what's the wrong with you</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: C</h4>
+                        <p>"what's the matter with you"本身就是陈述语序，因此删掉A。主句可看作是委婉的请求，不是一般过去式，可删去答案B。wrong前不用加the，因此此题选C。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习3 -->
+                <div class="exercise" id="exercise3">
+                    <div class="question">
+                        <p>3. He asked me ________ I could sing the song "My Heart will Go On."</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>if</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>weather</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>what</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>that</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: A</h4>
+                        <p>此句应选含有疑问意思的关系代词，故删去D。weather意为天气，根据句意应选A（if表示"是否"）。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习4 -->
+                <div class="exercise" id="exercise4">
+                    <div class="question">
+                        <p>4. Our teacher told us that the moon ________ round the earth.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>went</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>turned</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>go</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>turns</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: D</h4>
+                        <p>从句是一个客观真理，因此从句的时态不受主句影响。月亮围绕地球转动是客观事实，应使用一般现在时。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习5 -->
+                <div class="exercise" id="exercise5">
+                    <div class="question">
+                        <p>5. It makes no difference ________.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>whether will you come tomorrow</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>Whether or not will be pass the exam</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>If he will come to the meeting or not</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>Whether he will come to the meeting or not</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: D</h4>
+                        <p>答案A和B从句不是陈述语序先删掉。if不能与not连用，因此删去C。此题选D，whether与not连用，且使用陈述语序。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习6 -->
+                <div class="exercise" id="exercise6">
+                    <div class="question">
+                        <p>6. They don't know ________ their parents are.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>that</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>what</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>why</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>which</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: B</h4>
+                        <p>what表示职业，因此选B。句子意思是"他们不知道父母是做什么工作的"。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习7 -->
+                <div class="exercise" id="exercise7">
+                    <div class="question">
+                        <p>7. I am sure ________ you said is true.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>what</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>that</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>which</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>who</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: A</h4>
+                        <p>根据句意应用what，作said的内容，表示"你所说的话"。应选A。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习8 -->
+                <div class="exercise" id="exercise8">
+                    <div class="question">
+                        <p>8. The old man told us ________ and ________.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>to do what , to do how</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>what to do it, how to do it</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>what to do, how to do it</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>what to do , how to do</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: C</h4>
+                        <p>疑问词what即连接不定式，又做do的宾语；而在how引导的不定式短语中，how表示方式，do为及物动词，因此需接宾语才正确。应选C。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-header">
+                    <span>练习进度</span>
+                    <span id="progress-text">0/8 完成</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+            
+            <div class="result-message" id="result-message">
+                <i class="fas fa-trophy"></i> 恭喜！你已完成所有练习！
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 英语宾语从句学习 | 掌握宾语从句用法，提升语法能力</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const exercises = document.querySelectorAll('.exercise');
+            let completedCount = 0;
+            
+            exercises.forEach(exercise => {
+                const choices = exercise.querySelectorAll('.choice');
+                const explanation = exercise.querySelector('.explanation');
+                
+                choices.forEach(choice => {
+                    choice.addEventListener('click', function() {
+                        // 如果已经选择了答案，则不再处理
+                        if (exercise.classList.contains('completed')) return;
+                        
+                        // 移除其他选项的选择状态
+                        choices.forEach(c => c.classList.remove('selected'));
+                        
+                        // 添加当前选项的选择状态
+                        this.classList.add('selected');
+                        
+                        // 获取正确答案
+                        const correctAnswer = explanation.querySelector('h4').textContent.split(': ')[1].trim();
+                        const userAnswer = this.getAttribute('data-choice');
+                        
+                        // 标记正确/错误
+                        if (userAnswer === correctAnswer) {
+                            this.classList.add('correct');
+                        } else {
+                            this.classList.add('incorrect');
+                            // 显示正确答案
+                            choices.forEach(c => {
+                                if (c.getAttribute('data-choice') === correctAnswer) {
+                                    c.classList.add('correct');
+                                }
+                            });
+                        }
+                        
+                        // 显示解析
+                        explanation.classList.add('active');
+                        
+                        // 标记练习已完成
+                        exercise.classList.add('completed');
+                        
+                        // 更新进度
+                        completedCount++;
+                        updateProgress();
+                    });
+                });
+            });
+            
+            function updateProgress() {
+                const progressText = document.getElementById('progress-text');
+                const progressFill = document.getElementById('progress-fill');
+                const resultMessage = document.getElementById('result-message');
+                
+                const percentage = (completedCount / exercises.length) * 100;
+                progressFill.style.width = `${percentage}%`;
+                progressText.textContent = `${completedCount}/${exercises.length} 完成`;
+                
+                if (completedCount === exercises.length) {
+                    resultMessage.classList.add('success');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

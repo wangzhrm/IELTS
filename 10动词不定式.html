@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动词不定式学习与练习</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            background: linear-gradient(120deg, #2c3e50 0%, #4a6583 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            opacity: 0.9;
+        }
+        
+        .header-decoration {
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.05;
+            z-index: 1;
+            top: 20px;
+            right: 30px;
+            transform: rotate(15deg);
+        }
+        
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e9ecef;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        h3 {
+            color: #4a6583;
+            margin: 20px 0 15px;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        h2 i, h3 i {
+            background: linear-gradient(120deg, #2c3e50 0%, #4a6583 100%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        h3 i {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+        
+        .content-block {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #4a6583;
+        }
+        
+        .example {
+            background: #e9f7fe;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            border-left: 3px solid #3498db;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        th {
+            background: linear-gradient(120deg, #2c3e50 0%, #4a6583 100%);
+            color: white;
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f1f5f9;
+        }
+        
+        tr:hover {
+            background-color: #e2eaf3;
+        }
+        
+        .exercise-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .exercise {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #4a6583;
+            transition: all 0.3s ease;
+        }
+        
+        .exercise:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .question {
+            font-size: 1.25rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: #2c3e50;
+            line-height: 1.8;
+        }
+        
+        .choices {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .choice {
+            padding: 15px;
+            background: white;
+            border: 2px solid #d0ddee;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .choice:hover {
+            border-color: #4a6583;
+            background: #e9ecef;
+        }
+        
+        .choice.selected {
+            border-color: #4a6583;
+            background: #dfe6f0;
+        }
+        
+        .choice.correct {
+            border-color: #28a745;
+            background: #e6ffec;
+        }
+        
+        .choice.incorrect {
+            border-color: #dc3545;
+            background: #ffe6e9;
+        }
+        
+        .choice-prefix {
+            background: #4a6583;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.5s ease;
+            background: #e9ecef;
+            border-radius: 10px;
+        }
+        
+        .explanation.active {
+            max-height: 300px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #d0ddee;
+        }
+        
+        .explanation h4 {
+            color: #28a745;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .explanation p {
+            color: #2c3e50;
+            line-height: 1.7;
+        }
+        
+        .progress-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            margin-top: 20px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #4a6583;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4a6583 0%, #6c8eb0 100%);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #6c757d;
+            font-size: 1rem;
+        }
+        
+        .result-message {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .result-message.success {
+            background: #d4edda;
+            color: #155724;
+            display: block;
+        }
+        
+        .highlight {
+            background-color: #fff9c4;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .function-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .function-card {
+            background: #f1f5f9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid #4a6583;
+        }
+        
+        .function-card h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .function-card h4 i {
+            color: #4a6583;
+            font-size: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .choices {
+                grid-template-columns: 1fr;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .header-decoration {
+                font-size: 8rem;
+                top: 40px;
+                right: 10px;
+            }
+            
+            h2 i, h3 i {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .function-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-decoration">
+                <i class="fas fa-language"></i>
+            </div>
+            <h1>动词不定式学习与练习</h1>
+            <p>掌握动词不定式的用法，提升英语语法能力</p>
+        </header>
+        
+        <div class="section">
+            <h2><i class="fas fa-book"></i> 动词不定式知识梳理</h2>
+            
+            <div class="content-block">
+                <h3><i class="fas fa-lightbulb"></i> 动词不定式概述</h3>
+                <p>动词不定式的基本形式是<span class="highlight">to + 动词原形</span>，有时可以不带to。动词不定式没有人称和数的变化，在句子中不能作谓语。</p>
+                <p>动词不定式保留动词的特点，可以有自己的宾语和状语，构成不定式短语：</p>
+                
+                <div class="example">
+                    <p><strong>to read the newspaper</strong> (带宾语)</p>
+                    <p><strong>to speak at the meeting</strong> (带状语)</p>
+                </div>
+            </div>
+            
+            <div class="content-block">
+                <h3><i class="fas fa-cogs"></i> 动词不定式的句法功能</h3>
+                <p>动词不定式具有名词、形容词和副词的特征，在句子中可以充当多种成分：</p>
+                
+                <div class="function-grid">
+                    <div class="function-card">
+                        <h4><i class="fas fa-bullseye"></i> 作主语</h4>
+                        <div class="example">
+                            <p><strong>To learn a foreign language</strong> is not easy.</p>
+                            <p><strong>To grow plants</strong> is very important.</p>
+                        </div>
+                        <p class="note"><i class="fas fa-info-circle"></i> 常用形式：<strong>It is + 形容词 + to do...</strong></p>
+                    </div>
+                    
+                    <div class="function-card">
+                        <h4><i class="fas fa-object-group"></i> 作宾语</h4>
+                        <div class="example">
+                            <p>She wanted <strong>to borrow my radio</strong>.</p>
+                            <p>They began <strong>to read and write</strong>.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="function-card">
+                        <h4><i class="fas fa-adjust"></i> 作表语</h4>
+                        <div class="example">
+                            <p>My dream is <strong>to be a pilot</strong>.</p>
+                            <p>His goal is <strong>to become a doctor</strong>.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="function-card">
+                        <h4><i class="fas fa-bolt"></i> 作状语</h4>
+                        <div class="example">
+                            <p>She went <strong>to see her grandma</strong> last Sunday.</p>
+                            <p>He came <strong>to give us a talk</strong> yesterday.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="function-card">
+                        <h4><i class="fas fa-puzzle-piece"></i> 作宾语补足语</h4>
+                        <div class="example">
+                            <p>Lucy asked him <strong>to turn off the radio</strong>.</p>
+                            <p>She asked me <strong>to speak more loudly</strong>.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="function-card">
+                        <h4><i class="fas fa-filter"></i> 作定语</h4>
+                        <div class="example">
+                            <p>Have you got anything <strong>to say</strong>?</p>
+                            <p>I had something <strong>to eat</strong> this morning.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-block">
+                <h3><i class="fas fa-ban"></i> 动词不定式的否定形式</h3>
+                <p>动词不定式的否定形式由<span class="highlight">not + 动词不定式</span>构成：</p>
+                
+                <div class="example">
+                    <p>Tell him <strong>not to be late</strong>.</p>
+                    <p>The policeman told the boys <strong>not to play in the street</strong>.</p>
+                </div>
+            </div>
+            
+            <div class="content-block">
+                <h3><i class="fas fa-star"></i> 省略to的情况</h3>
+                <p>在感官动词和使役动词后作宾语补足语时，不定式应省去to：</p>
+                
+                <div class="example">
+                    <p>Let me listen to you <strong>sing</strong> the song.</p>
+                    <p>He watched his son <strong>play</strong> computer games.</p>
+                    <p>I saw him <strong>run</strong> away.</p>
+                </div>
+                
+                <div class="note">
+                    <p><i class="fas fa-lightbulb"></i> 常见省略to的动词：see, watch, look at, hear, listen to, feel, make, have, let</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> 注意：在被动语态中不能省略to</p>
+                </div>
+            </div>
+            
+            <div class="content-block">
+                <h3><i class="fas fa-question-circle"></i> 动词不定式与疑问词连用</h3>
+                <p>动词不定式可以和疑问词what, which, how, where, when等连用：</p>
+                
+                <div class="example">
+                    <p>The question is <strong>when to start</strong>.</p>
+                    <p>I don't know <strong>where to go</strong>.</p>
+                    <p>He showed me <strong>how to use a computer</strong>.</p>
+                    <p><strong>What to do</strong> is a big problem.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2><i class="fas fa-pen-alt"></i> 动词不定式练习</h2>
+            <p>请分析下列句子中动词不定式的作用，选择正确的答案。完成后将显示解析。</p>
+            
+            <div class="exercise-container">
+                <!-- 练习1 -->
+                <div class="exercise" id="exercise1">
+                    <div class="question">
+                        <p>1. To grow plants is very important.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>主语</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>宾语</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>表语</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>状语</span>
+                        </div>
+                        <div class="choice" data-choice="E">
+                            <span class="choice-prefix">E</span>
+                            <span>定语</span>
+                        </div>
+                        <div class="choice" data-choice="F">
+                            <span class="choice-prefix">F</span>
+                            <span>宾语补足语</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: A</h4>
+                        <p>"To grow plants" 在句中作主语，表示"种植植物"这件事很重要。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习2 -->
+                <div class="exercise" id="exercise2">
+                    <div class="question">
+                        <p>2. It is so nice to hear your voice.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>主语</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>宾语</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>表语</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>状语</span>
+                        </div>
+                        <div class="choice" data-choice="E">
+                            <span class="choice-prefix">E</span>
+                            <span>定语</span>
+                        </div>
+                        <div class="choice" data-choice="F">
+                            <span class="choice-prefix">F</span>
+                            <span>宾语补足语</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: A</h4>
+                        <p>"to hear your voice" 是真正的主语，it是形式主语，表示"听到你的声音"这件事很美好。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习3 -->
+                <div class="exercise" id="exercise3">
+                    <div class="question">
+                        <p>3. My dream is to be a pilot.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>主语</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>宾语</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>表语</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>状语</span>
+                        </div>
+                        <div class="choice" data-choice="E">
+                            <span class="choice-prefix">E</span>
+                            <span>定语</span>
+                        </div>
+                        <div class="choice" data-choice="F">
+                            <span class="choice-prefix">F</span>
+                            <span>宾语补足语</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: C</h4>
+                        <p>"to be a pilot" 在系动词is后作表语，说明主语"my dream"的内容。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习4 -->
+                <div class="exercise" id="exercise4">
+                    <div class="question">
+                        <p>4. He began to read and write at the age of five.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>主语</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>宾语</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>表语</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>状语</span>
+                        </div>
+                        <div class="choice" data-choice="E">
+                            <span class="choice-prefix">E</span>
+                            <span>定语</span>
+                        </div>
+                        <div class="choice" data-choice="F">
+                            <span class="choice-prefix">F</span>
+                            <span>宾语补足语</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: B</h4>
+                        <p>"to read and write" 作谓语动词began的宾语，表示开始做的事情。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习5 -->
+                <div class="exercise" id="exercise5">
+                    <div class="question">
+                        <p>5. The teacher asked me to speak more loudly.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>主语</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>宾语</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>表语</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>状语</span>
+                        </div>
+                        <div class="choice" data-choice="E">
+                            <span class="choice-prefix">E</span>
+                            <span>定语</span>
+                        </div>
+                        <div class="choice" data-choice="F">
+                            <span class="choice-prefix">F</span>
+                            <span>宾语补足语</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: F</h4>
+                        <p>"to speak more loudly" 作宾语me的补足语，说明老师要求我做的事情。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习6 -->
+                <div class="exercise" id="exercise6">
+                    <div class="question">
+                        <p>6. Tom came to see me last night.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>主语</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>宾语</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>表语</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>状语</span>
+                        </div>
+                        <div class="choice" data-choice="E">
+                            <span class="choice-prefix">E</span>
+                            <span>定语</span>
+                        </div>
+                        <div class="choice" data-choice="F">
+                            <span class="choice-prefix">F</span>
+                            <span>宾语补足语</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: D</h4>
+                        <p>"to see me" 作状语，表示Tom来的目的。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习7 -->
+                <div class="exercise" id="exercise7">
+                    <div class="question">
+                        <p>7. I am glad to see you.</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>主语</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>宾语</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>表语</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>状语</span>
+                        </div>
+                        <div class="choice" data-choice="E">
+                            <span class="choice-prefix">E</span>
+                            <span>定语</span>
+                        </div>
+                        <div class="choice" data-choice="F">
+                            <span class="choice-prefix">F</span>
+                            <span>宾语补足语</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: D</h4>
+                        <p>"to see you" 作状语，表示高兴的原因。</p>
+                    </div>
+                </div>
+                
+                <!-- 练习8 -->
+                <div class="exercise" id="exercise8">
+                    <div class="question">
+                        <p>8. Have you got anything to say?</p>
+                    </div>
+                    <div class="choices">
+                        <div class="choice" data-choice="A">
+                            <span class="choice-prefix">A</span>
+                            <span>主语</span>
+                        </div>
+                        <div class="choice" data-choice="B">
+                            <span class="choice-prefix">B</span>
+                            <span>宾语</span>
+                        </div>
+                        <div class="choice" data-choice="C">
+                            <span class="choice-prefix">C</span>
+                            <span>表语</span>
+                        </div>
+                        <div class="choice" data-choice="D">
+                            <span class="choice-prefix">D</span>
+                            <span>状语</span>
+                        </div>
+                        <div class="choice" data-choice="E">
+                            <span class="choice-prefix">E</span>
+                            <span>定语</span>
+                        </div>
+                        <div class="choice" data-choice="F">
+                            <span class="choice-prefix">F</span>
+                            <span>宾语补足语</span>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <h4><i class="fas fa-check-circle"></i> 正确答案: E</h4>
+                        <p>"to say" 作定语，修饰anything，表示"要说的话"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-header">
+                    <span>练习进度</span>
+                    <span id="progress-text">0/8 完成</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+            
+            <div class="result-message" id="result-message">
+                <i class="fas fa-trophy"></i> 恭喜！你已完成所有练习！
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 英语动词不定式学习 | 掌握不定式用法，提升语法能力</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const exercises = document.querySelectorAll('.exercise');
+            let completedCount = 0;
+            
+            exercises.forEach(exercise => {
+                const choices = exercise.querySelectorAll('.choice');
+                const explanation = exercise.querySelector('.explanation');
+                
+                choices.forEach(choice => {
+                    choice.addEventListener('click', function() {
+                        // 如果已经选择了答案，则不再处理
+                        if (exercise.classList.contains('completed')) return;
+                        
+                        // 移除其他选项的选择状态
+                        choices.forEach(c => c.classList.remove('selected'));
+                        
+                        // 添加当前选项的选择状态
+                        this.classList.add('selected');
+                        
+                        // 获取正确答案
+                        const correctAnswer = explanation.querySelector('h4').textContent.split(': ')[1].trim();
+                        const userAnswer = this.getAttribute('data-choice');
+                        
+                        // 标记正确/错误
+                        if (userAnswer === correctAnswer) {
+                            this.classList.add('correct');
+                        } else {
+                            this.classList.add('incorrect');
+                            // 显示正确答案
+                            choices.forEach(c => {
+                                if (c.getAttribute('data-choice') === correctAnswer) {
+                                    c.classList.add('correct');
+                                }
+                            });
+                        }
+                        
+                        // 显示解析
+                        explanation.classList.add('active');
+                        
+                        // 标记练习已完成
+                        exercise.classList.add('completed');
+                        
+                        // 更新进度
+                        completedCount++;
+                        updateProgress();
+                    });
+                });
+            });
+            
+            function updateProgress() {
+                const progressText = document.getElementById('progress-text');
+                const progressFill = document.getElementById('progress-fill');
+                const resultMessage = document.getElementById('result-message');
+                
+                const percentage = (completedCount / exercises.length) * 100;
+                progressFill.style.width = `${percentage}%`;
+                progressText.textContent = `${completedCount}/${exercises.length} 完成`;
+                
+                if (completedCount === exercises.length) {
+                    resultMessage.classList.add('success');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>初中英语名词语法学习系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            color: #333;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
+        }
+        
+        header {
+            background: linear-gradient(120deg, #0d47a1, #1976d2);
+            color: white;
+            padding: 25px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            position: relative;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            background: #0d47a1;
+            padding: 0 40px;
+            border-bottom: 2px solid #64b5f6;
+        }
+        
+        .tab-btn {
+            padding: 15px 30px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .tab-btn.active {
+            color: white;
+        }
+        
+        .tab-btn.active::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #ffeb3b;
+            border-radius: 4px 4px 0 0;
+        }
+        
+        .tab-btn:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .content-area {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .tab-content {
+            flex: 1;
+            padding: 30px 40px;
+            overflow-y: auto;
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            background: #f9f9ff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e0e0ff;
+        }
+        
+        h2 {
+            color: #0d47a1;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1976d2;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 12px;
+            background: #1976d2;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        h3 {
+            color: #1a237e;
+            font-size: 1.5rem;
+            margin: 20px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #e1e1e1;
+        }
+        
+        th {
+            background: linear-gradient(120deg, #57cc99 0%, #38a3a5 100%);
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e9f5f1;
+        }
+        
+        .note-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .note-title {
+            font-weight: bold;
+            color: #0d47a1;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .note-title i {
+            margin-right: 10px;
+        }
+        
+        .question-container {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 5px solid #2196f3;
+        }
+        
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #1a237e;
+            display: flex;
+        }
+        
+        .q-number {
+            display: inline-block;
+            background: #2196f3;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .option {
+            background: #f0f4ff;
+            border: 2px solid #bbdefb;
+            border-radius: 10px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 10px rgba(33, 150, 243, 0.2);
+        }
+        
+        .option-letter {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #2196f3;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 15px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .feedback {
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .correct {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+        }
+        
+        .incorrect {
+            background: #ffebee;
+            border: 2px solid #f44336;
+        }
+        
+        .feedback-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+        
+        .feedback-title i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .correct-answer {
+            color: #2e7d32;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .explanation {
+            margin-top: 15px;
+            line-height: 1.6;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            border-left: 3px solid #2196f3;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #757575;
+            background: #f5f5f5;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.9rem;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #fff9c4, #ffecb3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .key-point {
+            display: inline-block;
+            background: linear-gradient(120deg, #ff9a9e 0%, #fad0c4 100%);
+            color: #c2185b;
+            padding: 3px 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+            font-weight: bold;
+        }
+        
+        .grammar-example {
+            background: #f1f8e9;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 3px solid #7cb342;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin: 30px 0 20px;
+            color: #0d47a1;
+            font-size: 1.8rem;
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>初中英语名词语法学习系统</h1>
+            <p class="subtitle">全面掌握名词分类、数量变化和所有格用法，提升英语语法能力</p>
+        </header>
+        
+        <div class="nav-tabs">
+            <button class="tab-btn active" data-tab="overview">
+                <i class="fas fa-home"></i> 语法概述
+            </button>
+            <button class="tab-btn" data-tab="classification">
+                <i class="fas fa-layer-group"></i> 名词分类
+            </button>
+            <button class="tab-btn" data-tab="number">
+                <i class="fas fa-calculator"></i> 名词的数
+            </button>
+            <button class="tab-btn" data-tab="possessive">
+                <i class="fas fa-archive"></i> 所有格
+            </button>
+            <button class="tab-btn" data-tab="practice">
+                <i class="fas fa-pencil-alt"></i> 练习测试
+            </button>
+        </div>
+        
+        <div class="content-area">
+            <!-- 语法概述 -->
+            <div class="tab-content active" id="overview">
+                <div class="section">
+                    <h2><i class="fas fa-book-open"></i> 名词语法概述</h2>
+                    <p>名词是表示人、事物、地方、现象或抽象概念等的名称的词，是英语语法中最基础的词类之一。</p>
+                    
+                    <div class="grammar-example">
+                        <p><span class="highlight">例如</span>: teacher（老师）, book（书）, China（中国）, happiness（幸福）</p>
+                    </div>
+                    
+                    <h3>名词的重要性</h3>
+                    <p>名词在句子中主要充当主语、宾语、表语、定语和补语等成分。掌握名词的用法对于构建正确的英语句子至关重要。</p>
+                    
+                    <h3>名词学习要点</h3>
+                    <ul style="padding-left: 30px; margin: 15px 0;">
+                        <li>名词的分类（专有名词和普通名词）</li>
+                        <li>可数名词的单复数变化规则</li>
+                        <li>不可数名词的特点和用法</li>
+                        <li>名词所有格的表示方法</li>
+                        <li>特殊名词的用法</li>
+                    </ul>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i> 学习提示
+                        </div>
+                        <p>名词的学习重点在于理解不同类型名词的特点，掌握名词复数形式的变化规则，以及正确使用名词所有格。通过大量练习巩固这些知识点。</p>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <h2><i class="fas fa-graduation-cap"></i> 名词学习目标</h2>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                        <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; border-left: 4px solid #2196f3;">
+                            <h3><i class="fas fa-check-circle" style="color: #2196f3;"></i> 知识目标</h3>
+                            <ul style="padding-left: 25px; margin-top: 15px;">
+                                <li>理解名词的基本概念和分类</li>
+                                <li>掌握可数名词的复数变化规则</li>
+                                <li>区分可数名词与不可数名词</li>
+                                <li>掌握名词所有格的用法</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 4px solid #4caf50;">
+                            <h3><i class="fas fa-check-circle" style="color: #4caf50;"></i> 能力目标</h3>
+                            <ul style="padding-left: 25px; margin-top: 15px;">
+                                <li>正确使用名词的单复数形式</li>
+                                <li>能在句子中正确使用名词所有格</li>
+                                <li>区分不同语境下的名词用法</li>
+                                <li>解决名词相关的语法问题</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 名词分类 -->
+            <div class="tab-content" id="classification">
+                <div class="section">
+                    <h2><i class="fas fa-sitemap"></i> 名词分类详解</h2>
+                    <p>名词主要分为专有名词和普通名词两大类，普通名词又可进一步分为可数名词和不可数名词。</p>
+                    
+                    <h3>1. 专有名词 (Proper Nouns)</h3>
+                    <p>表示特定的人、地方、机构、组织等专有名称的名词。专有名词的第一个字母必须大写。</p>
+                    <div class="grammar-example">
+                        <p><span class="highlight">例如</span>: Jim（人名）, China（国家名）, Beijing（地名）, the United Nations（组织名）</p>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-exclamation-circle"></i> 注意
+                        </div>
+                        <p>专有名词前一般不加冠词，但由普通名词构成的专有名词前要用定冠词"the"，如：the Great Wall（长城）。</p>
+                    </div>
+                    
+                    <h3>2. 普通名词 (Common Nouns)</h3>
+                    <p>表示一类人或事物的名称。普通名词又分为四类：</p>
+                    
+                    <table>
+                        <tr>
+                            <th>类别</th>
+                            <th>定义</th>
+                            <th>例词</th>
+                        </tr>
+                        <tr>
+                            <td>个体名词</td>
+                            <td>表示单个人或事物</td>
+                            <td>girl, student, desk, cat</td>
+                        </tr>
+                        <tr>
+                            <td>集合名词</td>
+                            <td>表示一群人或事物的总称</td>
+                            <td>people, police, family, team</td>
+                        </tr>
+                        <tr>
+                            <td>物质名词</td>
+                            <td>表示无法分为个体的物质</td>
+                            <td>water, air, rice, cotton</td>
+                        </tr>
+                        <tr>
+                            <td>抽象名词</td>
+                            <td>表示抽象概念</td>
+                            <td>love, happiness, courage, health</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-lightbulb"></i> 重要提示
+                        </div>
+                        <p>有些不可数名词在表示具体事物时可变为可数名词，但意义会发生变化：</p>
+                        <ul style="padding-left: 25px; margin-top: 10px;">
+                            <li>glass（玻璃）→ a glass（一个玻璃杯）</li>
+                            <li>paper（纸）→ a paper（一份报纸/论文）</li>
+                            <li>room（空间）→ a room（一个房间）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 名词的数 -->
+            <div class="tab-content" id="number">
+                <div class="section">
+                    <h2><i class="fas fa-calculator"></i> 名词的数</h2>
+                    <p>名词的数指名词的单复数形式。可数名词有单数和复数两种形式，不可数名词一般只有单数形式。</p>
+                    
+                    <h3>1. 可数名词的复数形式</h3>
+                    <p>可数名词的复数形式通常在词尾加-s或-es，但也有一些不规则变化。</p>
+                    
+                    <h3>规则变化：</h3>
+                    <table>
+                        <tr>
+                            <th>名词类型</th>
+                            <th>变化规则</th>
+                            <th>读音</th>
+                            <th>例词</th>
+                        </tr>
+                        <tr>
+                            <td>一般情况</td>
+                            <td>加-s</td>
+                            <td>清辅音后读/s/<br>浊辅音和元音后读/z/</td>
+                            <td>books, desks, pens<br>dogs, cars, days</td>
+                        </tr>
+                        <tr>
+                            <td>以s, x, ch, sh结尾</td>
+                            <td>加-es</td>
+                            <td>/ɪz/</td>
+                            <td>buses, boxes, watches, brushes</td>
+                        </tr>
+                        <tr>
+                            <td>以辅音字母+y结尾</td>
+                            <td>变y为i加-es</td>
+                            <td>/z/</td>
+                            <td>cities, families, stories</td>
+                        </tr>
+                        <tr>
+                            <td>以f或fe结尾</td>
+                            <td>变f/fe为v加-es</td>
+                            <td>/vz/</td>
+                            <td>leaves, knives, lives</td>
+                        </tr>
+                        <tr>
+                            <td>以o结尾</td>
+                            <td>加-s或-es</td>
+                            <td>/z/</td>
+                            <td>photos, pianos, radios<br>tomatoes, potatoes, heroes</td>
+                        </tr>
+                    </table>
+                    
+                    <h3>2. 不规则变化：</h3>
+                    <ul style="padding-left: 30px; margin: 15px 0;">
+                        <li>改变元音：man → men, woman → women, foot → feet, tooth → teeth</li>
+                        <li>单复数同形：sheep, deer, fish, Chinese, Japanese</li>
+                        <li>特殊变化：child → children, ox → oxen, mouse → mice</li>
+                    </ul>
+                    
+                    <h3>3. 不可数名词</h3>
+                    <p>不可数名词没有复数形式，前面不能用a/an修饰。表示数量时常用"量词 + of"结构：</p>
+                    <div class="grammar-example">
+                        <p>a cup of tea（一杯茶）, two pieces of advice（两条建议）, three bottles of water（三瓶水）</p>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-exclamation-triangle"></i> 易错点
+                        </div>
+                        <p>有些名词在表示不同意义时，可数与不可数形式会相互转换：</p>
+                        <ul style="padding-left: 25px; margin-top: 10px;">
+                            <li>hair（头发，不可数）→ a hair（一根头发，可数）</li>
+                            <li>experience（经验，不可数）→ experiences（经历，可数）</li>
+                            <li>paper（纸，不可数）→ a paper（报纸/论文，可数）</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 所有格 -->
+            <div class="tab-content" id="possessive">
+                <div class="section">
+                    <h2><i class="fas fa-archive"></i> 名词的所有格</h2>
+                    <p>名词的所有格表示所属关系，主要有两种形式：'s所有格和of所有格。</p>
+                    
+                    <h3>1. 's所有格</h3>
+                    <ul style="padding-left: 30px; margin: 15px 0;">
+                        <li>一般情况：名词后加's → Tom's book（汤姆的书）</li>
+                        <li>以s结尾的复数名词：只加' → the teachers' office（教师办公室）</li>
+                        <li>共同所有：最后一个名词加's → Lucy and Lily's room（露西和莉莉共有的房间）</li>
+                        <li>各自所有：每个名词都加's → Tom's and Jerry's books（汤姆的书和杰瑞的书）</li>
+                    </ul>
+                    
+                    <h3>2. of所有格</h3>
+                    <p>主要用于无生命的事物：</p>
+                    <div class="grammar-example">
+                        <p>the door of the room（房间的门）, the title of the book（书名）</p>
+                    </div>
+                    
+                    <h3>3. 双重所有格</h3>
+                    <p>表示部分概念或感情色彩：</p>
+                    <div class="grammar-example">
+                        <p>a friend of my father's（我父亲的一位朋友）, that book of Tom's（汤姆的那本书）</p>
+                    </div>
+                    
+                    <h3>4. 特殊所有格</h3>
+                    <p>表示时间、距离、国家、城市等的名词也可用's所有格：</p>
+                    <div class="grammar-example">
+                        <p>today's newspaper（今天的报纸）, ten minutes' walk（十分钟的步行）</p>
+                    </div>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-check-circle"></i> 使用原则
+                        </div>
+                        <p>有生命的名词一般用's所有格，无生命的名词用of所有格。但当名词的定语较长时，有生命的名词也可用of所有格：</p>
+                        <p>the story of a fifty-year-old man（一位五十岁男人的故事）</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 练习测试 -->
+            <div class="tab-content" id="practice">
+                <div class="section">
+                    <h2><i class="fas fa-pencil-alt"></i> 名词语法练习</h2>
+                    <p>完成以下练习题，检验你的名词语法掌握情况。选择答案后系统会立即给出反馈。</p>
+                    
+                    <!-- 问题1 -->
+                    <div class="question-container">
+                        <div class="question">
+                            <span class="q-number">1</span>
+                            They got much ______ from those new books.
+                        </div>
+                        
+                        <div class="options">
+                            <div class="option" data-value="A" data-correct="C">
+                                <span class="option-letter">A</span>
+                                ideas
+                            </div>
+                            <div class="option" data-value="B" data-correct="C">
+                                <span class="option-letter">B</span>
+                                photos
+                            </div>
+                            <div class="option" data-value="C" data-correct="C">
+                                <span class="option-letter">C</span>
+                                news
+                            </div>
+                            <div class="option" data-value="D" data-correct="C">
+                                <span class="option-letter">D</span>
+                                stories
+                            </div>
+                        </div>
+                        
+                        <div class="feedback" id="feedback-1">
+                            <div class="feedback-title">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="result-text">正确答案：<span class="correct-answer">C. news</span></span>
+                            </div>
+                            <div class="explanation">
+                                <strong>解析：</strong>much 是用来修饰不可数名词的，A B D三个选项均是可是名词的复数形式，C项为不可数名词，因此选C。
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题2 -->
+                    <div class="question-container">
+                        <div class="question">
+                            <span class="q-number">2</span>
+                            I have two ______ and three bottles of ______ here.
+                        </div>
+                        
+                        <div class="options">
+                            <div class="option" data-value="A" data-correct="C">
+                                <span class="option-letter">A</span>
+                                orange, orange
+                            </div>
+                            <div class="option" data-value="B" data-correct="C">
+                                <span class="option-letter">B</span>
+                                oranges, oranges
+                            </div>
+                            <div class="option" data-value="C" data-correct="C">
+                                <span class="option-letter">C</span>
+                                oranges, orange
+                            </div>
+                            <div class="option" data-value="D" data-correct="C">
+                                <span class="option-letter">D</span>
+                                orange, oranges
+                            </div>
+                        </div>
+                        
+                        <div class="feedback" id="feedback-2">
+                            <div class="feedback-title">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="result-text">正确答案：<span class="correct-answer">C. oranges, orange</span></span>
+                            </div>
+                            <div class="explanation">
+                                <strong>解析：</strong>orange有两种含义，一种可数名词橘子，另一种是不可数名词橘汁，此题第一空应填可数名词，第二空填不可数名词，因此选C。
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题3 -->
+                    <div class="question-container">
+                        <div class="question">
+                            <span class="q-number">3</span>
+                            Every evening Mr. King takes a ______ to his home.
+                        </div>
+                        
+                        <div class="options">
+                            <div class="option" data-value="A" data-correct="A">
+                                <span class="option-letter">A</span>
+                                25 minutes' walk
+                            </div>
+                            <div class="option" data-value="B" data-correct="A">
+                                <span class="option-letter">B</span>
+                                25 minute's walk
+                            </div>
+                            <div class="option" data-value="C" data-correct="A">
+                                <span class="option-letter">C</span>
+                                25 minute walk
+                            </div>
+                            <div class="option" data-value="D" data-correct="A">
+                                <span class="option-letter">D</span>
+                                25 minutes walk
+                            </div>
+                        </div>
+                        
+                        <div class="feedback" id="feedback-3">
+                            <div class="feedback-title">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="result-text">正确答案：<span class="correct-answer">A. 25 minutes' walk</span></span>
+                            </div>
+                            <div class="explanation">
+                                <strong>解析：</strong>句中的minute应该用其复数的所有格形式，只+'，而不能+s，因此选A。
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题4 -->
+                    <div class="question-container">
+                        <div class="question">
+                            <span class="q-number">4</span>
+                            She has been in Tianjin for ten years. Tianjin has become her second ______.
+                        </div>
+                        
+                        <div class="options">
+                            <div class="option" data-value="A" data-correct="C">
+                                <span class="option-letter">A</span>
+                                family
+                            </div>
+                            <div class="option" data-value="B" data-correct="C">
+                                <span class="option-letter">B</span>
+                                house
+                            </div>
+                            <div class="option" data-value="C" data-correct="C">
+                                <span class="option-letter">C</span>
+                                home
+                            </div>
+                            <div class="option" data-value="D" data-correct="C">
+                                <span class="option-letter">D</span>
+                                room
+                            </div>
+                        </div>
+                        
+                        <div class="feedback" id="feedback-4">
+                            <div class="feedback-title">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="result-text">正确答案：<span class="correct-answer">C. home</span></span>
+                            </div>
+                            <div class="explanation">
+                                <strong>解析：</strong>family指的是家庭或是家庭成员；house指的是房子(住所)；room指的是房间；而home指的是家，因此选C。
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 问题5 -->
+                    <div class="question-container">
+                        <div class="question">
+                            <span class="q-number">5</span>
+                            Help yourself to ______.
+                        </div>
+                        
+                        <div class="options">
+                            <div class="option" data-value="A" data-correct="D">
+                                <span class="option-letter">A</span>
+                                chickens and apples
+                            </div>
+                            <div class="option" data-value="B" data-correct="D">
+                                <span class="option-letter">B</span>
+                                chickens and apple
+                            </div>
+                            <div class="option" data-value="C" data-correct="D">
+                                <span class="option-letter">C</span>
+                                chicken and apple
+                            </div>
+                            <div class="option" data-value="D" data-correct="D">
+                                <span class="option-letter">D</span>
+                                chicken and apples
+                            </div>
+                        </div>
+                        
+                        <div class="feedback" id="feedback-5">
+                            <div class="feedback-title">
+                                <i class="fas fa-check-circle"></i>
+                                <span class="result-text">正确答案：<span class="correct-answer">D. chicken and apples</span></span>
+                            </div>
+                            <div class="explanation">
+                                <strong>解析：</strong>chicken可用作可数名词指小鸡，用作不可数名词指鸡肉，根据词题意应理解为鸡肉；apple为可数名词，故应+s，因此选D。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>初中英语名词语法学习系统 &copy; 2023 | 全面掌握名词用法，提升英语语法能力</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 标签切换功能
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    
+                    // 更新活动标签
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 显示对应内容
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === tabId) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // 问题交互功能
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    const questionContainer = this.closest('.question-container');
+                    const feedback = questionContainer.querySelector('.feedback');
+                    const correctAnswer = this.dataset.correct;
+                    const selectedValue = this.dataset.value;
+                    
+                    // 禁用该问题的所有选项
+                    const questionOptions = questionContainer.querySelectorAll('.option');
+                    questionOptions.forEach(opt => {
+                        opt.style.pointerEvents = 'none';
+                    });
+                    
+                    // 显示反馈
+                    if (selectedValue === correctAnswer) {
+                        feedback.classList.remove('incorrect');
+                        feedback.classList.add('correct');
+                        feedback.querySelector('.result-text').innerHTML = 
+                            '回答正确！正确答案：<span class="correct-answer">' + 
+                            correctAnswer + '. ' + this.textContent.trim() + '</span>';
+                        feedback.querySelector('i').className = 'fas fa-check-circle';
+                    } else {
+                        feedback.classList.remove('correct');
+                        feedback.classList.add('incorrect');
+                        
+                        // 找到正确答案的选项
+                        let correctOptionText = '';
+                        questionOptions.forEach(opt => {
+                            if (opt.dataset.value === correctAnswer) {
+                                correctOptionText = opt.textContent.trim();
+                            }
+                        });
+                        
+                        feedback.querySelector('.result-text').innerHTML = 
+                            '回答错误！正确答案：<span class="correct-answer">' + 
+                            correctAnswer + '. ' + correctOptionText + '</span>';
+                        feedback.querySelector('i').className = 'fas fa-times-circle';
+                    }
+                    
+                    feedback.style.display = 'block';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

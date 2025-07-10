@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代词用法详解与练习</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f9f7fe 0%, #e6e9ff 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            position: relative;
+        }
+        
+        .main-content {
+            padding: 30px 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f9fbfd;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #6a11cb;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #dce6f0;
+            font-size: 1.8rem;
+        }
+        
+        .section h3 {
+            color: #6a11cb;
+            margin: 20px 0 15px;
+            font-size: 1.4rem;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .section h3::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: #6a11cb;
+            border-radius: 50%;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(233, 213, 255, 0.3) 0%, rgba(199, 236, 255, 0.3) 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #6a11cb;
+        }
+        
+        .example {
+            background: #edf3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-style: italic;
+            border-left: 3px solid #2575fc;
+        }
+        
+        .note {
+            background: #fff8e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 3px solid #f1c40f;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #e1e1e1;
+        }
+        
+        th {
+            background: #6a11cb;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9ff;
+        }
+        
+        .exercise-section {
+            background: linear-gradient(135deg, #f0f5ff 0%, #e6f0ff 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            border: 2px solid #d1dcff;
+        }
+        
+        .exercise-section h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            position: relative;
+        }
+        
+        .exercise-section h2::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        
+        .question {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid #6a11cb;
+        }
+        
+        .question:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        .question p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: #f0f4ff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        .option:hover {
+            background: #e1e8ff;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            border-color: #6a11cb;
+            background: #e1e8ff;
+            box-shadow: 0 3px 8px rgba(106, 17, 203, 0.2);
+        }
+        
+        .option input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .explanation {
+            max-height: 0;
+            overflow: hidden;
+            background: #f8f9fa;
+            padding: 0 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            transition: all 0.4s ease;
+        }
+        
+        .explanation.show {
+            max-height: 200px;
+            padding: 15px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .correct {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        
+        .incorrect {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .answer-btn {
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 15px;
+            transition: all 0.2s;
+            box-shadow: 0 3px 8px rgba(106, 17, 203, 0.3);
+        }
+        
+        .answer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(106, 17, 203, 0.4);
+        }
+        
+        .answer-btn:active {
+            transform: translateY(1px);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        
+        .pronoun-badge {
+            display: inline-block;
+            background: #6a11cb;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin: 0 3px;
+            vertical-align: middle;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 10px;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            .exercise-section {
+                padding: 20px;
+            }
+            
+            .options {
+                flex-direction: column;
+            }
+            
+            .option {
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>代词用法详解与练习</h1>
+            <p class="subtitle">掌握人称代词、物主代词、反身代词等各类代词的用法</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="section">
+                <h2>代词概述</h2>
+                <p>代词是代替名词或名词短语的一种词类。英语中常把代词分为：</p>
+                <div class="highlight">
+                    <p><span class="pronoun-badge">人称代词</span> <span class="pronoun-badge">物主代词</span> <span class="pronoun-badge">反身代词</span> <span class="pronoun-badge">指示代词</span> <span class="pronoun-badge">疑问代词</span> <span class="pronoun-badge">连接代词</span> <span class="pronoun-badge">不定代词</span> <span class="pronoun-badge">相互代词</span></p>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>一、人称代词</h2>
+                <p>人称代词是指人的代词，有性、数、格的区别。</p>
+                
+                <table>
+                    <tr>
+                        <th rowspan="2">数</th>
+                        <th colspan="2">单数</th>
+                        <th colspan="2">复数</th>
+                    </tr>
+                    <tr>
+                        <th>主格</th>
+                        <th>宾格</th>
+                        <th>主格</th>
+                        <th>宾格</th>
+                    </tr>
+                    <tr>
+                        <td>第一人称</td>
+                        <td>I</td>
+                        <td>me</td>
+                        <td>we</td>
+                        <td>us</td>
+                    </tr>
+                    <tr>
+                        <td>第二人称</td>
+                        <td>you</td>
+                        <td>you</td>
+                        <td>you</td>
+                        <td>you</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">第三人称</td>
+                        <td>he</td>
+                        <td>him</td>
+                        <td rowspan="3">they</td>
+                        <td rowspan="3">them</td>
+                    </tr>
+                    <tr>
+                        <td>she</td>
+                        <td>her</td>
+                    </tr>
+                    <tr>
+                        <td>it</td>
+                        <td>it</td>
+                    </tr>
+                </table>
+                
+                <div class="highlight">
+                    <h3>1. 主格在句中作主语</h3>
+                    <div class="example">
+                        <p>She is my English teacher.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>2. 宾格在句中作宾语</h3>
+                    <div class="example">
+                        <p>They don't want me to go there alone.</p>
+                        <p>Don't worry. I can look after her.</p>
+                    </div>
+                </div>
+                
+                <div class="note">
+                    <p><strong>注意：</strong></p>
+                    <p>① 人称代词we, you, they可以用来表示一般人。</p>
+                    <div class="example">
+                        <p>You cannot go into the hall with slippers. 不准穿拖鞋进入大厅。</p>
+                    </div>
+                    <p>② 人称代词的主格作表语，在正式谈话中表示强调。</p>
+                    <div class="example">
+                        <p>It was he who took away the necklace. 是他拿走了那条项链。</p>
+                    </div>
+                    <p>③ 人称代词she可以用指代祖国、大地、月亮、轮船等。</p>
+                    <div class="example">
+                        <p>The ship is leaving. She's on her first trip to Boston. 轮船要起航了。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>二、物主代词</h2>
+                <p>表示所有关系的代词叫物主代词。物主代词包括形容词性物主代词和名词性物主代词。</p>
+                
+                <table>
+                    <tr>
+                        <th rowspan="2">类型</th>
+                        <th colspan="5">单数</th>
+                        <th colspan="3">复数</th>
+                    </tr>
+                    <tr>
+                        <th>我的</th>
+                        <th>你的</th>
+                        <th>他的</th>
+                        <th>她的</th>
+                        <th>它的</th>
+                        <th>我们的</th>
+                        <th>你们的</th>
+                        <th>他/她/它们的</th>
+                    </tr>
+                    <tr>
+                        <td>形容词性</td>
+                        <td>my</td>
+                        <td>your</td>
+                        <td>his</td>
+                        <td>her</td>
+                        <td>its</td>
+                        <td>our</td>
+                        <td>your</td>
+                        <td>their</td>
+                    </tr>
+                    <tr>
+                        <td>名词性</td>
+                        <td>mine</td>
+                        <td>yours</td>
+                        <td>his</td>
+                        <td>hers</td>
+                        <td>its</td>
+                        <td>ours</td>
+                        <td>yours</td>
+                        <td>theirs</td>
+                    </tr>
+                </table>
+                
+                <div class="highlight">
+                    <h3>1. 形容词性物主代词在句中作定语</h3>
+                    <div class="example">
+                        <p>To our surprise, he has passed the exam.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>2. 名词性物主代词在句中作主语、表语、宾语</h3>
+                    <div class="example">
+                        <p>May I use your bike? Mine is at school. (作主语)</p>
+                        <p>Whose glasses are these? They are hers. (作表语)</p>
+                        <p>My dictionary is lost. Can I use yours? (作宾语)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>三、反身代词</h2>
+                <p>用来表示"某人自己"的代词称为反身代词。</p>
+                
+                <table>
+                    <tr>
+                        <th>数</th>
+                        <th>我自己</th>
+                        <th>你自己</th>
+                        <th>他/她/它自己</th>
+                        <th>我们自己</th>
+                        <th>你们自己</th>
+                        <th>他们自己</th>
+                    </tr>
+                    <tr>
+                        <td>单数</td>
+                        <td>myself</td>
+                        <td>yourself</td>
+                        <td>himself/herself/itself</td>
+                        <td colspan="3"></td>
+                    </tr>
+                    <tr>
+                        <td>复数</td>
+                        <td colspan="2"></td>
+                        <td></td>
+                        <td>ourselves</td>
+                        <td>yourselves</td>
+                        <td>themselves</td>
+                    </tr>
+                </table>
+                
+                <div class="highlight">
+                    <h3>1. 反身代词在句中作宾语、主语或宾语的同位语</h3>
+                    <div class="example">
+                        <p>Her sister is too young to dress herself. (作宾语)</p>
+                        <p>He himself is always making such mistakes. (主语同位语)</p>
+                        <p>You'd better ask your wife herself. (宾语同位语)</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>2. 反身代词可与其他词构成固定搭配</h3>
+                    <div class="example">
+                        <p>make oneself at home, teach oneself, learn by oneself, help oneself to...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>四、其他代词</h2>
+                
+                <div class="highlight">
+                    <h3>1. 指示代词</h3>
+                    <p>表示时间和空间远近关系的代词：this, that, these, those</p>
+                    <div class="example">
+                        <p>Those are my parents. (作主语)</p>
+                        <p>Throw it like that. (作宾语)</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>2. 疑问代词</h3>
+                    <p>用来构成特殊疑问句的代词：who, what, which, whose, whom</p>
+                    <div class="example">
+                        <p>What makes you so happy? (作主语)</p>
+                        <p>Which subject do you like best? (作定语)</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>3. 相互代词</h3>
+                    <p>用于表示相互关系的代词：each other, one another</p>
+                    <div class="example">
+                        <p>We should help each other.</p>
+                        <p>We put the presents in each other's stocking.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>4. 连接代词</h3>
+                    <p>用来连接宾语从句、表语从句、主语从句的代词：what, which, who, whom, whose, that</p>
+                    <div class="example">
+                        <p>I know what he said at the meeting.</p>
+                        <p>The problem is who will mend it.</p>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>5. 不定代词</h3>
+                    <p>没有确定对象的代词：all, each, every, both, either, neither, one, none, little, few, many, much, other, another, some, any, no 等</p>
+                    <div class="example">
+                        <p>Many people like the movie.</p>
+                        <p>I have little money left.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="exercise-section">
+                <h2>代词用法练习</h2>
+                
+                <div class="question" id="q1">
+                    <p>1. This isn't ______ pencil case. I left ______ at home.</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 1, 'A')">
+                            <input type="radio" name="q1" value="A"> A. my, mine
+                        </div>
+                        <div class="option" onclick="selectOption(this, 1, 'B')">
+                            <input type="radio" name="q1" value="B"> B. me, my
+                        </div>
+                        <div class="option" onclick="selectOption(this, 1, 'C')">
+                            <input type="radio" name="q1" value="C"> C. I, my
+                        </div>
+                        <div class="option" onclick="selectOption(this, 1, 'D')">
+                            <input type="radio" name="q1" value="D"> D. my, myself
+                        </div>
+                    </div>
+                    <button class="answer-btn" onclick="showAnswer(1)">查看答案与解析</button>
+                    <div class="explanation" id="exp1">
+                        <p><strong>正确答案：A. my, mine</strong></p>
+                        <p><strong>解析：</strong> 此类题主要用于考查学生对人称代词、物主代词和反身代词的掌握情况。第一空需要形容词性物主代词修饰名词，第二空需要名词性物主代词指代"我的铅笔盒"。</p>
+                    </div>
+                </div>
+                
+                <div class="question" id="q2">
+                    <p>2. The English novel is quite easy for you. There are ______ new words in it.</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 2, 'A')">
+                            <input type="radio" name="q2" value="A"> A. a little
+                        </div>
+                        <div class="option" onclick="selectOption(this, 2, 'B')">
+                            <input type="radio" name="q2" value="B"> B. little
+                        </div>
+                        <div class="option" onclick="selectOption(this, 2, 'C')">
+                            <input type="radio" name="q2" value="C"> C. a few
+                        </div>
+                        <div class="option" onclick="selectOption(this, 2, 'D')">
+                            <input type="radio" name="q2" value="D"> D. few
+                        </div>
+                    </div>
+                    <button class="answer-btn" onclick="showAnswer(2)">查看答案与解析</button>
+                    <div class="explanation" id="exp2">
+                        <p><strong>正确答案：D. few</strong></p>
+                        <p><strong>解析：</strong> few, a few修饰或代替可数名词复数；little, a little修饰或代替不可数名词。few表示否定意义"几乎没有"，符合句意"英语小说对你来说很容易，里面几乎没有生词"。</p>
+                    </div>
+                </div>
+                
+                <div class="question" id="q3">
+                    <p>3. --- Can I come this evening or tomorrow morning?</p>
+                    <p>--- ______ is OK. I'm free today and tomorrow.</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 3, 'A')">
+                            <input type="radio" name="q3" value="A"> A. Either
+                        </div>
+                        <div class="option" onclick="selectOption(this, 3, 'B')">
+                            <input type="radio" name="q3" value="B"> B. Neither
+                        </div>
+                        <div class="option" onclick="selectOption(this, 3, 'C')">
+                            <input type="radio" name="q3" value="C"> C. Both
+                        </div>
+                        <div class="option" onclick="selectOption(this, 3, 'D')">
+                            <input type="radio" name="q3" value="D"> D. None
+                        </div>
+                    </div>
+                    <button class="answer-btn" onclick="showAnswer(3)">查看答案与解析</button>
+                    <div class="explanation" id="exp3">
+                        <p><strong>正确答案：A. Either</strong></p>
+                        <p><strong>解析：</strong> either指两者中的任何一个，表示肯定。根据句意"今天或明天都可以，我都有空"，either符合语境。</p>
+                    </div>
+                </div>
+                
+                <div class="question" id="q4">
+                    <p>4. The population of China is much larger than ______ of India.</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 4, 'A')">
+                            <input type="radio" name="q4" value="A"> A. this
+                        </div>
+                        <div class="option" onclick="selectOption(this, 4, 'B')">
+                            <input type="radio" name="q4" value="B"> B. those
+                        </div>
+                        <div class="option" onclick="selectOption(this, 4, 'C')">
+                            <input type="radio" name="q4" value="C"> C. it
+                        </div>
+                        <div class="option" onclick="selectOption(this, 4, 'D')">
+                            <input type="radio" name="q4" value="D"> D. that
+                        </div>
+                    </div>
+                    <button class="answer-btn" onclick="showAnswer(4)">查看答案与解析</button>
+                    <div class="explanation" id="exp4">
+                        <p><strong>正确答案：D. that</strong></p>
+                        <p><strong>解析：</strong> 在比较级的句型中，经常用that指代前面提到过的不可数名词(population)，用those指代可数名词的复数。</p>
+                    </div>
+                </div>
+                
+                <div class="question" id="q5">
+                    <p>5. --- When shall we meet again?</p>
+                    <p>--- Make it ______ day you like. It's all the same to me.</p>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, 5, 'A')">
+                            <input type="radio" name="q5" value="A"> A. one
+                        </div>
+                        <div class="option" onclick="selectOption(this, 5, 'B')">
+                            <input type="radio" name="q5" value="B"> B. any
+                        </div>
+                        <div class="option" onclick="selectOption(this, 5, 'C')">
+                            <input type="radio" name="q5" value="C"> C. another
+                        </div>
+                        <div class="option" onclick="selectOption(this, 5, 'D')">
+                            <input type="radio" name="q5" value="D"> D. all
+                        </div>
+                    </div>
+                    <button class="answer-btn" onclick="showAnswer(5)">查看答案与解析</button>
+                    <div class="explanation" id="exp5">
+                        <p><strong>正确答案：B. any</strong></p>
+                        <p><strong>解析：</strong> any表示"任何一个"，符合句意"定在你喜欢的任何一天，对我来说都一样"。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 英语语法学习 | 代词用法详解</p>
+        </footer>
+    </div>
+
+    <script>
+        function selectOption(element, questionNum, option) {
+            // 移除同一问题中其他选项的选中状态
+            const options = document.querySelectorAll(`#q${questionNum} .option`);
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // 添加当前选项的选中状态
+            element.classList.add('selected');
+            
+            // 选中对应的单选按钮
+            const radio = element.querySelector('input[type="radio"]');
+            radio.checked = true;
+        }
+        
+        function showAnswer(questionNum) {
+            const explanation = document.getElementById(`exp${questionNum}`);
+            explanation.classList.toggle('show');
+            
+            // 自动滚动到解释位置
+            explanation.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+        }
+    </script>
+</body>
+</html>
