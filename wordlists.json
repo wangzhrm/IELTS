@@ -86,7 +86,7 @@
       "word": "task",
       "definition": "n.任务"
     },
-     {
+    {
       "word": "various",
       "definition": "adj.各种各样的"
     },
@@ -185,9 +185,41 @@
     {
       "word": "so on",
       "definition": "等等..."
+    },
+    {
+      "word": "notice",
+      "definition": "n/v. 通知"
+    },
+    {
+      "word": "previous",
+      "definition": "adj.以前的"
+    },
+    {
+      "word": "amount",
+      "definition": "n. 数量"
+    },
+    {
+      "word": "volume",
+      "definition": "n. 容量"
+    },
+    {
+      "word": "re-read",
+      "definition": "v. 重读"
+    },
+    {
+      "word": "grab",
+      "definition": "v.抓住"
+    },
+    {
+      "word": "succeed",
+      "definition": "v.成功"
+    },
+    {
+      "word": "success",
+      "definition": "n.成功"
     }
   ],
-"Lucy0707": [
+  "Lucy0707": [
     {
       "word": "pressure",
       "definition": "n.压力"
@@ -204,29 +236,13 @@
       "word": "expectation",
       "definition": "n.期望"
     },
-   {
+    {
       "word": "individual",
       "definition": "n.个人; adj. 个人的"
     },
     {
-      "word": "notice",
-      "definition": "n/v. 通知"
-    },
-    {
-      "word": "previous",
-      "definition": "adj.以前的"
-    },
-    {
       "word": "vulnerable",
       "definition": "adj. 脆弱的"
-    },
-    {
-      "word": "amount",
-      "definition": "n. 数量"
-    },
-    {
-      "word": "volume",
-      "definition": "n. 容量"
     },
     {
       "word": "period",
@@ -265,14 +281,6 @@
       "definition": "adv. 不断地"
     },
     {
-      "word": "re-read",
-      "definition": "v. 重读"
-    },
-    {
-      "word": "grab",
-      "definition": "v.抓住"
-    },
-    {
       "word": "pressure",
       "definition": "n.压力"
     },
@@ -288,7 +296,7 @@
       "word": "expectation",
       "definition": "n. 期望"
     },
-      {
+    {
       "word": "company",
       "definition": "n.公司"
     },
@@ -299,14 +307,6 @@
     {
       "word": "failure",
       "definition": "n.失败"
-    },
-    {
-      "word": "succeed",
-      "definition": "v.成功"
-    },
-    {
-      "word": "success",
-      "definition": "n.成功"
     },
     {
       "word": "quarter",
@@ -367,6 +367,42 @@
     {
       "word": "artificial intelligence",
       "definition": "n. 人工智能"
+    },
+    {
+      "word": "illustrate",
+      "definition": "v. 解释，说明"
+    },
+    {
+      "word": "distinguish",
+      "definition": "v. 区分;辨别"
+    },
+    {
+      "word": "sequence",
+      "definition": "n. 序列;顺序"
+    },
+    {
+      "word": "phenomena",
+      "definition": "n. (plural). 现象"
+    },
+    {
+      "word": "generally",
+      "definition": "adv. 通常地"
+    },
+    {
+      "word": "resemble",
+      "definition": "v. 类似于, 相似"
+    },
+    {
+      "word": "method",
+      "definition": "n. 方法"
+    },
+    {
+      "word": "appealing",
+      "definition": "adj. 有吸引力的"
+    },
+    {
+      "word": "literature",
+      "definition": "n. 文学，文献"
     }
   ]
 }
