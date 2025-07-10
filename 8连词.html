@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语连词知识点总结与练习</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        
+        h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            color: #e74c3c;
+        }
+        
+        h3 {
+            color: #3498db;
+            margin: 20px 0 15px;
+            padding-left: 10px;
+            border-left: 3px solid #3498db;
+        }
+        
+        .knowledge-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .point-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .point-card:hover {
+            background: #e3f2fd;
+            border-color: #bbdefb;
+            transform: scale(1.02);
+        }
+        
+        .point-card h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .point-card h4 i {
+            margin-right: 8px;
+        }
+        
+        ul {
+            padding-left: 25px;
+            margin: 15px 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        li:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: -20px;
+        }
+        
+        .example {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+            font-style: italic;
+        }
+        
+        .exercise-container {
+            counter-reset: exercise;
+        }
+        
+        .exercise {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            border: 1px solid #dee2e6;
+        }
+        
+        .exercise:before {
+            counter-increment: exercise;
+            content: counter(exercise) ".";
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            background: #e74c3c;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #3498db;
+        }
+        
+        .option.selected {
+            background: #d1ecf1;
+            border-color: #17a2b8;
+            font-weight: bold;
+        }
+        
+        .option-letter {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .answer-section {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: #e8f4f8;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .correct {
+            color: #28a745;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .correct i {
+            margin-right: 8px;
+        }
+        
+        .explanation {
+            color: #6c757d;
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .result-container {
+            display: none;
+            background: #d4edda;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 30px;
+            border: 2px solid #28a745;
+        }
+        
+        .score {
+            font-size: 2rem;
+            color: #28a745;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, #28a745, #7be495);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            margin-top: 30px;
+            border-radius: 0 0 15px 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .knowledge-points {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-link"></i> 英语连词知识点总结</h1>
+            <p class="subtitle">掌握连词用法，提升句子衔接能力，让英语表达更流畅自然</p>
+        </header>
+        
+        <div class="content">
+            <div class="section">
+                <h2><i class="fas fa-book-open"></i> 连词知识点总结</h2>
+                
+                <div class="knowledge-points">
+                    <div class="point-card">
+                        <h4><i class="fas fa-plus-circle"></i> 并列连词</h4>
+                        <ul>
+                            <li>连接并列关系的词、词组或分句</li>
+                            <li>基础连词: and, or, but, for</li>
+                            <li>关联连词:
+                                <ul>
+                                    <li>both...and（两者都）</li>
+                                    <li>either...or（要么...要么）</li>
+                                    <li>neither...nor（既不...也不）</li>
+                                    <li>not only...but also（不仅...而且）</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="example">
+                            <p><strong>示例:</strong> Work hard, and you will succeed. (努力学习，你就会成功)</p>
+                            <p><strong>示例:</strong> Hurry up, or you'll miss the bus. (快点，否则你会错过公交车)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="point-card">
+                        <h4><i class="fas fa-random"></i> 特殊句型</h4>
+                        <ul>
+                            <li><strong>祈使句 + and</strong> = If you..., you will...</li>
+                            <li><strong>祈使句 + or</strong> = If you don't..., you will...</li>
+                            <li>主谓一致原则:
+                                <ul>
+                                    <li>or/either...or/neither...nor连接主语时，谓语动词与最近的主语一致</li>
+                                    <li>not only...but also连接主语时，谓语动词与最近的主语一致</li>
+                                </ul>
+                            </li>
+                            <li>both...and...否定句表示部分否定</li>
+                        </ul>
+                        <div class="example">
+                            <p><strong>示例:</strong> Either you or she is wrong. (要么你错，要么她错)</p>
+                            <p><strong>示例:</strong> Not only you but also your father is coming. (不仅你，你父亲也要来)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="point-card">
+                        <h4><i class="fas fa-project-diagram"></i> 从属连词</h4>
+                        <ul>
+                            <li>用来引导从句</li>
+                            <li>常见从属连词: 
+                                <ul>
+                                    <li>that, when, until, after</li>
+                                    <li>before, since, because, if</li>
+                                    <li>whether, though, although</li>
+                                    <li>so...that, so that, as soon as</li>
+                                </ul>
+                            </li>
+                            <li>详细用法见各种从句章节</li>
+                        </ul>
+                        <div class="example">
+                            <p><strong>示例:</strong> I went to sleep soon, for I was very tired. (我很快就睡了，因为我很累)</p>
+                            <p><strong>示例:</strong> He hurt her so badly that she had to see a doctor. (他伤得她如此严重，以致她不得不看医生)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2><i class="fas fa-pencil-alt"></i> 连词练习题</h2>
+                <p>请选择每道题的正确答案，完成所有题目后可查看成绩和解析</p>
+                
+                <div class="exercise-container" id="exercise-container">
+                    <!-- 题目将通过JavaScript动态生成 -->
+                </div>
+                
+                <div class="btn-container">
+                    <button class="btn" id="check-answers">
+                        <i class="fas fa-check-circle"></i> 检查答案
+                    </button>
+                </div>
+                
+                <div class="result-container" id="result-container">
+                    <h3><i class="fas fa-trophy"></i> 练习结果</h3>
+                    <p>你的得分：<span class="score" id="score">0</span> / 20</p>
+                    <div class="progress-bar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <p id="result-message">继续努力，多加练习！</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>英语语法学习资料 &copy; 2023 | 掌握连词用法，提升英语表达能力</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 练习题数据
+            const exercises = [
+                {
+                    question: "Which is bigger, the sun ___ the moon?",
+                    options: ["or", "and", "but", "so"],
+                    answer: 0,
+                    explanation: "选择疑问句用 `or` 连接选项"
+                },
+                {
+                    question: "Hurry up, ___ we will miss the train.",
+                    options: ["but", "and", "or", "so"],
+                    answer: 2,
+                    explanation: "句型 'Hurry up, or...' 表 '否则'"
+                },
+                {
+                    question: "He hurt her ___ badly ___ she had to see a doctor.",
+                    options: ["too, that", "so, that", "either, or", "too, to"],
+                    answer: 1,
+                    explanation: "`so...that` 表 '如此…以至于'"
+                },
+                {
+                    question: "Look out! The traffic is moving fast. It's ___ dangerous ___ cross the street.",
+                    options: ["very, to", "so, to", "much, to", "too, to"],
+                    answer: 3,
+                    explanation: "`too...to` 结构表 '太…而不能'"
+                },
+                {
+                    question: "It's ___ far ___ walk home from here. Let's take a bus.",
+                    options: ["so, that", "too, to", "enough, to", "such, that"],
+                    answer: 1,
+                    explanation: "同上，表示 '太远而不能步行'"
+                },
+                {
+                    question: "\"Why didn't Nick come to school yesterday?\" \" ___ he was ill.\"",
+                    options: ["After", "Where", "When", "Because"],
+                    answer: 3,
+                    explanation: "回答 'why' 需用 `because`"
+                },
+                {
+                    question: "John fell asleep ___ he was listening to the music.",
+                    options: ["after", "before", "while", "as soon as"],
+                    answer: 2,
+                    explanation: "`while` 强调 '在听音乐过程中' 睡着"
+                },
+                {
+                    question: "\"I won't go to the party tomorrow.\" \" ___ you told me you would. What's happening?\"",
+                    options: ["But", "So", "And", "Or"],
+                    answer: 0,
+                    explanation: "`but` 表转折，与前句矛盾"
+                },
+                {
+                    question: "Stop cutting trees, ___ the earth will become worse and worse.",
+                    options: ["and", "then", "but", "or"],
+                    answer: 3,
+                    explanation: "句型 'Stop..., or...' 表 '否则'"
+                },
+                {
+                    question: "\"Be careful! Don't break the bottles. Do you hear ___ I said, David?\"",
+                    options: ["What", "that", "how", "if"],
+                    answer: 0,
+                    explanation: "`what` 作 `said` 的宾语，从句为陈述语序"
+                },
+                {
+                    question: "Mr Smith comes from Australia, but he has worked in China for five years. So you can talk with him ___.",
+                    options: [
+                        "either in English or in Chinese",
+                        "not in Chinese but in English",
+                        "just in English, not in Chinese",
+                        "neither in Chinese nor in English"
+                    ],
+                    answer: 0,
+                    explanation: "`either...or` 表示 '英语或汉语均可'"
+                },
+                {
+                    question: "I can ___ swim ___ skate. Will you please teach me?",
+                    options: [
+                        "either...or",
+                        "not only...but also",
+                        "both...and",
+                        "neither...nor"
+                    ],
+                    answer: 3,
+                    explanation: "后句 '请教我' 说明 '既不会游泳也不会滑冰'"
+                },
+                {
+                    question: "When I got the news that the ship would sink, I was ___ frightened ___ my legs couldn't move forward.",
+                    options: ["so, that", "very, that", "too, that", "too, to"],
+                    answer: 0,
+                    explanation: "`so...that` 表结果"
+                },
+                {
+                    question: "She bought a digital camera online ___ she saved a lot of time.",
+                    options: ["so that", "as soon as", "no matter", "such that"],
+                    answer: 0,
+                    explanation: "`so that` 表目的（为了节省时间）"
+                },
+                {
+                    question: "Beijing has ___ many buses that there is often a traffic jam in rush hours.",
+                    options: ["so", "very", "too", "much"],
+                    answer: 0,
+                    explanation: "`so...that` 固定搭配"
+                },
+                {
+                    question: "Hurry up, ___ you will miss the train. It's leaving in ten minutes.",
+                    options: ["and", "so", "however", "or"],
+                    answer: 3,
+                    explanation: "同第2题，'祈使句 + or' 表警告"
+                },
+                {
+                    question: "Not only his parents but also his brother ___ to the Summer Palace. They haven't been back.",
+                    options: ["have been", "have gone", "has been", "has gone"],
+                    answer: 3,
+                    explanation: "`not only...but also` 谓语就近原则（his brother 单数），`has gone` 表 '已去未归'"
+                },
+                {
+                    question: "You'd better do it ___ your mother did.",
+                    options: ["when", "as", "like", "because"],
+                    answer: 1,
+                    explanation: "`as` 引导方式状语从句，'按你母亲的做法'"
+                },
+                {
+                    question: "___ they are brothers, they don't look like each other at all.",
+                    options: ["Because", "Though", "When", "As"],
+                    answer: 1,
+                    explanation: "`though` 表让步，'尽管是兄弟，但长得不像'"
+                },
+                {
+                    question: "-- When did you know the news? -- I knew nothing about it ___ my friend told me.",
+                    options: ["after", "it", "because", "until"],
+                    answer: 3,
+                    explanation: "`not...until` 结构，'直到朋友告知才知道'"
+                }
+            ];
+
+            const container = document.getElementById('exercise-container');
+            const resultContainer = document.getElementById('result-container');
+            const scoreElement = document.getElementById('score');
+            const progressElement = document.getElementById('progress');
+            const resultMessage = document.getElementById('result-message');
+            const checkButton = document.getElementById('check-answers');
+
+            // 生成练习题
+            exercises.forEach((exercise, index) => {
+                const exerciseDiv = document.createElement('div');
+                exerciseDiv.className = 'exercise';
+                
+                const question = document.createElement('div');
+                question.className = 'question';
+                question.textContent = exercise.question;
+                exerciseDiv.appendChild(question);
+                
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'options';
+                
+                exercise.options.forEach((option, optionIndex) => {
+                    const optionDiv = document.createElement('div');
+                    optionDiv.className = 'option';
+                    optionDiv.dataset.index = optionIndex;
+                    optionDiv.dataset.exercise = index;
+                    
+                    const optionLetter = document.createElement('span');
+                    optionLetter.className = 'option-letter';
+                    optionLetter.textContent = String.fromCharCode(65 + optionIndex);
+                    
+                    const optionText = document.createElement('span');
+                    optionText.textContent = option;
+                    
+                    optionDiv.appendChild(optionLetter);
+                    optionDiv.appendChild(optionText);
+                    
+                    // 添加选项点击事件
+                    optionDiv.addEventListener('click', function() {
+                        // 移除同一题目中其他选项的选中状态
+                        const currentExerciseOptions = this.parentElement.querySelectorAll('.option');
+                        currentExerciseOptions.forEach(opt => opt.classList.remove('selected'));
+                        
+                        // 选中当前选项
+                        this.classList.add('selected');
+                        this.dataset.selected = 'true';
+                    });
+                    
+                    optionsDiv.appendChild(optionDiv);
+                });
+                
+                exerciseDiv.appendChild(optionsDiv);
+                
+                // 添加答案和解析部分
+                const answerDiv = document.createElement('div');
+                answerDiv.className = 'answer-section';
+                answerDiv.id = `answer-${index}`;
+                
+                const correctDiv = document.createElement('div');
+                correctDiv.className = 'correct';
+                correctDiv.innerHTML = `<i class="fas fa-check"></i> 正确答案: ${String.fromCharCode(65 + exercise.answer)}. ${exercise.options[exercise.answer]}`;
+                
+                const explanationDiv = document.createElement('div');
+                explanationDiv.className = 'explanation';
+                explanationDiv.innerHTML = `<strong>解析:</strong> ${exercise.explanation}`;
+                
+                answerDiv.appendChild(correctDiv);
+                answerDiv.appendChild(explanationDiv);
+                exerciseDiv.appendChild(answerDiv);
+                
+                container.appendChild(exerciseDiv);
+            });
+
+            // 检查答案按钮事件
+            checkButton.addEventListener('click', function() {
+                let correctCount = 0;
+                
+                // 显示所有答案部分
+                exercises.forEach((exercise, index) => {
+                    const answerSection = document.getElementById(`answer-${index}`);
+                    answerSection.style.display = 'block';
+                    
+                    // 检查用户是否选择了正确答案
+                    const selectedOption = container.querySelector(`.option[data-exercise="${index}"].selected`);
+                    if (selectedOption && parseInt(selectedOption.dataset.index) === exercise.answer) {
+                        correctCount++;
+                    }
+                });
+                
+                // 显示结果
+                scoreElement.textContent = `${correctCount}`;
+                progressElement.style.width = `${(correctCount / exercises.length) * 100}%`;
+                
+                // 根据得分显示不同消息
+                if (correctCount === exercises.length) {
+                    resultMessage.textContent = "太棒了！满分！你完全掌握了连词用法！";
+                    resultMessage.style.color = "#28a745";
+                } else if (correctCount >= exercises.length * 0.7) {
+                    resultMessage.textContent = "做得很好！大部分连词用法你已掌握，继续加油！";
+                    resultMessage.style.color = "#17a2b8";
+                } else if (correctCount >= exercises.length * 0.5) {
+                    resultMessage.textContent = "不错！但还需要更多练习来掌握连词用法。";
+                    resultMessage.style.color = "#ffc107";
+                } else {
+                    resultMessage.textContent = "需要继续努力，建议复习连词知识点后再尝试练习。";
+                    resultMessage.style.color = "#dc3545";
+                }
+                
+                resultContainer.style.display = 'block';
+                
+                // 滚动到结果位置
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
