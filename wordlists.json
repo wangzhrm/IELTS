@@ -217,9 +217,7 @@
     {
       "word": "success",
       "definition": "n.成功"
-    }
-  ],
-  "Lucy0707": [
+    },
     {
       "word": "pressure",
       "definition": "n.压力"
@@ -229,12 +227,94 @@
       "definition": "n.材料"
     },
     {
-      "word": "irrelevant",
-      "definition": "adj.不相关的"
+      "word": "expectation",
+      "definition": "n.期望"
+    },
+    {
+      "word": "irregular",
+      "definition": "不规律的"
+    },
+    {
+      "word": "engage",
+      "definition": "v.从事，投入，使参与"
+    },
+    {
+      "word": "quarter",
+      "definition": "n.四分之一, 季度"
+    },
+    {
+      "word": "fail",
+      "definition": "v.失败"
+    },
+    {
+      "word": "failure",
+      "definition": "n.失败"
+    },
+    {
+      "word": "company",
+      "definition": "n.公司"
     },
     {
       "word": "expectation",
-      "definition": "n.期望"
+      "definition": "n. 期望"
+    },
+    {
+      "word": "challenge",
+      "definition": "n. 挑战"
+    },
+    {
+      "word": "rapid",
+      "definition": "adj.快速"
+    },
+    {
+      "word": "initial",
+      "definition": "adj. 初始的"
+    },
+    {
+      "word": "proposal",
+      "definition": "n.提议"
+    },
+    {
+      "word": "argue",
+      "definition": "v. 争吵，辩论"
+    },
+    {
+      "word": "illustrate",
+      "definition": "v. 解释，说明"
+    },
+    {
+      "word": "phenomena",
+      "definition": "n. (plural). 现象"
+    },
+    {
+      "word": "method",
+      "definition": "n. 方法"
+    },
+    {
+      "word": "appealing",
+      "definition": "adj. 有吸引力的"
+    },
+    {
+      "word": "literature",
+      "definition": "n. 文学，文献"
+    },
+    {
+      "word": "outstanding",
+      "definition": "adj. 优秀的;突出的"
+    },
+    {
+      "word": "valid",
+      "definition": "adj. 有效的"
+    },
+    {
+      "word": "especially",
+      "definition": "adv. 特别地"
+    }
+  ],
+  "Lucy0707": [
+    {
+      "word": "irrelevant",
+      "definition": "adj.不相关的"
     },
     {
       "word": "individual",
@@ -247,10 +327,6 @@
     {
       "word": "period",
       "definition": "n. 时期"
-    },
-    {
-      "word": "irregular",
-      "definition": "Definition not found"
     },
     {
       "word": "concentrate",
@@ -267,10 +343,6 @@
     {
       "word": "disrupt",
       "definition": "v. 打断"
-    },
-    {
-      "word": "engage",
-      "definition": "v.从事，投入，使参与"
     },
     {
       "word": "practice",
@@ -293,26 +365,6 @@
       "definition": "adj. 不相关的"
     },
     {
-      "word": "expectation",
-      "definition": "n. 期望"
-    },
-    {
-      "word": "company",
-      "definition": "n.公司"
-    },
-    {
-      "word": "fail",
-      "definition": "v.失败"
-    },
-    {
-      "word": "failure",
-      "definition": "n.失败"
-    },
-    {
-      "word": "quarter",
-      "definition": "n.四分之一, 季度"
-    },
-    {
       "word": "despite",
       "definition": "prep.尽管"
     },
@@ -321,24 +373,8 @@
       "definition": "v. 分析"
     },
     {
-      "word": "rapid",
-      "definition": "adj.快速"
-    },
-    {
-      "word": "challenge",
-      "definition": "n. 挑战"
-    },
-    {
       "word": "deliver",
       "definition": "v.交付，传递"
-    },
-    {
-      "word": "proposal",
-      "definition": "n.提议"
-    },
-    {
-      "word": "initial",
-      "definition": "adj. 初始的"
     },
     {
       "word": "criticise",
@@ -347,10 +383,6 @@
     {
       "word": "critics",
       "definition": "n. 评论员"
-    },
-    {
-      "word": "argue",
-      "definition": "v. 争吵，辩论"
     },
     {
       "word": "skeptical",
@@ -369,10 +401,6 @@
       "definition": "n. 人工智能"
     },
     {
-      "word": "illustrate",
-      "definition": "v. 解释，说明"
-    },
-    {
       "word": "distinguish",
       "definition": "v. 区分;辨别"
     },
@@ -381,32 +409,12 @@
       "definition": "n. 序列;顺序"
     },
     {
-      "word": "phenomena",
-      "definition": "n. (plural). 现象"
-    },
-    {
       "word": "generally",
       "definition": "adv. 通常地"
     },
     {
       "word": "resemble",
       "definition": "v. 类似于, 相似"
-    },
-    {
-      "word": "method",
-      "definition": "n. 方法"
-    },
-    {
-      "word": "appealing",
-      "definition": "adj. 有吸引力的"
-    },
-    {
-      "word": "literature",
-      "definition": "n. 文学，文献"
-    },
-    {
-      "word": "outstanding",
-      "definition": "adj. 优秀的;突出的"
     },
     {
       "word": "mention",
@@ -421,20 +429,44 @@
       "definition": "adj. 不情愿的"
     },
     {
-      "word": "valid",
-      "definition": "adj. 有效的"
-    },
-    {
-      "word": "especially",
-      "definition": "adv. 特别地"
-    },
-    {
       "word": "available",
       "definition": "adj. 可获得的"
     },
     {
       "word": "sophisticated",
       "definition": "adj. 复杂的"
+    },
+    {
+      "word": "Arctic",
+      "definition": "北极的"
+    },
+    {
+      "word": "Antarctica",
+      "definition": "南极洲"
+    },
+    {
+      "word": "icy",
+      "definition": "冰的"
+    },
+    {
+      "word": "wilderness",
+      "definition": "荒野"
+    },
+    {
+      "word": "leisure",
+      "definition": "休闲"
+    },
+    {
+      "word": "inhospitable",
+      "definition": "不热情好客的"
+    },
+    {
+      "word": "lengthening",
+      "definition": "不断变长的"
+    },
+    {
+      "word": "meanwhile",
+      "definition": "与此同时"
     }
   ]
 }
