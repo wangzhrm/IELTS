@@ -11,34 +11,6 @@
     {
       "word": "penguin",
       "definition": "A flightless bird that swims"
-    },
-    {
-      "word": "associate",
-      "definition": "v. 联合； adj. 副的"
-    },
-    {
-      "word": "operator",
-      "definition": "n. 运营商"
-    },
-    {
-      "word": "media coverage",
-      "definition": "媒体报道"
-    },
-    {
-      "word": "suffer",
-      "definition": "v. 遭受"
-    },
-    {
-      "word": "plight",
-      "definition": "n. 困境"
-    },
-    {
-      "word": "tick",
-      "definition": "v.发出滴答声；v.打对勾"
-    },
-    {
-      "word": "leave sth until later",
-      "definition": "把...往后推"
     }
   ],
   "Lucyachievement": [
@@ -523,6 +495,34 @@
     {
       "word": "shore",
       "definition": "n. 岸边，岸上；v. 支撑"
+    },
+    {
+      "word": "associate",
+      "definition": "v. 联合； adj. 副的"
+    },
+    {
+      "word": "operator",
+      "definition": "n. 运营商"
+    },
+    {
+      "word": "media coverage",
+      "definition": "媒体报道"
+    },
+    {
+      "word": "suffer",
+      "definition": "v. 遭受"
+    },
+    {
+      "word": "plight",
+      "definition": "n. 困境"
+    },
+    {
+      "word": "tick",
+      "definition": "v.发出滴答声；v.打对勾"
+    },
+    {
+      "word": "leave sth until later",
+      "definition": "把...往后推"
     }
   ]
 }
