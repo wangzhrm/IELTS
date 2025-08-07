@@ -1,18 +1,4 @@
 {
-  "animals": [
-    {
-      "word": "elephant",
-      "definition": "A large mammal with a trunk"
-    },
-    {
-      "word": "lion",
-      "definition": "A big cat known as the king of the jungle"
-    },
-    {
-      "word": "penguin",
-      "definition": "A flightless bird that swims"
-    }
-  ],
   "Lucyachievement": [
     {
       "word": "speed",
@@ -523,6 +509,30 @@
     {
       "word": "leave sth until later",
       "definition": "把...往后推"
+    },
+    {
+      "word": "burden",
+      "definition": "n. 负担"
+    },
+    {
+      "word": "tap",
+      "definition": "n. 水龙头"
+    },
+    {
+      "word": "society",
+      "definition": "n. 社会"
+    },
+    {
+      "word": "access",
+      "definition": "n. 通道、途径"
+    },
+    {
+      "word": "transform",
+      "definition": "v. 使改变"
+    },
+    {
+      "word": "sibling",
+      "definition": "n. 兄弟姐妹"
     }
   ]
 }
