@@ -295,52 +295,14 @@
     {
       "word": "especially",
       "definition": "adv. 特别地"
-    }
-  ],
-  "Lucy0707": [
-    {
-      "word": "irrelevant",
-      "definition": "adj.不相关的"
-    },
-    {
-      "word": "individual",
-      "definition": "n.个人; adj. 个人的"
-    },
-    {
-      "word": "vulnerable",
-      "definition": "adj. 脆弱的"
-    },
-    {
-      "word": "period",
-      "definition": "n. 时期"
-    },
-    {
-      "word": "concentrate",
-      "definition": "集中"
-    },
-    {
-      "word": "comprehend",
-      "definition": "v. 理解"
     },
     {
       "word": "muddle",
       "definition": "n. 混乱；v.使混乱"
     },
     {
-      "word": "disrupt",
-      "definition": "v. 打断"
-    },
-    {
       "word": "practice",
       "definition": "v. 练习，实践"
-    },
-    {
-      "word": "constantly",
-      "definition": "adv. 不断地"
-    },
-    {
-      "word": "pressure",
-      "definition": "n.压力"
     },
     {
       "word": "material",
@@ -349,14 +311,6 @@
     {
       "word": "irrelevant",
       "definition": "adj. 不相关的"
-    },
-    {
-      "word": "despite",
-      "definition": "prep.尽管"
-    },
-    {
-      "word": "analyse",
-      "definition": "v. 分析"
     },
     {
       "word": "deliver",
@@ -371,16 +325,8 @@
       "definition": "n. 评论员"
     },
     {
-      "word": "skeptical",
-      "definition": "adj. 怀疑的"
-    },
-    {
       "word": "conclusion",
       "definition": "n. 结论"
-    },
-    {
-      "word": "assumption",
-      "definition": "n. 假设"
     },
     {
       "word": "artificial intelligence",
@@ -403,24 +349,12 @@
       "definition": "v. 类似于, 相似"
     },
     {
-      "word": "mention",
-      "definition": "v. 提到"
-    },
-    {
-      "word": "motivational",
-      "definition": "adj. 动机的"
-    },
-    {
       "word": "reluctant",
       "definition": "adj. 不情愿的"
     },
     {
       "word": "available",
       "definition": "adj. 可获得的"
-    },
-    {
-      "word": "sophisticated",
-      "definition": "adj. 复杂的"
     },
     {
       "word": "Arctic",
@@ -435,36 +369,12 @@
       "definition": "冰的"
     },
     {
-      "word": "wilderness",
-      "definition": "荒野"
-    },
-    {
-      "word": "leisure",
-      "definition": "休闲"
-    },
-    {
       "word": "inhospitable",
       "definition": "不热情好客的"
     },
     {
-      "word": "lengthening",
-      "definition": "不断变长的"
-    },
-    {
       "word": "meanwhile",
       "definition": "与此同时"
-    },
-    {
-      "word": "deteriorate",
-      "definition": "v.恶化"
-    },
-    {
-      "word": "fragile",
-      "definition": "adj.脆弱的"
-    },
-    {
-      "word": "deteriorate",
-      "definition": "v.恶化"
     },
     {
       "word": "ashore",
@@ -499,20 +409,12 @@
       "definition": "v. 遭受"
     },
     {
-      "word": "plight",
-      "definition": "n. 困境"
-    },
-    {
       "word": "tick",
       "definition": "v.发出滴答声；v.打对勾"
     },
     {
       "word": "leave sth until later",
       "definition": "把...往后推"
-    },
-    {
-      "word": "burden",
-      "definition": "n. 负担"
     },
     {
       "word": "tap",
@@ -523,6 +425,108 @@
       "definition": "n. 社会"
     },
     {
+      "word": "sibling",
+      "definition": "n. 兄弟姐妹"
+    }
+  ],
+  "Lucy0707": [
+    {
+      "word": "irrelevant",
+      "definition": "adj.不相关的"
+    },
+    {
+      "word": "individual",
+      "definition": "n.个人; adj. 个人的"
+    },
+    {
+      "word": "vulnerable",
+      "definition": "adj. 脆弱的"
+    },
+    {
+      "word": "period",
+      "definition": "n. 时期"
+    },
+    {
+      "word": "concentrate",
+      "definition": "集中"
+    },
+    {
+      "word": "comprehend",
+      "definition": "v. 理解"
+    },
+    {
+      "word": "disrupt",
+      "definition": "v. 打断"
+    },
+    {
+      "word": "constantly",
+      "definition": "adv. 不断地"
+    },
+    {
+      "word": "pressure",
+      "definition": "n.压力"
+    },
+    {
+      "word": "despite",
+      "definition": "prep.尽管"
+    },
+    {
+      "word": "analyse",
+      "definition": "v. 分析"
+    },
+    {
+      "word": "skeptical",
+      "definition": "adj. 怀疑的"
+    },
+    {
+      "word": "assumption",
+      "definition": "n. 假设"
+    },
+    {
+      "word": "mention",
+      "definition": "v. 提到"
+    },
+    {
+      "word": "motivational",
+      "definition": "adj. 动机的"
+    },
+    {
+      "word": "sophisticated",
+      "definition": "adj. 复杂的"
+    },
+    {
+      "word": "wilderness",
+      "definition": "荒野"
+    },
+    {
+      "word": "leisure",
+      "definition": "休闲"
+    },
+    {
+      "word": "lengthening",
+      "definition": "不断变长的"
+    },
+    {
+      "word": "deteriorate",
+      "definition": "v.恶化"
+    },
+    {
+      "word": "fragile",
+      "definition": "adj.脆弱的"
+    },
+    {
+      "word": "deteriorate",
+      "definition": "v.恶化"
+    },
+    {
+      "word": "plight",
+      "definition": "n. 困境"
+    },
+    {
+      "word": "burden",
+      "definition": "n. 负担"
+    },
+    {
       "word": "access",
       "definition": "n. 通道、途径"
     },
@@ -531,8 +535,32 @@
       "definition": "v. 使改变"
     },
     {
-      "word": "sibling",
-      "definition": "n. 兄弟姐妹"
+      "word": "guide",
+      "definition": "v.指导; n. 导游"
+    },
+    {
+      "word": "academic",
+      "definition": "adj. 学术的"
+    },
+    {
+      "word": "assist",
+      "definition": "v. 协助"
+    },
+    {
+      "word": "risk",
+      "definition": "n. 风险"
+    },
+    {
+      "word": "drone",
+      "definition": "n. 无人机"
+    },
+    {
+      "word": "retire",
+      "definition": "v. 退休"
+    },
+    {
+      "word": "independent",
+      "definition": "adj. 独立的"
     }
   ]
 }
