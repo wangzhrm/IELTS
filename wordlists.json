@@ -427,9 +427,7 @@
     {
       "word": "sibling",
       "definition": "n. 兄弟姐妹"
-    }
-  ],
-  "Lucy0707": [
+    },
     {
       "word": "irrelevant",
       "definition": "adj.不相关的"
@@ -439,20 +437,50 @@
       "definition": "n.个人; adj. 个人的"
     },
     {
-      "word": "vulnerable",
-      "definition": "adj. 脆弱的"
-    },
-    {
       "word": "period",
       "definition": "n. 时期"
     },
     {
-      "word": "concentrate",
-      "definition": "集中"
-    },
-    {
       "word": "comprehend",
       "definition": "v. 理解"
+    },
+    {
+      "word": "assumption",
+      "definition": "n. 假设"
+    },
+    {
+      "word": "motivational",
+      "definition": "adj. 动机的"
+    },
+    {
+      "word": "sophisticated",
+      "definition": "adj. 复杂的"
+    },
+    {
+      "word": "wilderness",
+      "definition": "荒野"
+    },
+    {
+      "word": "lengthening",
+      "definition": "不断变长的"
+    },
+    {
+      "word": "deteriorate",
+      "definition": "v.恶化"
+    },
+    {
+      "word": "transform",
+      "definition": "v. 使改变"
+    }
+  ],
+  "Lucy0707": [
+    {
+      "word": "vulnerable",
+      "definition": "adj. 脆弱的"
+    },
+    {
+      "word": "concentrate",
+      "definition": "集中"
     },
     {
       "word": "disrupt",
@@ -479,32 +507,12 @@
       "definition": "adj. 怀疑的"
     },
     {
-      "word": "assumption",
-      "definition": "n. 假设"
-    },
-    {
       "word": "mention",
       "definition": "v. 提到"
     },
     {
-      "word": "motivational",
-      "definition": "adj. 动机的"
-    },
-    {
-      "word": "sophisticated",
-      "definition": "adj. 复杂的"
-    },
-    {
-      "word": "wilderness",
-      "definition": "荒野"
-    },
-    {
       "word": "leisure",
       "definition": "休闲"
-    },
-    {
-      "word": "lengthening",
-      "definition": "不断变长的"
     },
     {
       "word": "deteriorate",
@@ -513,10 +521,6 @@
     {
       "word": "fragile",
       "definition": "adj.脆弱的"
-    },
-    {
-      "word": "deteriorate",
-      "definition": "v.恶化"
     },
     {
       "word": "plight",
@@ -529,10 +533,6 @@
     {
       "word": "access",
       "definition": "n. 通道、途径"
-    },
-    {
-      "word": "transform",
-      "definition": "v. 使改变"
     },
     {
       "word": "guide",
@@ -561,6 +561,58 @@
     {
       "word": "independent",
       "definition": "adj. 独立的"
+    },
+    {
+      "word": "authority",
+      "definition": "n. 权威;当局"
+    },
+    {
+      "word": "rely",
+      "definition": "v.依靠"
+    },
+    {
+      "word": "reliable",
+      "definition": "adj. 可靠的"
+    },
+    {
+      "word": "significant",
+      "definition": "adj. 有重大意义的;显著的"
+    },
+    {
+      "word": "benefit",
+      "definition": "n. 好处；v. 有利"
+    },
+    {
+      "word": "prefer",
+      "definition": "v.偏好"
+    },
+    {
+      "word": "preference",
+      "definition": "n. 偏好"
+    },
+    {
+      "word": "insist",
+      "definition": "v.坚持"
+    },
+    {
+      "word": "renew",
+      "definition": "v. 更新"
+    },
+    {
+      "word": "renewable",
+      "definition": "adj. 可再生的"
+    },
+    {
+      "word": "afford",
+      "definition": "v.承担得起"
+    },
+    {
+      "word": "affordable",
+      "definition": "adj. 能够承担的、买得起的"
+    },
+    {
+      "word": "coincidence",
+      "definition": "n. 偶然、巧合"
     }
   ]
 }
