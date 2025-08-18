@@ -1,5 +1,5 @@
 {
-  "Lucyachievement": [
+  "Lucyachievement1": [
     {
       "word": "speed",
       "definition": "n.速度, v.加速"
@@ -223,7 +223,9 @@
     {
       "word": "engage",
       "definition": "v.从事，投入，使参与"
-    },
+    }
+  ],
+  "Lucyachievement2": [
     {
       "word": "quarter",
       "definition": "n.四分之一, 季度"
