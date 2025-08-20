@@ -1,0 +1,14 @@
+{
+  "wordLists": [
+    {
+      "name": "List Name",
+      "words": [
+        {
+          "word": "example",
+          "definition": "word definition",
+          "sentences": ["Example sentence 1", "Example sentence 2"]
+        }
+      ]
+    }
+  ]
+}
