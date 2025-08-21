@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Academic Writing Task 1</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 15px;
+        }
+        .question-prompts {
+            text-align: center;
+            color: #e74c3c;
+            font-style: italic;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        .paragraph {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            position: relative;
+        }
+        .paragraph-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .input-group {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        .input-field {
+            flex: 1;
+            min-height: 40px;
+            padding: 10px 40px 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            font-size: 15px;
+            background: white;
+            overflow: hidden;
+            transition: border-color 0.3s;
+            white-space: pre-wrap;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+        }
+        .hint-btn {
+            position: relative;
+            right: 30px;
+            top: 10px;
+            background: #3498db;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 22px;
+            font-size: 12px;
+            cursor: help;
+            margin-left: -25px;
+            z-index: 10;
+        }
+        .add-btn {
+            background: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-left: 10px;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+        .add-btn:hover {
+            background: #27ae60;
+            transform: scale(1.05);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 25px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 70vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        .hint-title {
+            color: #3498db;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        .intro-paragraph .input-group {
+            display: inline-flex;
+            width: calc(33.333% - 20px);
+            margin-right: 20px;
+            vertical-align: top;
+        }
+        .generate-btn {
+            display: block;
+            width: 200px;
+            margin: 30px auto;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .generate-btn:hover {
+            background: #2980b9;
+        }
+        .output-container {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #2ecc71;
+        }
+        .output-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .essay-output {
+            white-space: pre-wrap;
+            line-height: 1.8;
+        }
+        .paragraph-add-btn {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .tips-container {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .tips-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            .intro-paragraph .input-group {
+                width: 100%;
+                display: flex;
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>IELTS Academic Writing Task 1</h1>
+        <div class="question-prompts">
+            "Summarise the information by selecting and reporting the main features"<br>
+            "Make comparisons where relevant"
+        </div>
+        
+        <div class="tips-container">
+            <div class="tips-title">高分技巧提示</div>
+            <ul>
+                <li>使用4段式结构：引言、概述、细节1、细节2</li>
+                <li>引言部分要对题目进行同义改写，不能照抄</li>
+                <li>概述段最重要，要概括图表最显著的特征</li>
+                <li>细节段落要有逻辑地组织信息，不要简单罗列数据</li>
+                <li>注意时态和单位的使用</li>
+                <li>字数控制在150-190词之间</li>
+            </ul>
+        </div>
+        
+        <!-- Introduction Paragraph -->
+        <div class="paragraph intro-paragraph">
+            <div class="paragraph-title">Paragraph 1: Introduction (改写题目)</div>
+            <div class="input-group">
+                <div class="input-field" contenteditable="true" placeholder="Paraphrase the question..."></div>
+                <span class="hint-btn" onclick="showHint('hint1')">?</span>
+            </div>
+            <div class="paragraph-add-btn">
+                <button class="add-btn" onclick="addInput(this.parentNode.parentNode)">+</button>
+            </div>
+        </div>
+        
+        <!-- Overview Paragraph -->
+        <div class="paragraph">
+            <div class="paragraph-title">Paragraph 2: Overview (概括主要特征)</div>
+            <div class="input-group">
+                <div class="input-field" contenteditable="true" placeholder="General trend..."></div>
+                <span class="hint-btn" onclick="showHint('hint2')">?</span>
+            </div>
+            <div class="input-group">
+                <div class="input-field" contenteditable="true" placeholder="Most significant feature..."></div>
+                <span class="hint-btn" onclick="showHint('hint3')">?</span>
+            </div>
+            <div class="paragraph-add-btn">
+                <button class="add-btn" onclick="addInput(this.parentNode.parentNode)">+</button>
+            </div>
+        </div>
+        
+        <!-- Body Paragraph 1 -->
+        <div class="paragraph">
+            <div class="paragraph-title">Paragraph 3: Key Features (主要细节1)</div>
+            <div class="input-group">
+                <div class="input-field" contenteditable="true" placeholder="First main feature..."></div>
+                <span class="hint-btn" onclick="showHint('hint4')">?</span>
+            </div>
+            <div class="input-group">
+                <div class="input-field" contenteditable="true" placeholder="Data and comparison..."></div>
+            </div>
+            <div class="input-group">
+                <div class="input-field" contenteditable="true" placeholder="Second feature..."></div>
+            </div>
+            <div class="input-group">
+                <div class="input-field" contenteditable="true" placeholder="Data and comparison..."></div>
+            </div>
+            <div class="paragraph-add-btn">
+                <button class="add-btn" onclick="addInput(this.parentNode.parentNode)">+</button>
+            </div>
+        </div>
+        
+        <!-- Body Paragraph 2 -->
+        <div class="paragraph">
+            <div class="paragraph-title">Paragraph 4: Key Features (主要细节2)</div>
+            <div class="input-group">
+                <div class="input-field" contenteditable="true" placeholder="Third main feature..."></div>
+                <span class="hint-btn" onclick="showHint('hint5')">?</span>
+            </div>
+            <div class="input-group">
+                <div class="input-field" contenteditable="true" placeholder="Data and comparison..."></div>
+            </div>
+            <div class="input-group">
+                <div class="input-field" contenteditable="true" placeholder="Fourth feature..."></div>
+            </div>
+            <div class="input-group">
+                <div class="input-field" contenteditable="true" placeholder="Data and comparison..."></div>
+            </div>
+            <div class="paragraph-add-btn">
+                <button class="add-btn" onclick="addInput(this.parentNode.parentNode)">+</button>
+            </div>
+        </div>
+        
+        <button class="generate-btn" onclick="generateEssay()">Generate Report</button>
+        
+        <div class="output-container" id="outputContainer">
+            <div class="output-title">Your Generated Report</div>
+            <div class="essay-output" id="essayOutput"></div>
+        </div>
+    </div>
+
+    <!-- Hint Modals -->
+    <div id="hint1" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('hint1')">&times;</span>
+            <div class="hint-title">如何改写题目</div>
+            <p>使用同义词替换：</p>
+            <ul>
+                <li>"shows" → "illustrates", "demonstrates", "presents", "gives information about"</li>
+                <li>"proportion" → "percentage", "share"</li>
+                <li>"number of" → "how many"</li>
+                <li>"from...to..." → "over a period of", "between...and..."</li>
+            </ul>
+            <p>例句：</p>
+            <p>原题: "The graph shows the proportion of the population aged 65 and over between 1940 and 2040 in three different countries."</p>
+            <p>改写: "The line graph illustrates the percentage of elderly people aged 65 and above in the USA, Sweden, and Japan over a century from 1940 to 2040."</p>
+        </div>
+    </div>
+
+    <div id="hint2" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('hint2')">&times;</span>
+            <div class="hint-title">总体趋势表达</div>
+            <p>描述总体趋势：</p>
+            <ul>
+                <li>Overall, the graph shows...</li>
+                <li>In general, it can be seen that...</li>
+                <li>Broadly speaking, the data indicates...</li>
+                <li>The most striking feature of the graph is...</li>
+            </ul>
+            <p>趋势描述词汇：</p>
+            <ul>
+                <li>上升: increase, rise, grow, climb, soar, rocket</li>
+                <li>下降: decrease, fall, drop, decline, plunge, plummet</li>
+                <li>波动: fluctuate, vary, experience fluctuations</li>
+                <li>稳定: remain stable/steady/unchanged, stabilize, level off</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="hint3" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('hint3')">&times;</span>
+            <div class="hint-title">突出特征描述</div>
+            <p>描述最显著的特征：</p>
+            <ul>
+                <li>The most noticeable trend is...</li>
+                <li>It is clear that... experienced the most significant change</li>
+                <li>What stands out is...</li>
+                <li>A particularly interesting point is...</li>
+            </ul>
+            <p>比较表达：</li>
+                <li>Similarly, ...</li>
+                <li>In contrast, ...</li>
+                <li>... while ...</li>
+                <li>... whereas ...</li>
+                <li>Compared to ..., ...</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="hint4" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('hint4')">&times;</span>
+            <div class="hint-title">数据描述技巧</div>
+            <p>描述具体数据：</p>
+            <ul>
+                <li>使用准确的数据：from 30% to 50%, reaching a peak of 75%</li>
+                <li>描述变化幅度：dramatically, significantly, moderately, slightly</li>
+                <li>描述变化速度：rapidly, gradually, suddenly, steadily</li>
+            </ul>
+            <p>例句：</p>
+            <ul>
+                <li>In 1990, the figure stood at 20%, then it rose dramatically to 45% by 2000.</li>
+                <li>After reaching a peak of 60% in 2010, the number plummeted to just 25% by 2015.</li>
+                <li>Throughout the period, Country A consistently had the highest proportion, averaging around 40%.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="hint5" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('hint5')">&times;</span>
+            <div class="hint-title">时态和单位</div>
+            <p>时态使用：</p>
+            <ul>
+                <li>过去时间：使用过去时 (was, increased, fell)</li>
+                <li>现在时间：使用现在时 (is, shows, indicates)</li>
+                <li>未来预测：使用将来时 (will, is projected to, is expected to)</li>
+            </ul>
+            <p>单位使用：</p>
+            <ul>
+                <li>百分比: percent或% (写作中最好用percent)</li>
+                <li>数字: 注意千位分隔符</li>
+                <li>货币: $, £, €等</li>
+                <li>度量单位: kg, km, m²等</li>
+            </ul>
+            <p>例句：</p>
+            <ul>
+                <li>In 1980, the population was 2.5 million, and it is projected to reach 4 million by 2040.</li>
+                <li>Spending on education increased from $500 million in 2000 to $750 million in 2010.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Function to show hint modals
+        function showHint(hintId) {
+            document.getElementById(hintId).style.display = 'block';
+        }
+        
+        // Function to close modals
+        function closeModal(hintId) {
+            document.getElementById(hintId).style.display = 'none';
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            let modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = 'none';
+                }
+            }
+        }
+        
+        // Function to add new input field to any paragraph
+        function addInput(paragraph) {
+            const inputGroup = document.createElement('div');
+            inputGroup.className = 'input-group';
+            
+            const inputField = document.createElement('div');
+            inputField.className = 'input-field';
+            inputField.contentEditable = true;
+            inputField.placeholder = "Additional sentence...";
+            
+            inputGroup.appendChild(inputField);
+            
+            // Insert before the add button container
+            const addButtonContainer = paragraph.querySelector('.paragraph-add-btn');
+            paragraph.insertBefore(inputGroup, addButtonContainer);
+        }
+        
+        // Auto-resize text areas
+        document.addEventListener('input', function(e) {
+            if (e.target.classList.contains('input-field')) {
+                autoResize(e.target);
+            }
+        }, false);
+        
+        function autoResize(element) {
+            element.style.height = 'auto';
+            element.style.height = (element.scrollHeight) + 'px';
+        }
+        
+        // Generate essay from all inputs
+        function generateEssay() {
+            const outputContainer = document.getElementById('outputContainer');
+            const essayOutput = document.getElementById('essayOutput');
+            
+            let essay = "";
+            
+            // Get introduction content
+            const introInputs = document.querySelectorAll('.intro-paragraph .input-field');
+            let introText = "";
+            introInputs.forEach(input => {
+                if (input.textContent.trim() !== "") {
+                    introText += input.textContent.trim() + "\n";
+                }
+            });
+            essay += introText + "\n";
+            
+            // Get body paragraphs content
+            const bodyParagraphs = document.querySelectorAll('.paragraph:not(.intro-paragraph)');
+            bodyParagraphs.forEach((paragraph, index) => {
+                const inputs = paragraph.querySelectorAll('.input-field');
+                let paraText = "";
+                inputs.forEach(input => {
+                    if (input.textContent.trim() !== "") {
+                        paraText += input.textContent.trim() + " ";
+                    }
+                });
+                essay += paraText + "\n\n";
+            });
+            
+            // Display the generated essay
+            essayOutput.textContent = essay;
+            outputContainer.style.display = 'block';
+            
+            // Scroll to the output
+            outputContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
