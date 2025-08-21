@@ -1,14 +1,128 @@
 {
-  "wordLists": [
+  "必背": [
     {
-      "name": "List Name",
-      "words": [
-        {
-          "word": "example",
-          "definition": "word definition",
-          "sentences": ["Example sentence 1", "Example sentence 2"]
-        }
-      ]
+      "word": "illustrate",
+      "definition": "说明，阐明"
+    },
+    {
+      "word": "demonstrate",
+      "definition": "证明，展示"
+    },
+    {
+      "word": "present",
+      "definition": "呈现，提出"
+    },
+    {
+      "word": "increase",
+      "definition": "增加"
+    },
+    {
+      "word": "rise",
+      "definition": "上升"
+    },
+    {
+      "word": "grow",
+      "definition": "增长"
+    },
+    {
+      "word": "climb",
+      "definition": "攀升"
+    },
+    {
+      "word": "soar",
+      "definition": "剧增"
+    },
+    {
+      "word": "rocket",
+      "definition": "飞速上升"
+    },
+    {
+      "word": "decrease",
+      "definition": "减少"
+    },
+    {
+      "word": "fall",
+      "definition": "下降"
+    },
+    {
+      "word": "drop",
+      "definition": "下跌"
+    },
+    {
+      "word": "decline",
+      "definition": "衰退"
+    },
+    {
+      "word": "plunge",
+      "definition": "骤降"
+    },
+    {
+      "word": "plummet",
+      "definition": "暴跌"
+    },
+    {
+      "word": "fluctuate",
+      "definition": "波动"
+    },
+    {
+      "word": "vary",
+      "definition": "变化"
+    },
+    {
+      "word": "stabilize",
+      "definition": "稳定"
+    },
+    {
+      "word": "level",
+      "definition": "持平"
+    },
+    {
+      "word": "proportion",
+      "definition": "比例"
+    },
+    {
+      "word": "percentage",
+      "definition": "百分比"
+    },
+    {
+      "word": "share",
+      "definition": "份额"
+    },
+    {
+      "word": "number",
+      "definition": "数量"
+    },
+    {
+      "word": "dramatically",
+      "definition": "显著地"
+    },
+    {
+      "word": "significantly",
+      "definition": "明显地"
+    },
+    {
+      "word": "moderately",
+      "definition": "适度地"
+    },
+    {
+      "word": "slightly",
+      "definition": "轻微地"
+    },
+    {
+      "word": "rapidly",
+      "definition": "迅速地"
+    },
+    {
+      "word": "gradually",
+      "definition": "逐渐地"
+    },
+    {
+      "word": "suddenly",
+      "definition": "突然地"
+    },
+    {
+      "word": "steadily",
+      "definition": "稳定地"
     }
   ]
 }
