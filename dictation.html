@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雅思词汇听写测试</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .selection-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .test-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .word-display {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .word-text {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            min-height: 60px;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn-play {
+            background: #2ecc71;
+        }
+        
+        .btn-play:hover {
+            background: #27ae60;
+        }
+        
+        .btn-submit {
+            background: #e74c3c;
+        }
+        
+        .btn-submit:hover {
+            background: #c0392b;
+        }
+        
+        .btn-start {
+            background: #2ecc71;
+            margin-top: 20px;
+            width: 100%;
+        }
+        
+        .input-group {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        
+        .input-field {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px 0 0 8px;
+            font-size: 1.1rem;
+            outline: none;
+        }
+        
+        .hint-btn {
+            padding: 15px 20px;
+            background: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .result-container {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .score {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .result-list {
+            text-align: left;
+            max-height: 300px;
+            overflow-y: auto;
+            margin-top: 20px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .result-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .correct {
+            color: #2ecc71;
+        }
+        
+        .incorrect {
+            color: #e74c3c;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 30px;
+            font-size: 1.2rem;
+        }
+        
+        .error {
+            text-align: center;
+            padding: 30px;
+            color: #e74c3c;
+            font-size: 1.2rem;
+        }
+        
+        .icon {
+            margin-right: 8px;
+        }
+        
+        .wordlist-select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+        
+        .wordlist-info {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 600px) {
+            .controls {
+                flex-direction: column;
+            }
+            
+            .word-text {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>雅思词汇听写测试</h1>
+            <div class="subtitle">测试您的词汇拼写能力</div>
+        </header>
+        
+        <div class="content">
+            <div id="loading" class="loading">
+                正在加载词汇数据...
+            </div>
+            
+            <div id="error" class="error" style="display: none;">
+                无法加载词汇数据，请检查网络连接或URL是否正确。
+            </div>
+            
+            <div id="selection-section" style="display: none;">
+                <div class="selection-container">
+                    <h2>选择词库</h2>
+                    <select class="wordlist-select" id="wordlist-select">
+                        <option value="">-- 请选择词库 --</option>
+                        <!-- 词库选项将通过JavaScript动态生成 -->
+                    </select>
+                    
+                    <div class="wordlist-info" id="wordlist-info" style="display: none;">
+                        <h3 id="selected-wordlist-name">词库名称</h3>
+                        <p>单词数量: <span id="wordlist-count">0</span></p>
+                    </div>
+                    
+                    <button class="btn btn-start" id="start-btn" disabled>开始测试</button>
+                </div>
+            </div>
+            
+            <div id="test-section" style="display: none;">
+                <div class="test-container">
+                    <div class="progress">
+                        <span id="progress-text">单词 1/0</span>
+                        <span id="category-name">词库名称</span>
+                    </div>
+                    
+                    <div class="word-display">
+                        <div class="word-text" id="word-display">准备开始...</div>
+                    </div>
+                    
+                    <div class="controls">
+                        <button class="btn btn-play" id="play-btn">
+                            <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M11.596 8.697l-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+                            </svg>
+                            播放发音
+                        </button>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="text" class="input-field" id="answer-input" placeholder="请输入您听到的单词">
+                        <button class="hint-btn" id="hint-btn">提示</button>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button class="btn" id="next-btn" disabled>下一题</button>
+                    <button class="btn btn-submit" id="submit-btn" style="display: none;">提交答案</button>
+                </div>
+            </div>
+            
+            <div id="result-section" class="result-container">
+                <div class="score" id="score-display">正确率: 0%</div>
+                <div class="result-list" id="result-list">
+                    <!-- 结果将在这里显示 -->
+                </div>
+                <button class="btn" id="restart-btn" style="margin-top: 20px;">重新选择词库</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量
+        let vocabularyData = {};
+        let currentWordList = [];
+        let currentWordIndex = 0;
+        let userAnswers = [];
+        let scrambledIndices = [];
+        let selectedWordlistKey = "";
+        
+        // DOM元素
+        const loadingElement = document.getElementById('loading');
+        const errorElement = document.getElementById('error');
+        const selectionSection = document.getElementById('selection-section');
+        const testSection = document.getElementById('test-section');
+        const resultSection = document.getElementById('result-section');
+        const wordlistSelect = document.getElementById('wordlist-select');
+        const wordlistInfo = document.getElementById('wordlist-info');
+        const selectedWordlistName = document.getElementById('selected-wordlist-name');
+        const wordlistCount = document.getElementById('wordlist-count');
+        const startBtn = document.getElementById('start-btn');
+        const progressText = document.getElementById('progress-text');
+        const wordDisplay = document.getElementById('word-display');
+        const playBtn = document.getElementById('play-btn');
+        const answerInput = document.getElementById('answer-input');
+        const hintBtn = document.getElementById('hint-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        const scoreDisplay = document.getElementById('score-display');
+        const resultList = document.getElementById('result-list');
+        const restartBtn = document.getElementById('restart-btn');
+        
+        // GitHub JSON文件URL
+        const jsonUrl = 'https://raw.githubusercontent.com/wangzhrm/IELTS/main/dictationlist.json';
+        
+        // 初始化函数
+        async function init() {
+            try {
+                // 从GitHub加载JSON数据
+                const response = await fetch(jsonUrl);
+                
+                if (!response.ok) {
+                    throw new Error('网络响应不正常');
+                }
+                
+                const data = await response.json();
+                
+                // 检查数据格式是否正确
+                if (typeof data !== 'object' || Object.keys(data).length === 0) {
+                    throw new Error('JSON数据格式不正确');
+                }
+                
+                vocabularyData = data;
+                
+                // 隐藏加载提示，显示选择界面
+                loadingElement.style.display = 'none';
+                selectionSection.style.display = 'block';
+                
+                // 填充词库选择下拉框
+                populateWordlistSelect();
+                
+            } catch (error) {
+                console.error('加载数据时出错:', error);
+                loadingElement.style.display = 'none';
+                errorElement.style.display = 'block';
+                errorElement.innerHTML = `无法加载词汇数据: ${error.message}<br>请检查网络连接或URL是否正确。`;
+            }
+        }
+        
+        // 填充词库选择下拉框
+        function populateWordlistSelect() {
+            // 清空现有选项
+            wordlistSelect.innerHTML = '<option value="">-- 请选择词库 --</option>';
+            
+            // 添加所有词库选项
+            for (const key in vocabularyData) {
+                if (vocabularyData.hasOwnProperty(key) && Array.isArray(vocabularyData[key])) {
+                    const option = document.createElement('option');
+                    option.value = key;
+                    option.textContent = key;
+                    wordlistSelect.appendChild(option);
+                }
+            }
+        }
+        
+        // 选择词库
+        function selectWordlist() {
+            selectedWordlistKey = wordlistSelect.value;
+            
+            if (selectedWordlistKey && vocabularyData[selectedWordlistKey]) {
+                currentWordList = vocabularyData[selectedWordlistKey];
+                
+                // 显示词库信息
+                selectedWordlistName.textContent = selectedWordlistKey;
+                wordlistCount.textContent = currentWordList.length;
+                wordlistInfo.style.display = 'block';
+                
+                // 启用开始按钮
+                startBtn.disabled = false;
+            } else {
+                // 隐藏词库信息
+                wordlistInfo.style.display = 'none';
+                
+                // 禁用开始按钮
+                startBtn.disabled = true;
+            }
+        }
+        
+        // 开始测试
+        function startTest() {
+            if (!selectedWordlistKey || currentWordList.length === 0) {
+                alert('请先选择一个有效的词库！');
+                return;
+            }
+            
+            // 隐藏选择界面，显示测试界面
+            selectionSection.style.display = 'none';
+            testSection.style.display = 'block';
+            
+            // 准备测试
+            prepareTest();
+        }
+        
+        // 准备测试
+        function prepareTest() {
+            // 创建乱序索引
+            scrambledIndices = Array.from({length: currentWordList.length}, (_, i) => i);
+            scrambleArray(scrambledIndices);
+            
+            // 重置用户答案
+            userAnswers = new Array(currentWordList.length).fill('');
+            
+            // 更新类别名称
+            document.getElementById('category-name').textContent = selectedWordlistKey;
+            
+            // 显示第一个单词
+            showWord(0);
+        }
+        
+        // 数组乱序函数
+        function scrambleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        
+        // 显示单词
+        function showWord(index) {
+            currentWordIndex = index;
+            const wordIndex = scrambledIndices[index];
+            const wordData = currentWordList[wordIndex];
+            
+            // 更新进度
+            progressText.textContent = `单词 ${index + 1}/${currentWordList.length}`;
+            
+            // 清空输入框
+            answerInput.value = userAnswers[index] || '';
+            answerInput.focus();
+            
+            // 禁用或启用下一题按钮
+            nextBtn.disabled = !userAnswers[index];
+            
+            // 如果是最后一个单词，显示提交按钮
+            if (index === currentWordList.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+            }
+            
+            // 重置提示
+            wordDisplay.textContent = '准备听写...';
+            wordDisplay.classList.remove('correct', 'incorrect');
+        }
+        
+        // 播放单词发音
+        function playWord() {
+            const wordIndex = scrambledIndices[currentWordIndex];
+            const wordData = currentWordList[wordIndex];
+            
+            // 使用Web Speech API朗读单词
+            const speech = new SpeechSynthesisUtterance(wordData.word);
+            speech.lang = 'en-US';
+            speech.rate = 0.8;
+            
+            window.speechSynthesis.speak(speech);
+            
+            // 显示提示
+            wordDisplay.textContent = "发音播放中...";
+            
+            // 发音结束后恢复显示
+            speech.onend = function() {
+                wordDisplay.textContent = "请拼写您听到的单词";
+            };
+        }
+        
+        // 显示提示（中文意思）
+        function showHint() {
+            const wordIndex = scrambledIndices[currentWordIndex];
+            const wordData = currentWordList[wordIndex];
+            
+            alert(`提示: ${wordData.definition}`);
+        }
+        
+        // 检查答案并转到下一题
+        function nextWord() {
+            // 保存用户答案
+            userAnswers[currentWordIndex] = answerInput.value.trim();
+            
+            // 显示下一个单词
+            if (currentWordIndex < currentWordList.length - 1) {
+                showWord(currentWordIndex + 1);
+            }
+        }
+        
+        // 提交所有答案
+        function submitAnswers() {
+            // 保存最后一个答案
+            userAnswers[currentWordIndex] = answerInput.value.trim();
+            
+            // 计算得分
+            let correctCount = 0;
+            const results = [];
+            
+            for (let i = 0; i < currentWordList.length; i++) {
+                const wordIndex = scrambledIndices[i];
+                const wordData = currentWordList[wordIndex];
+                const userAnswer = userAnswers[i];
+                const isCorrect = userAnswer.toLowerCase() === wordData.word.toLowerCase();
+                
+                if (isCorrect) {
+                    correctCount++;
+                }
+                
+                results.push({
+                    word: wordData.word,
+                    definition: wordData.definition,
+                    userAnswer: userAnswer,
+                    isCorrect: isCorrect
+                });
+            }
+            
+            const score = Math.round((correctCount / currentWordList.length) * 100);
+            
+            // 显示结果
+            showResults(score, results);
+        }
+        
+        // 显示测试结果
+        function showResults(score, results) {
+            // 隐藏测试部分，显示结果部分
+            testSection.style.display = 'none';
+            resultSection.style.display = 'block';
+            
+            // 显示分数
+            scoreDisplay.textContent = `正确率: ${score}%`;
+            
+            // 显示详细结果
+            resultList.innerHTML = '';
+            
+            results.forEach(result => {
+                const resultItem = document.createElement('div');
+                resultItem.className = `result-item ${result.isCorrect ? 'correct' : 'incorrect'}`;
+                
+                resultItem.innerHTML = `
+                    <div>
+                        <strong>${result.word}</strong> (${result.definition})
+                    </div>
+                    <div>
+                        您的答案: ${result.userAnswer || '未回答'}
+                    </div>
+                `;
+                
+                resultList.appendChild(resultItem);
+            });
+        }
+        
+        // 重新选择词库
+        function restartTest() {
+            // 隐藏结果部分，显示选择部分
+            resultSection.style.display = 'none';
+            selectionSection.style.display = 'block';
+            
+            // 重置选择
+            wordlistSelect.value = "";
+            wordlistInfo.style.display = 'none';
+            startBtn.disabled = true;
+        }
+        
+        // 事件监听器
+        wordlistSelect.addEventListener('change', selectWordlist);
+        startBtn.addEventListener('click', startTest);
+        
+        playBtn.addEventListener('click', playWord);
+        hintBtn.addEventListener('click', showHint);
+        
+        nextBtn.addEventListener('click', nextWord);
+        submitBtn.addEventListener('click', submitAnswers);
+        restartBtn.addEventListener('click', restartTest);
+        
+        answerInput.addEventListener('input', function() {
+            nextBtn.disabled = !this.value.trim();
+        });
+        
+        answerInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && this.value.trim()) {
+                if (currentWordIndex < currentWordList.length - 1) {
+                    nextWord();
+                } else {
+                    submitAnswers();
+                }
+            }
+        });
+        
+        // 初始化应用
+        init();
+    </script>
+</body>
+</html>
