@@ -1,0 +1,2561 @@
+{
+  "list1": [
+    {
+      "word": "confront",
+      "part_of_speech": "v",
+      "chinese_meaning": "遭遇，面对，正视"
+    },
+    {
+      "word": "exhibition",
+      "part_of_speech": "n",
+      "chinese_meaning": "展览会，陈列，展览"
+    },
+    {
+      "word": "whereas",
+      "part_of_speech": "conj",
+      "chinese_meaning": "然而，但是"
+    },
+    {
+      "word": "oak",
+      "part_of_speech": "n",
+      "chinese_meaning": "橡树，橡木"
+    },
+    {
+      "word": "additional",
+      "part_of_speech": "adj",
+      "chinese_meaning": "附加的，追加的"
+    },
+    {
+      "word": "overlapping",
+      "part_of_speech": "adj",
+      "chinese_meaning": "重叠的，共通的"
+    },
+    {
+      "word": "poultry",
+      "part_of_speech": "n",
+      "chinese_meaning": "家禽，禽肉"
+    },
+    {
+      "word": "pregnancy",
+      "part_of_speech": "n",
+      "chinese_meaning": "怀孕，怀孕期"
+    },
+    {
+      "word": "confirmation",
+      "part_of_speech": "n",
+      "chinese_meaning": "证实，确认，批准"
+    },
+    {
+      "word": "embezzlement",
+      "part_of_speech": "n",
+      "chinese_meaning": "贪污，盗用"
+    },
+    {
+      "word": "acrobatic",
+      "part_of_speech": "adj",
+      "chinese_meaning": "杂技的，杂技演员的"
+    },
+    {
+      "word": "numerous",
+      "part_of_speech": "adj",
+      "chinese_meaning": "众多的"
+    },
+    {
+      "word": "balcony",
+      "part_of_speech": "n",
+      "chinese_meaning": "阳台，楼座"
+    },
+    {
+      "word": "postgraduate",
+      "part_of_speech": "n",
+      "chinese_meaning": "研究生"
+    },
+    {
+      "word": "well-being",
+      "part_of_speech": "n",
+      "chinese_meaning": "幸福、安宁"
+    },
+    {
+      "word": "at random",
+      "part_of_speech": "phr",
+      "chinese_meaning": "随便地，任意地"
+    },
+    {
+      "word": "prime",
+      "part_of_speech": "adj",
+      "chinese_meaning": "首要的，最好的"
+    },
+    {
+      "word": "settle",
+      "part_of_speech": "v",
+      "chinese_meaning": "定居，安家，解决，支付，结算，鸟等飞落，停留"
+    },
+    {
+      "word": "premise",
+      "part_of_speech": "n",
+      "chinese_meaning": "前提，假设，经营场址"
+    },
+    {
+      "word": "discerning",
+      "part_of_speech": "adj",
+      "chinese_meaning": "有识别力的眼光敏锐的"
+    },
+    {
+      "word": "prospectus",
+      "part_of_speech": "n",
+      "chinese_meaning": "简章，简介"
+    },
+    {
+      "word": "liaise",
+      "part_of_speech": "v",
+      "chinese_meaning": "联络，联系"
+    },
+    {
+      "word": "excavation",
+      "part_of_speech": "n",
+      "chinese_meaning": "挖掘，发掘，出土文物"
+    },
+    {
+      "word": "continental",
+      "part_of_speech": "adj",
+      "chinese_meaning": "欧洲大陆的，大陆性的"
+    },
+    {
+      "word": "modernism",
+      "part_of_speech": "n",
+      "chinese_meaning": "现代主义"
+    },
+    {
+      "word": "artery",
+      "part_of_speech": "n",
+      "chinese_meaning": "动脉，干线，要道"
+    },
+    {
+      "word": "premium",
+      "part_of_speech": "n, adj",
+      "chinese_meaning": "高级的， 保险费，奖品"
+    },
+    {
+      "word": "glamor",
+      "part_of_speech": "n",
+      "chinese_meaning": "魅力，诱惑力"
+    },
+    {
+      "word": "barbecue",
+      "part_of_speech": "n",
+      "chinese_meaning": "金属烤肉架，烧烤野餐"
+    },
+    {
+      "word": "material",
+      "part_of_speech": "n, adj",
+      "chinese_meaning": "材料，物质的，重要的"
+    }
+  ],
+  "list2": [
+    {
+      "word": "adapt",
+      "part_of_speech": "v",
+      "chinese_meaning": "使适合，改编，适应"
+    },
+    {
+      "word": "gullible",
+      "part_of_speech": "adj",
+      "chinese_meaning": "易受骗的"
+    },
+    {
+      "word": "succession",
+      "part_of_speech": "n",
+      "chinese_meaning": "连续，接替，继承"
+    },
+    {
+      "word": "spark",
+      "part_of_speech": "n",
+      "chinese_meaning": "火花"
+    },
+    {
+      "word": "sympathy",
+      "part_of_speech": "n",
+      "chinese_meaning": "同情，赞同，支持"
+    },
+    {
+      "word": "chill",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "使变冷，冷藏， 寒心，寒冷的"
+    },
+    {
+      "word": "multinational",
+      "part_of_speech": "adj",
+      "chinese_meaning": "多国的，跨国公司的"
+    },
+    {
+      "word": "exposure",
+      "part_of_speech": "n",
+      "chinese_meaning": "暴露，显露，接触，曝光"
+    },
+    {
+      "word": "fierce",
+      "part_of_speech": "adj",
+      "chinese_meaning": "凶猛的，强烈的"
+    },
+    {
+      "word": "crime",
+      "part_of_speech": "n",
+      "chinese_meaning": "罪行，犯罪"
+    },
+    {
+      "word": "constitute",
+      "part_of_speech": "v",
+      "chinese_meaning": "组成，构成，设立，成立"
+    },
+    {
+      "word": "deceive",
+      "part_of_speech": "v",
+      "chinese_meaning": "欺骗，蒙骗"
+    },
+    {
+      "word": "emission",
+      "part_of_speech": "n",
+      "chinese_meaning": "光，热等的散发，散发物"
+    },
+    {
+      "word": "procession",
+      "part_of_speech": "n",
+      "chinese_meaning": "队伍，行列"
+    },
+    {
+      "word": "crash",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "碰撞，倒下，破产， 坠毁"
+    },
+    {
+      "word": "pearl",
+      "part_of_speech": "n",
+      "chinese_meaning": "珍珠"
+    },
+    {
+      "word": "workforce",
+      "part_of_speech": "n",
+      "chinese_meaning": "劳动人口工作人员总数"
+    },
+    {
+      "word": "surpass",
+      "part_of_speech": "v",
+      "chinese_meaning": "超过，优于，胜过"
+    },
+    {
+      "word": "sociology",
+      "part_of_speech": "n",
+      "chinese_meaning": "社会学"
+    },
+    {
+      "word": "violent",
+      "part_of_speech": "adj",
+      "chinese_meaning": "暴力的，带有强烈感情的"
+    },
+    {
+      "word": "epidemic",
+      "part_of_speech": "adj, n",
+      "chinese_meaning": "流行的，流行病"
+    },
+    {
+      "word": "grap",
+      "part_of_speech": "v",
+      "chinese_meaning": "抓，夺"
+    },
+    {
+      "word": "statue",
+      "part_of_speech": "n",
+      "chinese_meaning": "塑像"
+    },
+    {
+      "word": "appliance",
+      "part_of_speech": "n",
+      "chinese_meaning": "用具，器具"
+    },
+    {
+      "word": "facility",
+      "part_of_speech": "n",
+      "chinese_meaning": "设备，设施，便利条件"
+    },
+    {
+      "word": "consolation",
+      "part_of_speech": "n",
+      "chinese_meaning": "安慰，慰问"
+    },
+    {
+      "word": "texture",
+      "part_of_speech": "n",
+      "chinese_meaning": "质地，纹理，口感"
+    },
+    {
+      "word": "assumption",
+      "part_of_speech": "n",
+      "chinese_meaning": "假定，担任，承担"
+    },
+    {
+      "word": "dissatisfied",
+      "part_of_speech": "adj",
+      "chinese_meaning": "不满意的，不满足的"
+    },
+    {
+      "word": "simultaneous",
+      "part_of_speech": "adj",
+      "chinese_meaning": "同时地，同时发生的"
+    }
+  ],
+  "list3": [
+    {
+      "word": "toxic",
+      "part_of_speech": "adj",
+      "chinese_meaning": "有毒的，中毒的"
+    },
+    {
+      "word": "utilise",
+      "part_of_speech": "v",
+      "chinese_meaning": "利用，运用"
+    },
+    {
+      "word": "conformity",
+      "part_of_speech": "n",
+      "chinese_meaning": "符合， 一致"
+    },
+    {
+      "word": "overrate",
+      "part_of_speech": "v",
+      "chinese_meaning": "对~评价过高，高估"
+    },
+    {
+      "word": "dormant",
+      "part_of_speech": "adj",
+      "chinese_meaning": "休眠的，静止的，隐匿的"
+    },
+    {
+      "word": "displace",
+      "part_of_speech": "v",
+      "chinese_meaning": "取代，撤职，使失业"
+    },
+    {
+      "word": "embrace",
+      "part_of_speech": "v",
+      "chinese_meaning": "拥抱，包括，欣然接受"
+    },
+    {
+      "word": "disrespectful",
+      "part_of_speech": "adj",
+      "chinese_meaning": "失礼的，无礼的"
+    },
+    {
+      "word": "invade",
+      "part_of_speech": "v",
+      "chinese_meaning": "侵犯，侵入，侵略，侵袭"
+    },
+    {
+      "word": "commentary",
+      "part_of_speech": "n",
+      "chinese_meaning": "实况报道，注释，批评"
+    },
+    {
+      "word": "recreate",
+      "part_of_speech": "v",
+      "chinese_meaning": "再现，再创造"
+    },
+    {
+      "word": "mock",
+      "part_of_speech": "adj, v",
+      "chinese_meaning": "假的，模拟的，嘲弄，嘲笑"
+    },
+    {
+      "word": "territory",
+      "part_of_speech": "n",
+      "chinese_meaning": "领土，版图，领域，范围"
+    },
+    {
+      "word": "prohibit",
+      "part_of_speech": "v",
+      "chinese_meaning": "禁止，阻止"
+    },
+    {
+      "word": "shipment",
+      "part_of_speech": "n",
+      "chinese_meaning": "装运，运输，装载的货物"
+    },
+    {
+      "word": "calendar",
+      "part_of_speech": "n",
+      "chinese_meaning": "日历，月历，日程表"
+    },
+    {
+      "word": "magic",
+      "part_of_speech": "n",
+      "chinese_meaning": "魔法，法术，魅力，魔力"
+    },
+    {
+      "word": "shatter",
+      "part_of_speech": "v",
+      "chinese_meaning": "使破碎，给予极大打击"
+    },
+    {
+      "word": "truce",
+      "part_of_speech": "n",
+      "chinese_meaning": "休战协定"
+    },
+    {
+      "word": "discount",
+      "part_of_speech": "n",
+      "chinese_meaning": "价格,债款等折扣"
+    },
+    {
+      "word": "tough",
+      "part_of_speech": "adj",
+      "chinese_meaning": "难对付的，健壮的"
+    },
+    {
+      "word": "volunteer",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "无偿做，志愿的，义务的"
+    },
+    {
+      "word": "eruption",
+      "part_of_speech": "n",
+      "chinese_meaning": "火山、战争爆发疾病发作"
+    },
+    {
+      "word": "pension",
+      "part_of_speech": "n",
+      "chinese_meaning": "养老金，抚恤金，年金"
+    },
+    {
+      "word": "assignment",
+      "part_of_speech": "n",
+      "chinese_meaning": "任务，工作"
+    },
+    {
+      "word": "assign",
+      "part_of_speech": "v",
+      "chinese_meaning": "指派，分配，指定"
+    },
+    {
+      "word": "concert",
+      "part_of_speech": "n",
+      "chinese_meaning": "音乐会，演奏会"
+    },
+    {
+      "word": "microbiology",
+      "part_of_speech": "n",
+      "chinese_meaning": "微生物学"
+    },
+    {
+      "word": "stainless",
+      "part_of_speech": "adj",
+      "chinese_meaning": "不锈的，无瑕疵的"
+    },
+    {
+      "word": "terminal",
+      "part_of_speech": "n",
+      "chinese_meaning": "终点，终端，终点站"
+    }
+  ],
+  "list4": [
+    {
+      "word": "climate",
+      "part_of_speech": "n",
+      "chinese_meaning": "气候，风气，思潮"
+    },
+    {
+      "word": "bring around",
+      "part_of_speech": "phr v",
+      "chinese_meaning": "说服，使恢复知觉"
+    },
+    {
+      "word": "relevance",
+      "part_of_speech": "n",
+      "chinese_meaning": "中肯，适当，相关性"
+    },
+    {
+      "word": "reluctant",
+      "part_of_speech": "adj",
+      "chinese_meaning": "勉强的难得到的难处理的"
+    },
+    {
+      "word": "regularity",
+      "part_of_speech": "n",
+      "chinese_meaning": "规律性，整齐，匀称"
+    },
+    {
+      "word": "daunt",
+      "part_of_speech": "v",
+      "chinese_meaning": "使气馁，使胆怯"
+    },
+    {
+      "word": "itinerary",
+      "part_of_speech": "n",
+      "chinese_meaning": "行程表，旅行路线"
+    },
+    {
+      "word": "acclimatise",
+      "part_of_speech": "v",
+      "chinese_meaning": "使~适应环境"
+    },
+    {
+      "word": "forthcoming",
+      "part_of_speech": "adj",
+      "chinese_meaning": "即将到来的"
+    },
+    {
+      "word": "structure",
+      "part_of_speech": "n",
+      "chinese_meaning": "构造，建筑物，精心组织"
+    },
+    {
+      "word": "quantity",
+      "part_of_speech": "n",
+      "chinese_meaning": "数量，数目，众多，大宗"
+    },
+    {
+      "word": "integral",
+      "part_of_speech": "adj",
+      "chinese_meaning": "不可或缺的，完备的"
+    },
+    {
+      "word": "intensive",
+      "part_of_speech": "adj",
+      "chinese_meaning": "加强的，密集的"
+    },
+    {
+      "word": "acknowledge",
+      "part_of_speech": "v",
+      "chinese_meaning": "承认，确认，致谢"
+    },
+    {
+      "word": "liquor",
+      "part_of_speech": "n",
+      "chinese_meaning": "烈性酒，含酒精饮料"
+    },
+    {
+      "word": "presence",
+      "part_of_speech": "n",
+      "chinese_meaning": "出席，存在，仪态"
+    },
+    {
+      "word": "develop",
+      "part_of_speech": "v",
+      "chinese_meaning": "发展，生长，形成，开发"
+    },
+    {
+      "word": "blast",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "爆破，炸毁，冲击"
+    },
+    {
+      "word": "pudding",
+      "part_of_speech": "n",
+      "chinese_meaning": "布丁"
+    },
+    {
+      "word": "greatly",
+      "part_of_speech": "adv",
+      "chinese_meaning": "非常，很，极大地"
+    },
+    {
+      "word": "sporadically",
+      "part_of_speech": "adv",
+      "chinese_meaning": "偶发地，零星地"
+    },
+    {
+      "word": "imitate",
+      "part_of_speech": "v",
+      "chinese_meaning": "模仿，模拟，仿效"
+    },
+    {
+      "word": "constitution",
+      "part_of_speech": "n",
+      "chinese_meaning": "宪法章程体质，组成"
+    },
+    {
+      "word": "photography",
+      "part_of_speech": "n",
+      "chinese_meaning": "摄影术，摄影"
+    },
+    {
+      "word": "modem",
+      "part_of_speech": "n",
+      "chinese_meaning": "调制解调器"
+    },
+    {
+      "word": "advocate",
+      "part_of_speech": "v",
+      "chinese_meaning": "拥护，支持，提倡"
+    },
+    {
+      "word": "maintenance",
+      "part_of_speech": "n",
+      "chinese_meaning": "维持，保养，抚养费"
+    },
+    {
+      "word": "spouse",
+      "part_of_speech": "n",
+      "chinese_meaning": "配偶"
+    },
+    {
+      "word": "furnace",
+      "part_of_speech": "n",
+      "chinese_meaning": "熔炉"
+    },
+    {
+      "word": "expedition",
+      "part_of_speech": "n",
+      "chinese_meaning": "远征，探险考察旅行"
+    }
+  ],
+  "list5": [
+    {
+      "word": "expansion",
+      "part_of_speech": "n",
+      "chinese_meaning": "扩大，扩张"
+    },
+    {
+      "word": "encase",
+      "part_of_speech": "v",
+      "chinese_meaning": "装入，包住"
+    },
+    {
+      "word": "invalid",
+      "part_of_speech": "adj",
+      "chinese_meaning": "无效的，作废的，有病的"
+    },
+    {
+      "word": "unbiased",
+      "part_of_speech": "adj",
+      "chinese_meaning": "公正的，没有偏见的"
+    },
+    {
+      "word": "postpone",
+      "part_of_speech": "v",
+      "chinese_meaning": "延迟，延期"
+    },
+    {
+      "word": "skim",
+      "part_of_speech": "v",
+      "chinese_meaning": "浏览，略读"
+    },
+    {
+      "word": "preface",
+      "part_of_speech": "n",
+      "chinese_meaning": "序言，引言，以~为开端"
+    },
+    {
+      "word": "retain",
+      "part_of_speech": "v",
+      "chinese_meaning": "保留，保持"
+    },
+    {
+      "word": "robotic",
+      "part_of_speech": "adj",
+      "chinese_meaning": "机器人的，呆板而机械的"
+    },
+    {
+      "word": "profile",
+      "part_of_speech": "n",
+      "chinese_meaning": "侧面轮廓，传略，扼要介绍"
+    },
+    {
+      "word": "incident",
+      "part_of_speech": "n",
+      "chinese_meaning": "发生的事，事件，事变"
+    },
+    {
+      "word": "previous",
+      "part_of_speech": "adj",
+      "chinese_meaning": "以前的，在~之前的"
+    },
+    {
+      "word": "spice",
+      "part_of_speech": "n",
+      "chinese_meaning": "香料，调味品，往~加香料"
+    },
+    {
+      "word": "boring",
+      "part_of_speech": "adj",
+      "chinese_meaning": "无聊的"
+    },
+    {
+      "word": "betray",
+      "part_of_speech": "v",
+      "chinese_meaning": "出卖，泄露，辜负流露情感"
+    },
+    {
+      "word": "underlying",
+      "part_of_speech": "adj",
+      "chinese_meaning": "表面下的根本的潜在的"
+    },
+    {
+      "word": "dispense",
+      "part_of_speech": "v",
+      "chinese_meaning": "分发，分配，提供"
+    },
+    {
+      "word": "behalf",
+      "part_of_speech": "n",
+      "chinese_meaning": "利益，代表"
+    },
+    {
+      "word": "initial",
+      "part_of_speech": "adj",
+      "chinese_meaning": "最初的，开始的，词首的"
+    },
+    {
+      "word": "govern",
+      "part_of_speech": "v",
+      "chinese_meaning": "统治，管理，控制，支配"
+    },
+    {
+      "word": "mingle",
+      "part_of_speech": "v",
+      "chinese_meaning": "使混合，使联络，相往来"
+    },
+    {
+      "word": "charter",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "纲领，宣言，宪章，包租"
+    },
+    {
+      "word": "formidable",
+      "part_of_speech": "adj",
+      "chinese_meaning": "可怕的，难以克服的"
+    },
+    {
+      "word": "belt",
+      "part_of_speech": "n",
+      "chinese_meaning": "腰带，地带"
+    },
+    {
+      "word": "relay",
+      "part_of_speech": "n",
+      "chinese_meaning": "接力赛，中继设备，转播"
+    },
+    {
+      "word": "diversify",
+      "part_of_speech": "v",
+      "chinese_meaning": "使多样化"
+    },
+    {
+      "word": "threshold",
+      "part_of_speech": "n",
+      "chinese_meaning": "入门，界限，开端，起点"
+    },
+    {
+      "word": "vacation",
+      "part_of_speech": "n",
+      "chinese_meaning": "假期，休假"
+    },
+    {
+      "word": "skyscraper",
+      "part_of_speech": "n",
+      "chinese_meaning": "摩天楼"
+    },
+    {
+      "word": "draft",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "草案，汇票，征兵，服役"
+    }
+  ],
+  "list6": [
+    {
+      "word": "deter",
+      "part_of_speech": "v",
+      "chinese_meaning": "威慑，吓住，使断念"
+    },
+    {
+      "word": "promising",
+      "part_of_speech": "adj",
+      "chinese_meaning": "有希望的，有前途的"
+    },
+    {
+      "word": "goal",
+      "part_of_speech": "n",
+      "chinese_meaning": "球门，射门，进球得分，目标"
+    },
+    {
+      "word": "crush",
+      "part_of_speech": "v",
+      "chinese_meaning": "碾碎，压服，压垮，镇压"
+    },
+    {
+      "word": "stream",
+      "part_of_speech": "n",
+      "chinese_meaning": "溪流，一股，流出"
+    },
+    {
+      "word": "urgent",
+      "part_of_speech": "adj",
+      "chinese_meaning": "紧急的，紧迫的，催促的"
+    },
+    {
+      "word": "thigh",
+      "part_of_speech": "n",
+      "chinese_meaning": "大腿"
+    },
+    {
+      "word": "maximise",
+      "part_of_speech": "v",
+      "chinese_meaning": "最佳化，充分利用"
+    },
+    {
+      "word": "entrust",
+      "part_of_speech": "v",
+      "chinese_meaning": "委托，交付，托付"
+    },
+    {
+      "word": "veterinarian",
+      "part_of_speech": "n",
+      "chinese_meaning": "兽医"
+    },
+    {
+      "word": "demolish",
+      "part_of_speech": "v",
+      "chinese_meaning": "拆除，破坏"
+    },
+    {
+      "word": "synchronise",
+      "part_of_speech": "v",
+      "chinese_meaning": "使同步发生，同速进行"
+    },
+    {
+      "word": "ornamental",
+      "part_of_speech": "adj",
+      "chinese_meaning": "装饰性的，装饰的"
+    },
+    {
+      "word": "leaflet",
+      "part_of_speech": "n",
+      "chinese_meaning": "传单，散页印刷品，小册子"
+    },
+    {
+      "word": "cascade",
+      "part_of_speech": "n",
+      "chinese_meaning": "小瀑布"
+    },
+    {
+      "word": "irritate",
+      "part_of_speech": "v",
+      "chinese_meaning": "使烦躁，使疼痛，刺激"
+    },
+    {
+      "word": "hatch",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "孵化，策划，舱门"
+    },
+    {
+      "word": "commence",
+      "part_of_speech": "v",
+      "chinese_meaning": "开始，着手"
+    },
+    {
+      "word": "initiative",
+      "part_of_speech": "n",
+      "chinese_meaning": "倡议，新方案，主动性"
+    },
+    {
+      "word": "track",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "小路，跑道，跟踪，追踪"
+    },
+    {
+      "word": "fruitful",
+      "part_of_speech": "adj",
+      "chinese_meaning": "富饶的，富有成效的"
+    },
+    {
+      "word": "stationary",
+      "part_of_speech": "adj",
+      "chinese_meaning": "静止的，固定的，稳定的"
+    },
+    {
+      "word": "superficial",
+      "part_of_speech": "adj",
+      "chinese_meaning": "表面的，肤浅的"
+    },
+    {
+      "word": "rotate",
+      "part_of_speech": "v",
+      "chinese_meaning": "使旋转，转动，轮流，轮换"
+    },
+    {
+      "word": "spoil",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "损坏糟蹋宠坏战利品掠夺物"
+    },
+    {
+      "word": "camper",
+      "part_of_speech": "n",
+      "chinese_meaning": "露营者，宿营者"
+    },
+    {
+      "word": "attend",
+      "part_of_speech": "v",
+      "chinese_meaning": "出席，随同，专心，注意"
+    },
+    {
+      "word": "rim",
+      "part_of_speech": "n",
+      "chinese_meaning": "圆形物体的边，缘"
+    },
+    {
+      "word": "motivate",
+      "part_of_speech": "v",
+      "chinese_meaning": "使有动机，激励，激发"
+    },
+    {
+      "word": "patent",
+      "part_of_speech": "v, adj",
+      "chinese_meaning": "取得专利权，显而易见的"
+    }
+  ],
+  "list7": [
+    {
+      "word": "architect",
+      "part_of_speech": "n",
+      "chinese_meaning": "建筑师，设计师，创造者"
+    },
+    {
+      "word": "symptom",
+      "part_of_speech": "n",
+      "chinese_meaning": "症状，症候，征兆"
+    },
+    {
+      "word": "tremendous",
+      "part_of_speech": "adj",
+      "chinese_meaning": "巨大的非常的惊人的"
+    },
+    {
+      "word": "in accordance with",
+      "part_of_speech": "phr",
+      "chinese_meaning": "按照"
+    },
+    {
+      "word": "destination",
+      "part_of_speech": "n",
+      "chinese_meaning": "目的地，终点，目标"
+    },
+    {
+      "word": "welfare",
+      "part_of_speech": "n",
+      "chinese_meaning": "福利"
+    },
+    {
+      "word": "envisage",
+      "part_of_speech": "v",
+      "chinese_meaning": "展望，想象，面对"
+    },
+    {
+      "word": "binoculars",
+      "part_of_speech": "n",
+      "chinese_meaning": "双筒望眼镜"
+    },
+    {
+      "word": "spoil",
+      "part_of_speech": "v",
+      "chinese_meaning": "变质，损坏"
+    },
+    {
+      "word": "misconception",
+      "part_of_speech": "n",
+      "chinese_meaning": "误解，错误想法"
+    },
+    {
+      "word": "vegetation",
+      "part_of_speech": "n",
+      "chinese_meaning": "植物，草木"
+    },
+    {
+      "word": "conceptual",
+      "part_of_speech": "adj",
+      "chinese_meaning": "观念的，概念的"
+    },
+    {
+      "word": "modification",
+      "part_of_speech": "n",
+      "chinese_meaning": "修改，改正"
+    },
+    {
+      "word": "erroneous",
+      "part_of_speech": "adj",
+      "chinese_meaning": "错误的，不正确的"
+    },
+    {
+      "word": "robust",
+      "part_of_speech": "adj",
+      "chinese_meaning": "健壮的"
+    },
+    {
+      "word": "get off track",
+      "part_of_speech": "phr v",
+      "chinese_meaning": "离题，偏离目标"
+    },
+    {
+      "word": "immense",
+      "part_of_speech": "adj",
+      "chinese_meaning": "巨大的，广大的"
+    },
+    {
+      "word": "independence",
+      "part_of_speech": "n",
+      "chinese_meaning": "独立，自主"
+    },
+    {
+      "word": "intense",
+      "part_of_speech": "adj",
+      "chinese_meaning": "强烈的，剧烈的，紧张的"
+    },
+    {
+      "word": "thesis",
+      "part_of_speech": "n",
+      "chinese_meaning": "论文"
+    },
+    {
+      "word": "withdraw",
+      "part_of_speech": "v",
+      "chinese_meaning": "收回，撤退，提取钱"
+    },
+    {
+      "word": "sceptical",
+      "part_of_speech": "adj",
+      "chinese_meaning": "怀疑的，猜疑的"
+    },
+    {
+      "word": "cord",
+      "part_of_speech": "n",
+      "chinese_meaning": "线，带"
+    },
+    {
+      "word": "lower",
+      "part_of_speech": "adj, v",
+      "chinese_meaning": "较低的，下面的，减少"
+    },
+    {
+      "word": "primary",
+      "part_of_speech": "adj",
+      "chinese_meaning": "最初的，初级的，首要的"
+    },
+    {
+      "word": "coincide",
+      "part_of_speech": "v",
+      "chinese_meaning": "同时发生，一致"
+    },
+    {
+      "word": "mess",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "凌乱，弄糟，搞乱"
+    },
+    {
+      "word": "design",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "设计，构想，图样，企图"
+    },
+    {
+      "word": "insist",
+      "part_of_speech": "v",
+      "chinese_meaning": "坚持，坚决认为，一定要"
+    },
+    {
+      "word": "crew",
+      "part_of_speech": "n",
+      "chinese_meaning": "全体船员，工作人员，队，组"
+    }
+  ],
+  "list8": [
+    {
+      "word": "exhaustion",
+      "part_of_speech": "n",
+      "chinese_meaning": "精疲力竭，耗尽"
+    },
+    {
+      "word": "geographical",
+      "part_of_speech": "adj",
+      "chinese_meaning": "地理学的，地理的"
+    },
+    {
+      "word": "indigenous",
+      "part_of_speech": "adj",
+      "chinese_meaning": "土产的，本地的"
+    },
+    {
+      "word": "consistent",
+      "part_of_speech": "adj",
+      "chinese_meaning": "一致的，协调的，相符的"
+    },
+    {
+      "word": "sympathetic",
+      "part_of_speech": "adj",
+      "chinese_meaning": "同情的，体谅的"
+    },
+    {
+      "word": "personalize",
+      "part_of_speech": "v",
+      "chinese_meaning": "使成为私人的，个人化"
+    },
+    {
+      "word": "incompatible",
+      "part_of_speech": "adj",
+      "chinese_meaning": "不兼容，不协调"
+    },
+    {
+      "word": "predominate",
+      "part_of_speech": "v",
+      "chinese_meaning": "统治，支配，占优势"
+    },
+    {
+      "word": "complexity",
+      "part_of_speech": "n",
+      "chinese_meaning": "复杂，复杂的事物"
+    },
+    {
+      "word": "commission",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "委托，佣金，授权"
+    },
+    {
+      "word": "beware",
+      "part_of_speech": "v",
+      "chinese_meaning": "谨防，当心"
+    },
+    {
+      "word": "compensation",
+      "part_of_speech": "n",
+      "chinese_meaning": "补偿，赔偿"
+    },
+    {
+      "word": "issue",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "问题，争论点，分发，流出"
+    },
+    {
+      "word": "finite",
+      "part_of_speech": "adj",
+      "chinese_meaning": "有限的，限定的"
+    },
+    {
+      "word": "curly",
+      "part_of_speech": "adj",
+      "chinese_meaning": "卷曲的，波浪式的"
+    },
+    {
+      "word": "wildlife",
+      "part_of_speech": "n",
+      "chinese_meaning": "野生生物"
+    },
+    {
+      "word": "swallow",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "吞咽，忍受，燕子"
+    },
+    {
+      "word": "hasty",
+      "part_of_speech": "adj",
+      "chinese_meaning": "草率的，匆忙的"
+    },
+    {
+      "word": "geometry",
+      "part_of_speech": "n",
+      "chinese_meaning": "几何，几何学"
+    },
+    {
+      "word": "stuff",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "原料，材料，填进，让~吃饱"
+    },
+    {
+      "word": "landward",
+      "part_of_speech": "adj, adv",
+      "chinese_meaning": "向陆的、地，近陆的"
+    },
+    {
+      "word": "vigorous",
+      "part_of_speech": "adj",
+      "chinese_meaning": "朝气蓬勃，有力的"
+    },
+    {
+      "word": "subordinate",
+      "part_of_speech": "n, adj",
+      "chinese_meaning": "下属，次要的，使服从"
+    },
+    {
+      "word": "correspond",
+      "part_of_speech": "v",
+      "chinese_meaning": "相一致，符合，通信"
+    },
+    {
+      "word": "farewell",
+      "part_of_speech": "n",
+      "chinese_meaning": "告别，欢送会"
+    },
+    {
+      "word": "adjacent",
+      "part_of_speech": "adj",
+      "chinese_meaning": "邻近的，毗连的"
+    },
+    {
+      "word": "charity",
+      "part_of_speech": "n",
+      "chinese_meaning": "慈善，施舍，慈善机构"
+    },
+    {
+      "word": "comedy",
+      "part_of_speech": "n",
+      "chinese_meaning": "喜剧，喜剧性事件"
+    },
+    {
+      "word": "gorgeous",
+      "part_of_speech": "adj",
+      "chinese_meaning": "华丽的，极好的"
+    },
+    {
+      "word": "recommend",
+      "part_of_speech": "v",
+      "chinese_meaning": "推荐，劝告，使受欢迎"
+    }
+  ],
+  "list9": [
+    {
+      "word": "survive",
+      "part_of_speech": "v",
+      "chinese_meaning": "活下来，幸免于"
+    },
+    {
+      "word": "apparatus",
+      "part_of_speech": "n",
+      "chinese_meaning": "器械，器具，仪器，机构"
+    },
+    {
+      "word": "dome",
+      "part_of_speech": "n",
+      "chinese_meaning": "圆屋顶，穹顶"
+    },
+    {
+      "word": "formal",
+      "part_of_speech": "adj",
+      "chinese_meaning": "正式的，正规的"
+    },
+    {
+      "word": "explore",
+      "part_of_speech": "v",
+      "chinese_meaning": "探险， 仔细检查，探究"
+    },
+    {
+      "word": "extension",
+      "part_of_speech": "n",
+      "chinese_meaning": "伸展，电话分机"
+    },
+    {
+      "word": "consist",
+      "part_of_speech": "v",
+      "chinese_meaning": "由~组成，由~构成，在于"
+    },
+    {
+      "word": "brew",
+      "part_of_speech": "v",
+      "chinese_meaning": "酿造，冲泡，酝酿"
+    },
+    {
+      "word": "sacrifice",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "牺牲，牺牲品，献祭"
+    },
+    {
+      "word": "degenerate",
+      "part_of_speech": "v, adj",
+      "chinese_meaning": "退化，退化的"
+    },
+    {
+      "word": "intelligent",
+      "part_of_speech": "adj",
+      "chinese_meaning": "聪明的，理智的"
+    },
+    {
+      "word": "historian",
+      "part_of_speech": "n",
+      "chinese_meaning": "历史学家，历史工作者"
+    },
+    {
+      "word": "fancy",
+      "part_of_speech": "adj, n",
+      "chinese_meaning": "别致的，想象，想象力"
+    },
+    {
+      "word": "aspiration",
+      "part_of_speech": "n",
+      "chinese_meaning": "强烈的愿望，志向"
+    },
+    {
+      "word": "considerable",
+      "part_of_speech": "adj",
+      "chinese_meaning": "可观的，值得考虑的"
+    },
+    {
+      "word": "clumsy",
+      "part_of_speech": "adj",
+      "chinese_meaning": "笨拙的，不得体的"
+    },
+    {
+      "word": "gleam",
+      "part_of_speech": "v",
+      "chinese_meaning": "闪烁的，流露，闪光"
+    },
+    {
+      "word": "plastic",
+      "part_of_speech": "n",
+      "chinese_meaning": "塑料制的"
+    },
+    {
+      "word": "fascinate",
+      "part_of_speech": "v",
+      "chinese_meaning": "强烈地吸引，使着迷"
+    },
+    {
+      "word": "supervise",
+      "part_of_speech": "v",
+      "chinese_meaning": "监督，管理，指导"
+    },
+    {
+      "word": "evaluate",
+      "part_of_speech": "v",
+      "chinese_meaning": "评价，估价"
+    },
+    {
+      "word": "curiosity",
+      "part_of_speech": "n",
+      "chinese_meaning": "好奇，好奇心，古玩"
+    },
+    {
+      "word": "residential",
+      "part_of_speech": "adj",
+      "chinese_meaning": "居住的，住宅的"
+    },
+    {
+      "word": "sole",
+      "part_of_speech": "adj, n",
+      "chinese_meaning": "唯一的，鞋底，袜底，脚底"
+    },
+    {
+      "word": "decade",
+      "part_of_speech": "n",
+      "chinese_meaning": "十年，十年期"
+    },
+    {
+      "word": "survey",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "勘察，测量，审视，眺望"
+    },
+    {
+      "word": "rudimentary",
+      "part_of_speech": "adj",
+      "chinese_meaning": "基本的， 退化的"
+    },
+    {
+      "word": "ritual",
+      "part_of_speech": "n",
+      "chinese_meaning": "典礼，仪式，例行公事"
+    },
+    {
+      "word": "interface",
+      "part_of_speech": "n",
+      "chinese_meaning": "界面，接口，接合点"
+    },
+    {
+      "word": "preliminary",
+      "part_of_speech": "adj",
+      "chinese_meaning": "开端的预备的初步的"
+    }
+  ],
+  "list10": [
+    {
+      "word": "monotonous",
+      "part_of_speech": "adj",
+      "chinese_meaning": "单调的，无聊的"
+    },
+    {
+      "word": "speculation",
+      "part_of_speech": "n",
+      "chinese_meaning": "推测，思索，投机活动"
+    },
+    {
+      "word": "resemble",
+      "part_of_speech": "v",
+      "chinese_meaning": "与~相似，像"
+    },
+    {
+      "word": "perspective",
+      "part_of_speech": "n",
+      "chinese_meaning": "方法，透视法"
+    },
+    {
+      "word": "metaphorical",
+      "part_of_speech": "adj",
+      "chinese_meaning": "隐喻的"
+    },
+    {
+      "word": "interpret",
+      "part_of_speech": "v",
+      "chinese_meaning": "解释，说明，口译，翻译"
+    },
+    {
+      "word": "perimeter",
+      "part_of_speech": "n",
+      "chinese_meaning": "周长，周边"
+    },
+    {
+      "word": "jerk",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "使猝然一动， 猛拉急推，抽搐"
+    },
+    {
+      "word": "visual",
+      "part_of_speech": "adj",
+      "chinese_meaning": "视觉的，用于视觉的"
+    },
+    {
+      "word": "doctoral",
+      "part_of_speech": "adj",
+      "chinese_meaning": "博士的"
+    },
+    {
+      "word": "distort",
+      "part_of_speech": "v",
+      "chinese_meaning": "扭曲，曲解，变形"
+    },
+    {
+      "word": "and so forth",
+      "part_of_speech": "phr",
+      "chinese_meaning": "等等"
+    },
+    {
+      "word": "expose",
+      "part_of_speech": "v",
+      "chinese_meaning": "使暴露，揭露"
+    },
+    {
+      "word": "sponge",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "海绵，用湿海绵擦，揩"
+    },
+    {
+      "word": "audition",
+      "part_of_speech": "n",
+      "chinese_meaning": "试演，试听，试音"
+    },
+    {
+      "word": "reliable",
+      "part_of_speech": "adj",
+      "chinese_meaning": "可靠的，可信赖的"
+    },
+    {
+      "word": "abstraction",
+      "part_of_speech": "n",
+      "chinese_meaning": "抽象"
+    },
+    {
+      "word": "mount",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "山峰，支架，骑上，发起"
+    },
+    {
+      "word": "announce",
+      "part_of_speech": "v",
+      "chinese_meaning": "宣布，声称"
+    },
+    {
+      "word": "headline",
+      "part_of_speech": "n",
+      "chinese_meaning": "大字标题，头版头条新闻"
+    },
+    {
+      "word": "horror",
+      "part_of_speech": "n",
+      "chinese_meaning": "害怕，恐怖"
+    },
+    {
+      "word": "collapse",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "坍塌，崩溃，晕倒"
+    },
+    {
+      "word": "assistance",
+      "part_of_speech": "n",
+      "chinese_meaning": "协助，援助"
+    },
+    {
+      "word": "discriminate",
+      "part_of_speech": "v",
+      "chinese_meaning": "区别，歧视"
+    },
+    {
+      "word": "destructive",
+      "part_of_speech": "adj",
+      "chinese_meaning": "破坏性的"
+    },
+    {
+      "word": "authority",
+      "part_of_speech": "n",
+      "chinese_meaning": "权力，当局，权威"
+    },
+    {
+      "word": "mild",
+      "part_of_speech": "adj",
+      "chinese_meaning": "温柔的，温和的，轻微的"
+    },
+    {
+      "word": "capacity",
+      "part_of_speech": "n",
+      "chinese_meaning": "容量，容积，能量，能力"
+    },
+    {
+      "word": "latitude",
+      "part_of_speech": "n",
+      "chinese_meaning": "纬度， 言行等的自由"
+    },
+    {
+      "word": "circus",
+      "part_of_speech": "n",
+      "chinese_meaning": "马戏团，环形广场"
+    }
+  ],
+  "list11": [
+    {
+      "word": "comet",
+      "part_of_speech": "n",
+      "chinese_meaning": "彗星"
+    },
+    {
+      "word": "grin",
+      "part_of_speech": "v",
+      "chinese_meaning": "咧嘴笑"
+    },
+    {
+      "word": "democratic",
+      "part_of_speech": "adj",
+      "chinese_meaning": "民主的，有民主精神的"
+    },
+    {
+      "word": "install",
+      "part_of_speech": "v",
+      "chinese_meaning": "安顿， 安装设置，正式任命"
+    },
+    {
+      "word": "faculty",
+      "part_of_speech": "n",
+      "chinese_meaning": "才能，学院，系"
+    },
+    {
+      "word": "cucumber",
+      "part_of_speech": "n",
+      "chinese_meaning": "黄瓜"
+    },
+    {
+      "word": "institution",
+      "part_of_speech": "n",
+      "chinese_meaning": "制度， 习俗团体，设立"
+    },
+    {
+      "word": "kung fu",
+      "part_of_speech": "n",
+      "chinese_meaning": "功夫"
+    },
+    {
+      "word": "probability",
+      "part_of_speech": "n",
+      "chinese_meaning": "可能性，概率"
+    },
+    {
+      "word": "bizarre",
+      "part_of_speech": "adj",
+      "chinese_meaning": "奇形怪状的，怪诞的"
+    },
+    {
+      "word": "gravity",
+      "part_of_speech": "n",
+      "chinese_meaning": "重力"
+    },
+    {
+      "word": "cap",
+      "part_of_speech": "v",
+      "chinese_meaning": "盖在~上面，帽子"
+    },
+    {
+      "word": "external",
+      "part_of_speech": "adj",
+      "chinese_meaning": "外面的，表面的"
+    },
+    {
+      "word": "absurd",
+      "part_of_speech": "adj",
+      "chinese_meaning": "荒谬的，荒唐的"
+    },
+    {
+      "word": "separate",
+      "part_of_speech": "v",
+      "chinese_meaning": "使分离，划分，分开"
+    },
+    {
+      "word": "inclination",
+      "part_of_speech": "n",
+      "chinese_meaning": "爱好，趋势，倾斜"
+    },
+    {
+      "word": "pressure",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "压力，压强，强制，迫使"
+    },
+    {
+      "word": "conviction",
+      "part_of_speech": "n",
+      "chinese_meaning": "定罪，坚信，确信"
+    },
+    {
+      "word": "tranquility",
+      "part_of_speech": "n",
+      "chinese_meaning": "宁静，安静"
+    },
+    {
+      "word": "facilitate",
+      "part_of_speech": "v",
+      "chinese_meaning": "使便利，使容易，推动"
+    },
+    {
+      "word": "grand",
+      "part_of_speech": "adj",
+      "chinese_meaning": "宏伟的，大的"
+    },
+    {
+      "word": "acumen",
+      "part_of_speech": "n",
+      "chinese_meaning": "敏锐，精明"
+    },
+    {
+      "word": "dissertation",
+      "part_of_speech": "n",
+      "chinese_meaning": "专题论文"
+    },
+    {
+      "word": "heap",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "堆，大量，使成堆"
+    },
+    {
+      "word": "blame",
+      "part_of_speech": "v",
+      "chinese_meaning": "责怪，责备"
+    },
+    {
+      "word": "frame",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "框架，给~镶框"
+    },
+    {
+      "word": "installment",
+      "part_of_speech": "n",
+      "chinese_meaning": "分期付款"
+    },
+    {
+      "word": "symbolism",
+      "part_of_speech": "n",
+      "chinese_meaning": "符号的使用，象征主义"
+    },
+    {
+      "word": "abstract",
+      "part_of_speech": "adj, n",
+      "chinese_meaning": "抽象的，摘要，梗概"
+    },
+    {
+      "word": "disruption",
+      "part_of_speech": "n",
+      "chinese_meaning": "动乱，打乱，破坏"
+    }
+  ],
+  "list12": [
+    {
+      "word": "self-esteem",
+      "part_of_speech": "n",
+      "chinese_meaning": "自尊，自负"
+    },
+    {
+      "word": "literate",
+      "part_of_speech": "adj",
+      "chinese_meaning": "有读写能力有文化博学的"
+    },
+    {
+      "word": "extinction",
+      "part_of_speech": "n",
+      "chinese_meaning": "灭绝，绝种，熄灭"
+    },
+    {
+      "word": "endanger",
+      "part_of_speech": "v",
+      "chinese_meaning": "危及，危害"
+    },
+    {
+      "word": "perception",
+      "part_of_speech": "n",
+      "chinese_meaning": "看法，感觉，洞察力"
+    },
+    {
+      "word": "prediction",
+      "part_of_speech": "n",
+      "chinese_meaning": "预言，预料，预报"
+    },
+    {
+      "word": "foster",
+      "part_of_speech": "v",
+      "chinese_meaning": "培养培育鼓励，促进，领养"
+    },
+    {
+      "word": "ancestral",
+      "part_of_speech": "adj",
+      "chinese_meaning": "祖先的，祖传的"
+    },
+    {
+      "word": "rekindle",
+      "part_of_speech": "v",
+      "chinese_meaning": "重新点燃，使复苏"
+    },
+    {
+      "word": "revival",
+      "part_of_speech": "n",
+      "chinese_meaning": "复原，苏醒，复活"
+    },
+    {
+      "word": "inevitable",
+      "part_of_speech": "adj",
+      "chinese_meaning": "不可避免的，必然发生的"
+    },
+    {
+      "word": "disenchantment",
+      "part_of_speech": "n",
+      "chinese_meaning": "失望，不抱幻想"
+    },
+    {
+      "word": "acupuncture",
+      "part_of_speech": "n",
+      "chinese_meaning": "针刺疗法，针灸"
+    },
+    {
+      "word": "loath",
+      "part_of_speech": "adj",
+      "chinese_meaning": "不情愿的，勉强的"
+    },
+    {
+      "word": "orthodox",
+      "part_of_speech": "adj",
+      "chinese_meaning": "正统的，传统的"
+    },
+    {
+      "word": "popularity",
+      "part_of_speech": "n",
+      "chinese_meaning": "普及，流行"
+    },
+    {
+      "word": "amplify",
+      "part_of_speech": "v",
+      "chinese_meaning": "详述，放大声音等"
+    },
+    {
+      "word": "reliance",
+      "part_of_speech": "n",
+      "chinese_meaning": "依靠，依赖"
+    },
+    {
+      "word": "nightmare",
+      "part_of_speech": "n",
+      "chinese_meaning": "噩梦，可怕的事物"
+    },
+    {
+      "word": "leap",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "跳跃，激增，跳，冲"
+    },
+    {
+      "word": "conscious",
+      "part_of_speech": "adj",
+      "chinese_meaning": "自觉的，意识到的"
+    },
+    {
+      "word": "divine",
+      "part_of_speech": "adj",
+      "chinese_meaning": "神的，神授的，天赐的"
+    },
+    {
+      "word": "decompose",
+      "part_of_speech": "v",
+      "chinese_meaning": "使分解，使腐烂"
+    },
+    {
+      "word": "spot on",
+      "part_of_speech": "adj",
+      "chinese_meaning": "恰好的，准确的"
+    },
+    {
+      "word": "investigate",
+      "part_of_speech": "v",
+      "chinese_meaning": "调查"
+    },
+    {
+      "word": "underneath",
+      "part_of_speech": "adv",
+      "chinese_meaning": "在下面，下部"
+    },
+    {
+      "word": "division",
+      "part_of_speech": "n",
+      "chinese_meaning": "分隔，分配，分歧，部门"
+    },
+    {
+      "word": "gamble",
+      "part_of_speech": "v",
+      "chinese_meaning": "赌博，打赌，投机，冒险"
+    },
+    {
+      "word": "ancient",
+      "part_of_speech": "adj",
+      "chinese_meaning": "古老的，年老的"
+    },
+    {
+      "word": "specimen",
+      "part_of_speech": "n",
+      "chinese_meaning": "范例，样品，样本，标本"
+    }
+  ],
+  "list13": [
+    {
+      "word": "motive",
+      "part_of_speech": "n",
+      "chinese_meaning": "动机，目的"
+    },
+    {
+      "word": "furious",
+      "part_of_speech": "adj",
+      "chinese_meaning": "狂怒的，激烈的"
+    },
+    {
+      "word": "alternative",
+      "part_of_speech": "adj",
+      "chinese_meaning": "可供替代的，非传统的"
+    },
+    {
+      "word": "access",
+      "part_of_speech": "n",
+      "chinese_meaning": "进入使用通道，机会，权利"
+    },
+    {
+      "word": "whaling",
+      "part_of_speech": "n",
+      "chinese_meaning": "捕鲸"
+    },
+    {
+      "word": "exhilaration",
+      "part_of_speech": "n",
+      "chinese_meaning": "高兴，兴奋"
+    },
+    {
+      "word": "inland",
+      "part_of_speech": "adj, adv",
+      "chinese_meaning": "内陆的，向内地或内陆"
+    },
+    {
+      "word": "migrate",
+      "part_of_speech": "v",
+      "chinese_meaning": "候鸟等迁徙，移居"
+    },
+    {
+      "word": "barrel",
+      "part_of_speech": "n",
+      "chinese_meaning": "桶，圆筒"
+    },
+    {
+      "word": "claim",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "要求，声称，主张，索赔"
+    },
+    {
+      "word": "digest",
+      "part_of_speech": "v",
+      "chinese_meaning": "消化，领会，文摘"
+    },
+    {
+      "word": "decipher",
+      "part_of_speech": "v",
+      "chinese_meaning": "破译，解释"
+    },
+    {
+      "word": "extraordinary",
+      "part_of_speech": "adj",
+      "chinese_meaning": "不同寻常，非常的"
+    },
+    {
+      "word": "aluminum",
+      "part_of_speech": "n",
+      "chinese_meaning": "铝"
+    },
+    {
+      "word": "stale",
+      "part_of_speech": "adj",
+      "chinese_meaning": "不新鲜的，陈腐的"
+    },
+    {
+      "word": "snap up",
+      "part_of_speech": "phr v",
+      "chinese_meaning": "抢购"
+    },
+    {
+      "word": "hang on",
+      "part_of_speech": "phr v",
+      "chinese_meaning": "抓住，坚持下去，别挂断"
+    },
+    {
+      "word": "impair",
+      "part_of_speech": "v",
+      "chinese_meaning": "损害，削弱"
+    },
+    {
+      "word": "inescapable",
+      "part_of_speech": "adj",
+      "chinese_meaning": "不可逃避，难免的"
+    },
+    {
+      "word": "adolescent",
+      "part_of_speech": "n, adj",
+      "chinese_meaning": "青少年， 青春期"
+    },
+    {
+      "word": "associate",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "使联合， 交往， 伙伴副的"
+    },
+    {
+      "word": "layer",
+      "part_of_speech": "n",
+      "chinese_meaning": "层，层次"
+    },
+    {
+      "word": "cable",
+      "part_of_speech": "n",
+      "chinese_meaning": "缆绳，电缆，电报"
+    },
+    {
+      "word": "judicious",
+      "part_of_speech": "adj",
+      "chinese_meaning": "明智的，有见识的"
+    },
+    {
+      "word": "landfill",
+      "part_of_speech": "n",
+      "chinese_meaning": "垃圾堆，垃圾建筑地"
+    },
+    {
+      "word": "cast",
+      "part_of_speech": "v",
+      "chinese_meaning": "投射，把~加于，投，丢弃"
+    },
+    {
+      "word": "curtain",
+      "part_of_speech": "n",
+      "chinese_meaning": "窗帘，门帘"
+    },
+    {
+      "word": "uniform",
+      "part_of_speech": "n, adj",
+      "chinese_meaning": "制服，相同的，一致的"
+    },
+    {
+      "word": "longitudinal",
+      "part_of_speech": "adj",
+      "chinese_meaning": "经线的，纵的，长度的"
+    },
+    {
+      "word": "clientele",
+      "part_of_speech": "n",
+      "chinese_meaning": "顾客，主顾， 客户"
+    }
+  ],
+  "list14": [
+    {
+      "word": "holistic",
+      "part_of_speech": "adj",
+      "chinese_meaning": "整体的，功能整体性的"
+    },
+    {
+      "word": "exodus",
+      "part_of_speech": "n",
+      "chinese_meaning": "大批离去，成群外出"
+    },
+    {
+      "word": "concur",
+      "part_of_speech": "v",
+      "chinese_meaning": "同时发生，意见相同，一致"
+    },
+    {
+      "word": "preventative",
+      "part_of_speech": "adj",
+      "chinese_meaning": "预防性的"
+    },
+    {
+      "word": "complementary",
+      "part_of_speech": "adj",
+      "chinese_meaning": "互补的，补充的"
+    },
+    {
+      "word": "simplistic",
+      "part_of_speech": "adj",
+      "chinese_meaning": "过分单纯化的"
+    },
+    {
+      "word": "hiccup",
+      "part_of_speech": "n",
+      "chinese_meaning": "嗝，呃逆，暂时或小的困难"
+    },
+    {
+      "word": "prowess",
+      "part_of_speech": "n",
+      "chinese_meaning": "杰出的才能，高超的技艺"
+    },
+    {
+      "word": "tease",
+      "part_of_speech": "v",
+      "chinese_meaning": "逗乐，奚落，戏弄，强求"
+    },
+    {
+      "word": "exuberant",
+      "part_of_speech": "adj",
+      "chinese_meaning": "繁茂的，丰富的，非凡的"
+    },
+    {
+      "word": "socialise",
+      "part_of_speech": "v",
+      "chinese_meaning": "交往，交际，使~适应社会"
+    },
+    {
+      "word": "optimum",
+      "part_of_speech": "adj",
+      "chinese_meaning": "最好的，最有利的"
+    },
+    {
+      "word": "molecule",
+      "part_of_speech": "n",
+      "chinese_meaning": "分子"
+    },
+    {
+      "word": "fitness",
+      "part_of_speech": "n",
+      "chinese_meaning": "健康，适合某事物"
+    },
+    {
+      "word": "regarding",
+      "part_of_speech": "prep",
+      "chinese_meaning": "关于"
+    },
+    {
+      "word": "contact",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "接触，联系，联络"
+    },
+    {
+      "word": "creative",
+      "part_of_speech": "adj",
+      "chinese_meaning": "创造性的，创作的"
+    },
+    {
+      "word": "consultant",
+      "part_of_speech": "n",
+      "chinese_meaning": "顾问，专科医生"
+    },
+    {
+      "word": "secondary",
+      "part_of_speech": "adj",
+      "chinese_meaning": "次要的中等的辅助的"
+    },
+    {
+      "word": "in favour of",
+      "part_of_speech": "phr",
+      "chinese_meaning": "赞同，支持"
+    },
+    {
+      "word": "fraction",
+      "part_of_speech": "n",
+      "chinese_meaning": "小部分，片断"
+    },
+    {
+      "word": "dictation",
+      "part_of_speech": "n",
+      "chinese_meaning": "听写"
+    },
+    {
+      "word": "engage",
+      "part_of_speech": "v",
+      "chinese_meaning": "吸引占用雇佣交战啮合"
+    },
+    {
+      "word": "populate",
+      "part_of_speech": "v",
+      "chinese_meaning": "大批地居住于，生活于"
+    },
+    {
+      "word": "merchandising",
+      "part_of_speech": "n",
+      "chinese_meaning": "销售规划"
+    },
+    {
+      "word": "meteorology",
+      "part_of_speech": "n",
+      "chinese_meaning": "气象学"
+    },
+    {
+      "word": "dealer",
+      "part_of_speech": "n",
+      "chinese_meaning": "商人，经销商"
+    },
+    {
+      "word": "weapon",
+      "part_of_speech": "n",
+      "chinese_meaning": "武器，兵器"
+    },
+    {
+      "word": "authorise",
+      "part_of_speech": "v",
+      "chinese_meaning": "批准，认可，授权"
+    },
+    {
+      "word": "spectator",
+      "part_of_speech": "n",
+      "chinese_meaning": "观众，旁观者"
+    }
+  ],
+  "list15": [
+    {
+      "word": "compatriot",
+      "part_of_speech": "n",
+      "chinese_meaning": "同胞，同国人"
+    },
+    {
+      "word": "dreadful",
+      "part_of_speech": "adj",
+      "chinese_meaning": "可怕的，令人不快的"
+    },
+    {
+      "word": "laboratory",
+      "part_of_speech": "n",
+      "chinese_meaning": "实验室，研究室"
+    },
+    {
+      "word": "entail",
+      "part_of_speech": "v",
+      "chinese_meaning": "牵涉，需要"
+    },
+    {
+      "word": "less than",
+      "part_of_speech": "phr",
+      "chinese_meaning": "小于，少于"
+    },
+    {
+      "word": "contrary",
+      "part_of_speech": "adj",
+      "chinese_meaning": "相反的"
+    },
+    {
+      "word": "alert",
+      "part_of_speech": "adj, n",
+      "chinese_meaning": "警惕的，警戒，警报，警告"
+    },
+    {
+      "word": "shift",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "移动，改变，转变"
+    },
+    {
+      "word": "mere",
+      "part_of_speech": "adj",
+      "chinese_meaning": "仅仅的，纯粹的"
+    },
+    {
+      "word": "monitor",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "班长，监视器，监视"
+    },
+    {
+      "word": "derive",
+      "part_of_speech": "v",
+      "chinese_meaning": "取得，起源"
+    },
+    {
+      "word": "desire",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "向往，期望，要求"
+    },
+    {
+      "word": "minimal",
+      "part_of_speech": "adj",
+      "chinese_meaning": "最小的， 最低限度的"
+    },
+    {
+      "word": "sketch",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "画素描， 概述， 素描， 速写"
+    },
+    {
+      "word": "lag",
+      "part_of_speech": "v",
+      "chinese_meaning": "走得慢， 落后， 间隔， 滞后"
+    },
+    {
+      "word": "trigger",
+      "part_of_speech": "v",
+      "chinese_meaning": "引发， 导致， 扳机"
+    },
+    {
+      "word": "supplement",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "补充增补， 增刊， 附录"
+    },
+    {
+      "word": "offend",
+      "part_of_speech": "v",
+      "chinese_meaning": "冒犯， 使厌恶， 违犯"
+    },
+    {
+      "word": "vivid",
+      "part_of_speech": "adj",
+      "chinese_meaning": "鲜艳的， 生动的"
+    },
+    {
+      "word": "dose",
+      "part_of_speech": "n",
+      "chinese_meaning": "剂量， 一剂"
+    },
+    {
+      "word": "supply",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "供给， 存货， 必需品， 弥补"
+    },
+    {
+      "word": "on the horizon",
+      "part_of_speech": "phr",
+      "chinese_meaning": "即将发生"
+    },
+    {
+      "word": "compress",
+      "part_of_speech": "v",
+      "chinese_meaning": "压紧， 压缩， 敷布， 压布"
+    },
+    {
+      "word": "interest",
+      "part_of_speech": "n",
+      "chinese_meaning": "兴趣， 利息， 利益"
+    },
+    {
+      "word": "overcome",
+      "part_of_speech": "v",
+      "chinese_meaning": "战胜， 克服， 感情等压倒"
+    },
+    {
+      "word": "achievement",
+      "part_of_speech": "n",
+      "chinese_meaning": "成就， 达到， 实现"
+    },
+    {
+      "word": "cease",
+      "part_of_speech": "v",
+      "chinese_meaning": "停止， 终止"
+    },
+    {
+      "word": "arable",
+      "part_of_speech": "adj",
+      "chinese_meaning": "可耕作的，耕地"
+    },
+    {
+      "word": "congested",
+      "part_of_speech": "adj",
+      "chinese_meaning": "拥挤不堪，充塞的"
+    },
+    {
+      "word": "split",
+      "part_of_speech": "v",
+      "chinese_meaning": "使分裂，分离， 劈开，分担"
+    }
+  ],
+  "list16": [
+    {
+      "word": "distinct",
+      "part_of_speech": "adj",
+      "chinese_meaning": "清楚的，明显的，有区别的"
+    },
+    {
+      "word": "negotiate",
+      "part_of_speech": "v",
+      "chinese_meaning": "洽谈，协商，商定，达成"
+    },
+    {
+      "word": "cruel",
+      "part_of_speech": "adj",
+      "chinese_meaning": "残忍的，残暴的"
+    },
+    {
+      "word": "Nordic",
+      "part_of_speech": "n",
+      "chinese_meaning": "北欧人，北欧国家的"
+    },
+    {
+      "word": "linger",
+      "part_of_speech": "v",
+      "chinese_meaning": "继续逗留，缓慢消逝"
+    },
+    {
+      "word": "advantageous",
+      "part_of_speech": "adj",
+      "chinese_meaning": "有利的"
+    },
+    {
+      "word": "manoeuvre",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "移动，策略，操纵"
+    },
+    {
+      "word": "predatory",
+      "part_of_speech": "adj",
+      "chinese_meaning": "食肉的，掠夺的"
+    },
+    {
+      "word": "context",
+      "part_of_speech": "n",
+      "chinese_meaning": "上下文，背景，环境"
+    },
+    {
+      "word": "entrepreneurial",
+      "part_of_speech": "adj",
+      "chinese_meaning": "创业的"
+    },
+    {
+      "word": "adventurous",
+      "part_of_speech": "adj",
+      "chinese_meaning": "冒险的，敢做敢为的"
+    },
+    {
+      "word": "exploitative",
+      "part_of_speech": "adj",
+      "chinese_meaning": "开发的利用的剥削的"
+    },
+    {
+      "word": "plateau",
+      "part_of_speech": "n",
+      "chinese_meaning": "高原，上升后的稳定状态"
+    },
+    {
+      "word": "crust",
+      "part_of_speech": "n",
+      "chinese_meaning": "硬层，地壳，一片面包皮"
+    },
+    {
+      "word": "brittle",
+      "part_of_speech": "adj",
+      "chinese_meaning": "易碎的，易损坏的，靠不住的，冷淡的，声音尖利的"
+    },
+    {
+      "word": "collision",
+      "part_of_speech": "n",
+      "chinese_meaning": "碰撞，冲突，抵触"
+    },
+    {
+      "word": "predictable",
+      "part_of_speech": "adj",
+      "chinese_meaning": "可预言的，可预报的"
+    },
+    {
+      "word": "geological",
+      "part_of_speech": "adj",
+      "chinese_meaning": "地质的，地质学的"
+    },
+    {
+      "word": "halve",
+      "part_of_speech": "v",
+      "chinese_meaning": "二等分，减半"
+    },
+    {
+      "word": "assimilate",
+      "part_of_speech": "v",
+      "chinese_meaning": "吸收，使同化"
+    },
+    {
+      "word": "harbour",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "港湾，停泊，隐匿"
+    },
+    {
+      "word": "hybrid",
+      "part_of_speech": "n, adj",
+      "chinese_meaning": "杂种，混血儿，混合的"
+    },
+    {
+      "word": "inhale",
+      "part_of_speech": "v",
+      "chinese_meaning": "吸烟，吸气"
+    },
+    {
+      "word": "voyage",
+      "part_of_speech": "n",
+      "chinese_meaning": "旅行，航行，飞行"
+    },
+    {
+      "word": "cherry",
+      "part_of_speech": "n",
+      "chinese_meaning": "樱桃树"
+    },
+    {
+      "word": "contingency",
+      "part_of_speech": "n",
+      "chinese_meaning": "偶然性，意外事件"
+    },
+    {
+      "word": "for the sake of",
+      "part_of_speech": "phr",
+      "chinese_meaning": "为了"
+    },
+    {
+      "word": "relieve",
+      "part_of_speech": "v",
+      "chinese_meaning": "救济，缓解"
+    },
+    {
+      "word": "stance",
+      "part_of_speech": "n",
+      "chinese_meaning": "姿势，观点，立场"
+    },
+    {
+      "word": "conduct",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "举止，指导，管理，实施"
+    }
+  ],
+  "list17": [
+    {
+      "word": "mate",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "配种，配偶，伙伴"
+    },
+    {
+      "word": "attack",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "进攻,疾病等突然发作"
+    },
+    {
+      "word": "discredit",
+      "part_of_speech": "v",
+      "chinese_meaning": "使丧失信誉"
+    },
+    {
+      "word": "flora",
+      "part_of_speech": "n",
+      "chinese_meaning": "植物群"
+    },
+    {
+      "word": "mass",
+      "part_of_speech": "adj, n",
+      "chinese_meaning": "大量的，质量，群众，聚集"
+    },
+    {
+      "word": "anticipate",
+      "part_of_speech": "v",
+      "chinese_meaning": "预期，先于~行动"
+    },
+    {
+      "word": "operate",
+      "part_of_speech": "v",
+      "chinese_meaning": "运转动手术起作用，经营"
+    },
+    {
+      "word": "bypass",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "绕过市镇的旁道，绕过"
+    },
+    {
+      "word": "undetected",
+      "part_of_speech": "adj",
+      "chinese_meaning": "未被发现的"
+    },
+    {
+      "word": "channel",
+      "part_of_speech": "n",
+      "chinese_meaning": "频道，渠道，海峡，航道"
+    },
+    {
+      "word": "determine",
+      "part_of_speech": "v",
+      "chinese_meaning": "确定，决定，使下决心"
+    },
+    {
+      "word": "dominate",
+      "part_of_speech": "v",
+      "chinese_meaning": "支配，统治，耸立于"
+    },
+    {
+      "word": "instrumental",
+      "part_of_speech": "adj",
+      "chinese_meaning": "有帮助用乐器演奏的"
+    },
+    {
+      "word": "load",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "装载，装弹药，负荷"
+    },
+    {
+      "word": "improve",
+      "part_of_speech": "v",
+      "chinese_meaning": "改善，改进"
+    },
+    {
+      "word": "sensitive",
+      "part_of_speech": "adj",
+      "chinese_meaning": "敏感的，灵敏的"
+    },
+    {
+      "word": "abolish",
+      "part_of_speech": "v",
+      "chinese_meaning": "废止，废除"
+    },
+    {
+      "word": "conception",
+      "part_of_speech": "n",
+      "chinese_meaning": "观念，概念"
+    },
+    {
+      "word": "encounter",
+      "part_of_speech": "v",
+      "chinese_meaning": "遭遇，遇到"
+    },
+    {
+      "word": "bubble",
+      "part_of_speech": "v, n",
+      "chinese_meaning": "冒泡， 泡沫，幻想的计划"
+    },
+    {
+      "word": "sample",
+      "part_of_speech": "n, v",
+      "chinese_meaning": "样品， 从~抽样，品尝"
+    },
+    {
+      "word": "qualitative",
+      "part_of_speech": "adj",
+      "chinese_meaning": "性质的质量的定性的"
+    },
+    {
+      "word": "accountant",
+      "part_of_speech": "n",
+      "chinese_meaning": "会计师"
+    },
+    {
+      "word": "storey",
+      "part_of_speech": "n",
+      "chinese_meaning": "楼层"
+    },
+    {
+      "word": "gang",
+      "part_of_speech": "n",
+      "chinese_meaning": "一帮，结成一伙"
+    }
+  ]
+}
