@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS基础语法学习平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        header {
+            background: linear-gradient(90deg, #4b6cb7, #182848);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        .decoration {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: -75px;
+            right: -75px;
+        }
+        
+        .decoration:nth-child(2) {
+            width: 100px;
+            height: 100px;
+            top: 20px;
+            left: -50px;
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+        
+        .intro h2 {
+            color: #2c3e50;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .intro p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #34495e;
+            margin-bottom: 15px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-item i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .stat-item .number {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .topics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .topic-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            border: 1px solid #eee;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .topic-icon {
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5rem;
+            color: white;
+        }
+        
+        .topic-content {
+            padding: 25px 20px;
+            text-align: center;
+        }
+        
+        .topic-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .tips {
+            background: #f8f9fa;
+            border-left: 5px solid #3498db;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 40px 0;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .tips h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .tips ul {
+            padding-left: 25px;
+        }
+        
+        .tips li {
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            margin-top: 20px;
+        }
+        
+        footer p {
+            font-size: 1.1rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .stats {
+                gap: 15px;
+            }
+            
+            .stat-item {
+                min-width: 150px;
+                padding: 15px;
+            }
+            
+            .stat-item .number {
+                font-size: 1.8rem;
+            }
+            
+            .topic-card {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="decoration"></div>
+            <div class="decoration"></div>
+            <h1>IELTS基础语法学习平台</h1>
+            <p class="subtitle">掌握核心语法概念，提升雅思写作和口语能力</p>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>全面提升英语语法能力</h2>
+                <p>雅思考试中，良好的语法能力是获得高分的关键。本平台精选13个核心语法主题，覆盖雅思考试中所有重要语法知识点。每个主题包含精心设计的练习题和详细解析，帮助您系统性地提升英语语法水平。</p>
+                <p>点击下方主题卡片开始学习，系统化提升您的语法能力！</p>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-book"></i>
+                    <div class="number">13</div>
+                    <div>语法主题</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-question-circle"></i>
+                    <div class="number">300+</div>
+                    <div>练习题</div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-chart-line"></i>
+                    <div class="number">90%</div>
+                    <div>用户提升率</div>
+                </div>
+            </div>
+            
+            <div class="topics-container">
+                <!-- 名词 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #FF9A9E, #FAD0C4);">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>名词</h3>
+                        <p>掌握名词的单复数形式、可数与不可数名词</p>
+                        <a href="testbank 1.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 冠词 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #A1C4FD, #C2E9FB);">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>冠词</h3>
+                        <p>深入学习名词所有格和名词从句的用法</p>
+                        <a href="testbank 2.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 代词 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #FFECD2, #FCB69F);">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>代词</h3>
+                        <p>a, an, the 的正确使用场景与区别</p>
+                        <a href="testbank 3.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 数词 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #84FAB0, #8FD3F4);">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>数词</h3>
+                        <p>基数词、序数词及分数表达方式</p>
+                        <a href="testbank 4.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 动词 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #D4FC79, #96E6A1);">
+                        <i class="fas fa-sort-numeric-up"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>动词</h3>
+                        <p>动词的各种形态</p>
+                        <a href="testbank 5.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 形容词和副词 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #FCCF31, #F55555);">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>形容词和副词</h3>
+                        <p>比较级、最高级及在句子中的位置</p>
+                        <a href="testbank 6.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 介词 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #E0C3FC, #8EC5FC);">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>介词</h3>
+                        <p>时间、地点、方式等介词的准确使用</p>
+                        <a href="testbank 7.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 连词 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #F093FB, #F5576C);">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>连词</h3>
+                        <p>并列连词与从属连词的用法与区别</p>
+                        <a href="testbank 8.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 动词语态 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #5EE7DF, #B490CA);">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>动词语态</h3>
+                        <p>主动语态与被动语态的转换与使用</p>
+                        <a href="testbank 9.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 动词不定式 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #F6D365, #FDA085);">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>动词不定式</h3>
+                        <p>不定式的形式、功能及特殊用法</p>
+                        <a href="testbank 10.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 宾语从句 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #A3BDED, #6991C7);">
+                        <i class="fas fa-comment-alt"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>宾语从句</h3>
+                        <p>引导词、语序及时态一致规则</p>
+                        <a href="testbank 11.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 状语从句 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #D299C2, #FEF9D7);">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>状语从句</h3>
+                        <p>时间、条件、原因等状语从句的使用</p>
+                        <a href="testbank 12.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+                
+                <!-- 定语从句 -->
+                <div class="topic-card">
+                    <div class="topic-icon" style="background: linear-gradient(135deg, #96DEDA, #50C9C3);">
+                        <i class="fas fa-align-left"></i>
+                    </div>
+                    <div class="topic-content">
+                        <h3>定语从句</h3>
+                        <p>关系代词与关系副词的选择与使用</p>
+                        <a href="testbank 13.html" class="btn">开始练习</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tips">
+                <h3><i class="fas fa-lightbulb"></i> 雅思语法学习建议</h3>
+                <ul>
+                    <li><strong>系统学习：</strong>按照语法体系顺序学习，从基础到高级循序渐进</li>
+                    <li><strong>学练结合：</strong>学习语法规则后立即完成练习题巩固知识</li>
+                    <li><strong>分析错误：</strong>详细研究错题解析，理解错误原因</li>
+                    <li><strong>实际应用：</strong>在写作和口语中有意识地使用所学语法结构</li>
+                    <li><strong>定期复习：</strong>每周回顾所学内容，防止遗忘</li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 IELTS基础语法学习平台 | 助力您的雅思备考之旅</p>
+        </footer>
+    </div>
+
+    <script>
+        // 添加悬停效果增强
+        document.querySelectorAll('.topic-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // 添加按钮点击效果
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
