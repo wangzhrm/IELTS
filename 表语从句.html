@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语表语从句学习系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #556270);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #3498db;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            font-weight: 500;
+        }
+        
+        .knowledge-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+            margin-bottom: 25px;
+            font-size: 2rem;
+        }
+        
+        .concept-box {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            border: 1px solid #bbdefb;
+        }
+        
+        .concept-title {
+            color: #1565c0;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .concept-title i {
+            margin-right: 10px;
+            color: #1e88e5;
+        }
+        
+        .concept-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .important-note {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .note-title {
+            color: #ff8f00;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .note-title i {
+            margin-right: 8px;
+        }
+        
+        .example {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+        
+        .example-title {
+            color: #2e7d32;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .usage-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .usage-table th {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .usage-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .usage-table tr:nth-child(even) {
+            background-color: #f5f7fa;
+        }
+        
+        .usage-table tr:hover {
+            background-color: #e3f2fd;
+        }
+        
+        .highlight {
+            background: #fff9c4;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 600;
+            color: #e65100;
+        }
+        
+        .quiz-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .question-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .option {
+            background: #f8f9fa;
+            border: 2px solid #e1e5eb;
+            border-radius: 10px;
+            padding: 18px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #3498db;
+            transform: translateY(-3px);
+        }
+        
+        .option.selected {
+            background: #d1e7ff;
+            border-color: #3498db;
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
+        }
+        
+        .option-letter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 0 10px 10px 0;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .correct-answer {
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        
+        .correct-answer i {
+            margin-right: 10px;
+        }
+        
+        .explanation-text {
+            line-height: 1.7;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: white;
+            font-size: 1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+            
+            .concept-title {
+                font-size: 1.3rem;
+            }
+            
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>英语表语从句学习系统</h1>
+            <p class="subtitle">掌握表语从句的用法，提升英语复合句构建能力</p>
+            <p>表语从句是在复合句中充当表语的从句，位于系动词之后，说明主语的身份、性质、品性、特征和状态</p>
+        </header>
+        
+        <section class="knowledge-section">
+            <h2 class="section-title">表语从句知识梳理</h2>
+            
+            <div class="concept-box">
+                <h3 class="concept-title"><i class="fas fa-lightbulb"></i> 表语从句基本概念</h3>
+                <div class="concept-content">
+                    <p>在复合句中，充当表语的从句叫做<strong class="highlight">表语从句</strong>。表语从句位于系动词(如be, seem, appear, look等)之后。</p>
+                    <p>表语从句通常由以下连接词引导：</p>
+                    <ul>
+                        <li>从属连词：that, whether, as if, as though</li>
+                        <li>连接代词：who, whom, whose, what, which, whoever, whatever, whichever</li>
+                        <li>连接副词：when, where, how, why</li>
+                    </ul>
+                    
+                    <div class="example">
+                        <div class="example-title">示例：</div>
+                        <p>The question is <span class="highlight">whether we can finish the work on time</span>. （问题是我们是否能按时完成工作。）</p>
+                        <p>It looks <span class="highlight">as if it is going to rain</span>. （看起来好像要下雨了。）</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="concept-box">
+                <h3 class="concept-title"><i class="fas fa-user"></i> 表语从句的连接词用法</h3>
+                <div class="concept-content">
+                    <table class="usage-table">
+                        <tr>
+                            <th>连接词类型</th>
+                            <th>连接词</th>
+                            <th>在从句中的作用</th>
+                            <th>示例</th>
+                        </tr>
+                        <tr>
+                            <td>从属连词</td>
+                            <td>that</td>
+                            <td>不充当成分，无词义</td>
+                            <td>The fact is <span class="highlight">that he didn't notice the car</span>.</td>
+                        </tr>
+                        <tr>
+                            <td>从属连词</td>
+                            <td>whether</td>
+                            <td>不充当成分，表示"是否"</td>
+                            <td>The question is <span class="highlight">whether they will agree</span>.</td>
+                        </tr>
+                        <tr>
+                            <td>连接代词</td>
+                            <td>what</td>
+                            <td>充当主语、宾语或表语</td>
+                            <td>This is <span class="highlight">what I want to say</span>.</td>
+                        </tr>
+                        <tr>
+                            <td>连接副词</td>
+                            <td>why</td>
+                            <td>充当原因状语</td>
+                            <td>That is <span class="highlight">why she was late</span>.</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="important-note">
+                        <div class="note-title"><i class="fas fa-exclamation-circle"></i> 表语从句使用要点</div>
+                        <p>1. that在表语从句中不可以省略</p>
+                        <p>2. whether可以引导表语从句，但if不能引导表语从句</p>
+                        <p>3. 主语是reason时，表语从句要用that引导而不是because</p>
+                        <p>4. as if, as though引导的表语从句常使用虚拟语气</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="concept-box">
+                <h3 class="concept-title"><i class="fas fa-star"></i> 表语从句的特殊情况</h3>
+                <div class="concept-content">
+                    <p>表语从句在使用中有一些需要特别注意的情况：</p>
+                    
+                    <div class="important-note">
+                        <div class="note-title"><i class="fas fa-check-circle"></i> 特殊情况说明</div>
+                        <p>1. 当主语是reason时，表语从句要用that引导：</p>
+                        <p class="example">The reason for his absence was <span class="highlight">that he was ill</span>.</p>
+                        
+                        <p>2. as if/as though引导的表语从句：</p>
+                        <p class="example">It looks <span class="highlight">as if it is going to rain</span>.</p>
+                        <p class="example">He looked <span class="highlight">as though he had seen a ghost</span>. (虚拟语气)</p>
+                        
+                        <p>3. because不能引导表语从句：</p>
+                        <p class="example">误: The reason is because he is ill.</p>
+                        <p class="example">正: The reason is that he is ill.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="quiz-section">
+            <h2 class="section-title">表语从句练习题</h2>
+            <p>请选择下列各题的最佳答案，选择后将显示解析：</p>
+            
+            <!-- 问题1 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">1</span>
+                    The question is ______ we can get there before dark.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">
+                        <span class="option-letter">A</span> if
+                    </div>
+                    <div class="option" data-value="B">
+                        <span class="option-letter">B</span> whether
+                    </div>
+                    <div class="option" data-value="C">
+                        <span class="option-letter">C</span> that
+                    </div>
+                    <div class="option" data-value="D">
+                        <span class="option-letter">D</span> what
+                    </div>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 正确答案：B. whether</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>句意是"问题是我们能否在天黑前到达那里"，表示"是否"且引导表语从句时，只能用whether，不能用if。that没有"是否"的意思，what表示"什么"，不符合句意。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题2 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">2</span>
+                    The reason why he was late was ______ he missed the bus.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">
+                        <span class="option-letter">A</span> because
+                    </div>
+                    <div class="option" data-value="B">
+                        <span class="option-letter">B</span> why
+                    </div>
+                    <div class="option" data-value="C">
+                        <span class="option-letter">C</span> that
+                    </div>
+                    <div class="option" data-value="D">
+                        <span class="option-letter">D</span> which
+                    </div>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 正确答案：C. that</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>当主语是reason时，表语从句要用that引导，不能用because。why和which不符合句意。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题3 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">3</span>
+                    It looks ______ it is going to rain.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">
+                        <span class="option-letter">A</span> that
+                    </div>
+                    <div class="option" data-value="B">
+                        <span class="option-letter">B</span> whether
+                    </div>
+                    <div class="option" data-value="C">
+                        <span class="option-letter">C</span> as if
+                    </div>
+                    <div class="option" data-value="D">
+                        <span class="option-letter">D</span> like
+                    </div>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 正确答案：C. as if</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>句意是"看起来好像要下雨了"，表示"好像"且引导表语从句时，用as if或as though。that和whether不符合句意，like不能引导表语从句。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题4 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">4</span>
+                    That is ______ I was born and grew up.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">
+                        <span class="option-letter">A</span> when
+                    </div>
+                    <div class="option" data-value="B">
+                        <span class="option-letter">B</span> where
+                    </div>
+                    <div class="option" data-value="C">
+                        <span class="option-letter">C</span> why
+                    </div>
+                    <div class="option" data-value="D">
+                        <span class="option-letter">D</span> how
+                    </div>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 正确答案：B. where</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>句意是"那就是我出生和成长的地方"，表示地点，因此用where引导表语从句。when表示时间，why表示原因，how表示方式，都不符合句意。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题5 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">5</span>
+                    My idea is ______ we should start at once.
+                </div>
+                <div class="options-container">
+                    <div class="option" data-value="A">
+                        <span class="option-letter">A</span> what
+                    </div>
+                    <div class="option" data-value="B">
+                        <span class="option-letter">B</span> that
+                    </div>
+                    <div class="option" data-value="C">
+                        <span class="option-letter">C</span> when
+                    </div>
+                    <div class="option" data-value="D">
+                        <span class="option-letter">D</span> which
+                    </div>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 正确答案：B. that</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>从句"we should start at once"是一个完整的句子，不缺少任何成分，只需要一个连接词来引导表语从句。that在表语从句中只起连接作用，不充当成分，符合句意。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Tony Wang &copy; 2023 | 382287105@qq.com</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    // 移除同问题中其他选项的选中状态
+                    const questionCard = this.closest('.question-card');
+                    const otherOptions = questionCard.querySelectorAll('.option');
+                    otherOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // 添加当前选项的选中状态
+                    this.classList.add('selected');
+                    
+                    // 显示解析
+                    const explanation = questionCard.querySelector('.explanation');
+                    explanation.classList.add('show');
+                    
+                    // 滚动到解析位置
+                    explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
