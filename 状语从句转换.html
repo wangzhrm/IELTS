@@ -1,0 +1,190 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语状语从句练习系统</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .question p {
+            margin: 5px 0;
+        }
+        textarea {
+            width: 100%;
+            min-height: 60px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>英语状语从句练习系统</h1>
+        <p style="text-align: center;">通过以下练习，掌握状语从句的拆分与合并技巧</p>
+
+        <div class="section">
+            <h2>第一部分：将包含状语从句的复句改写为两个单句</h2>
+ đứng            <div class="question">
+                <p>1. I will call you when I arrive at the station.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>2. Although it was raining, we went to the park.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>3. She studies hard so that she can pass the exam.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>4. He didn’t come because he was sick.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>5. Put the book where everyone can see it.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>6. If you work hard, you will succeed.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>7. He spoke so fast that I couldn’t understand him.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>8. While I was reading, the phone rang.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>9. She is such a kind person that everyone likes her.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>10. As he was tired, he went to bed early.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>第二部分：将两个单句改写为一个包含状语从句的复句</h2>
+            <div class="question">
+                <p>1. It was raining. We stayed at home.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>2. I will visit you. I finish my work.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>3. She was sick. She didn’t attend the meeting.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>4. You study hard. You will pass the exam.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>5. The book is on the shelf. Everyone can see it.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>6. He was very tired. He went to bed early.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>7. The movie was very exciting. We watched it twice.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>8. I was cooking. The doorbell rang.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>9. You practice more. You will improve your skills.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+            <div class="question">
+                <p>10. The room was very quiet. I could hear everything.</p>
+                <textarea placeholder="请输入答案"></textarea>
+            </div>
+        </div>
+
+        <footer>
+            <p>英语状语从句练习系统 © 2025 | 多加练习，熟练掌握状语从句</p>
+        </footer>
+    </div>
+</body>
+</html>

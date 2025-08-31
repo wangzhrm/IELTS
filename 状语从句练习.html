@@ -1,0 +1,892 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adverbial Clauses Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .question p {
+            margin: 0 0 10px;
+            font-weight: bold;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        .result {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .incorrect {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+        .explanation {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e8f0fe;
+            border-radius: 5px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Adverbial Clauses Quiz (IELTS 7.0 Level)</h1>
+    <div id="quiz">
+        <!-- Question 1 -->
+        <div class="question" id="q1">
+            <p>1. ______ he arrives, we will begin the presentation.</p>
+            <div class="options">
+                <label><input type="radio" name="q1" value="A"> A. As soon as</label>
+                <label><input type="radio" name="q1" value="B"> B. Because</label>
+                <label><input type="radio" name="q1" value="C"> C. So that</label>
+                <label><input type="radio" name="q1" value="D"> D. Although</label>
+            </div>
+            <div class="result" id="result1"></div>
+            <div class="explanation" id="explanation1" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. As soon as<br>
+                <strong>Explanation:</strong> This is a time adverbial clause indicating "one action follows another immediately." "As soon as" means "immediately after," fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 2 -->
+        <div class="question" id="q2">
+            <p>2. I’ll help you ______ you promise to try your best.</p>
+            <div class="options">
+                <label><input type="radio" name="q2" value="A"> A. as if</label>
+                <label><input type="radio" name="q2" value="B"> B. so that</label>
+                <label><input type="radio" name="q2" value="C"> C. as long as</label>
+                <label><input type="radio" name="q2" value="D"> D. even if</label>
+            </div>
+            <div class="result" id="result2"></div>
+            <div class="explanation" id="explanation2" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. as long as<br>
+                <strong>Explanation:</strong> This is a conditional adverbial clause meaning "provided that." "As long as" indicates a condition that must be met, suitable here.
+            </div>
+        </div>
+        <!-- Question 3 -->
+        <div class="question" id="q3">
+            <p>3. ______ she was tired, she finished her homework.</p>
+            <div class="options">
+                <label><input type="radio" name="q3" value="A"> A. Because</label>
+                <label><input type="radio" name="q3" value="B"> B. Since</label>
+                <label><input type="radio" name="q3" value="C"> C. Although</label>
+                <label><input type="radio" name="q3" value="D"> D. As</label>
+            </div>
+            <div class="result" id="result3"></div>
+            <div class="explanation" id="explanation3" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. Although<br>
+                <strong>Explanation:</strong> This is a concessive adverbial clause showing contrast. "Although" means "despite the fact that," fitting the context of doing something despite tiredness.
+            </div>
+        </div>
+        <!-- Question 4 -->
+        <div class="question" id="q4">
+            <p>4. It was ______ a difficult exam ______ I couldn’t finish it.</p>
+            <div class="options">
+                <label><input type="radio" name="q4" value="A"> A. such...that</label>
+                <label><input type="radio" name="q4" value="B"> B. so...that</label>
+                <label><input type="radio" name="q4" value="C"> C. as...as</label>
+                <label><input type="radio" name="q4" value="D"> D. too...to</label>
+            </div>
+            <div class="result" id="result4"></div>
+            <div class="explanation" id="explanation4" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. such...that<br>
+                <strong>Explanation:</strong> "Such" modifies the noun phrase "a difficult exam," and "that" introduces a result clause, indicating the outcome of the exam’s difficulty.
+            </div>
+        </div>
+        <!-- Question 5 -->
+        <div class="question" id="q5">
+            <p>5. He runs ______ fast ______ nobody can catch him.</p>
+            <div class="options">
+                <label><input type="radio" name="q5" value="A"> A. such...that</label>
+                <label><input type="radio" name="q5" value="B"> B. so...that</label>
+                <label><input type="radio" name="q5" value="C"> C. as...as</label>
+                <label><input type="radio" name="q5" value="D"> D. too...to</label>
+            </div>
+            <div class="result" id="result5"></div>
+            <div class="explanation" id="explanation5" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. so...that<br>
+                <strong>Explanation:</strong> "So" modifies the adverb "fast," and "that" introduces a result clause, showing the consequence of his speed.
+            </div>
+        </div>
+        <!-- Question 6 -->
+        <div class="question" id="q6">
+            <p>6. ______ you study hard, you will pass the exam.</p>
+            <div class="options">
+                <label><input type="radio" name="q6" value="A"> A. If</label>
+                <label><input type="radio" name="q6" value="B"> B. Unless</label>
+                <label><input type="radio" name="q6" value="C"> C. Since</label>
+                <label><input type="radio" name="q6" value="D"> D. Though</label>
+            </div>
+            <div class="result" id="result6"></div>
+            <div class="explanation" id="explanation6" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. If<br>
+                <strong>Explanation:</strong> This is a conditional clause indicating a requirement for passing the exam. "If" introduces a condition, fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 7 -->
+        <div class="question" id="q7">
+            <p>7. She stayed up late ______ she could finish her project.</p>
+            <div class="options">
+                <label><input type="radio" name="q7" value="A"> A. as if</label>
+                <label><input type="radio" name="q7" value="B"> B. so that</label>
+                <label><input type="radio" name="q7" value="C"> C. as long as</label>
+                <label><input type="radio" name="q7" value="D"> D. even if</label>
+            </div>
+            <div class="result" id="result7"></div>
+            <div class="explanation" id="explanation7" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. so that<br>
+                <strong>Explanation:</strong> This is a purpose clause showing why she stayed up late. "So that" indicates purpose, suitable here.
+            </div>
+        </div>
+        <!-- Question 8 -->
+        <div class="question" id="q8">
+            <p>8. ______ I was walking home, it started to rain.</p>
+            <div class="options">
+                <label><input type="radio" name="q8" value="A"> A. When</label>
+                <label><input type="radio" name="q8" value="B"> B. While</label>
+                <label><input type="radio" name="q8" value="C"> C. As</label>
+                <label><input type="radio" name="q8" value="D"> D. Before</label>
+            </div>
+            <div class="result" id="result8"></div>
+            <div class="explanation" id="explanation8" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. As<br>
+                <strong>Explanation:</strong> "As" emphasizes two actions happening simultaneously, fitting the context of walking and raining starting together.
+            </div>
+        </div>
+        <!-- Question 9 -->
+        <div class="question" id="q9">
+            <p>9. He didn’t attend the meeting ______ he was unwell.</p>
+            <div class="options">
+                <label><input type="radio" name="q9" value="A"> A. because</label>
+                <label><input type="radio" name="q9" value="B"> B. as</label>
+                <label><input type="radio" name="q9" value="C"> C. since</label>
+                <label><input type="radio" name="q9" value="D"> D. although</label>
+            </div>
+            <div class="result" id="result9"></div>
+            <div class="explanation" id="explanation9" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. because<br>
+                <strong>Explanation:</strong> This is a reason clause answering why he didn’t attend. "Because" indicates a direct cause, fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 10 -->
+        <div class="question" id="q10">
+            <p>10. You can go out ______ you finish your chores.</p>
+            <div class="options">
+                <label><input type="radio" name="q10" value="A"> A. unless</label>
+                <label><input type="radio" name="q10" value="B"> B. if</label>
+                <label><input type="radio" name="q10" value="C"> C. since</label>
+                <label><input type="radio" name="q10" value="D"> D. though</label>
+            </div>
+            <div class="result" id="result10"></div>
+            <div class="explanation" id="explanation10" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. if<br>
+                <strong>Explanation:</strong> This is a conditional clause indicating a requirement for going out. "If" introduces the condition, suitable here.
+            </div>
+        </div>
+        <!-- Question 11 -->
+        <div class="question" id="q11">
+            <p>11. ______ you go, I’ll follow you.</p>
+            <div class="options">
+                <label><input type="radio" name="q11" value="A"> A. Where</label>
+                <label><input type="radio" name="q11" value="B"> B. Wherever</label>
+                <label><input type="radio" name="q11" value="C"> C. When</label>
+                <label><input type="radio" name="q11" value="D"> D. While</label>
+            </div>
+            <div class="result" id="result11"></div>
+            <div class="explanation" id="explanation11" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. Wherever<br>
+                <strong>Explanation:</strong> This is a place adverbial clause meaning "any place you go." "Wherever" emphasizes any location, fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 12 -->
+        <div class="question" id="q12">
+            <p>12. She worked hard ______ she could get a promotion.</p>
+            <div class="options">
+                <label><input type="radio" name="q12" value="A"> A. as if</label>
+                <label><input type="radio" name="q12" value="B"> B. so that</label>
+                <label><input type="radio" name="q12" value="C"> C. as long as</label>
+                <label><input type="radio" name="q12" value="D"> D. even if</label>
+            </div>
+            <div class="result" id="result12"></div>
+            <div class="explanation" id="explanation12" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. so that<br>
+                <strong>Explanation:</strong> This is a purpose clause indicating the goal of her hard work. "So that" shows purpose, fitting the context.
+            </div>
+        </div>
+        <!-- Question 13 -->
+        <div class="question" id="q13">
+            <p>13. ______ it was cold, we went hiking.</p>
+            <div class="options">
+                <label><input type="radio" name="q13" value="A"> A. Because</label>
+                <label><input type="radio" name="q13" value="B"> B. Since</label>
+                <label><input type="radio" name="q13" value="C"> C. Although</label>
+                <label><input type="radio" name="q13" value="D"> D. As</label>
+            </div>
+            <div class="result" id="result13"></div>
+            <div class="explanation" id="explanation13" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. Although<br>
+                <strong>Explanation:</strong> This is a concessive clause showing contrast. "Although" means "despite the fact that," suitable for cold weather and hiking.
+            </div>
+        </div>
+        <!-- Question 14 -->
+        <div class="question" id="q14">
+            <p>14. He is ______ a talented musician ______ everyone admires him.</p>
+            <div class="options">
+                <label><input type="radio" name="q14" value="A"> A. such...that</label>
+                <label><input type="radio" name="q14" value="B"> B. so...that</label>
+                <label><input type="radio" name="q14" value="C"> C. as...as</label>
+                <label><input type="radio" name="q14" value="D"> D. too...to</label>
+            </div>
+            <div class="result" id="result14"></div>
+            <div class="explanation" id="explanation14" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. such...that<br>
+                <strong>Explanation:</strong> "Such" modifies the noun phrase "a talented musician," and "that" introduces a result clause, showing the outcome of his talent.
+            </div>
+        </div>
+        <!-- Question 15 -->
+        <div class="question" id="q15">
+            <p>15. She sang ______ beautifully ______ the audience was mesmerized.</p>
+            <div class="options">
+                <label><input type="radio" name="q15" value="A"> A. such...that</label>
+                <label><input type="radio" name="q15" value="B"> B. so...that</label>
+                <label><input type="radio" name="q15" value="C"> C. as...as</label>
+                <label><input type="radio" name="q15" value="D"> D. too...to</label>
+            </div>
+            <div class="result" id="result15"></div>
+            <div class="explanation" id="explanation15" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. so...that<br>
+                <strong>Explanation:</strong> "So" modifies the adverb "beautifully," and "that" introduces a result clause, indicating the effect of her singing.
+            </div>
+        </div>
+        <!-- Question 16 -->
+        <div class="question" id="q16">
+            <p>16. ______ I was cooking, the phone rang.</p>
+            <div class="options">
+                <label><input type="radio" name="q16" value="A"> A. When</label>
+                <label><input type="radio" name="q16" value="B"> B. While</label>
+                <label><input type="radio" name="q16" value="C"> C. As</label>
+                <label><input type="radio" name="q16" value="D"> D. Before</label>
+            </div>
+            <div class="result" id="result16"></div>
+            <div class="explanation" id="explanation16" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. While<br>
+                <strong>Explanation:</strong> "While" is used for a time clause with a continuous action (cooking). It indicates two actions happening over the same time period.
+            </div>
+        </div>
+        <!-- Question 17 -->
+        <div class="question" id="q17">
+            <p>17. I’ll wait here ______ you’re ready to leave.</p>
+            <div class="options">
+                <label><input type="radio" name="q17" value="A"> A. until</label>
+                <label><input type="radio" name="q17" value="B"> B. since</label>
+                <label><input type="radio" name="q17" value="C"> C. if</label>
+                <label><input type="radio" name="q17" value="D"> D. though</label>
+            </div>
+            <div class="result" id="result17"></div>
+            <div class="explanation" id="explanation17" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. until<br>
+                <strong>Explanation:</strong> This is a time clause indicating duration up to a point. "Until" means "up to the time that," fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 18 -->
+        <div class="question" id="q18">
+            <p>18. ______ he was busy, he helped me with my work.</p>
+            <div class="options">
+                <label><input type="radio" name="q18" value="A"> A. Because</label>
+                <label><input type="radio" name="q18" value="B"> B. Since</label>
+                <label><input type="radio" name="q18" value="C"> C. Although</label>
+                <label><input type="radio" name="q18" value="D"> D. As</label>
+            </div>
+            <div class="result" id="result18"></div>
+            <div class="explanation" id="explanation18" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. Although<br>
+                <strong>Explanation:</strong> This is a concessive clause showing contrast. "Although" indicates doing something despite being busy.
+            </div>
+        </div>
+        <!-- Question 19 -->
+        <div class="question" id="q19">
+            <p>19. Do it ______ I showed you.</p>
+            <div class="options">
+                <label><input type="radio" name="q19" value="A"> A. as</label>
+                <label><input type="radio" name="q19" value="B"> B. as if</label>
+                <label><input type="radio" name="q19" value="C"> C. so that</label>
+                <label><input type="radio" name="q19" value="D"> D. though</label>
+            </div>
+            <div class="result" id="result19"></div>
+            <div class="explanation" id="explanation19" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. as<br>
+                <strong>Explanation:</strong> This is a manner clause indicating how to do something. "As" means "in the way that," fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 20 -->
+        <div class="question" id="q20">
+            <p>20. She is not ______ tall ______ her sister.</p>
+            <div class="options">
+                <label><input type="radio" name="q20" value="A"> A. such...that</label>
+                <label><input type="radio" name="q20" value="B"> B. so...that</label>
+                <label><input type="radio" name="q20" value="C"> C. as...as</label>
+                <label><input type="radio" name="q20" value="D"> D. too...to</label>
+            </div>
+            <div class="result" id="result20"></div>
+            <div class="explanation" id="explanation20" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. as...as<br>
+                <strong>Explanation:</strong> This is a comparative clause indicating equality. "As...as" is used for comparison, suitable here.
+            </div>
+        </div>
+        <!-- Question 21 -->
+        <div class="question" id="q21">
+            <p>21. ______ we were driving, we saw a beautiful sunset.</p>
+            <div class="options">
+                <label><input type="radio" name="q21" value="A"> A. When</label>
+                <label><input type="radio" name="q21" value="B"> B. While</label>
+                <label><input type="radio" name="q21" value="C"> C. As</label>
+                <label><input type="radio" name="q21" value="D"> D. Before</label>
+            </div>
+            <div class="result" id="result21"></div>
+            <div class="explanation" id="explanation21" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. While<br>
+                <strong>Explanation:</strong> "While" is used for a time clause with a continuous action (driving). It indicates two actions occurring over the same time period.
+            </div>
+        </div>
+        <!-- Question 22 -->
+        <div class="question" id="q22">
+            <p>22. I’ll call you ______ I get to the airport.</p>
+            <div class="options">
+                <label><input type="radio" name="q22" value="A"> A. as soon as</label>
+                <label><input type="radio" name="q22" value="B"> B. because</label>
+                <label><input type="radio" name="q22" value="C"> C. so that</label>
+                <label><input type="radio" name="q22" value="D"> D. although</label>
+            </div>
+            <div class="result" id="result22"></div>
+            <div class="explanation" id="explanation22" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. as soon as<br>
+                <strong>Explanation:</strong> This is a time clause indicating immediate action. "As soon as" means "immediately after," fitting the context.
+            </div>
+        </div>
+        <!-- Question 23 -->
+        <div class="question" id="q23">
+            <p>23. ______ you’re happy, I’m happy too.</p>
+            <div class="options">
+                <label><input type="radio" name="q23" value="A"> A. If</label>
+                <label><input type="radio" name="q23" value="B"> B. Unless</label>
+                <label><input type="radio" name="q23" value="C"> C. Since</label>
+                <label><input type="radio" name="q23" value="D"> D. Though</label>
+            </div>
+            <div class="result" id="result23"></div>
+            <div class="explanation" id="explanation23" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. If<br>
+                <strong>Explanation:</strong> This is a conditional clause indicating a cause-effect relationship. "If" introduces the condition, suitable here.
+            </div>
+        </div>
+        <!-- Question 24 -->
+        <div class="question" id="q24">
+            <p>24. The room was ______ quiet ______ we could hear a pin drop.</p>
+            <div class="options">
+                <label><input type="radio" name="q24" value="A"> A. such...that</label>
+                <label><input type="radio" name="q24" value="B"> B. so...that</label>
+                <label><input type="radio" name="q24" value="C"> C. as...as</label>
+                <label><input type="radio" name="q24" value="D"> D. too...to</label>
+            </div>
+            <div class="result" id="result24"></div>
+            <div class="explanation" id="explanation24" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. so...that<br>
+                <strong>Explanation:</strong> "So" modifies the adjective "quiet," and "that" introduces a result clause, showing the outcome of the room’s quietness.
+            </div>
+        </div>
+        <!-- Question 25 -->
+        <div class="question" id="q25">
+            <p>25. ______ it was expensive, we bought the painting.</p>
+            <div class="options">
+                <label><input type="radio" name="q25" value="A"> A. Because</label>
+                <label><input type="radio" name="q25" value="B"> B. Since</label>
+                <label><input type="radio" name="q25" value="C"> C. Although</label>
+                <label><input type="radio" name="q25" value="D"> D. As</label>
+            </div>
+            <div class="result" id="result25"></div>
+            <div class="explanation" id="explanation25" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. Although<br>
+                <strong>Explanation:</strong> This is a concessive clause showing contrast. "Although" indicates buying despite the expense.
+            </div>
+        </div>
+        <!-- Question 26 -->
+        <div class="question" id="q26">
+            <p>26. He acted ______ nothing had happened.</p>
+            <div class="options">
+                <label><input type="radio" name="q26" value="A"> A. as</label>
+                <label><input type="radio" name="q26" value="B"> B. as if</label>
+                <label><input type="radio" name="q26" value="C"> C. so that</label>
+                <label><input type="radio" name="q26" value="D"> D. though</label>
+            </div>
+            <div class="result" id="result26"></div>
+            <div class="explanation" id="explanation26" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. as if<br>
+                <strong>Explanation:</strong> This is a manner clause indicating a hypothetical situation. "As if" suggests pretending, fitting the context.
+            </div>
+        </div>
+        <!-- Question 27 -->
+        <div class="question" id="q27">
+            <p>27. ______ you need help, just call me.</p>
+            <div class="options">
+                <label><input type="radio" name="q27" value="A"> A. When</label>
+                <label><input type="radio" name="q27" value="B"> B. While</label>
+                <label><input type="radio" name="q27" value="C"> C. If</label>
+                <label><input type="radio" name="q27" value="D"> D. Before</label>
+            </div>
+            <div class="result" id="result27"></div>
+            <div class="explanation" id="explanation27" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. If<br>
+                <strong>Explanation:</strong> This is a conditional clause indicating a possible situation. "If" introduces the condition for calling.
+            </div>
+        </div>
+        <!-- Question 28 -->
+        <div class="question" id="q28">
+            <p>28. I stayed home ______ I was feeling unwell.</p>
+            <div class="options">
+                <label><input type="radio" name="q28" value="A"> A. because</label>
+                <label><input type="radio" name="q28" value="B"> B. as</label>
+                <label><input type="radio" name="q28" value="C"> C. since</label>
+                <label><input type="radio" name="q28" value="D"> D. although</label>
+            </div>
+            <div class="result" id="result28"></div>
+            <div class="explanation" id="explanation28" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. because<br>
+                <strong>Explanation:</strong> This is a reason clause explaining why I stayed home. "Because" indicates a direct cause, fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 29 -->
+        <div class="question" id="q29">
+            <p>29. ______ you finish early, you can leave.</p>
+            <div class="options">
+                <label><input type="radio" name="q29" value="A"> A. Unless</label>
+                <label><input type="radio" name="q29" value="B"> B. If</label>
+                <label><input type="radio" name="q29" value="C"> C. Since</label>
+                <label><input type="radio" name="q29" value="D"> D. Though</label>
+            </div>
+            <div class="result" id="result29"></div>
+            <div class="explanation" id="explanation29" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. If<br>
+                <strong>Explanation:</strong> This is a conditional clause indicating permission to leave. "If" introduces the condition, suitable here.
+            </div>
+        </div>
+        <!-- Question 30 -->
+        <div class="question" id="q30">
+            <p>30. It was ______ a big party ______ we stayed all night.</p>
+            <div class="options">
+                <label><input type="radio" name="q30" value="A"> A. such...that</label>
+                <label><input type="radio" name="q30" value="B"> B. so...that</label>
+                <label><input type="radio" name="q30" value="C"> C. as...as</label>
+                <label><input type="radio" name="q30" value="D"> D. too...to</label>
+            </div>
+            <div class="result" id="result30"></div>
+            <div class="explanation" id="explanation30" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. such...that<br>
+                <strong>Explanation:</strong> "Such" modifies the noun phrase "a big party," and "that" introduces a result clause, showing the outcome of the party’s scale.
+            </div>
+        </div>
+        <!-- Question 31 -->
+        <div class="question" id="q31">
+            <p>31. ______ you like, you can join us.</p>
+            <div class="options">
+                <label><input type="radio" name="q31" value="A"> A. Where</label>
+                <label><input type="radio" name="q31" value="B"> B. Wherever</label>
+                <label><input type="radio" name="q31" value="C"> C. When</label>
+                <label><input type="radio" name="q31" value="D"> D. While</label>
+            </div>
+            <div class="result" id="result31"></div>
+            <div class="explanation" id="explanation31" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. Wherever<br>
+                <strong>Explanation:</strong> This is a place clause meaning "any place you like." "Wherever" emphasizes any location, fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 32 -->
+        <div class="question" id="q32">
+            <p>32. She studied ______ she could get a scholarship.</p>
+            <div class="options">
+                <label><input type="radio" name="q32" value="A"> A. as if</label>
+                <label><input type="radio" name="q32" value="B"> B. so that</label>
+                <label><input type="radio" name="q32" value="C"> C. as long as</label>
+                <label><input type="radio" name="q32" value="D"> D. even if</label>
+            </div>
+            <div class="result" id="result32"></div>
+            <div class="explanation" id="explanation32" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. so that<br>
+                <strong>Explanation:</strong> This is a purpose clause indicating the goal of studying. "So that" shows purpose, fitting the context.
+            </div>
+        </div>
+        <!-- Question 33 -->
+        <div class="question" id="q33">
+            <p>33. ______ he tried hard, he didn’t succeed.</p>
+            <div class="options">
+                <label><input type="radio" name="q33" value="A"> A. Because</label>
+                <label><input type="radio" name="q33" value="B"> B. Since</label>
+                <label><input type="radio" name="q33" value="C"> C. Although</label>
+                <label><input type="radio" name="q33" value="D"> D. As</label>
+            </div>
+            <div class="result" id="result33"></div>
+            <div class="explanation" id="explanation33" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. Although<br>
+                <strong>Explanation:</strong> This is a concessive clause showing contrast. "Although" indicates trying despite failure.
+            </div>
+        </div>
+        <!-- Question 34 -->
+        <div class="question" id="q34">
+            <p>34. He runs faster ______ I do.</p>
+            <div class="options">
+                <label><input type="radio" name="q34" value="A"> A. than</label>
+                <label><input type="radio" name="q34" value="B"> B. as</label>
+                <label><input type="radio" name="q34" value="C"> C. so that</label>
+                <label><input type="radio" name="q34" value="D"> D. though</label>
+            </div>
+            <div class="result" id="result34"></div>
+            <div class="explanation" id="explanation34" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. than<br>
+                <strong>Explanation:</strong> This is a comparative clause indicating a difference in degree. "Than" is used for comparisons, fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 35 -->
+        <div class="question" id="q35">
+            <p>35. ______ I was reading, the lights went out.</p>
+            <div class="options">
+                <label><input type="radio" name="q35" value="A"> A. When</label>
+                <label><input type="radio" name="q35" value="B"> B. While</label>
+                <label><input type="radio" name="q35" value="C"> C. As</label>
+                <label><input type="radio" name="q35" value="D"> D. Before</label>
+            </div>
+            <div class="result" id="result35"></div>
+            <div class="explanation" id="explanation35" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. While<br>
+                <strong>Explanation:</strong> "While" is used for a time clause with a continuous action (reading). It indicates two actions happening over the same period.
+            </div>
+        </div>
+        <!-- Question 36 -->
+        <div class="question" id="q36">
+            <p>36. I’ll stay ______ you need me.</p>
+            <div class="options">
+                <label><input type="radio" name="q36" value="A"> A. until</label>
+                <label><input type="radio" name="q36" value="B"> B. since</label>
+                <label><input type="radio" name="q36" value="C"> C. if</label>
+                <label><input type="radio" name="q36" value="D"> D. though</label>
+            </div>
+            <div class="result" id="result36"></div>
+            <div class="explanation" id="explanation36" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. until<br>
+                <strong>Explanation:</strong> This is a time clause indicating duration. "Until" means "up to the time that," fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 37 -->
+        <div class="question" id="q37">
+            <p>37. ______ she’s young, she’s very responsible.</p>
+            <div class="options">
+                <label><input type="radio" name="q37" value="A"> A. Because</label>
+                <label><input type="radio" name="q37" value="B"> B. Since</label>
+                <label><input type="radio" name="q37" value="C"> C. Although</label>
+                <label><input type="radio" name="q37" value="D"> D. As</label>
+            </div>
+            <div class="result" id="result37"></div>
+            <div class="explanation" id="explanation37" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. Although<br>
+                <strong>Explanation:</strong> This is a concessive clause showing contrast. "Although" indicates responsibility despite youth.
+            </div>
+        </div>
+        <!-- Question 38 -->
+        <div class="question" id="q38">
+            <p>38. He spoke ______ loudly ______ everyone could hear him.</p>
+            <div class="options">
+                <label><input type="radio" name="q38" value="A"> A. such...that</label>
+                <label><input type="radio" name="q38" value="B"> B. so...that</label>
+                <label><input type="radio" name="q38" value="C"> C. as...as</label>
+                <label><input type="radio" name="q38" value="D"> D. too...to</label>
+            </div>
+            <div class="result" id="result38"></div>
+            <div class="explanation" id="explanation38" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. so...that<br>
+                <strong>Explanation:</strong> "So" modifies the adverb "loudly," and "that" introduces a result clause, showing the effect of his loudness.
+            </div>
+        </div>
+        <!-- Question 39 -->
+        <div class="question" id="q39">
+            <p>39. ______ you’re ready, we can start the meeting.</p>
+            <div class="options">
+                <label><input type="radio" name="q39" value="A"> A. As soon as</label>
+                <label><input type="radio" name="q39" value="B"> B. Because</label>
+                <label><input type="radio" name="q39" value="C"> C. So that</label>
+                <label><input type="radio" name="q39" value="D"> D. Although</label>
+            </div>
+            <div class="result" id="result39"></div>
+            <div class="explanation" id="explanation39" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. As soon as<br>
+                <strong>Explanation:</strong> This is a time clause indicating immediate action. "As soon as" means "immediately after," fitting the context.
+            </div>
+        </div>
+        <!-- Question 40 -->
+        <div class="question" id="q40">
+            <p>40. She behaved ______ she was angry.</p>
+            <div class="options">
+                <label><input type="radio" name="q40" value="A"> A. as</label>
+                <label><input type="radio" name="q40" value="B"> B. as if</label>
+                <label><input type="radio" name="q40" value="C"> C. so that</label>
+                <label><input type="radio" name="q40" value="D"> D. though</label>
+            </div>
+            <div class="result" id="result40"></div>
+            <div class="explanation" id="explanation40" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. as if<br>
+                <strong>Explanation:</strong> This is a manner clause indicating a hypothetical situation. "As if" suggests pretending, fitting the context.
+            </div>
+        </div>
+        <!-- Question 41 -->
+        <div class="question" id="q41">
+            <p>41. ______ you don’t try, you won’t succeed.</p>
+            <div class="options">
+                <label><input type="radio" name="q41" value="A"> A. Unless</label>
+                <label><input type="radio" name="q41" value="B"> B. If</label>
+                <label><input type="radio" name="q41" value="C"> C. Since</label>
+                <label><input type="radio" name="q41" value="D"> D. Though</label>
+            </div>
+            <div class="result" id="result41"></div>
+            <div class="explanation" id="explanation41" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. Unless<br>
+                <strong>Explanation:</strong> This is a conditional clause indicating a negative condition. "Unless" means "if not," fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 42 -->
+        <div class="question" id="q42">
+            <p>42. It was ______ a boring lecture ______ I fell asleep.</p>
+            <div class="options">
+                <label><input type="radio" name="q42" value="A"> A. such...that</label>
+                <label><input type="radio" name="q42" value="B"> B. so...that</label>
+                <label><input type="radio" name="q42" value="C"> C. as...as</label>
+                <label><input type="radio" name="q42" value="D"> D. too...to</label>
+            </div>
+            <div class="result" id="result42"></div>
+            <div class="explanation" id="explanation42" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. such...that<br>
+                <strong>Explanation:</strong> "Such" modifies the noun phrase "a boring lecture," and "that" introduces a result clause, showing the outcome of the lecture’s boredom.
+            </div>
+        </div>
+        <!-- Question 43 -->
+        <div class="question" id="q43">
+            <p>43. ______ I was studying, my friend called.</p>
+            <div class="options">
+                <label><input type="radio" name="q43" value="A"> A. When</label>
+                <label><input type="radio" name="q43" value="B"> B. While</label>
+                <label><input type="radio" name="q43" value="C"> C. As</label>
+                <label><input type="radio" name="q43" value="D"> D. Before</label>
+            </div>
+            <div class="result" id="result43"></div>
+            <div class="explanation" id="explanation43" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. While<br>
+                <strong>Explanation:</strong> "While" is used for a time clause with a continuous action (studying). It indicates two actions happening over the same period.
+            </div>
+        </div>
+        <!-- Question 44 -->
+        <div class="question" id="q44">
+            <p>44. I’ll lend you my notes ______ you return them tomorrow.</p>
+            <div class="options">
+                <label><input type="radio" name="q44" value="A"> A. as if</label>
+                <label><input type="radio" name="q44" value="B"> B. so that</label>
+                <label><input type="radio" name="q44" value="C"> C. as long as</label>
+                <label><input type="radio" name="q44" value="D"> D. even if</label>
+            </div>
+            <div class="result" id="result44"></div>
+            <div class="explanation" id="explanation44" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. as long as<br>
+                <strong>Explanation:</strong> This is a conditional clause meaning "provided that." "As long as" indicates a condition for lending notes.
+            </div>
+        </div>
+        <!-- Question 45 -->
+        <div class="question" id="q45">
+            <p>45. ______ he’s experienced, he made a mistake.</p>
+            <div class="options">
+                <label><input type="radio" name="q45" value="A"> A. Because</label>
+                <label><input type="radio" name="q45" value="B"> B. Since</label>
+                <label><input type="radio" name="q45" value="C"> C. Although</label>
+                <label><input type="radio" name="q45" value="D"> D. As</label>
+            </div>
+            <div class="result" id="result45"></div>
+            <div class="explanation" id="explanation45" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. Although<br>
+                <strong>Explanation:</strong> This is a concessive clause showing contrast. "Although" indicates a mistake despite experience.
+            </div>
+        </div>
+        <!-- Question 46 -->
+        <div class="question" id="q46">
+            <p>46. She’s smarter ______ her brother.</p>
+            <div class="options">
+                <label><input type="radio" name="q46" value="A"> A. than</label>
+                <label><input type="radio" name="q46" value="B"> B. as</label>
+                <label><input type="radio" name="q46" value="C"> C. so that</label>
+                <label><input type="radio" name="q46" value="D"> D. though</label>
+            </div>
+            <div class="result" id="result46"></div>
+            <div class="explanation" id="explanation46" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. than<br>
+                <strong>Explanation:</strong> This is a comparative clause indicating a difference in degree. "Than" is used for comparisons, fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 47 -->
+        <div class="question" id="q47">
+            <p>47. ______ you go, take an umbrella.</p>
+            <div class="options">
+                <label><input type="radio" name="q47" value="A"> A. Where</label>
+                <label><input type="radio" name="q47" value="B"> B. Wherever</label>
+                <label><input type="radio" name="q47" value="C"> C. When</label>
+                <label><input type="radio" name="q47" value="D"> D. While</label>
+            </div>
+            <div class="result" id="result47"></div>
+            <div class="explanation" id="explanation47" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. Wherever<br>
+                <strong>Explanation:</strong> This is a place clause meaning "any place you go." "Wherever" emphasizes any location, fitting the sentence.
+            </div>
+        </div>
+        <!-- Question 48 -->
+        <div class="question" id="q48">
+            <p>48. He worked ______ hard ______ he passed the exam.</p>
+            <div class="options">
+                <label><input type="radio" name="q48" value="A"> A. such...that</label>
+                <label><input type="radio" name="q48" value="B"> B. so...that</label>
+                <label><input type="radio" name="q48" value="C"> C. as...as</label>
+                <label><input type="radio" name="q48" value="D"> D. too...to</label>
+            </div>
+            <div class="result" id="result48"></div>
+            <div class="explanation" id="explanation48" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. so...that<br>
+                <strong>Explanation:</strong> "So" modifies the adverb "hard," and "that" introduces a result clause, showing the outcome of his effort.
+            </div>
+        </div>
+        <!-- Question 49 -->
+        <div class="question" id="q49">
+            <p>49. ______ I saw her, she was smiling.</p>
+            <div class="options">
+                <label><input type="radio" name="q49" value="A"> A. When</label>
+                <label><input type="radio" name="q49" value="B"> B. While</label>
+                <label><input type="radio" name="q49" value="C"> C. As</label>
+                <label><input type="radio" name="q49" value="D"> D. Before</label>
+            </div>
+            <div class="result" id="result49"></div>
+            <div class="explanation" id="explanation49" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. When<br>
+                <strong>Explanation:</strong> "When" indicates a specific point in time, fitting the context of seeing her at a moment she was smiling.
+            </div>
+        </div>
+        <!-- Question 50 -->
+        <div class="question" id="q50">
+            <p>50. I can’t go out ______ I finish my homework.</p>
+            <div class="options">
+                <label><input type="radio" name="q50" value="A"> A. unless</label>
+                <label><input type="radio" name="q50" value="B"> B. if</label>
+                <label><input type="radio" name="q50" value="C"> C. since</label>
+                <label><input type="radio" name="q50" value="D"> D. though</label>
+            </div>
+            <div class="result" id="result50"></div>
+            <div class="explanation" id="explanation50" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. unless<br>
+                <strong>Explanation:</strong> This is a conditional clause indicating a negative condition. "Unless" means "if not," fitting the sentence.
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>Adverbial Clauses Quiz © 2025 | Practice to master English adverbial clauses</p>
+    </footer>
+    <script>
+        // Function to handle answer selection
+        function handleAnswerSelection(input) {
+            const questionId = input.name;
+            const selectedValue = input.value;
+            const resultDiv = document.getElementById(`result${questionId.slice(1)}`);
+            const explanationDiv = document.getElementById(`explanation${questionId.slice(1)}`);
+            const correctAnswer = explanationDiv.getAttribute('data-correct-answer');
+
+            // Disable all radio buttons for this question to prevent multiple submissions
+            document.querySelectorAll(`input[name="${questionId}"]`).forEach(radio => {
+                radio.disabled = true;
+            });
+
+            // Display result
+            if (selectedValue === correctAnswer) {
+                resultDiv.textContent = 'Correct!';
+                resultDiv.className = 'result correct';
+            } else {
+                resultDiv.textContent = `Incorrect! You selected ${selectedValue}.`;
+                resultDiv.className = 'result incorrect';
+            }
+            resultDiv.style.display = 'block';
+            explanationDiv.style.display = 'block';
+        }
+
+        // Add event listeners to all radio buttons
+        document.querySelectorAll('.question input[type="radio"]').forEach(input => {
+            input.addEventListener('change', function() {
+                handleAnswerSelection(this);
+            });
+        });
+    </script>
+</body>
+</html>
