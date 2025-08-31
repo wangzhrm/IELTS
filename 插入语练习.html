@@ -1,0 +1,893 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parenthetical Expressions Practice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        h2 {
+            color: #444;
+            margin-top: 30px;
+        }
+        .question {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .question p {
+            margin: 0 0 10px;
+            font-weight: bold;
+        }
+        .options label {
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        .result {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+        .incorrect {
+            background-color: #f2dede;
+            color: #a94442;
+        }
+        .explanation {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e8f0fe;
+            border-radius: 5px;
+        }
+        .text-input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .submit-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Parenthetical Expressions Practice (IELTS 7.0 Level)</h1>
+    <h2>Part 1: Multiple-Choice Questions</h2>
+    <div id="quiz">
+        <!-- Question 1 -->
+        <div class="question" id="q1">
+            <p>1. This strategy, ______, is highly effective.</p>
+            <div class="options">
+                <label><input type="radio" name="q1" value="A"> A. I believe</label>
+                <label><input type="radio" name="q1" value="B"> B. for example</label>
+                <label><input type="radio" name="q1" value="C"> C. you know</label>
+                <label><input type="radio" name="q1" value="D"> D. generally speaking</label>
+            </div>
+            <div class="result" id="result1"></div>
+            <div class="explanation" id="explanation1" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. I believe<br>
+                <strong>Explanation:</strong> "I believe" expresses the speaker’s opinion about the strategy’s effectiveness, fitting the context of stating a viewpoint.
+            </div>
+        </div>
+        <!-- Question 2 -->
+        <div class="question" id="q2">
+            <p>2. ______, the event was well-organized.</p>
+            <div class="options">
+                <label><input type="radio" name="q2" value="A"> A. In my opinion</label>
+                <label><input type="radio" name="q2" value="B"> B. namely</label>
+                <label><input type="radio" name="q2" value="C"> C. as you see</label>
+                <label><input type="radio" name="q2" value="D"> D. for example</label>
+            </div>
+            <div class="result" id="result2"></div>
+            <div class="explanation" id="explanation2" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. In my opinion<br>
+                <strong>Explanation:</strong> "In my opinion" conveys the speaker’s viewpoint about the event’s organization, suitable for this context.
+            </div>
+        </div>
+        <!-- Question 3 -->
+        <div class="question" id="q3">
+            <p>3. Many animals, ______, tigers and elephants, are protected.</p>
+            <div class="options">
+                <label><input type="radio" name="q3" value="A"> A. I suppose</label>
+                <label><input type="radio" name="q3" value="B"> B. for example</label>
+                <label><input type="radio" name="q3" value="C"> C. you know</label>
+                <label><input type="radio" name="q3" value="D"> D. strictly speaking</label>
+            </div>
+            <div class="result" id="result3"></div>
+            <div class="explanation" id="explanation3" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. for example<br>
+                <strong>Explanation:</strong> "For example" introduces specific instances (tigers and elephants) to illustrate the statement about protected animals.
+            </div>
+        </div>
+        <!-- Question 4 -->
+        <div class="question" id="q4">
+            <p>4. The results, ______, were unexpected.</p>
+            <div class="options">
+                <label><input type="radio" name="q4" value="A"> A. frankly speaking</label>
+                <label><input type="radio" name="q4" value="B"> B. that is</label>
+                <label><input type="radio" name="q4" value="C"> C. you know</label>
+                <label><input type="radio" name="q4" value="D"> D. I think</label>
+            </div>
+            <div class="result" id="result4"></div>
+            <div class="explanation" id="explanation4" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. you know<br>
+                <strong>Explanation:</strong> "You know" draws attention to the surprising nature of the results, engaging the listener conversationally.
+            </div>
+        </div>
+        <!-- Question 5 -->
+        <div class="question" id="q5">
+            <p>5. ______, this policy is too restrictive.</p>
+            <div class="options">
+                <label><input type="radio" name="q5" value="A"> A. Strictly speaking</label>
+                <label><input type="radio" name="q5" value="B"> B. for example</label>
+                <label><input type="radio" name="q5" value="C"> C. as you see</label>
+                <label><input type="radio" name="q5" value="D"> D. I suppose</label>
+            </div>
+            <div class="result" id="result5"></div>
+            <div class="explanation" id="explanation5" data-correct-answer="D">
+                <strong>Correct Answer:</strong> D. I suppose<br>
+                <strong>Explanation:</strong> "I suppose" expresses the speaker’s tentative opinion about the policy’s restrictiveness, fitting the context.
+            </div>
+        </div>
+        <!-- Question 6 -->
+        <div class="question" id="q6">
+            <p>6. The plan, ______, requires more resources.</p>
+            <div class="options">
+                <label><input type="radio" name="q6" value="A"> A. in my opinion</label>
+                <label><input type="radio" name="q6" value="B"> B. namely</label>
+                <label><input type="radio" name="q6" value="C"> C. believe it or not</label>
+                <label><input type="radio" name="q6" value="D"> D. for example</label>
+            </div>
+            <div class="result" id="result6"></div>
+            <div class="explanation" id="explanation6" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. in my opinion<br>
+                <strong>Explanation:</strong> "In my opinion" expresses the speaker’s viewpoint about the plan’s resource needs.
+            </div>
+        </div>
+        <!-- Question 7 -->
+        <div class="question" id="q7">
+            <p>7. Some sports, ______, soccer and basketball, are globally popular.</p>
+            <div class="options">
+                <label><input type="radio" name="q7" value="A"> A. I believe</label>
+                <label><input type="radio" name="q7" value="B"> B. such as</label>
+                <label><input type="radio" name="q7" value="C"> C. you know</label>
+                <label><input type="radio" name="q7" value="D"> D. generally speaking</label>
+            </div>
+            <div class="result" id="result7"></div>
+            <div class="explanation" id="explanation7" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. such as<br>
+                <strong>Explanation:</strong> "Such as" introduces examples (soccer and basketball) to support the statement about popular sports.
+            </div>
+        </div>
+        <!-- Question 8 -->
+        <div class="question" id="q8">
+            <p>8. ______, the project was completed ahead of schedule.</p>
+            <div class="options">
+                <label><input type="radio" name="q8" value="A"> A. To everyone’s surprise</label>
+                <label><input type="radio" name="q8" value="B"> B. for example</label>
+                <label><input type="radio" name="q8" value="C"> C. as you see</label>
+                <label><input type="radio" name="q8" value="D"> D. strictly speaking</label>
+            </div>
+            <div class="result" id="result8"></div>
+            <div class="explanation" id="explanation8" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. To everyone’s surprise<br>
+                <strong>Explanation:</strong> "To everyone’s surprise" expresses the unexpected nature of the project’s early completion.
+            </div>
+        </div>
+        <!-- Question 9 -->
+        <div class="question" id="q9">
+            <p>9. His decision, ______, caused some controversy.</p>
+            <div class="options">
+                <label><input type="radio" name="q9" value="A"> A. frankly speaking</label>
+                <label><input type="radio" name="q9" value="B"> B. that is</label>
+                <label><input type="radio" name="q9" value="C"> C. you know</label>
+                <label><input type="radio" name="q9" value="D"> D. I think</label>
+            </div>
+            <div class="result" id="result9"></div>
+            <div class="explanation" id="explanation9" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. you know<br>
+                <strong>Explanation:</strong> "You know" engages the listener, drawing attention to the controversial decision.
+            </div>
+        </div>
+        <!-- Question 10 -->
+        <div class="question" id="q10">
+            <p>10. ______, we need to change our approach.</p>
+            <div class="options">
+                <label><input type="radio" name="q10" value="A"> A. That is to say</label>
+                <label><input type="radio" name="q10" value="B"> B. for example</label>
+                <label><input type="radio" name="q10" value="C"> C. as you see</label>
+                <label><input type="radio" name="q10" value="D"> D. I suppose</label>
+            </div>
+            <div class="result" id="result10"></div>
+            <div class="explanation" id="explanation10" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. That is to say<br>
+                <strong>Explanation:</strong> "That is to say" clarifies the need to change the approach, restating the point.
+            </div>
+        </div>
+        <!-- Question 11 -->
+        <div class="question" id="q11">
+            <p>11. The book, ______, is a must-read.</p>
+            <div class="options">
+                <label><input type="radio" name="q11" value="A"> A. I believe</label>
+                <label><input type="radio" name="q11" value="B"> B. namely</label>
+                <label><input type="radio" name="q11" value="C"> C. you know</label>
+                <label><input type="radio" name="q11" value="D"> D. for example</label>
+            </div>
+            <div class="result" id="result11"></div>
+            <div class="explanation" id="explanation11" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. I believe<br>
+                <strong>Explanation:</strong> "I believe" expresses the speaker’s opinion about the book’s value.
+            </div>
+        </div>
+        <!-- Question 12 -->
+        <div class="question" id="q12">
+            <p>12. ______, the rules are fair.</p>
+            <div class="options">
+                <label><input type="radio" name="q12" value="A"> A. Generally speaking</label>
+                <label><input type="radio" name="q12" value="B"> B. for example</label>
+                <label><input type="radio" name="q12" value="C"> C. as you see</label>
+                <label><input type="radio" name="q12" value="D"> D. I think</label>
+            </div>
+            <div class="result" id="result12"></div>
+            <div class="explanation" id="explanation12" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. Generally speaking<br>
+                <strong>Explanation:</strong> "Generally speaking" indicates a general observation about the fairness of the rules.
+            </div>
+        </div>
+        <!-- Question 13 -->
+        <div class="question" id="q13">
+            <p>13. Several factors, ______, time and budget, influence the outcome.</p>
+            <div class="options">
+                <label><input type="radio" name="q13" value="A"> A. I suppose</label>
+                <label><input type="radio" name="q13" value="B"> B. namely</label>
+                <label><input type="radio" name="q13" value="C"> C. you know</label>
+                <label><input type="radio" name="q13" value="D"> D. strictly speaking</label>
+            </div>
+            <div class="result" id="result13"></div>
+            <div class="explanation" id="explanation13" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. namely<br>
+                <strong>Explanation:</strong> "Namely" specifies the factors (time and budget), clarifying the statement.
+            </div>
+        </div>
+        <!-- Question 14 -->
+        <div class="question" id="q14">
+            <p>14. The outcome, ______, was better than expected.</p>
+            <div class="options">
+                <label><input type="radio" name="q14" value="A"> A. surprisingly enough</label>
+                <label><input type="radio" name="q14" value="B"> B. that is</label>
+                <label><input type="radio" name="q14" value="C"> C. you know</label>
+                <label><input type="radio" name="q14" value="D"> D. I think</label>
+            </div>
+            <div class="result" id="result14"></div>
+            <div class="explanation" id="explanation14" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. surprisingly enough<br>
+                <strong>Explanation:</strong> "Surprisingly enough" highlights the unexpected nature of the outcome.
+            </div>
+        </div>
+        <!-- Question 15 -->
+        <div class="question" id="q15">
+            <p>15. ______, this approach needs revision.</p>
+            <div class="options">
+                <label><input type="radio" name="q15" value="A"> A. If I may say so</label>
+                <label><input type="radio" name="q15" value="B"> B. for example</label>
+                <label><input type="radio" name="q15" value="C"> C. as you see</label>
+                <label><input type="radio" name="q15" value="D"> D. I suppose</label>
+            </div>
+            <div class="result" id="result15"></div>
+            <div class="explanation" id="explanation15" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. If I may say so<br>
+                <strong>Explanation:</strong> "If I may say so" politely introduces the speaker’s opinion about the need for revision.
+            </div>
+        </div>
+        <!-- Question 16 -->
+        <div class="question" id="q16">
+            <p>16. The lecture, ______, was very engaging.</p>
+            <div class="options">
+                <label><input type="radio" name="q16" value="A"> A. I believe</label>
+                <label><input type="radio" name="q16" value="B"> B. namely</label>
+                <label><input type="radio" name="q16" value="C"> C. you know</label>
+                <label><input type="radio" name="q16" value="D"> D. for example</label>
+            </div>
+            <div class="result" id="result16"></div>
+            <div class="explanation" id="explanation16" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. I believe<br>
+                <strong>Explanation:</strong> "I believe" expresses the speaker’s opinion about the lecture’s engagement.
+            </div>
+        </div>
+        <!-- Question 17 -->
+        <div class="question" id="q17">
+            <p>17. ______, we should focus on efficiency.</p>
+            <div class="options">
+                <label><input type="radio" name="q17" value="A"> A. In my opinion</label>
+                <label><input type="radio" name="q17" value="B"> B. for example</label>
+                <label><input type="radio" name="q17" value="C"> C. as you see</label>
+                <label><input type="radio" name="q17" value="D"> D. strictly speaking</label>
+            </div>
+            <div class="result" id="result17"></div>
+            <div class="explanation" id="explanation17" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. In my opinion<br>
+                <strong>Explanation:</strong> "In my opinion" conveys the speaker’s viewpoint on prioritizing efficiency.
+            </div>
+        </div>
+        <!-- Question 18 -->
+        <div class="question" id="q18">
+            <p>18. Many hobbies, ______, painting and hiking, are relaxing.</p>
+            <div class="options">
+                <label><input type="radio" name="q18" value="A"> A. I suppose</label>
+                <label><input type="radio" name="q18" value="B"> B. such as</label>
+                <label><input type="radio" name="q18" value="C"> C. you know</label>
+                <label><input type="radio" name="q18" value="D"> D. generally speaking</label>
+            </div>
+            <div class="result" id="result18"></div>
+            <div class="explanation" id="explanation18" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. such as<br>
+                <strong>Explanation:</strong> "Such as" introduces examples (painting and hiking) to support the statement about relaxing hobbies.
+            </div>
+        </div>
+        <!-- Question 19 -->
+        <div class="question" id="q19">
+            <p>19. The decision, ______, was unpopular.</p>
+            <div class="options">
+                <label><input type="radio" name="q19" value="A"> A. frankly speaking</label>
+                <label><input type="radio" name="q19" value="B"> B. that is</label>
+                <label><input type="radio" name="q19" value="C"> C. you know</label>
+                <label><input type="radio" name="q19" value="D"> D. I think</label>
+            </div>
+            <div class="result" id="result19"></div>
+            <div class="explanation" id="explanation19" data-correct-answer="C">
+                <strong>Correct Answer:</strong> C. you know<br>
+                <strong>Explanation:</strong> "You know" draws attention to the decision’s unpopularity, engaging the listener.
+            </div>
+        </div>
+        <!-- Question 20 -->
+        <div class="question" id="q20">
+            <p>20. ______, we need a new strategy.</p>
+            <div class="options">
+                <label><input type="radio" name="q20" value="A"> A. That is to say</label>
+                <label><input type="radio" name="q20" value="B"> B. for example</label>
+                <label><input type="radio" name="q20" value="C"> C. as you see</label>
+                <label><input type="radio" name="q20" value="D"> D. I suppose</label>
+            </div>
+            <div class="result" id="result20"></div>
+            <div class="explanation" id="explanation20" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. That is to say<br>
+                <strong>Explanation:</strong> "That is to say" clarifies the need for a new strategy, restating the point.
+            </div>
+        </div>
+        <!-- Question 21 -->
+        <div class="question" id="q21">
+            <p>21. The solution, ______, is not practical.</p>
+            <div class="options">
+                <label><input type="radio" name="q21" value="A"> A. in my opinion</label>
+                <label><input type="radio" name="q21" value="B"> B. namely</label>
+                <label><input type="radio" name="q21" value="C"> C. you know</label>
+                <label><input type="radio" name="q21" value="D"> D. for example</label>
+            </div>
+            <div class="result" id="result21"></div>
+            <div class="explanation" id="explanation21" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. in my opinion<br>
+                <strong>Explanation:</strong> "In my opinion" expresses the speaker’s viewpoint about the solution’s practicality.
+            </div>
+        </div>
+        <!-- Question 22 -->
+        <div class="question" id="q22">
+            <p>22. ______, most people enjoy outdoor activities.</p>
+            <div class="options">
+                <label><input type="radio" name="q22" value="A"> A. Generally speaking</label>
+                <label><input type="radio" name="q22" value="B"> B. for example</label>
+                <label><input type="radio" name="q22" value="C"> C. as you see</label>
+                <label><input type="radio" name="q22" value="D"> D. I think</label>
+            </div>
+            <div class="result" id="result22"></div>
+            <div class="explanation" id="explanation22" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. Generally speaking<br>
+                <strong>Explanation:</strong> "Generally speaking" indicates a general observation about people’s preferences for outdoor activities.
+            </div>
+        </div>
+        <!-- Question 23 -->
+        <div class="question" id="q23">
+            <p>23. Two cities, ______, Paris and Tokyo, are cultural hubs.</p>
+            <div class="options">
+                <label><input type="radio" name="q23" value="A"> A. I suppose</label>
+                <label><input type="radio" name="q23" value="B"> B. namely</label>
+                <label><input type="radio" name="q23" value="C"> C. you know</label>
+                <label><input type="radio" name="q23" value="D"> D. strictly speaking</label>
+            </div>
+            <div class="result" id="result23"></div>
+            <div class="explanation" id="explanation23" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. namely<br>
+                <strong>Explanation:</strong> "Namely" specifies the cities (Paris and Tokyo), clarifying the statement about cultural hubs.
+            </div>
+        </div>
+        <!-- Question 24 -->
+        <div class="question" id="q24">
+            <p>24. The decision, ______, was made hastily.</p>
+            <div class="options">
+                <label><input type="radio" name="q24" value="A"> A. frankly speaking</label>
+                <label><input type="radio" name="q24" value="B"> B. that is</label>
+                <label><input type="radio" name="q24" value="C"> C. you know</label>
+                <label><input type="radio" name="q24" value="D"> D. I think</label>
+            </div>
+            <div class="result" id="result24"></div>
+            <div class="explanation" id="explanation24" data-correct-answer="D">
+                <strong>Correct Answer:</strong> D. I think<br>
+                <strong>Explanation:</strong> "I think" expresses the speaker’s opinion about the decision’s haste.
+            </div>
+        </div>
+        <!-- Question 25 -->
+        <div class="question" id="q25">
+            <p>25. ______, we should act quickly.</p>
+            <div class="options">
+                <label><input type="radio" name="q25" value="A"> A. To be honest</label>
+                <label><input type="radio" name="q25" value="B"> B. for example</label>
+                <label><input type="radio" name="q25" value="C"> C. as you see</label>
+                <label><input type="radio" name="q25" value="D"> D. I suppose</label>
+            </div>
+            <div class="result" id="result25"></div>
+            <div class="explanation" id="explanation25" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. To be honest<br>
+                <strong>Explanation:</strong> "To be honest" introduces the speaker’s candid opinion about the need for quick action.
+            </div>
+        </div>
+        <!-- Question 26 -->
+        <div class="question" id="q26">
+            <p>26. The movie, ______, was disappointing.</p>
+            <div class="options">
+                <label><input type="radio" name="q26" value="A"> A. I must admit</label>
+                <label><input type="radio" name="q26" value="B"> B. namely</label>
+                <label><input type="radio" name="q26" value="C"> C. you know</label>
+                <label><input type="radio" name="q26" value="D"> D. for example</label>
+            </div>
+            <div class="result" id="result26"></div>
+            <div class="explanation" id="explanation26" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. I must admit<br>
+                <strong>Explanation:</strong> "I must admit" conveys the speaker’s honest opinion about the movie’s quality.
+            </div>
+        </div>
+        <!-- Question 27 -->
+        <div class="question" id="q27">
+            <p>27. ______, the plan is ambitious.</p>
+            <div class="options">
+                <label><input type="radio" name="q27" value="A"> A. If I may say so</label>
+                <label><input type="radio" name="q27" value="B"> B. for example</label>
+                <label><input type="radio" name="q27" value="C"> C. as you see</label>
+                <label><input type="radio" name="q27" value="D"> D. strictly speaking</label>
+            </div>
+            <div class="result" id="result27"></div>
+            <div class="explanation" id="explanation27" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. If I may say so<br>
+                <strong>Explanation:</strong> "If I may say so" politely introduces the speaker’s opinion about the plan’s ambition.
+            </div>
+        </div>
+        <!-- Question 28 -->
+        <div class="question" id="q28">
+            <p>28. Many fruits, ______, apples and bananas, are affordable.</p>
+            <div class="options">
+                <label><input type="radio" name="q28" value="A"> A. I suppose</label>
+                <label><input type="radio" name="q28" value="B"> B. such as</label>
+                <label><input type="radio" name="q28" value="C"> C. you know</label>
+                <label><input type="radio" name="q28" value="D"> D. generally speaking</label>
+            </div>
+            <div class="result" id="result28"></div>
+            <div class="explanation" id="explanation28" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. such as<br>
+                <strong>Explanation:</strong> "Such as" introduces examples (apples and bananas) to support the statement about affordable fruits.
+            </div>
+        </div>
+        <!-- Question 29 -->
+        <div class="question" id="q29">
+            <p>29. The speech, ______, was inspiring.</p>
+            <div class="options">
+                <label><input type="radio" name="q29" value="A"> A. I believe</label>
+                <label><input type="radio" name="q29" value="B"> B. namely</label>
+                <label><input type="radio" name="q29" value="C"> C. you know</label>
+                <label><input type="radio" name="q29" value="D"> D. for example</label>
+            </div>
+            <div class="result" id="result29"></div>
+            <div class="explanation" id="explanation29" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. I believe<br>
+                <strong>Explanation:</strong> "I believe" expresses the speaker’s opinion about the speech’s quality.
+            </div>
+        </div>
+        <!-- Question 30 -->
+        <div class="question" id="q30">
+            <p>30. ______, we should cancel the meeting.</p>
+            <div class="options">
+                <label><input type="radio" name="q30" value="A"> A. To be honest</label>
+                <label><input type="radio" name="q30" value="B"> B. for example</label>
+                <label><input type="radio" name="q30" value="C"> C. as you see</label>
+                <label><input type="radio" name="q30" value="D"> D. I suppose</label>
+            </div>
+            <div class="result" id="result30"></div>
+            <div class="explanation" id="explanation30" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. To be honest<br>
+                <strong>Explanation:</strong> "To be honest" introduces the speaker’s candid opinion about canceling the meeting.
+            </div>
+        </div>
+        <!-- Question 31 -->
+        <div class="question" id="q31">
+            <p>31. The policy, ______, is outdated.</p>
+            <div class="options">
+                <label><input type="radio" name="q31" value="A"> A. in my opinion</label>
+                <label><input type="radio" name="q31" value="B"> B. namely</label>
+                <label><input type="radio" name="q31" value="C"> C. you know</label>
+                <label><input type="radio" name="q31" value="D"> D. for example</label>
+            </div>
+            <div class="result" id="result31"></div>
+            <div class="explanation" id="explanation31" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. in my opinion<br>
+                <strong>Explanation:</strong> "In my opinion" expresses the speaker’s viewpoint about the policy’s status.
+            </div>
+        </div>
+        <!-- Question 32 -->
+        <div class="question" id="q32">
+            <p>32. ______, most students prefer online learning.</p>
+            <div class="options">
+                <label><input type="radio" name="q32" value="A"> A. Generally speaking</label>
+                <label><input type="radio" name="q32" value="B"> B. for example</label>
+                <label><input type="radio" name="q32" value="C"> C. as you see</label>
+                <label><input type="radio" name="q32" value="D"> D. I think</label>
+            </div>
+            <div class="result" id="result32"></div>
+            <div class="explanation" id="explanation32" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. Generally speaking<br>
+                <strong>Explanation:</strong> "Generally speaking" indicates a general observation about students’ learning preferences.
+            </div>
+        </div>
+        <!-- Question 33 -->
+        <div class="question" id="q33">
+            <p>33. Several skills, ______, coding and writing, are in demand.</p>
+            <div class="options">
+                <label><input type="radio" name="q33" value="A"> A. I suppose</label>
+                <label><input type="radio" name="q33" value="B"> B. namely</label>
+                <label><input type="radio" name="q33" value="C"> C. you know</label>
+                <label><input type="radio" name="q33" value="D"> D. strictly speaking</label>
+            </div>
+            <div class="result" id="result33"></div>
+            <div class="explanation" id="explanation33" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. namely<br>
+                <strong>Explanation:</strong> "Namely" specifies the skills (coding and writing), clarifying the statement.
+            </div>
+        </div>
+        <!-- Question 34 -->
+        <div class="question" id="q34">
+            <p>34. The event, ______, was a success.</p>
+            <div class="options">
+                <label><input type="radio" name="q34" value="A"> A. surprisingly enough</label>
+                <label><input type="radio" name="q34" value="B"> B. that is</label>
+                <label><input type="radio" name="q34" value="C"> C. you know</label>
+                <label><input type="radio" name="q34" value="D"> D. I think</label>
+            </div>
+            <div class="result" id="result34"></div>
+            <div class="explanation" id="explanation34" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. surprisingly enough<br>
+                <strong>Explanation:</strong> "Surprisingly enough" highlights the unexpected success of the event.
+            </div>
+        </div>
+        <!-- Question 35 -->
+        <div class="question" id="q35">
+            <p>35. ______, this method is inefficient.</p>
+            <div class="options">
+                <label><input type="radio" name="q35" value="A"> A. Frankly speaking</label>
+                <label><input type="radio" name="q35" value="B"> B. for example</label>
+                <label><input type="radio" name="q35" value="C"> C. as you see</label>
+                <label><input type="radio" name="q35" value="D"> D. I suppose</label>
+            </div>
+            <div class="result" id="result35"></div>
+            <div class="explanation" id="explanation35" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. Frankly speaking<br>
+                <strong>Explanation:</strong> "Frankly speaking" introduces the speaker’s honest opinion about the method’s inefficiency.
+            </div>
+        </div>
+        <!-- Question 36 -->
+        <div class="question" id="q36">
+            <p>36. The lecture, ______, was boring.</p>
+            <div class="options">
+                <label><input type="radio" name="q36" value="A"> A. I must admit</label>
+                <label><input type="radio" name="q36" value="B"> B. namely</label>
+                <label><input type="radio" name="q36" value="C"> C. you know</label>
+                <label><input type="radio" name="q36" value="D"> D. for example</label>
+            </div>
+            <div class="result" id="result36"></div>
+            <div class="explanation" id="explanation36" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. I must admit<br>
+                <strong>Explanation:</strong> "I must admit" conveys the speaker’s honest opinion about the lecture’s quality.
+            </div>
+        </div>
+        <!-- Question 37 -->
+        <div class="question" id="q37">
+            <p>37. ______, we need more funding.</p>
+            <div class="options">
+                <label><input type="radio" name="q37" value="A"> A. To be honest</label>
+                <label><input type="radio" name="q37" value="B"> B. for example</label>
+                <label><input type="radio" name="q37" value="C"> C. as you see</label>
+                <label><input type="radio" name="q37" value="D"> D. I suppose</label>
+            </div>
+            <div class="result" id="result37"></div>
+            <div class="explanation" id="explanation37" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. To be honest<br>
+                <strong>Explanation:</strong> "To be honest" introduces the speaker’s candid opinion about needing more funding.
+            </div>
+        </div>
+        <!-- Question 38 -->
+        <div class="question" id="q38">
+            <p>38. Many sports, ______, tennis and golf, require skill.</p>
+            <div class="options">
+                <label><input type="radio" name="q38" value="A"> A. I suppose</label>
+                <label><input type="radio" name="q38" value="B"> B. such as</label>
+                <label><input type="radio" name="q38" value="C"> C. you know</label>
+                <label><input type="radio" name="q38" value="D"> D. generally speaking</label>
+            </div>
+            <div class="result" id="result38"></div>
+            <div class="explanation" id="explanation38" data-correct-answer="B">
+                <strong>Correct Answer:</strong> B. such as<br>
+                <strong>Explanation:</strong> "Such as" introduces examples (tennis and golf) to support the statement about sports requiring skill.
+            </div>
+        </div>
+        <!-- Question 39 -->
+        <div class="question" id="q39">
+            <p>39. The proposal, ______, needs improvement.</p>
+            <div class="options">
+                <label><input type="radio" name="q39" value="A"> A. in my opinion</label>
+                <label><input type="radio" name="q39" value="B"> B. namely</label>
+                <label><input type="radio" name="q39" value="C"> C. you know</label>
+                <label><input type="radio" name="q39" value="D"> D. for example</label>
+            </div>
+            <div class="result" id="result39"></div>
+            <div class="explanation" id="explanation39" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. in my opinion<br>
+                <strong>Explanation:</strong> "In my opinion" expresses the speaker’s viewpoint about the proposal’s need for improvement.
+            </div>
+        </div>
+        <!-- Question 40 -->
+        <div class="question" id="q40">
+            <p>40. ______, the project failed.</p>
+            <div class="options">
+                <label><input type="radio" name="q40" value="A"> A. Believe it or not</label>
+                <label><input type="radio" name="q40" value="B"> B. for example</label>
+                <label><input type="radio" name="q40" value="C"> C. as you see</label>
+                <label><input type="radio" name="q40" value="D"> D. I suppose</label>
+            </div>
+            <div class="result" id="result40"></div>
+            <div class="explanation" id="explanation40" data-correct-answer="A">
+                <strong>Correct Answer:</strong> A. Believe it or not<br>
+                <strong>Explanation:</strong> "Believe it or not" draws attention to the surprising failure of the project.
+            </div>
+        </div>
+        <!-- Part 2: Identify the Parenthetical Expression -->
+        <h2>Part 2: Identify the Parenthetical Expression</h2>
+        <div class="question" id="q41">
+            <p>41. Identify the parenthetical expression in: "The book, I believe, is a classic."</p>
+            <input type="text" class="text-input" id="input41">
+            <button class="submit-btn" onclick="checkTextAnswer(41, 'I believe')">Submit</button>
+            <div class="result" id="result41"></div>
+            <div class="explanation" id="explanation41">
+                <strong>Correct Answer:</strong> I believe<br>
+                <strong>Explanation:</strong> "I believe" is the parenthetical expression, expressing the speaker’s opinion and separated by commas.
+            </div>
+        </div>
+        <div class="question" id="q42">
+            <p>42. Identify the parenthetical expression in: "Many animals, for example, lions and tigers, are endangered."</p>
+            <input type="text" class="text-input" id="input42">
+            <button class="submit-btn" onclick="checkTextAnswer(42, 'for example')">Submit</button>
+            <div class="result" id="result42"></div>
+            <div class="explanation" id="explanation42">
+                <strong>Correct Answer:</strong> for example<br>
+                <strong>Explanation:</strong> "For example" introduces examples and is set off by commas, making it the parenthetical expression.
+            </div>
+        </div>
+        <div class="question" id="q43">
+            <p>43. Identify the parenthetical expression in: "The results, you know, were surprising."</p>
+            <input type="text" class="text-input" id="input43">
+            <button class="submit-btn" onclick="checkTextAnswer(43, 'you know')">Submit</button>
+            <div class="result" id="result43"></div>
+            <div class="explanation" id="explanation43">
+                <strong>Correct Answer:</strong> you know<br>
+                <strong>Explanation:</strong> "You know" draws attention to the statement and is separated by commas, identifying it as the parenthetical expression.
+            </div>
+        </div>
+        <div class="question" id="q44">
+            <p>44. Identify the parenthetical expression in: "Generally speaking, the climate here is mild."</p>
+            <input type="text" class="text-input" id="input44">
+            <button class="submit-btn" onclick="checkTextAnswer(44, 'Generally speaking')">Submit</button>
+            <div class="result" id="result44"></div>
+            <div class="explanation" id="explanation44">
+                <strong>Correct Answer:</strong> Generally speaking<br>
+                <strong>Explanation:</strong> "Generally speaking" indicates a general observation and is set off by a comma, making it the parenthetical expression.
+            </div>
+        </div>
+        <div class="question" id="q45">
+            <p>45. Identify the parenthetical expression in: "Your plan, if I may say so, needs revision."</p>
+            <input type="text" class="text-input" id="input45">
+            <button class="submit-btn" onclick="checkTextAnswer(45, 'if I may say so')">Submit</button>
+            <div class="result" id="result45"></div>
+            <div class="explanation" id="explanation45">
+                <strong>Correct Answer:</strong> if I may say so<br>
+                <strong>Explanation:</strong> "If I may say so" politely introduces the speaker’s opinion and is separated by commas.
+            </div>
+        </div>
+        <!-- Part 3: Rewrite Sentences with Parenthetical Expressions -->
+        <h2>Part 3: Rewrite Sentences with Parenthetical Expressions</h2>
+        <div class="question" id="q46">
+            <p>46. Rewrite "This is a good solution." using "in my opinion".</p>
+            <input type="text" class="text-input" id="input46">
+            <button class="submit-btn" onclick="checkTextAnswer(46, 'This is, in my opinion, a good solution.')">Submit</button>
+            <div class="result" id="result46"></div>
+            <div class="explanation" id="explanation46">
+                <strong>Correct Answer:</strong> This is, in my opinion, a good solution.<br>
+                <strong>Explanation:</strong> "In my opinion" is inserted to express the speaker’s viewpoint, set off by commas for clarity.
+            </div>
+        </div>
+        <div class="question" id="q47">
+            <p>47. Rewrite "The project succeeded." using "to everyone’s surprise".</p>
+            <input type="text" class="text-input" id="input47">
+            <button class="submit-btn" onclick="checkTextAnswer(47, 'The project, to everyone’s surprise, succeeded.')">Submit</button>
+            <div class="result" id="result47"></div>
+            <div class="explanation" id="explanation47">
+                <strong>Correct Answer:</strong> The project, to everyone’s surprise, succeeded.<br>
+                <strong>Explanation:</strong> "To everyone’s surprise" is added to highlight the unexpected success, separated by commas.
+            </div>
+        </div>
+        <div class="question" id="q48">
+            <p>48. Rewrite "She speaks three languages: Spanish, French, and German." using "namely".</p>
+            <input type="text" class="text-input" id="input48">
+            <button class="submit-btn" onclick="checkTextAnswer(48, 'She speaks three languages, namely Spanish, French, and German.')">Submit</button>
+            <div class="result" id="result48"></div>
+            <div class="explanation" id="explanation48">
+                <strong>Correct Answer:</strong> She speaks three languages, namely Spanish, French, and German.<br>
+                <strong>Explanation:</strong> "Namely" specifies the languages, set off by a comma to act as a parenthetical expression.
+            </div>
+        </div>
+        <div class="question" id="q49">
+            <p>49. Rewrite "The meeting was unproductive." using "frankly speaking".</p>
+            <input type="text" class="text-input" id="input49">
+            <button class="submit-btn" onclick="checkTextAnswer(49, 'Frankly speaking, the meeting was unproductive.')">Submit</button>
+            <div class="result" id="result49"></div>
+            <div class="explanation" id="explanation49">
+                <strong>Correct Answer:</strong> Frankly speaking, the meeting was unproductive.<br>
+                <strong>Explanation:</strong> "Frankly speaking" introduces the speaker’s honest opinion, placed at the sentence start with a comma.
+            </div>
+        </div>
+        <div class="question" id="q50">
+            <p>50. Rewrite "He learned the basics quickly." using "believe it or not".</p>
+            <input type="text" class="text-input" id="input50">
+            <button class="submit-btn" onclick="checkTextAnswer(50, 'Believe it or not, he learned the basics quickly.')">Submit</button>
+            <div class="result" id="result50"></div>
+            <div class="explanation" id="explanation50">
+                <strong>Correct Answer:</strong> Believe it or not, he learned the basics quickly.<br>
+                <strong>Explanation:</strong> "Believe it or not" draws attention to the surprising speed of learning, set off by a comma.
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>Parenthetical Expressions Practice © 2025 | Practice to master English parenthetical expressions</p>
+    </footer>
+    <script>
+        // Function to handle multiple-choice answer selection
+        function handleAnswerSelection(input) {
+            const questionId = input.name;
+            const selectedValue = input.value;
+            const resultDiv = document.getElementById(`result${questionId.slice(1)}`);
+            const explanationDiv = document.getElementById(`explanation${questionId.slice(1)}`);
+            const correctAnswer = explanationDiv.getAttribute('data-correct-answer');
+
+            // Disable all radio buttons for this question
+            document.querySelectorAll(`input[name="${questionId}"]`).forEach(radio => {
+                radio.disabled = true;
+            });
+
+            // Display result
+            if (selectedValue === correctAnswer) {
+                resultDiv.textContent = 'Correct!';
+                resultDiv.className = 'result correct';
+            } else {
+                resultDiv.textContent = `Incorrect! You selected ${selectedValue}.`;
+                resultDiv.className = 'result incorrect';
+            }
+            resultDiv.style.display = 'block';
+            explanationDiv.style.display = 'block';
+        }
+
+        // Function to handle text input answers
+        function checkTextAnswer(questionNumber, correctAnswer) {
+            const input = document.getElementById(`input${questionNumber}`);
+            const resultDiv = document.getElementById(`result${questionNumber}`);
+            const explanationDiv = document.getElementById(`explanation${questionNumber}`);
+            const userAnswer = input.value.trim();
+
+            // Disable input and button
+            input.disabled = true;
+            document.querySelector(`#q${questionNumber} .submit-btn`).disabled = true;
+
+            // Check answer (case-insensitive, allowing minor punctuation variations)
+            if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                resultDiv.textContent = 'Correct!';
+                resultDiv.className = 'result correct';
+            } else {
+                resultDiv.textContent = `Incorrect! You entered "${userAnswer}".`;
+                resultDiv.className = 'result incorrect';
+            }
+            resultDiv.style.display = 'block';
+            explanationDiv.style.display = 'block';
+        }
+
+        // Add event listeners to all radio buttons
+        document.querySelectorAll('.question input[type="radio"]').forEach(input => {
+            input.addEventListener('change', function() {
+                handleAnswerSelection(this);
+            });
+        });
+    </script>
+</body>
+</html>
