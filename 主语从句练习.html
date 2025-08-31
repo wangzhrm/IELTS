@@ -1,0 +1,777 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Subject Clause Practice</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .question { margin-bottom: 20px; }
+        .options { list-style-type: none; padding: 0; }
+        .option { cursor: pointer; padding: 5px; }
+        .option:hover { background-color: #f0f0f0; }
+        .answer { display: none; background-color: #e8f4f8; padding: 10px; margin-top: 10px; border-left: 4px solid #007bff; }
+        h1 { color: #333; }
+        h2 { color: #007bff; }
+        p { line-height: 1.6; }
+        footer { margin-top: 40px; text-align: center; color: #666; }
+    </style>
+    <script>
+        function showAnswer(qid) {
+            document.getElementById('answer' + qid).style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    <h1>Subject Clause Practice</h1>
+    <p>Select the correct answer to complete each sentence. Click an option to reveal the correct answer and explanation. Questions are designed for IELTS 7.0 level.</p>
+
+    <section>
+        <h2>Practice Questions</h2>
+
+        <div class="question">
+            <p>1. _______ he said surprised everyone in the room.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(1)">A. That</li>
+                <li class="option" onclick="showAnswer(1)">B. Whether</li>
+                <li class="option" onclick="showAnswer(1)">C. What</li>
+                <li class="option" onclick="showAnswer(1)">D. If</li>
+            </ul>
+            <div id="answer1" class="answer">
+                <p><strong>Correct Answer: C</strong></p>
+                <p>Use 'what' for subject clauses referring to the content of what was said.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>2. _______ the earth is round is a well-known fact.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(2)">A. What</li>
+                <li class="option" onclick="showAnswer(2)">B. That</li>
+                <li class="option" onclick="showAnswer(2)">C. If</li>
+                <li class="option" onclick="showAnswer(2)">D. Whether</li>
+            </ul>
+            <div id="answer2" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'that' for subject clauses stating a fact or truth.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>3. _______ she will attend the meeting is still uncertain.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(3)">A. That</li>
+                <li class="option" onclick="showAnswer(3)">B. Whether</li>
+                <li class="option" onclick="showAnswer(3)">C. What</li>
+                <li class="option" onclick="showAnswer(3)">D. How</li>
+            </ul>
+            <div id="answer3" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses expressing uncertainty or a yes/no situation.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>4. _______ caused the delay remains a mystery.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(4)">A. What</li>
+                <li class="option" onclick="showAnswer(4)">B. That</li>
+                <li class="option" onclick="showAnswer(4)">C. If</li>
+                <li class="option" onclick="showAnswer(4)">D. Whether</li>
+            </ul>
+            <div id="answer4" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'what' as a connective pronoun for the content of the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>5. _______ the experiment succeeded depends on the data collected.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(5)">A. That</li>
+                <li class="option" onclick="showAnswer(5)">B. Whether</li>
+                <li class="option" onclick="showAnswer(5)">C. What</li>
+                <li class="option" onclick="showAnswer(5)">D. How</li>
+            </ul>
+            <div id="answer5" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses indicating a yes/no outcome.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>6. _______ he chose the project was surprising to the team.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(6)">A. Why</li>
+                <li class="option" onclick="showAnswer(6)">B. That</li>
+                <li class="option" onclick="showAnswer(6)">C. If</li>
+                <li class="option" onclick="showAnswer(6)">D. What</li>
+            </ul>
+            <div id="answer6" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'why' as a connective adverb for the reason in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>7. _______ the event takes place is still being decided.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(7)">A. Where</li>
+                <li class="option" onclick="showAnswer(7)">B. That</li>
+                <li class="option" onclick="showAnswer(7)">C. If</li>
+                <li class="option" onclick="showAnswer(7)">D. What</li>
+            </ul>
+            <div id="answer7" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'where' as a connective adverb for location in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>8. _______ she completed the task amazed her colleagues.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(8)">A. That</li>
+                <li class="option" onclick="showAnswer(8)">B. Whether</li>
+                <li class="option" onclick="showAnswer(8)">C. How</li>
+                <li class="option" onclick="showAnswer(8)">D. What</li>
+            </ul>
+            <div id="answer8" class="answer">
+                <p><strong>Correct Answer: C</strong></p>
+                <p>Use 'how' as a connective adverb for the manner in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>9. _______ led the team to victory was the new captain.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(9)">A. Who</li>
+                <li class="option" onclick="showAnswer(9)">B. That</li>
+                <li class="option" onclick="showAnswer(9)">C. If</li>
+                <li class="option" onclick="showAnswer(9)">D. What</li>
+            </ul>
+            <div id="answer9" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'who' as a connective pronoun for people in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>10. _______ the sun rises in the east is a fact known to all.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(10)">A. What</li>
+                <li class="option" onclick="showAnswer(10)">B. That</li>
+                <li class="option" onclick="showAnswer(10)">C. If</li>
+                <li class="option" onclick="showAnswer(10)">D. Whether</li>
+            </ul>
+            <div id="answer10" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'that' for subject clauses stating objective truths, which take the present tense.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>11. _______ he will arrive on time is uncertain.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(11)">A. That</li>
+                <li class="option" onclick="showAnswer(11)">B. Whether</li>
+                <li class="option" onclick="showAnswer(11)">C. What</li>
+                <li class="option" onclick="showAnswer(11)">D. How</li>
+            </ul>
+            <div id="answer11" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses expressing a yes/no uncertainty.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>12. _______ caused the accident is still under investigation.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(12)">A. What</li>
+                <li class="option" onclick="showAnswer(12)">B. That</li>
+                <li class="option" onclick="showAnswer(12)">C. If</li>
+                <li class="option" onclick="showAnswer(12)">D. Whether</li>
+            </ul>
+            <div id="answer12" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'what' as a connective pronoun for the content of the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>13. _______ the project will be completed on time concerns the team.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(13)">A. That</li>
+                <li class="option" onclick="showAnswer(13)">B. Whether</li>
+                <li class="option" onclick="showAnswer(13)">C. What</li>
+               restrict: <li class="option" onclick="showAnswer(13)">D. If</li>
+            </ul>
+            <div id="answer13" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses indicating a yes/no outcome.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>14. _______ she said during the meeting shocked everyone.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(14)">A. What</li>
+                <li class="option" onclick="showAnswer(14)">B. That</li>
+                <li class="option" onclick="showAnswer(14)">C. If</li>
+                <li class="option" onclick="showAnswer(14)">D. Whether</li>
+            </ul>
+            <div id="answer14" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'what' for subject clauses referring to the content of what was said.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>15. _______ the earth rotates on its axis is a scientific fact.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(15)">A. What</li>
+                <li class="option" onclick="showAnswer(15)">B. That</li>
+                <li class="option" onclick="showAnswer(15)">C. If</li>
+                <li class="option" onclick="showAnswer(15)">D. Whether</li>
+            </ul>
+            <div id="answer15" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'that' for subject clauses stating objective truths, which take the present tense.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>16. _______ he finished the task early impressed the manager.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(16)">A. That</li>
+                <li class="option" onclick="showAnswer(16)">B. Whether</li>
+                <li class="option" onclick="showAnswer(16)">C. How</li>
+                <li class="option" onclick="showAnswer(16)">D. What</li>
+            </ul>
+            <div id="answer16" class="answer">
+                <p><strong>Correct Answer: C</strong></p>
+                <p>Use 'how' as a connective adverb for the manner in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>17. _______ won the competition was a young student.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(17)">A. Who</li>
+                <li class="option" onclick="showAnswer(17)">B. That</li>
+                <li class="option" onclick="showAnswer(17)">C. If</li>
+                <li class="option" onclick="showAnswer(17)">D. What</li>
+            </ul>
+            <div id="answer17" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'who' as a connective pronoun for people in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>18. _______ the event will be held indoors depends on the weather.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(18)">A. That</li>
+                <li class="option" onclick="showAnswer(18)">B. Whether</li>
+                <li class="option" onclick="showAnswer(18)">C. What</li>
+                <li class="option" onclick="showAnswer(18)">D. How</li>
+            </ul>
+            <div id="answer18" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses expressing a yes/no uncertainty.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>19. _______ caused the power outage is still unclear.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(19)">A. What</li>
+                <li class="option" onclick="showAnswer(19)">B. That</li>
+                <li class="option" onclick="showAnswer(19)">C. If</li>
+                <li class="option" onclick="showAnswer(19)">D. Whether</li>
+            </ul>
+            <div id="answer19" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'what' as a connective pronoun for the content of the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>20. _______ the company expands globally is the board’s decision.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(20)">A. That</li>
+                <li class="option" onclick="showAnswer(20)">B. Whether</li>
+                <li class="option" onclick="showAnswer(20)">C. What</li>
+                <li class="option" onclick="showAnswer(20)">D. How</li>
+            </ul>
+            <div id="answer20" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses indicating a yes/no decision.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>21. _______ she presented the data impressed the audience.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(21)">A. How</li>
+                <li class="option" onclick="showAnswer(21)">B. That</li>
+                <li class="option" onclick="showAnswer(21)">C. If</li>
+                <li class="option" onclick="showAnswer(21)">D. What</li>
+            </ul>
+            <div id="answer21" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'how' as a connective adverb for the manner in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>22. _______ led the expedition was an experienced explorer.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(22)">A. Who</li>
+                <li class="option" onclick="showAnswer(22)">B. That</li>
+                <li class="option" onclick="showAnswer(22)">C. If</li>
+                <li class="option" onclick="showAnswer(22)">D. What</li>
+            </ul>
+            <div id="answer22" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'who' as a connective pronoun for people in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>23. _______ the policy will be implemented is still under discussion.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(23)">A. That</li>
+                <li class="option" onclick="showAnswer(23)">B. Whether</li>
+                <li class="option" onclick="showAnswer(23)">C. What</li>
+                <li class="option" onclick="showAnswer(23)">D. How</li>
+            </ul>
+            <div id="answer23" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses expressing a yes/no uncertainty.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>24. _______ caused the traffic jam is still unknown.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(24)">A. What</li>
+                <li class="option" onclick="showAnswer(24)">B. That</li>
+                <li class="option" onclick="showAnswer(24)">C. If</li>
+                <li class="option" onclick="showAnswer(24)">D. Whether</li>
+            </ul>
+            <div id="answer24" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'what' as a connective pronoun for the content of the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>25. _______ water boils at 100 degrees Celsius is a scientific fact.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(25)">A. What</li>
+                <li class="option" onclick="showAnswer(25)">B. That</li>
+                <li class="option" onclick="showAnswer(25)">C. If</li>
+                <li class="option" onclick="showAnswer(25)">D. Whether</li>
+            </ul>
+            <div id="answer25" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'that' for subject clauses stating objective truths, which take the present tense.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>26. _______ he decided to join was unexpected.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(26)">A. That</li>
+                <li class="option" onclick="showAnswer(26)">B. Whether</li>
+                <li class="option" onclick="showAnswer(26)">C. What</li>
+                <li class="option" onclick="showAnswer(26)">D. If</li>
+            </ul>
+            <div id="answer26" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'that' for declarative subject clauses describing a fact.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>27. _______ the concert starts depends on the preparations.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(27)">A. When</li>
+                <li class="option" onclick="showAnswer(27)">B. That</li>
+                <li class="option" onclick="showAnswer(27)">C. If</li>
+                <li class="option" onclick="showAnswer(27)">D. What</li>
+            </ul>
+            <div id="answer27" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'when' as a connective adverb for time in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>28. _______ she will pass the exam is uncertain.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(28)">A. That</li>
+                <li class="option" onclick="showAnswer(28)">B. Whether</li>
+                <li class="option" onclick="showAnswer(28)">C. What</li>
+                <li class="option" onclick="showAnswer(28)">D. How</li>
+            </ul>
+            <div id="answer28" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses expressing a yes/no uncertainty.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>29. _______ caused the misunderstanding is still unclear.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(29)">A. What</li>
+                <li class="option" onclick="showAnswer(29)">B. That</li>
+                <li class="option" onclick="showAnswer(29)">C. If</li>
+                <li class="option" onclick="showAnswer(29)">D. Whether</li>
+            </ul>
+            <div id="answer29" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'what' as a connective pronoun for the content of the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>30. _______ the team performs well will determine their ranking.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(30)">A. That</li>
+                <li class="option" onclick="showAnswer(30)">B. Whether</li>
+                <li class="option" onclick="showAnswer(30)">C. What</li>
+                <li class="option" onclick="showAnswer(30)">D. How</li>
+            </ul>
+            <div id="answer30" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses indicating a yes/no outcome.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>31. _______ he presented the proposal impressed the committee.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(31)">A. How</li>
+                <li class="option" onclick="showAnswer(31)">B. That</li>
+                <li class="option" onclick="showAnswer(31)">C. If</li>
+                <li class="option" onclick="showAnswer(31)">D. What</li>
+            </ul>
+            <div id="answer31" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'how' as a connective adverb for the manner in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>32. _______ won the award was a young scientist.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(32)">A. Who</li>
+                <li class="option" onclick="showAnswer(32)">B. That</li>
+                <li class="option" onclick="showAnswer(32)">C. If</li>
+                <li class="option" onclick="showAnswer(32)">D. What</li>
+            </ul>
+            <div id="answer32" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'who' as a connective pronoun for people in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>33. _______ the meeting will be held online is still undecided.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(33)">A. That</li>
+                <li class="option" onclick="showAnswer(33)">B. Whether</li>
+                <li class="option" onclick="showAnswer(33)">C. What</li>
+                <li class="option" onclick="showAnswer(33)">D. How</li>
+            </ul>
+            <div id="answer33" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses expressing a yes/no uncertainty.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>34. _______ caused the delay in production is under review.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(34)">A. What</li>
+                <li class="option" onclick="showAnswer(34)">B. That</li>
+                <li class="option" onclick="showAnswer(34)">C. If</li>
+                <li class="option" onclick="showAnswer(34)">D. Whether</li>
+            </ul>
+            <div id="answer34" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'what' as a connective pronoun for the content of the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>35. _______ light travels faster than sound is a scientific fact.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(35)">A. What</li>
+                <li class="option" onclick="showAnswer(35)">B. That</li>
+                <li class="option" onclick="showAnswer(35)">C. If</li>
+                <li class="option" onclick="showAnswer(35)">D. Whether</li>
+            </ul>
+            <div id="answer35" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'that' for subject clauses stating objective truths, which take the present tense.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>36. _______ she decided to resign shocked her colleagues.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(36)">A. That</li>
+                <li class="option" onclick="showAnswer(36)">B. Whether</li>
+                <li class="option" onclick="showAnswer(36)">C. What</li>
+                <li class="option" onclick="showAnswer(36)">D. If</li>
+            </ul>
+            <div id="answer36" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'that' for declarative subject clauses describing a fact.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>37. _______ the event starts depends on the guest speaker’s arrival.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(37)">A. When</li>
+                <li class="option" onclick="showAnswer(37)">B. That</li>
+                <li class="option" onclick="showAnswer(37)">C. If</li>
+                <li class="option" onclick="showAnswer(37)">D. What</li>
+            </ul>
+            <div id="answer37" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'when' as a connective adverb for time in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>38. _______ he will succeed in the competition is uncertain.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(38)">A. That</li>
+                <li class="option" onclick="showAnswer(38)">B. Whether</li>
+                <li class="option" onclick="showAnswer(38)">C. What</li>
+                <li class="option" onclick="showAnswer(38)">D. How</li>
+            </ul>
+            <div id="answer38" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses expressing a yes/no uncertainty.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>39. _______ caused the system failure is being investigated.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(39)">A. What</li>
+                <li class="option" onclick="showAnswer(39)">B. That</li>
+                <li class="option" onclick="showAnswer(39)">C. If</li>
+                <li class="option" onclick="showAnswer(39)">D. Whether</li>
+            </ul>
+            <div id="answer39" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'what' as a connective pronoun for the content of the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>40. _______ the team collaborates effectively will determine the outcome.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(40)">A. That</li>
+                <li class="option" onclick="showAnswer(40)">B. Whether</li>
+                <li class="option" onclick="showAnswer(40)">C. What</li>
+                <li class="option" onclick="showAnswer(40)">D. How</li>
+            </ul>
+            <div id="answer40" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses indicating a yes/no outcome.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>41. _______ she delivered the speech impressed the audience.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(41)">A. How</li>
+                <li class="option" onclick="showAnswer(41)">B. That</li>
+                <li class="option" onclick="showAnswer(41)">C. If</li>
+                <li class="option" onclick="showAnswer(41)">D. What</li>
+            </ul>
+            <div id="answer41" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'how' as a connective adverb for the manner in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>42. _______ won the scholarship was a talented student.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(42)">A. Who</li>
+                <li class="option" onclick="showAnswer(42)">B. That</li>
+                <li class="option" onclick="showAnswer(42)">C. If</li>
+                <li class="option" onclick="showAnswer(42)">D. What</li>
+            </ul>
+            <div id="answer42" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'who' as a connective pronoun for people in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>43. _______ the conference will be held virtually is still unclear.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(43)">A. That</li>
+                <li class="option" onclick="showAnswer(43)">B. Whether</li>
+                <li class="option" onclick="showAnswer(43)">C. What</li>
+                <li class="option" onclick="showAnswer(43)">D. How</li>
+            </ul>
+            <div id="answer43" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses expressing a yes/no uncertainty.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>44. _______ caused the budget overrun is being reviewed.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(44)">A. What</li>
+                <li class="option" onclick="showAnswer(44)">B. That</li>
+                <li class="option" onclick="showAnswer(44)">C. If</li>
+                <li class="option" onclick="showAnswer(44)">D. Whether</li>
+            </ul>
+            <div id="answer44" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'what' as a connective pronoun for the content of the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>45. _______ gravity affects all objects is a fundamental principle.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(45)">A. What</li>
+                <li class="option" onclick="showAnswer(45)">B. That</li>
+                <li class="option" onclick="showAnswer(45)">C. If</li>
+                <li class="option" onclick="showAnswer(45)">D. Whether</li>
+            </ul>
+            <div id="answer45" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'that' for subject clauses stating objective truths, which take the present tense.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>46. _______ he chose to study abroad surprised his family.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(46)">A. That</li>
+                <li class="option" onclick="showAnswer(46)">B. Whether</li>
+                <li class="option" onclick="showAnswer(46)">C. What</li>
+                <li class="option" onclick="showAnswer(46)">D. If</li>
+            </ul>
+            <div id="answer46" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'that' for declarative subject clauses describing a fact.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>47. _______ the seminar begins depends on the speaker’s schedule.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(47)">A. When</li>
+                <li class="option" onclick="showAnswer(47)">B. That</li>
+                <li class="option" onclick="showAnswer(47)">C. If</li>
+                <li class="option" onclick="showAnswer(47)">D. What</li>
+            </ul>
+            <div id="answer47" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'when' as a connective adverb for time in the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>48. _______ she will complete the project on time is uncertain.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(48)">A. That</li>
+                <li class="option" onclick="showAnswer(48)">B. Whether</li>
+                <li class="option" onclick="showAnswer(48)">C. What</li>
+                <li class="option" onclick="showAnswer(48)">D. How</li>
+            </ul>
+            <div id="answer48" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses expressing a yes/no uncertainty.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>49. _______ caused the system crash is under investigation.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(49)">A. What</li>
+                <li class="option" onclick="showAnswer(49)">B. That</li>
+                <li class="option" onclick="showAnswer(49)">C. If</li>
+                <li class="option" onclick="showAnswer(49)">D. Whether</li>
+            </ul>
+            <div id="answer49" class="answer">
+                <p><strong>Correct Answer: A</strong></p>
+                <p>Use 'what' as a connective pronoun for the content of the subject clause.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>50. _______ the company achieves its goals will determine its success.</p>
+            <ul class="options">
+                <li class="option" onclick="showAnswer(50)">A. That</li>
+                <li class="option" onclick="showAnswer(50)">B. Whether</li>
+                <li class="option" onclick="showAnswer(50)">C. What</li>
+                <li class="option" onclick="showAnswer(50)">D. How</li>
+            </ul>
+            <div id="answer50" class="answer">
+                <p><strong>Correct Answer: B</strong></p>
+                <p>Use 'whether' for subject clauses indicating a yes/no outcome.</p>
+            </div>
+        </div>
+
+        <p><strong>Congratulations! You have completed all the exercises!</strong></p>
+    </section>
+
+    <footer>
+        <p>© 2023 Subject Clause Practice | Master Subject Clauses to Boost Grammar Skills</p>
+    </footer>
+</body>
+</html>

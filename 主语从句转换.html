@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主语从句与简单句转换练习</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #556270);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #3498db;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            font-weight: 500;
+        }
+        
+        .instructions {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .instructions-title {
+            color: #2e7d32;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .instructions-title i {
+            margin-right: 8px;
+        }
+        
+        .part-title {
+            color: #2c3e50;
+            border-left: 5px solid #e74c3c;
+            padding-left: 15px;
+            margin: 40px 0 25px;
+            font-size: 1.8rem;
+        }
+        
+        .conversion-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            border-left: 5px solid #3498db;
+            padding-left: 15px;
+            margin-bottom: 25px;
+            font-size: 2rem;
+        }
+        
+        .question-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s ease;
+        }
+        
+        .question-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+        
+        .question-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .original-sentence {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .answer-area {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5eb;
+            border-radius: 8px;
+            resize: vertical;
+            min-height: 100px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .check-btn {
+            background: linear-gradient(135deg, #3498db, #1a5276);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            align-self: flex-start;
+        }
+        
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .explanation {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 0 10px 10px 0;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .explanation.show {
+            display: block;
+        }
+        
+        .correct-answer {
+            color: #2e7d32;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        
+        .correct-answer i {
+            margin-right: 10px;
+        }
+        
+        .explanation-text {
+            line-height: 1.7;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: white;
+            font-size: 1rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>主语从句与简单句转换练习</h1>
+            <p class="subtitle">掌握主语从句与简单句之间的转换技巧，提升英语表达能力</p>
+        </header>
+        
+        <div class="instructions">
+            <div class="instructions-title"><i class="fas fa-info-circle"></i> 练习说明</div>
+            <p>本练习分为两个部分：第一部分将主语从句转换为简单句，第二部分将两个简单句转换为主语从句。完成后点击"检查答案"查看参考答案和解析。</p>
+        </div>
+        
+        <section class="conversion-section">
+            <h2 class="part-title">第一部分：将主语从句转换为简单句（10题）</h2>
+            
+            <!-- 问题1 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">1</span>
+                    将下列主语从句转换为简单句：
+                </div>
+                <div class="original-sentence">
+                    That he passed the exam with flying colors surprised everyone.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：He passed the exam with flying colors. This surprised everyone.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将主语从句"That he passed the exam with flying colors"转换为简单句"He passed the exam with flying colors"，然后将主句"surprised everyone"转换为另一个简单句，使用"This"作为主语指代前一句的内容。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题2 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">2</span>
+                    将下列主语从句转换为简单句：
+                </div>
+                <div class="original-sentence">
+                    What he proposed at the meeting was considered impractical.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：He proposed something at the meeting. It was considered impractical.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将主语从句"What he proposed at the meeting"转换为简单句"He proposed something at the meeting"，然后将主句"was considered impractical"转换为另一个简单句，使用"It"作为主语指代前一句的内容。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题3 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">3</span>
+                    将下列主语从句转换为简单句：
+                </div>
+                <div class="original-sentence">
+                    Whether they will attend the conference remains uncertain.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：They may or may not attend the conference. This remains uncertain.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将主语从句"Whether they will attend the conference"转换为简单句"They may or may not attend the conference"，然后将主句"remains uncertain"转换为另一个简单句，使用"This"作为主语指代前一句的内容。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题4 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">4</span>
+                    将下列主语从句转换为简单句：
+                </div>
+                <div class="original-sentence">
+                    How she managed to solve the problem so quickly amazed everyone.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：She managed to solve the problem very quickly. This amazed everyone.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将主语从句"How she managed to solve the problem so quickly"转换为简单句"She managed to solve the problem very quickly"，然后将主句"amazed everyone"转换为另一个简单句，使用"This"作为主语指代前一句的内容。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题5 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">5</span>
+                    将下列主语从句转换为简单句：
+                </div>
+                <div class="original-sentence">
+                    Whoever finishes the task first will receive a bonus.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：Someone will finish the task first. That person will receive a bonus.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将主语从句"Whoever finishes the task first"转换为简单句"Someone will finish the task first"，然后将主句"will receive a bonus"转换为另一个简单句，使用"That person"作为主语指代前一句的内容。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题6 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">6</span>
+                    将下列主语从句转换为简单句：
+                </div>
+                <div class="original-sentence">
+                    That the economic situation will improve next year is widely believed by experts.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：The economic situation will improve next year. This is widely believed by experts.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将主语从句"That the economic situation will improve next year"转换为简单句"The economic situation will improve next year"，然后将主句"is widely believed by experts"转换为另一个简单句，使用"This"作为主语指代前一句的内容。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题7 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">7</span>
+                    将下列主语从句转换为简单句：
+                </div>
+                <div class="original-sentence">
+                    What caused the accident is still under investigation.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：Something caused the accident. The cause is still under investigation.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将主语从句"What caused the accident"转换为简单句"Something caused the accident"，然后将主句"is still under investigation"转换为另一个简单句，使用"The cause"作为主语指代前一句的内容。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题8 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">8</span>
+                    将下列主语从句转换为简单句：
+                </div>
+                <div class="original-sentence">
+                    Whether we should invest in this project requires careful consideration.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：We may or may not invest in this project. This decision requires careful consideration.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将主语从句"Whether we should invest in this project"转换为简单句"We may or may not invest in this project"，然后将主句"requires careful consideration"转换为另一个简单句，使用"This decision"作为主语指代前一句的内容。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题9 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">9</span>
+                    将下列主语从句转换为简单句：
+                </div>
+                <div class="original-sentence">
+                    That she was promoted to manager after only two years impressed the entire department.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：She was promoted to manager after only two years. This impressed the entire department.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将主语从句"That she was promoted to manager after only two years"转换为简单句"She was promoted to manager after only two years"，然后将主句"impressed the entire department"转换为另一个简单句，使用"This"作为主语指代前一句的内容。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题10 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">10</span>
+                    将下列主语从句转换为简单句：
+                </div>
+                <div class="original-sentence">
+                    Where the conference will be held hasn't been decided yet.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：The conference will be held somewhere. The location hasn't been decided yet.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将主语从句"Where the conference will be held"转换为简单句"The conference will be held somewhere"，然后将主句"hasn't been decided yet"转换为另一个简单句，使用"The location"作为主语指代前一句的内容。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <h2 class="part-title">第二部分：将两个简单句转换为主语从句（10题）</h2>
+            
+            <!-- 问题11 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">11</span>
+                    将下列两个简单句转换为主语从句：
+                </div>
+                <div class="original-sentence">
+                    She arrived late. This annoyed the manager.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：That she arrived late annoyed the manager.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将第一个简单句"She arrived late"转换为由that引导的主语从句"That she arrived late"，作为复合句的主语，然后将第二个简单句的主语"This"替换为谓语"annoyed the manager"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题12 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">12</span>
+                    将下列两个简单句转换为主语从句：
+                </div>
+                <div class="original-sentence">
+                    The project will be completed on time. This is essential for our company's reputation.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：That the project will be completed on time is essential for our company's reputation.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将第一个简单句"The project will be completed on time"转换为由that引导的主语从句"That the project will be completed on time"，作为复合句的主语，然后将第二个简单句的主语"This"替换为谓语"is essential for our company's reputation"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题13 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">13</span>
+                    将下列两个简单句转换为主语从句：
+                </div>
+                <div class="original-sentence">
+                    The weather improves. This will determine if we can go hiking.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：Whether the weather improves will determine if we can go hiking.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将第一个简单句"The weather improves"转换为由whether引导的主语从句"Whether the weather improves"，作为复合句的主语，然后将第二个简单句的主语"This"替换为谓语"will determine if we can go hiking"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题14 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">14</span>
+                    将下列两个简单句转换为主语从句：
+                </div>
+                <div class="original-sentence">
+                    The company will expand into Asian markets. This has been confirmed by the CEO.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：That the company will expand into Asian markets has been confirmed by the CEO.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将第一个简单句"The company will expand into Asian markets"转换为由that引导的主语从句"That the company will expand into Asian markets"，作为复合句的主语，然后将第二个简单句的主语"This"替换为谓语"has been confirmed by the CEO"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题15 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">15</span>
+                    将下列两个简单句转换为主语从句：
+                </div>
+                <div class="original-sentence">
+                    The experiment yields positive results. This is crucial for our research funding.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：That the experiment yields positive results is crucial for our research funding.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将第一个简单句"The experiment yields positive results"转换为由that引导的主语从句"That the experiment yields positive results"，作为复合句的主语，然后将第二个简单句的主语"This"替换为谓语"is crucial for our research funding"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题16 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">16</span>
+                    将下列两个简单句转换为主语从句：
+                </div>
+                <div class="original-sentence">
+                    He made a serious mistake. This is obvious to everyone.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：That he made a serious mistake is obvious to everyone.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将第一个简单句"He made a serious mistake"转换为由that引导的主语从句"That he made a serious mistake"，作为复合句的主语，然后将第二个简单句的主语"This"替换为谓语"is obvious to everyone"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题17 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">17</span>
+                    将下列两个简单句转换为主语从句：
+                </div>
+                <div class="original-sentence">
+                    They will accept our offer. This is still uncertain.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：Whether they will accept our offer is still uncertain.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将第一个简单句"They will accept our offer"转换为由whether引导的主语从句"Whether they will accept our offer"，作为复合句的主语，然后将第二个简单句的主语"This"替换为谓语"is still uncertain"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题18 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">18</span>
+                    将下列两个简单句转换为主语从句：
+                </div>
+                <div class="original-sentence">
+                    She solved the complex mathematical problem. This amazed her professors.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：That she solved the complex mathematical problem amazed her professors.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将第一个简单句"She solved the complex mathematical problem"转换为由that引导的主语从句"That she solved the complex mathematical problem"，作为复合句的主语，然后将第二个简单句的主语"This"替换为谓语"amazed her professors"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题19 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">19</span>
+                    将下列两个简单句转换为主语从句：
+                </div>
+                <div class="original-sentence">
+                    The government will increase taxes. This seems inevitable.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：That the government will increase taxes seems inevitable.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将第一个简单句"The government will increase taxes"转换为由that引导的主语从句"That the government will increase taxes"，作为复合句的主语，然后将第二个简单句的主语"This"替换为谓语"seems inevitable"。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 问题20 -->
+            <div class="question-card">
+                <div class="question-text">
+                    <span class="question-number">20</span>
+                    将下列两个简单句转换为主语从句：
+                </div>
+                <div class="original-sentence">
+                    The team can win the championship. This depends on their performance in the final match.
+                </div>
+                <div class="answer-area">
+                    <textarea placeholder="请在此处输入你的答案..."></textarea>
+                    <button class="check-btn">检查答案</button>
+                </div>
+                <div class="explanation">
+                    <div class="correct-answer"><i class="fas fa-check-circle"></i> 参考答案：Whether the team can win the championship depends on their performance in the final match.</div>
+                    <div class="explanation-text">
+                        <p><strong>解析：</strong>将第一个简单句"The team can win the championship"转换为由whether引导的主语从句"Whether the team can win the championship"，作为复合句的主语，然后将第二个简单句的主语"This"替换为谓语"depends on their performance in the final match"。</p>
+                    </div>
+                </div>
+            </div>
+            
+        </section>
+        
+        <footer>
+            <p>英语语法练习平台 &copy; 2023 | 联系我们: englishgrammar@example.com</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkButtons = document.querySelectorAll('.check-btn');
+            
+            checkButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const explanation = this.closest('.question-card').querySelector('.explanation');
+                    explanation.classList.add('show');
+                    
+                    // 滚动到解析位置
+                    explanation.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
