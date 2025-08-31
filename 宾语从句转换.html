@@ -1,0 +1,261 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宾语从句与简单句转换练习</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2 { text-align: center; }
+        .section { margin-bottom: 40px; }
+        .question { margin-bottom: 20px; }
+        .answer { display: none; margin-top: 10px; }
+        .progress { text-align: center; }
+        input[type="text"] { width: 100%; padding: 5px; }
+        button { margin-top: 10px; padding: 5px 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>宾语从句与简单句转换练习</h1>
+    <p style="text-align: center;">通过将宾语从句复合句转换为简单句，或将简单句合并为宾语从句复合句，提升语法转换能力。难度约雅思7分水平。</p>
+
+    <div class="section">
+        <h2>第一部分：将宾语从句复合句转换为两个简单句</h2>
+        <p>请将以下包含宾语从句的复合句改写为两个简单句。输入答案后点击“Submit”查看标准答案。</p>
+
+        <div class="question">
+            <p>1. The professor explained that renewable energy could reduce carbon emissions.</p>
+            <input type="text" id="input1" placeholder="输入两个简单句">
+            <button onclick="document.getElementById('answer1').style.display='block'">Submit</button>
+            <div id="answer1" class="answer">
+                <p>标准答案: The professor explained something. Renewable energy could reduce carbon emissions.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>2. She asked whether the new policy would improve productivity.</p>
+            <input type="text" id="input2" placeholder="输入两个简单句">
+            <button onclick="document.getElementById('answer2').style.display='block'">Submit</button>
+            <div id="answer2" class="answer">
+                <p>标准答案: She asked something. The new policy would improve productivity.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>3. The manager wondered how the team had achieved the sales target.</p>
+            <input type="text" id="input3" placeholder="输入两个简单句">
+            <button onclick="document.getElementById('answer3').style.display='block'">Submit</button>
+            <div id="answer3" class="answer">
+                <p>标准答案: The manager wondered something. The team had achieved the sales target.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>4. Experts predicted that automation would transform industries by 2030.</p>
+            <input type="text" id="input4" placeholder="输入两个简单句">
+            <button onclick="document.getElementById('answer4').style.display='block'">Submit</button>
+            <div id="answer4" class="answer">
+                <p>标准答案: Experts predicted something. Automation would transform industries by 2030.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>5. The report revealed what factors had caused the economic downturn.</p>
+            <input type="text" id="input5" placeholder="输入两个简单句">
+            <button onclick="document.getElementById('answer5').style.display='block'">Submit</button>
+            <div id="answer5" class="answer">
+                <p>标准答案: The report revealed something. Factors had caused the economic downturn.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>6. He admitted that he had underestimated the project’s complexity.</p>
+            <input type="text" id="input6" placeholder="输入两个简单句">
+            <button onclick="document.getElementById('answer6').style.display='block'">Submit</button>
+            <div id="answer6" class="answer">
+                <p>标准答案: He admitted something. He had underestimated the project’s complexity.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>7. The team discussed whether remote work would remain popular.</p>
+            <input type="text" id="input7" placeholder="输入两个简单句">
+            <button onclick="document.getElementById('answer7').style.display='block'">Submit</button>
+            <div id="answer7" class="answer">
+                <p>标准答案: The team discussed something. Remote work would remain popular.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>8. She questioned why the company had delayed the product launch.</p>
+            <input type="text" id="input8" placeholder="输入两个简单句">
+            <button onclick="document.getElementById('answer8').style.display='block'">Submit</button>
+            <div id="answer8" class="answer">
+                <p>标准答案: She questioned something. The company had delayed the product launch.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>9. Analysts believed that sustainable practices enhanced brand value.</p>
+            <input type="text" id="input9" placeholder="输入两个简单句">
+            <button onclick="document.getElementById('answer9').style.display='block'">Submit</button>
+            <div id="answer9" class="answer">
+                <p>标准答案: Analysts believed something. Sustainable practices enhanced brand value.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>10. The survey indicated what groups benefited most from the policy.</p>
+            <input type="text" id="input10" placeholder="输入两个简单句">
+            <button onclick="document.getElementById('answer10').style.display='block'">Submit</button>
+            <div id="answer10" class="answer">
+                <p>标准答案: The survey indicated something. Groups benefited most from the policy.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>第二部分：将两个简单句合并为包含宾语从句的复合句</h2>
+        <p>请将以下两个简单句合并为一个包含宾语从句的复合句。可能需要适当修改或删减句子成分以使句子自然流畅。输入答案后点击“Submit”查看标准答案。</p>
+
+        <div class="question">
+            <p>11. What happened to the missing hikers? The rescue team was curious about the situation.</p>
+            <input type="text" id="input11" placeholder="输入包含宾语从句的复合句">
+            <button onclick="document.getElementById('answer11').style.display='block'">Submit</button>
+            <div id="answer11" class="answer">
+                <p>标准答案: The rescue team was curious about what happened to the missing hikers.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>12. My phone is broken. I complained to the store manager.</p>
+            <input type="text" id="input12" placeholder="输入包含宾语从句的复合句">
+            <button onclick="document.getElementById('answer12').style.display='block'">Submit</button>
+            <div id="answer12" class="answer">
+                <p>标准答案: I complained to the store manager that my phone was broken.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>13. How can I improve my English speaking skills? I asked my teacher for advice.</p>
+            <input type="text" id="input13" placeholder="输入包含宾语从句的复合句">
+            <button onclick="document.getElementById('answer13').style.display='block'">Submit</button>
+            <div id="answer13" class="answer">
+                <p>标准答案: I asked my teacher how I could improve my English speaking skills.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>14. Will the concert be canceled? I was wondering about the weather forecast.</p>
+            <input type="text" id="input14" placeholder="输入包含宾语从句的复合句">
+            <button onclick="document.getElementById('answer14').style.display='block'">Submit</button>
+            <div id="answer14" class="answer">
+                <p>标准答案: I was wondering whether the concert would be canceled.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>15. The train is delayed. The station staff informed passengers.</p>
+            <input type="text" id="input15" placeholder="输入包含宾语从句的复合句">
+            <button onclick="document.getElementById('answer15').style.display='block'">Submit</button>
+            <div id="answer15" class="answer">
+                <p>标准答案: The station staff informed passengers that the train was delayed.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>16. Why are the prices so high? The customer questioned the shop assistant.</p>
+            <input type="text" id="input16" placeholder="输入包含宾语从句的复合句">
+            <button onclick="document.getElementById('answer16').style.display='block'">Submit</button>
+            <div id="answer16" class="answer">
+                <p>标准答案: The customer questioned the shop assistant why the prices were so high.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>17. Healthy eating improves energy levels. My coach explained the benefits.</p>
+            <input type="text" id="input17" placeholder="输入包含宾语从句的复合句">
+            <button onclick="document.getElementById('answer17').style.display='block'">Submit</button>
+            <div id="answer17" class="answer">
+                <p>标准答案: My coach explained that healthy eating improves energy levels.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>18. Who won the game last night? My brother wanted to know the final score.</p>
+            <input type="text" id="input18" placeholder="输入包含宾语从句的复合句">
+            <button onclick="document.getElementById('answer18').style.display='block'">Submit</button>
+            <div id="answer18" class="answer">
+                <p>标准答案: My brother wanted to know who won the game last night.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>19. I lost my wallet. I told the police officer about the incident.</p>
+            <input type="text" id="input19" placeholder="输入包含宾语从句的复合句">
+            <button onclick="document.getElementById('answer19').style.display='block'">Submit</button>
+            <div id="answer19" class="answer">
+                <p>标准答案: I told the police officer that I had lost my wallet.</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>20. Where is the nearest bus stop? The tourist asked a local for directions.</p>
+            <input type="text" id="input20" placeholder="输入包含宾语从句的复合句">
+            <button onclick="document.getElementById('answer20').style.display='block'">Submit</button>
+            <div id="answer20" class="answer">
+                <p>标准答案: The tourist asked a local where the nearest bus stop was.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress">
+        <p>练习进度: 0/20 完成</p>
+    </div>
+
+    <footer style="text-align: center; margin-top: 40px;">
+        <p>© 2025 英语语法练习 | 宾语从句与简单句转换</p>
+    </footer>
+
+</body>
+</html>
