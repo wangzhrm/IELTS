@@ -1,0 +1,861 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表语从句练习</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { text-align: center; }
+        .section { margin-bottom: 40px; }
+        .question { margin-bottom: 20px; }
+        .options { list-style-type: none; padding: 0; }
+        .options li { margin: 5px 0; cursor: pointer; }
+        .answer { display: none; margin-top: 10px; }
+        .feedback { display: none; margin-top: 5px; color: green; }
+        .incorrect { color: red; }
+        .progress { text-align: center; }
+        input[type="radio"] { margin-right: 10px; display: none; }
+        .options li:hover { background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+
+    <h1>表语从句练习</h1>
+    <p style="text-align: center;">以下为50道表语从句选择题。点击选项后将显示是否正确、正确答案和简短解析。</p>
+
+    <div class="section">
+        <div class="question">
+            <p>1. The issue is ______ we can meet the project deadline.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(1, 'A', 'B')"><input type="radio" name="q1" value="A"> A. if</li>
+                <li onclick="checkAnswer(1, 'B', 'B')"><input type="radio" name="q1" value="B"> B. whether</li>
+                <li onclick="checkAnswer(1, 'C', 'B')"><input type="radio" name="q1" value="C"> C. that</li>
+                <li onclick="checkAnswer(1, 'D', 'B')"><input type="radio" name="q1" value="D"> D. what</li>
+            </ul>
+            <div id="feedback1" class="feedback"></div>
+            <div id="answer1" class="answer">
+                <p>正确答案: B. whether</p>
+                <p>解析: 表示“是否”，表语从句用whether引导，if不能用于表语从句。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>2. The reason for her success is ______ she worked tirelessly.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(2, 'A', 'B')"><input type="radio" name="q2" value="A"> A. because</li>
+                <li onclick="checkAnswer(2, 'B', 'B')"><input type="radio" name="q2" value="B"> B. that</li>
+                <li onclick="checkAnswer(2, 'C', 'B')"><input type="radio" name="q2" value="C"> C. why</li>
+                <li onclick="checkAnswer(2, 'D', 'B')"><input type="radio" name="q2" value="D"> D. how</li>
+            </ul>
+            <div id="feedback2" class="feedback"></div>
+            <div id="answer2" class="answer">
+                <p>正确答案: B. that</p>
+                <p>解析: 主语为reason时，表语从句用that引导，不能用because。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>3. It looks ______ we are going to lose the game.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(3, 'A', 'C')"><input type="radio" name="q3" value="A"> A. that</li>
+                <li onclick="checkAnswer(3, 'B', 'C')"><input type="radio" name="q3" value="B"> B. whether</li>
+                <li onclick="checkAnswer(3, 'C', 'C')"><input type="radio" name="q3" value="C"> C. as if</li>
+                <li onclick="checkAnswer(3, 'D', 'C')"><input type="radio" name="q3" value="D"> D. like</li>
+            </ul>
+            <div id="feedback3" class="feedback"></div>
+            <div id="answer3" class="answer">
+                <p>正确答案: C. as if</p>
+                <p>解析: 表示“好像”，用as if引导表语从句，like不用于表语从句。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>4. The problem is ______ caused the system failure.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(4, 'A', 'A')"><input type="radio" name="q4" value="A"> A. what</li>
+                <li onclick="checkAnswer(4, 'B', 'A')"><input type="radio" name="q4" value="B"> B. that</li>
+                <li onclick="checkAnswer(4, 'C', 'A')"><input type="radio" name="q4" value="C"> C. when</li>
+                <li onclick="checkAnswer(4, 'D', 'A')"><input type="radio" name="q4" value="D"> D. why</li>
+            </ul>
+            <div id="feedback4" class="feedback"></div>
+            <div id="answer4" class="answer">
+                <p>正确答案: A. what</p>
+                <p>解析: what在从句中作主语，表示“什么”引起系统故障。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>5. My suggestion is ______ we postpone the meeting.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(5, 'A', 'A')"><input type="radio" name="q5" value="A"> A. that</li>
+                <li onclick="checkAnswer(5, 'B', 'A')"><input type="radio" name="q5" value="B"> B. whether</li>
+                <li onclick="checkAnswer(5, 'C', 'A')"><input type="radio" name="q5" value="C"> C. what</li>
+                <li onclick="checkAnswer(5, 'D', 'A')"><input type="radio" name="q5" value="D"> D. why</li>
+            </ul>
+            <div id="feedback5" class="feedback"></div>
+            <div id="answer5" class="answer">
+                <p>正确答案: A. that</p>
+                <p>解析: that引导完整表语从句，无词义，不省略。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>6. The truth is ______ he never intended to help.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(6, 'A', 'B')"><input type="radio" name="q6" value="A"> A. because</li>
+                <li onclick="checkAnswer(6, 'B', 'B')"><input type="radio" name="q6" value="B"> B. that</li>
+                <li onclick="checkAnswer(6, 'C', 'B')"><input type="radio" name="q6" value="C"> C. why</li>
+                <li onclick="checkAnswer(6, 'D', 'B')"><input type="radio" name="q6" value="D"> D. how</li>
+            </ul>
+            <div id="feedback6" class="feedback"></div>
+            <div id="answer6" class="answer">
+                <p>正确答案: B. that</p>
+                <p>解析: that引导表语从句，无词义，符合句意。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>7. It seems ______ he has lost all his money.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(7, 'A', 'A')"><input type="radio" name="q7" value="A"> A. as if</li>
+                <li onclick="checkAnswer(7, 'B', 'A')"><input type="radio" name="q7" value="B"> B. whether</li>
+                <li onclick="checkAnswer(7, 'C', 'A')"><input type="radio" name="q7" value="C"> C. that</li>
+                <li onclick="checkAnswer(7, 'D', 'A')"><input type="radio" name="q7" value="D"> D. what</li>
+            </ul>
+            <div id="feedback7" class="feedback"></div>
+            <div id="answer7" class="answer">
+                <p>正确答案: A. as if</p>
+                <p>解析: as if表示“好像”，符合句意“似乎他失去了所有钱”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>8. The question remains ______ they will accept the proposal.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(8, 'A', 'B')"><input type="radio" name="q8" value="A"> A. if</li>
+                <li onclick="checkAnswer(8, 'B', 'B')"><input type="radio" name="q8" value="B"> B. whether</li>
+                <li onclick="checkAnswer(8, 'C', 'B')"><input type="radio" name="q8" value="C"> C. that</li>
+                <li onclick="checkAnswer(8, 'D', 'B')"><input type="radio" name="q8" value="D"> D. what</li>
+            </ul>
+            <div id="feedback8" class="feedback"></div>
+            <div id="answer8" class="answer">
+                <p>正确答案: B. whether</p>
+                <p>解析: whether表示“是否”，用于表语从句，if不可用。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>9. That is ______ she decided to leave the company.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(9, 'A', 'A')"><input type="radio" name="q9" value="A"> A. why</li>
+                <li onclick="checkAnswer(9, 'B', 'A')"><input type="radio" name="q9" value="B"> B. when</li>
+                <li onclick="checkAnswer(9, 'C', 'A')"><input type="radio" name="q9" value="C"> C. where</li>
+                <li onclick="checkAnswer(9, 'D', 'A')"><input type="radio" name="q9" value="D"> D. how</li>
+            </ul>
+            <div id="feedback9" class="feedback"></div>
+            <div id="answer9" class="answer">
+                <p>正确答案: A. why</p>
+                <p>解析: why在从句中作原因状语，符合句意“她为何决定离开”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>10. The challenge is ______ we can reduce costs without compromising quality.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(10, 'A', 'D')"><input type="radio" name="q10" value="A"> A. how</li>
+                <li onclick="checkAnswer(10, 'B', 'D')"><input type="radio" name="q10" value="B"> B. that</li>
+                <li onclick="checkAnswer(10, 'C', 'D')"><input type="radio" name="q10" value="C"> C. what</li>
+                <li onclick="checkAnswer(10, 'D', 'D')"><input type="radio" name="q10" value="D"> D. whether</li>
+            </ul>
+            <div id="feedback10" class="feedback"></div>
+            <div id="answer10" class="answer">
+                <p>正确答案: D. whether</p>
+                <p>解析: whether表示“是否”，符合句意“能否在不牺牲质量下降低成本”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>11. The fact is ______ the economy is slowing down.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(11, 'A', 'B')"><input type="radio" name="q11" value="A"> A. because</li>
+                <li onclick="checkAnswer(11, 'B', 'B')"><input type="radio" name="q11" value="B"> B. that</li>
+                <li onclick="checkAnswer(11, 'C', 'B')"><input type="radio" name="q11" value="C"> C. why</li>
+                <li onclick="checkAnswer(11, 'D', 'B')"><input type="radio" name="q11" value="D"> D. how</li>
+            </ul>
+            <div id="feedback11" class="feedback"></div>
+            <div id="answer11" class="answer">
+                <p>正确答案: B. that</p>
+                <p>解析: that引导表语从句，无词义，符合完整句子。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>12. It appears ______ he was unaware of the decision.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(12, 'A', 'A')"><input type="radio" name="q12" value="A"> A. as though</li>
+                <li onclick="checkAnswer(12, 'B', 'A')"><input type="radio" name="q12" value="B"> B. whether</li>
+                <li onclick="checkAnswer(12, 'C', 'A')"><input type="radio" name="q12" value="C"> C. that</li>
+                <li onclick="checkAnswer(12, 'D', 'A')"><input type="radio" name="q12" value="D"> D. what</li>
+            </ul>
+            <div id="feedback12" class="feedback"></div>
+            <div id="answer12" class="answer">
+                <p>正确答案: A. as though</p>
+                <p>解析: as though表示“好像”，符合句意“似乎他不知道决定”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>13. The reason for the delay was ______ the shipment was lost.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(13, 'A', 'B')"><input type="radio" name="q13" value="A"> A. because</li>
+                <li onclick="checkAnswer(13, 'B', 'B')"><input type="radio" name="q13" value="B"> B. that</li>
+                <li onclick="checkAnswer(13, 'C', 'B')"><input type="radio" name="q13" value="C"> C. why</li>
+                <li onclick="checkAnswer(13, 'D', 'B')"><input type="radio" name="q13" value="D"> D. how</li>
+            </ul>
+            <div id="feedback13" class="feedback"></div>
+            <div id="answer13" class="answer">
+                <p>正确答案: B. that</p>
+                <p>解析: 主语为reason，表语从句用that引导，不能用because。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>14. This is ______ I expected from the team.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(14, 'A', 'A')"><input type="radio" name="q14" value="A"> A. what</li>
+                <li onclick="checkAnswer(14, 'B', 'A')"><input type="radio" name="q14" value="B"> B. that</li>
+                <li onclick="checkAnswer(14, 'C', 'A')"><input type="radio" name="q14" value="C"> C. why</li>
+                <li onclick="checkAnswer(14, 'D', 'A')"><input type="radio" name="q14" value="D"> D. how</li>
+            </ul>
+            <div id="feedback14" class="feedback"></div>
+            <div id="answer14" class="answer">
+                <p>正确答案: A. what</p>
+                <p>解析: what在从句中作宾语，表示“我对团队的期望”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>15. The concern is ______ we have enough resources.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(15, 'A', 'B')"><input type="radio" name="q15" value="A"> A. if</li>
+                <li onclick="checkAnswer(15, 'B', 'B')"><input type="radio" name="q15" value="B"> B. whether</li>
+                <li onclick="checkAnswer(15, 'C', 'B')"><input type="radio" name="q15" value="C"> C. that</li>
+                <li onclick="checkAnswer(15, 'D', 'B')"><input type="radio" name="q15" value="D"> D. what</li>
+            </ul>
+            <div id="feedback15" class="feedback"></div>
+            <div id="answer15" class="answer">
+                <p>正确答案: B. whether</p>
+                <p>解析: whether表示“是否”，符合句意“是否有足够资源”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>16. It feels ______ we are in a dream.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(16, 'A', 'A')"><input type="radio" name="q16" value="A"> A. as if</li>
+                <li onclick="checkAnswer(16, 'B', 'A')"><input type="radio" name="q16" value="B"> B. that</li>
+                <li onclick="checkAnswer(16, 'C', 'A')"><input type="radio" name="q16" value="C"> C. what</li>
+                <li onclick="checkAnswer(16, 'D', 'A')"><input type="radio" name="q16" value="D"> D. whether</li>
+            </ul>
+            <div id="feedback16" class="feedback"></div>
+            <div id="answer16" class="answer">
+                <p>正确答案: A. as if</p>
+                <p>解析: as if表示“好像”，符合句意“感觉像在梦中”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>17. The reason for his failure was ______ he didn’t prepare enough.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(17, 'A', 'B')"><input type="radio" name="q17" value="A"> A. because</li>
+                <li onclick="checkAnswer(17, 'B', 'B')"><input type="radio" name="q17" value="B"> B. that</li>
+                <li onclick="checkAnswer(17, 'C', 'B')"><input type="radio" name="q17" value="C"> C. why</li>
+                <li onclick="checkAnswer(17, 'D', 'B')"><input type="radio" name="q17" value="D"> D. how</li>
+            </ul>
+            <div id="feedback17" class="feedback"></div>
+            <div id="answer17" class="answer">
+                <p>正确答案: B. that</p>
+                <p>解析: reason作主语，表语从句用that引导。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>18. That is ______ she chose to study abroad.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(18, 'A', 'A')"><input type="radio" name="q18" value="A"> A. why</li>
+                <li onclick="checkAnswer(18, 'B', 'A')"><input type="radio" name="q18" value="B"> B. when</li>
+                <li onclick="checkAnswer(18, 'C', 'A')"><input type="radio" name="q18" value="C"> C. where</li>
+                <li onclick="checkAnswer(18, 'D', 'A')"><input type="radio" name="q18" value="D"> D. how</li>
+            </ul>
+            <div id="feedback18" class="feedback"></div>
+            <div id="answer18" class="answer">
+                <p>正确答案: A. why</p>
+                <p>解析: why表示原因，符合句意“她为何选择出国留学”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>19. The key issue is ______ we can trust the new supplier.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(19, 'A', 'B')"><input type="radio" name="q19" value="A"> A. if</li>
+                <li onclick="checkAnswer(19, 'B', 'B')"><input type="radio" name="q19" value="B"> B. whether</li>
+                <li onclick="checkAnswer(19, 'C', 'B')"><input type="radio" name="q19" value="C"> C. that</li>
+                <li onclick="checkAnswer(19, 'D', 'B')"><input type="radio" name="q19" value="D"> D. what</li>
+            </ul>
+            <div id="feedback19" class="feedback"></div>
+            <div id="answer19" class="answer">
+                <p>正确答案: B. whether</p>
+                <p>解析: whether表示“是否”，符合句意“能否信任新供应商”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>20. This is ______ I admire most about her work.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(20, 'A', 'A')"><input type="radio" name="q20" value="A"> A. what</li>
+                <li onclick="checkAnswer(20, 'B', 'A')"><input type="radio" name="q20" value="B"> B. that</li>
+               目的是"radio" name="q20" value="C"> C. why</li>
+                <li onclick="checkAnswer(20, 'D', 'A')"><input type="radio" name="q20" value="D"> D. how</li>
+            </ul>
+            <div id="feedback20" class="feedback"></div>
+            <div id="answer20" class="answer">
+                <p>正确答案: A. what</p>
+                <p>解析: what在从句中作宾语，表示“我最欣赏她工作的内容”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>21. It sounds ______ he has already made up his mind.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(21, 'A', 'A')"><input type="radio" name="q21" value="A"> A. as if</li>
+                <li onclick="checkAnswer(21, 'B', 'A')"><input type="radio" name="q21" value="B"> B. that</li>
+                <li onclick="checkAnswer(21, 'C', 'A')"><input type="radio" name="q21" value="C"> C. what</li>
+                <li onclick="checkAnswer(21, 'D', 'A')"><input type="radio" name="q21" value="D"> D. whether</li>
+            </ul>
+            <div id="feedback21" class="feedback"></div>
+            <div id="answer21" class="answer">
+                <p>正确答案: A. as if</p>
+                <p>解析: as if表示“好像”，符合句意“听起来他已下定决心”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>22. The reason for the conflict was ______ they couldn’t agree on the terms.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(22, 'A', 'B')"><input type="radio" name="q22" value="A"> A. because</li>
+                <li onclick="checkAnswer(22, 'B', 'B')"><input type="radio" name="q22" value="B"> B. that</li>
+                <li onclick="checkAnswer(22, 'C', 'B')"><input type="radio" name="q22" value="C"> C. why</li>
+                <li onclick="checkAnswer(22, 'D', 'B')"><input type="radio" name="q22" value="D"> D. how</li>
+            </ul>
+            <div id="feedback22" class="feedback"></div>
+            <div id="answer22" class="answer">
+                <p>正确答案: B. that</p>
+                <p>解析: reason作主语，表语从句用that引导。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>23. The point is ______ we need more evidence to proceed.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(23, 'A', 'A')"><input type="radio" name="q23" value="A"> A. that</li>
+                <li onclick="checkAnswer(23, 'B', 'A')"><input type="radio" name="q23" value="B"> B. whether</li>
+                <li onclick="checkAnswer(23, 'C', 'A')"><input type="radio" name="q23" value="C"> C. what</li>
+                <li onclick="checkAnswer(23, 'D', 'A')"><input type="radio" name="q23" value="D"> D. why</li>
+            </ul>
+            <div id="feedback23" class="feedback"></div>
+            <div id="answer23" class="answer">
+                <p>正确答案: A. that</p>
+                <p>解析: that引导完整表语从句，无词义。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>24. That is ______ he moved to another city.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(24, 'A', 'A')"><input type="radio" name="q24" value="A"> A. why</li>
+                <li onclick="checkAnswer(24, 'B', 'A')"><input type="radio" name="q24" value="B"> B. when</li>
+                <li onclick="checkAnswer(24, 'C', 'A')"><input type="radio" name="q24" value="C"> C. where</li>
+                <li onclick="checkAnswer(24, 'D', 'A')"><input type="radio" name="q24" value="D"> D. how</li>
+            </ul>
+            <div id="feedback24" class="feedback"></div>
+            <div id="answer24" class="answer">
+                <p>正确答案: A. why</p>
+                <p>解析: why表示原因，符合句意“他为何搬到另一个城市”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>25. The difficulty is ______ we can convince the investors.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(25, 'A', 'B')"><input type="radio" name="q25" value="A"> A. if</li>
+                <li onclick="checkAnswer(25, 'B', 'B')"><input type="radio" name="q25" value="B"> B. whether</li>
+                <li onclick="checkAnswer(25, 'C', 'B')"><input type="radio" name="q25" value="C"> C. that</li>
+                <li onclick="checkAnswer(25, 'D', 'B')"><input type="radio" name="q25" value="D"> D. what</li>
+            </ul>
+            <div id="feedback25" class="feedback"></div>
+            <div id="answer25" class="answer">
+                <p>正确答案: B. whether</p>
+                <p>解析: whether表示“是否”，符合句意“能否说服投资者”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>26. It looks ______ she had been crying all night.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(26, 'A', 'A')"><input type="radio" name="q26" value="A"> A. as if</li>
+                <li onclick="checkAnswer(26, 'B', 'A')"><input type="radio" name="q26" value="B"> B. that</li>
+                <li onclick="checkAnswer(26, 'C', 'A')"><input type="radio" name="q26" value="C"> C. what</li>
+                <li onclick="checkAnswer(26, 'D', 'A')"><input type="radio" name="q26" value="D"> D. whether</li>
+            </ul>
+            <div id="feedback26" class="feedback"></div>
+            <div id="answer26" class="answer">
+                <p>正确答案: A. as if</p>
+                <p>解析: as if表示“好像”，虚拟语气符合句意“好像她哭了一整夜”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>27. The reason for the cancellation was ______ the venue was unavailable.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(27, 'A', 'B')"><input type="radio" name="q27" value="A"> A. because</li>
+                <li onclick="checkAnswer(27, 'B', 'B')"><input type="radio" name="q27" value="B"> B. that</li>
+                <li onclick="checkAnswer(27, 'C', 'B')"><input type="radio" name="q27" value="C"> C. why</li>
+                <li onclick="checkAnswer(27, 'D', 'B')"><input type="radio" name="q27" value="D"> D. how</li>
+            </ul>
+            <div id="feedback27" class="feedback"></div>
+            <div id="answer27" class="answer">
+                <p>正确答案: B. that</p>
+                <p>解析: reason作主语，表语从句用that引导。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>28. This is ______ we need to focus our efforts.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(28, 'A', 'A')"><input type="radio" name="q28" value="A"> A. where</li>
+                <li onclick="checkAnswer(28, 'B', 'A')"><input type="radio" name="q28" value="B"> B. when</li>
+                <li onclick="checkAnswer(28, 'C', 'A')"><input type="radio" name="q28" value="C"> C. why</li>
+                <li stadium="radio" name="q28" value="D"> D. how</li>
+            </ul>
+            <div id="feedback28" class="feedback"></div>
+            <div id="answer28" class="answer">
+                <p>正确答案: A. where</p>
+                <p>解析: where表示地点，符合句意“我们需要集中精力的地方”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>29. The issue is ______ we should prioritize next.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(29, 'A', 'A')"><input type="radio" name="q29" value="A"> A. what</li>
+                <li onclick="checkAnswer(29, 'B', 'A')"><input type="radio" name="q29" value="B"> B. that</li>
+                <li onclick="checkAnswer(29, 'C', 'A')"><input type="radio" name="q29" value="C"> C. whether</li>
+               
+
+ <li onclick="checkAnswer(29, 'D', 'A')"><input type="radio" name="q29" value="D"> D. why</li>
+            </ul>
+            <div id="feedback29" class="feedback"></div>
+            <div id="answer29" class="answer">
+                <p>正确答案: A. what</p>
+                <p>解析: what在从句中作宾语，表示“应优先考虑的内容”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>30. It seems ______ he had never been there before.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(30, 'A', 'A')"><input type="radio" name="q30" value="A"> A. as though</li>
+                <li onclick="checkAnswer(30, 'B', 'A')"><input type="radio" name="q30" value="B"> B. that</li>
+                <li onclick="checkAnswer(30, 'C', 'A')"><input type="radio" name="q30" value="C"> C. what</li>
+                <li onclick="checkAnswer(30, 'D', 'A')"><input type="radio" name="q30" value="D"> D. whether</li>
+            </ul>
+            <div id="feedback30" class="feedback"></div>
+            <div id="answer30" class="answer">
+                <p>正确答案: A. as though</p>
+                <p>解析: as though表示“好像”，虚拟语气符合句意“似乎他从未去过”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>31. The reason for his absence was ______ he was caught in traffic.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(31, 'A', 'B')"><input type="radio" name="q31" value="A"> A. because</li>
+                <li onclick="checkAnswer(31, 'B', 'B')"><input type="radio" name="q31" value="B"> B. that</li>
+                <li onclick="checkAnswer(31, 'C', 'B')"><input type="radio" name="q31" value="C"> C. why</li>
+                <li onclick="checkAnswer(31, 'D', 'B')"><input type="radio" name="q31" value="D"> D. how</li>
+            </ul>
+            <div id="feedback31" class="feedback"></div>
+            <div id="answer31" class="answer">
+                <p>正确答案: B. that</p>
+                <p>解析: reason作主语，表语从句用that引导。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>32. That is ______ she always wanted to visit.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(32, 'A', 'A')"><input type="radio" name="q32" value="A"> A. where</li>
+                <li onclick="checkAnswer(32, 'B', 'A')"><input type="radio" name="q32" value="B"> B. when</li>
+                <li onclick="checkAnswer(32, 'C', 'A')"><input type="radio" name="q32" value="C"> C. why</li>
+                <li onclick="checkAnswer(32, 'D', 'A')"><input type="radio" name="q32" value="D"> D. how</li>
+            </ul>
+            <div id="feedback32" class="feedback"></div>
+            <div id="answer32" class="answer">
+                <p>正确答案: A. where</p>
+                <p>解析: where表示地点，符合句意“她一直想去的地方”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>33. The question is ______ we can afford the new equipment.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(33, 'A', 'B')"><input type="radio" name="q33" value="A"> A. if</li>
+                <li onclick="checkAnswer(33, 'B', 'B')"><input type="radio" name="q33" value="B"> B. whether</li>
+                <li onclick="checkAnswer(33, 'C', 'B')"><input type="radio" name="q33" value="C"> C. that</li>
+                <li onclick="checkAnswer(33, 'D', 'B')"><input type="radio" name="q33" value="D"> D. what</li>
+            </ul>
+            <div id="feedback33" class="feedback"></div>
+            <div id="answer33" class="answer">
+                <p>正确答案: B. whether</p>
+                <p>解析: whether表示“是否”，符合句意“能否负担新设备”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>34. This is ______ I learned from the experience.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(34, 'A', 'A')"><input type="radio" name="q34" value="A"> A. what</li>
+                <li onclick="checkAnswer(34, 'B', 'A')"><input type="radio" name="q34" value="B"> B. that</li>
+                <li onclick="checkAnswer(34, 'C', 'A')"><input type="radio" name="q34" value="C"> C. why</li>
+                <li onclick="checkAnswer(34, 'D', 'A')"><input type="radio" name="q34" value="D"> D. how</li>
+            </ul>
+            <div id="feedback34" class="feedback"></div>
+            <div id="answer34" class="answer">
+                <p>正确答案: A. what</p>
+                <p>解析: what在从句中作宾语，表示“从经验中学到的东西”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>35. It looks ______ the party will be a success.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(35, 'A', 'A')"><input type="radio" name="q35" value="A"> A. as if</li>
+                <li onclick="checkAnswer(35, 'B', 'A')"><input type="radio" name="q35" value="B"> B. that</li>
+                <li onclick="checkAnswer(35, 'C', 'A')"><input type="radio" name="q35" value="C"> C. what</li>
+                <li onclick="checkAnswer(35, 'D', 'A')"><input type="radio" name="q35" value="D"> D. whether</li>
+            </ul>
+            <div id="feedback35" class="feedback"></div>
+            <div id="answer35" class="answer">
+                <p>正确答案: A. as if</p>
+                <p>解析: as if表示“好像”，符合句意“派对似乎会成功”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>36. The reason for the error was ______ the data was incorrect.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(36, 'A', 'B')"><input type="radio" name="q36" value="A"> A. because</li>
+                <li onclick="checkAnswer(36, 'B', 'B')"><input type="radio" name="q36" value="B"> B. that</li>
+                <li onclick="checkAnswer(36, 'C', 'B')"><input type="radio" name="q36" value="C"> C. why</li>
+                <li onclick="checkAnswer(36, 'D', 'B')"><input type="radio" name="q36" value="D"> D. how</li>
+            </ul>
+            <div id="feedback36" class="feedback"></div>
+            <div id="answer36" class="answer">
+                <p>正确答案: B. that</p>
+                <p>解析: reason作主语，表语从句用that引导。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>37. That is ______ we decided to cancel the event.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(37, 'A', 'A')"><input type="radio" name="q37" value="A"> A. why</li>
+                <li onclick="checkAnswer(37, 'B', 'A')"><input type="radio" name="q37" value="B"> B. when</li>
+                <li onclick="checkAnswer(37, 'C', 'A')"><input type="radio" name="q37" value="C"> C. where</li>
+                <li onclick="checkAnswer(37, 'D', 'A')"><input type="radio" name="q37" value="D"> D. how</li>
+            </ul>
+            <div id="feedback37" class="feedback"></div>
+            <div id="answer37" class="answer">
+                <p>正确答案: A. why</p>
+                <p>解析: why表示原因，符合句意“为何取消活动”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>38. The challenge is ______ we can meet the demand.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(38, 'A', 'B')"><input type="radio" name="q38" value="A"> A. if</li>
+                <li onclick="checkAnswer(38, 'B', 'B')"><input type="radio" name="q38" value="B"> B. whether</li>
+                <li onclick="checkAnswer(38, 'C', 'B')"><input type="radio" name="q38" value="C"> C. that</li>
+                <li onclick="checkAnswer(38, 'D', 'B')"><input type="radio" name="q38" value="D"> D. what</li>
+            </ul>
+            <div id="feedback38" class="feedback"></div>
+            <div id="answer38" class="answer">
+                <p>正确答案: B. whether</p>
+                <p>解析: whether表示“是否”，符合句意“能否满足需求”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>39. This is ______ makes her so special.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(39, 'A', 'A')"><input type="radio" name="q39" value="A"> A. what</li>
+                <li onclick="checkAnswer(39, 'B', 'A')"><input type="radio" name="q39" value="B"> B. that</li>
+                <li onclick="checkAnswer(39, 'C', 'A')"><input type="radio" name="q39" value="C"> C. why</li>
+                <li onclick="checkAnswer(39, 'D', 'A')"><input type="radio" name="q39" value="D"> D. how</li>
+            </ul>
+            <div id="feedback39" class="feedback"></div>
+            <div id="answer39" class="answer">
+                <p>正确答案: A. what</p>
+                <p>解析: what在从句中作主语，表示“使她特别的原因”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>40. It appears ______ they had no prior knowledge of the issue.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(40, 'A', 'A')"><input type="radio" name="q40" value="A"> A. as though</li>
+                <li onclick="checkAnswer(40, 'B', 'A')"><input type="radio" name="q40" value="B"> B. that</li>
+                <li onclick="checkAnswer(40, 'C', 'A')"><input type="radio" name="q40" value="C"> C. what</li>
+                <li onclick="checkAnswer(40, 'D', 'A')"><input type="radio" name="q40" value="D"> D. whether</li>
+            </ul>
+            <div id="feedback40" class="feedback"></div>
+            <div id="answer40" class="answer">
+                <p>正确答案: A. as though</p>
+                <p>解析: as though表示“好像”，虚拟语气符合句意“似乎他们不知情”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>41. The reason for the mistake was ______ the instructions were unclear.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(41, 'A', 'B')"><input type="radio" name="q41" value="A"> A. because</li>
+                <li onclick="checkAnswer(41, 'B', 'B')"><input type="radio" name="q41" value="B"> B. that</li>
+                <li onclick="checkAnswer(41, 'C', 'B')"><input type="radio" name="q41" value="C"> C. why</li>
+                <li onclick="checkAnswer(41, 'D', 'B')"><input type="radio" name="q41" value="D"> D. how</li>
+            </ul>
+            <div id="feedback41" class="feedback"></div>
+            <div id="answer41" class="answer">
+                <p>正确答案: B. that</p>
+                <p>解析: reason作主语，表语从句用that引导。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>42. That is ______ he started his own business.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(42, 'A', 'A')"><input type="radio" name="q42" value="A"> A. why</li>
+                <li onclick="checkAnswer(42, 'B', 'A')"><input type="radio" name="q42" value="B"> B. when</li>
+                <li onclick="checkAnswer(42, 'C', 'A')"><input type="radio" name="q42" value="C"> C. where</li>
+                <li onclick="checkAnswer(42, 'D', 'A')"><input type="radio" name="q42" value="D"> D. how</li>
+            </ul>
+            <div id="feedback42" class="feedback"></div>
+            <div id="answer42" class="answer">
+                <p>正确答案: A. why</p>
+                <p>解析: why表示原因，符合句意“他为何创业”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>43. The issue is ______ we can complete the task on time.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(43, 'A', 'B')"><input type="radio" name="q43" value="A"> A. if</li>
+                <li onclick="checkAnswer(43, 'B', 'B')"><input type="radio" name="q43" value="B"> B. whether</li>
+                <li onclick="checkAnswer(43, 'C', 'B')"><input type="radio" name="q43" value="C"> C. that</li>
+                <li onclick="checkAnswer(43, 'D', 'B')"><input type="radio" name="q43" value="D"> D. what</li>
+            </ul>
+            <div id="feedback43" class="feedback"></div>
+            <div id="answer43" class="answer">
+                <p>正确答案: B. whether</p>
+                <p>解析: whether表示“是否”，符合句意“能否按时完成任务”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>44. This is ______ motivates me every day.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(44, 'A', 'A')"><input type="radio" name="q44" value="A"> A. what</li>
+                <li onclick="checkAnswer(44, 'B', 'A')"><input type="radio" name="q44" value="B"> B. that</li>
+                <li onclick="checkAnswer(44, 'C', 'A')"><input type="radio" name="q44" value="C"> C. why</li>
+                <li onclick="checkAnswer(44, 'D', 'A')"><input type="radio" name="q44" value="D"> D. how</li>
+            </ul>
+            <div id="feedback44" class="feedback"></div>
+            <div id="answer44" class="answer">
+                <p>正确答案: A. what</p>
+                <p>解析: what在从句中作主语，表示“每天激励我的东西”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>45. It looks ______ the deal will fall through.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(45, 'A', 'A')"><input type="radio" name="q45" value="A"> A. as if</li>
+                <li onclick="checkAnswer(45, 'B', 'A')"><input type="radio" name="q45" value="B"> B. that</li>
+                <li onclick="checkAnswer(45, 'C', 'A')"><input type="radio" name="q45" value="C"> C. what</li>
+                <li onclick="checkAnswer(45, 'D', 'A')"><input type="radio" name="q45" value="D"> D. whether</li>
+            </ul>
+            <div id="feedback45" class="feedback"></div>
+            <div id="answer45" class="answer">
+                <p>正确答案: A. as if</p>
+                <p>解析: as if表示“好像”，符合句意“交易似乎会失败”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>46. The reason for the decision was ______ it was too risky.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(46, 'A', 'B')"><input type="radio" name="q46" value="A"> A. because</li>
+                <li onclick="checkAnswer(46, 'B', 'B')"><input type="radio" name="q46" value="B"> B. that</li>
+                <li onclick="checkAnswer(46, 'C', 'B')"><input type="radio" name="q46" value="C"> C. why</li>
+                <li onclick="checkAnswer(46, 'D', 'B')"><input type="radio" name="q46" value="D"> D. how</li>
+            </ul>
+            <div id="feedback46" class="feedback"></div>
+            <div id="answer46" class="answer">
+                <p>正确答案: B. that</p>
+                <p>解析: reason作主语，表语从句用that引导。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>47. That is ______ she became so successful.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(47, 'A', 'A')"><input type="radio" name="q47" value="A"> A. why</li>
+                <li onclick="checkAnswer(47, 'B', 'A')"><input type="radio" name="q47" value="B"> B. when</li>
+                <li onclick="checkAnswer(47, 'C', 'A')"><input type="radio" name="q47" value="C"> C. where</li>
+                <li onclick="checkAnswer(47, 'D', 'A')"><input type="radio" name="q47" value="D"> D. how</li>
+            </ul>
+            <div id="feedback47" class="feedback"></div>
+            <div id="answer47" class="answer">
+                <p>正确答案: A. why</p>
+                <p>解析: why表示原因，符合句意“她为何如此成功”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>48. The problem is ______ we can secure enough funding.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(48, 'A', 'B')"><input type="radio" name="q48" value="A"> A. if</li>
+                <li onclick="checkAnswer(48, 'B', 'B')"><input type="radio" name="q48" value="B"> B. whether</li>
+                <li onclick="checkAnswer(48, 'C', 'B')"><input type="radio" name="q48" value="C"> C. that</li>
+                <li onclick="checkAnswer(48, 'D', 'B')"><input type="radio" name="q48" value="D"> D. what</li>
+            </ul>
+            <div id="feedback48" class="feedback"></div>
+            <div id="answer48" class="answer">
+                <p>正确答案: B. whether</p>
+                <p>解析: whether表示“是否”，符合句意“能否获得足够资金”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>49. This is ______ inspires me to keep going.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(49, 'A', 'A')"><input type="radio" name="q49" value="A"> A. what</li>
+                <li onclick="checkAnswer(49, 'B', 'A')"><input type="radio" name="q49" value="B"> B. that</li>
+                <li onclick="checkAnswer(49, 'C', 'A')"><input type="radio" name="q49" value="C"> C. why</li>
+                <li onclick="checkAnswer(49, 'D', 'A')"><input type="radio" name="q49" value="D"> D. how</li>
+            </ul>
+            <div id="feedback49" class="feedback"></div>
+            <div id="answer49" class="answer">
+                <p>正确答案: A. what</p>
+                <p>解析: what在从句中作主语，表示“激励我继续的东西”。</p>
+            </div>
+        </div>
+
+        <div class="question">
+            <p>50. It seems ______ they had a secret plan all along.</p>
+            <ul class="options">
+                <li onclick="checkAnswer(50, 'A', 'A')"><input type="radio" name="q50" value="A"> A. as though</li>
+                <li onclick="checkAnswer(50, 'B', 'A')"><input type="radio" name="q50" value="B"> B. that</li>
+                <li onclick="checkAnswer(50, 'C', 'A')"><input type="radio" name="q50" value="C"> C. what</li>
+                <li onclick="checkAnswer(50, 'D', 'A')"><input type="radio" name="q50" value="D"> D. whether</li>
+            </ul>
+            <div id="feedback50" class="feedback"></div>
+            <div id="answer50" class="answer">
+                <p>正确答案: A. as though</p>
+                <p>解析: as though表示“好像”，虚拟语气符合句意“似乎他们有秘密计划”。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress">
+        <p>练习进度: 0/50 完成</p>
+    </div>
+
+    <footer style="text-align: center; margin-top: 40px;">
+        <p>Tony Wang © 2025 | 382287105@qq.com</p>
+    </footer>
+
+    <script>
+        let completedQuestions = 0;
+
+        function checkAnswer(questionNumber, selected, correct) {
+            const feedback = document.getElementById(`feedback${questionNumber}`);
+            const answer = document.getElementById(`answer${questionNumber}`);
+            const options = document.getElementsByName(`q${questionNumber}`);
+            
+            // Disable all options for this question after selection
+            options.forEach(option => {
+                option.parentElement.style.pointerEvents = 'none';
+            });
+
+            // Show feedback
+            feedback.style.display = 'block';
+            if (selected === correct) {
+                feedback.textContent = 'Correct!';
+                feedback.className = 'feedback';
+                completedQuestions++;
+            } else {
+                feedback.textContent = 'Incorrect!';
+                feedback.className = 'feedback incorrect';
+            }
+
+            // Show correct answer and explanation
+            answer.style.display = 'block';
+
+            // Update progress
+            document.querySelector('.progress p').textContent = `练习进度: ${completedQuestions}/50 完成`;
+        }
+    </script>
+
+</body>
+</html>

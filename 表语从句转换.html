@@ -1,0 +1,124 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语表语从句改写练习</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1, h2 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .exercise { margin-bottom: 40px; }
+        .question { font-weight: bold; }
+        .instruction { font-style: italic; color: #555; }
+        .answer-box { width: 100%; padding: 5px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>英语表语从句改写练习</h1>
+    <p style="text-align: center;">基于表语从句知识，练习句子改写。难度相当于雅思7分水平。</p>
+
+    <div class="exercise">
+        <h2>第一部分：将包含表语从句的复合句改写为两个单句</h2>
+        <p class="instruction">对于每道题，将给定的复合句拆分为两个独立的单句。第一个单句应保留主句结构，并用"this"或适当词语替换表语从句。第二个单句应是原表语从句的内容。</p>
+
+        <ol>
+            <li class="question">The problem is that many endangered species are facing extinction due to rampant habitat destruction.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">It seems as though technological innovations are outpacing our ability to regulate them ethically.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">The reason for the economic downturn is that global supply chains have been severely disrupted by geopolitical tensions.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">My primary concern is whether artificial intelligence will exacerbate social inequalities in the long term.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">It appears that climate change is contributing to more unpredictable weather patterns worldwide.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">The truth is that social media platforms often amplify misinformation during critical events.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">The central issue is how governments can balance fiscal responsibility with investments in renewable energy.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">It looks as if international trade agreements are on the verge of collapse amid rising protectionism.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">The lingering question is why cultural diversity is essential for fostering innovation in modern societies.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">That is what renders sustainable agriculture so challenging in arid regions.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+        </ol>
+    </div>
+
+    <div class="exercise">
+        <h2>第二部分：将两个单句改写为包含表语从句的复合句</h2>
+        <p class="instruction">对于每道题，将给定的两个单句合并为一个包含表语从句的复合句。使用适当的连接词（如that, whether, as if, how等）来引导表语从句。</p>
+
+        <ol>
+            <li class="question">The fact remains this. Urbanization is accelerating at an unprecedented rate in developing countries.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">It feels this way. Globalization has interconnected economies more than ever before.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">The reason was this. The project failed due to inadequate funding and poor planning.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">The dilemma is this. Should we invest in space exploration or address poverty on Earth first?</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">It seems this. Renewable energy sources are becoming more cost-effective than fossil fuels.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">The core problem is this. How can we mitigate the impacts of overpopulation on natural resources?</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">The truth is this. Mental health issues are often stigmatized in many cultures.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">It appears this way. Automation is transforming the job market irreversibly.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="question">The question is this. Why do some educational systems prioritize rote learning over critical thinking?</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+            <li class="wig class="question">That is this. What makes biodiversity conservation a global priority.</li>
+            <input type="text" class="answer-box" placeholder="请输入你的答案...">
+        </ol>
+    </div>
+
+    <footer style="text-align: center; margin-top: 40px;">
+        <p>Tony Wang © 2025 | 382287105@qq.com</p>
+    </footer>
+
+</body>
+</html>
