@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference and Substitution Exercises</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2c3e50;
+            --accent-green: #2ecc71;
+            --text-color: #34495e;
+            --light-grey-bg: #ecf0f1;
+            --white-bg: #ffffff;
+            --border-color: #bdc3c7;
+            --example-bg: #fdfefe;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 30px 20px;
+            color: var(--text-color);
+            background-color: var(--light-grey-bg);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 850px;
+            width: 100%;
+            margin: 0;
+            padding: 40px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background-color: var(--white-bg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        h1 {
+            color: var(--primary-blue);
+            font-size: 2.5em;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        h2 {
+            color: var(--primary-blue);
+            font-size: 1.8em;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid var(--primary-blue);
+        }
+        .exercise {
+            background-color: var(--example-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+        .exercise p {
+            font-size: 1.1em;
+            font-weight: 400;
+            color: #555;
+            line-height: 1.6;
+        }
+        .tick-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: var(--primary-blue);
+            transition: transform 0.2s ease-in-out;
+        }
+        .tick-button:hover {
+            transform: scale(1.2);
+            color: var(--accent-green);
+        }
+        .hint {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-left: 4px solid var(--accent-green);
+            background-color: #f0fff0;
+            font-size: 0.95em;
+            color: #28a745;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Reference and Substitution Exercises</h1>
+    <p>Practice using reference and substitution to improve the coherence and cohesion of your writing. For each exercise, rewrite the sentences to make them more natural and less repetitive. Then, click the checkmark to see a possible solution.</p>
+
+    <h2>Reference Exercises (Pronouns & Demonstratives)</h2>
+
+    <div class="exercise" id="ref-ex1">
+        <p>1. The new subway line opened last month. The new subway line has significantly reduced traffic congestion.</p>
+        <span class="tick-button" onclick="showHint('ref-ex1-hint')">✔</span>
+        <div class="hint" id="ref-ex1-hint">
+            <strong>Hint:</strong> Use a pronoun to refer to 'the new subway line'. <br>
+            <strong>Example Answer:</strong> The new subway line opened last month. <strong>It</strong> has significantly reduced traffic congestion.
+        </div>
+    </div>
+
+    <div class="exercise" id="ref-ex2">
+        <p>2. Sales of smartphones have been declining. This decline has surprised many analysts.</p>
+        <span class="tick-button" onclick="showHint('ref-ex2-hint')">✔</span>
+        <div class="hint" id="ref-ex2-hint">
+            <strong>Hint:</strong> Use a demonstrative pronoun to refer to the whole idea of the decline. <br>
+            <strong>Example Answer:</strong> Sales of smartphones have been declining. <strong>This</strong> has surprised many analysts.
+        </div>
+    </div>
+
+    <div class="exercise" id="ref-ex3">
+        <p>3. The number of people working from home increased. The increase was due to recent technological advances.</p>
+        <span class="tick-button" onclick="showHint('ref-ex3-hint')">✔</span>
+        <div class="hint" id="ref-ex3-hint">
+            <strong>Hint:</strong> Use a demonstrative pronoun to link the sentences. <br>
+            <strong>Example Answer:</strong> The number of people working from home increased. <strong>This</strong> was due to recent technological advances.
+        </div>
+    </div>
+    
+    <div class="exercise" id="ref-ex4">
+        <p>4. The chart shows the price of oil. The price has been volatile over the past decade.</p>
+        <span class="tick-button" onclick="showHint('ref-ex4-hint')">✔</span>
+        <div class="hint" id="ref-ex4-hint">
+            <strong>Hint:</strong> Use a pronoun to refer back to 'the price of oil'. <br>
+            <strong>Example Answer:</strong> The chart shows the price of oil, which <strong>has been</strong> volatile over the past decade. (Using a relative pronoun can also work).
+        </div>
+    </div>
+    
+    <div class="exercise" id="ref-ex5">
+        <p>5. The two main causes of pollution are cars and factories. Cars and factories are a major concern for the government.</p>
+        <span class="tick-button" onclick="showHint('ref-ex5-hint')">✔</span>
+        <div class="hint" id="ref-ex5-hint">
+            <strong>Hint:</strong> Use a plural pronoun to replace 'cars and factories'. <br>
+            <strong>Example Answer:</strong> The two main causes of pollution are cars and factories. <strong>They</strong> are a major concern for the government.
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>Substitution Exercises (Synonyms & General Terms)</h2>
+
+    <div class="exercise" id="sub-ex1">
+        <p>1. The graph indicates a steep rise in consumer spending. This steep rise was unexpected.</p>
+        <span class="tick-button" onclick="showHint('sub-ex1-hint')">✔</span>
+        <div class="hint" id="sub-ex1-hint">
+            <strong>Hint:</strong> Replace 'steep rise' with a synonym or a more general phrase. <br>
+            <strong>Example Answer:</strong> The graph indicates a steep rise in consumer spending. This <strong>significant increase</strong> was unexpected.
+        </div>
+    </div>
+
+    <div class="exercise" id="sub-ex2">
+        <p>2. The number of new housing developments grew. The growth put pressure on local schools.</p>
+        <span class="tick-button" onclick="showHint('sub-ex2-hint')">✔</span>
+        <div class="hint" id="sub-ex2-hint">
+            <strong>Hint:</strong> Substitute 'growth' with a related term. <br>
+            <strong>Example Answer:</strong> The number of new housing developments grew. This <strong>expansion</strong> put pressure on local schools.
+        </div>
+    </div>
+
+    <div class="exercise" id="sub-ex3">
+        <p>3. There has been a notable decrease in the number of people who smoke. The decrease is a result of public health campaigns.</p>
+        <span class="tick-button" onclick="showHint('sub-ex3-hint')">✔</span>
+        <div class="hint" id="sub-ex3-hint">
+            <strong>Hint:</strong> Replace the second 'decrease' with a synonym. <br>
+            <strong>Example Answer:</strong> There has been a notable decrease in the number of people who smoke. This <strong>decline</strong> is a result of public health campaigns.
+        </div>
+    </div>
+
+    <div class="exercise" id="sub-ex4">
+        <p>4. The company's profits surged last year. This surge was due to a new product launch.</p>
+        <span class="tick-button" onclick="showHint('sub-ex4-hint')">✔</span>
+        <div class="hint" id="sub-ex4-hint">
+            <strong>Hint:</strong> Use a different noun to refer to the 'surge'. <br>
+            <strong>Example Answer:</strong> The company's profits surged last year. This <strong>growth</strong> was due to a new product launch.
+        </div>
+    </div>
+
+    <div class="exercise" id="sub-ex5">
+        <p>5. The population of the town remained stable. The stability was maintained by strict zoning laws.</p>
+        <span class="tick-button" onclick="showHint('sub-ex5-hint')">✔</span>
+        <div class="hint" id="sub-ex5-hint">
+            <strong>Hint:</strong> Use a synonym for 'stability' to avoid repetition. <br>
+            <strong>Example Answer:</strong> The population of the town remained stable. This <strong>steadiness</strong> was maintained by strict zoning laws.
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function showHint(hintId) {
+        const hint = document.getElementById(hintId);
+        if (hint.style.display === "block") {
+            hint.style.display = "none";
+        } else {
+            hint.style.display = "block";
+        }
+    }
+</script>
+
+</body>
+</html>
