@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discourse Marker Exercises</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: none;
+            background: none;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            color: #3498db;
+            border-bottom: 3px solid #3498db;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .exercise-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .question-box {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            background-color: #fff;
+        }
+
+        .option {
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .option:hover {
+            background-color: #e0e0e0;
+        }
+
+        .feedback {
+            font-weight: 600;
+            margin-top: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+
+        .correct {
+            color: #27ae60;
+            background-color: #e8f8f5;
+        }
+
+        .incorrect {
+            color: #c0392b;
+            background-color: #fdedec;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            position: relative;
+        }
+
+        .category-item label {
+            flex-grow: 1;
+        }
+
+        .category-item select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 30px;
+        }
+        
+        .category-feedback-icon {
+            font-size: 1.5em;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Discourse Marker Exercises</h1>
+
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab(event, 'stages')">Stages in a Response</button>
+        <button class="tab-button" onclick="openTab(event, 'relationships')">Relationship between Ideas</button>
+    </div>
+
+    <div id="stages" class="tab-content active">
+        <div class="exercise-section">
+            <h2>Exercise 1: Categorization (10 Questions)</h2>
+            <p>For each discourse marker, select its correct category from the dropdown menu.</p>
+            <div class="category-item">
+                <label>To begin with,</label>
+                <select onchange="checkCategory(this, 'introduction')">
+                    <option value="">-- Select Category --</option>
+                    <option value="introduction">Introduction</option>
+                    <option value="development">Paragraph Development</option>
+                    <option value="conclusion">Conclusion</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+            <div class="category-item">
+                <label>Overall,</label>
+                <select onchange="checkCategory(this, 'conclusion')">
+                    <option value="">-- Select Category --</option>
+                    <option value="introduction">Introduction</option>
+                    <option value="development">Paragraph Development</option>
+                    <option value="conclusion">Conclusion</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+            <div class="category-item">
+                <label>Initially,</label>
+                <select onchange="checkCategory(this, 'introduction')">
+                    <option value="">-- Select Category --</option>
+                    <option value="introduction">Introduction</option>
+                    <option value="development">Paragraph Development</option>
+                    <option value="conclusion">Conclusion</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+            <div class="category-item">
+                <label>In conclusion,</label>
+                <select onchange="checkCategory(this, 'conclusion')">
+                    <option value="">-- Select Category --</option>
+                    <option value="introduction">Introduction</option>
+                    <option value="development">Paragraph Development</option>
+                    <option value="conclusion">Conclusion</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+            <div class="category-item">
+                <label>Furthermore,</label>
+                <select onchange="checkCategory(this, 'development')">
+                    <option value="">-- Select Category --</option>
+                    <option value="introduction">Introduction</option>
+                    <option value="development">Paragraph Development</option>
+                    <option value="conclusion">Conclusion</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+            <div class="category-item">
+                <label>Another point is…</label>
+                <select onchange="checkCategory(this, 'development')">
+                    <option value="">-- Select Category --</option>
+                    <option value="introduction">Introduction</option>
+                    <option value="development">Paragraph Development</option>
+                    <option value="conclusion">Conclusion</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+             <div class="category-item">
+                <label>First of all,</label>
+                <select onchange="checkCategory(this, 'introduction')">
+                    <option value="">-- Select Category --</option>
+                    <option value="introduction">Introduction</option>
+                    <option value="development">Paragraph Development</option>
+                    <option value="conclusion">Conclusion</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+            <div class="category-item">
+                <label>Finally,</label>
+                <select onchange="checkCategory(this, 'conclusion')">
+                    <option value="">-- Select Category --</option>
+                    <option value="introduction">Introduction</option>
+                    <option value="development">Paragraph Development</option>
+                    <option value="conclusion">Conclusion</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+            <div class="category-item">
+                <label>In summary,</label>
+                <select onchange="checkCategory(this, 'conclusion')">
+                    <option value="">-- Select Category --</option>
+                    <option value="introduction">Introduction</option>
+                    <option value="development">Paragraph Development</option>
+                    <option value="conclusion">Conclusion</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+             <div class="category-item">
+                <label>To sum up,</label>
+                <select onchange="checkCategory(this, 'conclusion')">
+                    <option value="">-- Select Category --</option>
+                    <option value="introduction">Introduction</option>
+                    <option value="development">Paragraph Development</option>
+                    <option value="conclusion">Conclusion</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 2: Multiple Choice</h2>
+            <p>Choose the best discourse marker to complete the sentence. Click an option to see if you're correct.</p>
+            <div class="question-box">
+                <p>The report revealed a significant increase in online shopping. _______, it also showed a decline in traditional retail sales.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">In addition</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'In addition')">Consequently</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'In addition')">However</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>The opening section provides background information on the topic. _______, the next part will analyze the key arguments in detail.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Next')">In conclusion</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">Next</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Next')">In contrast</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>The first step is to analyze the data. _______, we will draft the report based on our findings.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">Subsequently</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Subsequently')">On the other hand</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Subsequently')">For example</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>The essay will discuss the causes of climate change. _______, it will present some potential solutions.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Then')">Finally</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">Then</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Then')">In brief</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>To conclude this discussion, let’s quickly recap the main points. _______, the economic benefits were outweighed by the environmental costs.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">In summary</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'In summary')">First of all</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'In summary')">Additionally</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 3: Paragraph Improvement</h2>
+            <p>The following paragraphs lack coherence. Add appropriate discourse markers from the list below to improve the flow. Indicate where you would add them.</p>
+            <p><strong>Available Markers:</strong> Firstly, In conclusion, To sum up, Moreover, To begin with, Then</p>
+            
+            <div class="question-box">
+                <p>Many people argue for stricter environmental laws. They believe that without them, pollution will continue to harm ecosystems. These laws should focus on reducing carbon emissions and promoting renewable energy. The final point is that governments need to enforce these regulations to see real change.</p>
+                <textarea placeholder="Write your revised paragraph here..."></textarea>
+            </div>
+            <div class="question-box">
+                <p>There are several reasons why online learning is beneficial. It offers flexibility for students with busy schedules. It can often be more cost-effective. Students can access a wide range of courses from different universities worldwide.</p>
+                <textarea placeholder="Write your revised paragraph here..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div id="relationships" class="tab-content">
+        <div class="exercise-section">
+            <h2>Exercise 1: Categorization (10 Questions)</h2>
+            <p>For each discourse marker, select its correct category from the dropdown menu.</p>
+            
+            <div class="category-item">
+                <label>For example,</label>
+                <select onchange="checkCategory(this, 'example')">
+                    <option value="">-- Select Category --</option>
+                    <option value="cause_effect">Cause and Effect</option>
+                    <option value="contrast">Contrast</option>
+                    <option value="example">Example / Illustration</option>
+                    <option value="addition">Addition / Progression</option>
+                    <option value="similarity">Similarity / Comparison</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+            <div class="category-item">
+                <label>On the other hand,</label>
+                <select onchange="checkCategory(this, 'contrast')">
+                    <option value="">-- Select Category --</option>
+                    <option value="cause_effect">Cause and Effect</option>
+                    <option value="contrast">Contrast</option>
+                    <option value="example">Example / Illustration</option>
+                    <option value="addition">Addition / Progression</option>
+                    <option value="similarity">Similarity / Comparison</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+            <div class="category-item">
+                <label>Consequently,</label>
+                <select onchange="checkCategory(this, 'cause_effect')">
+                    <option value="">-- Select Category --</option>
+                    <option value="cause_effect">Cause and Effect</option>
+                    <option value="contrast">Contrast</option>
+                    <option value="example">Example / Illustration</option>
+                    <option value="addition">Addition / Progression</option>
+                    <option value="similarity">Similarity / Comparison</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+            <div class="category-item">
+                <label>In the same way,</label>
+                <select onchange="checkCategory(this, 'similarity')">
+                    <option value="">-- Select Category --</option>
+                    <option value="cause_effect">Cause and Effect</option>
+                    <option value="contrast">Contrast</option>
+                    <option value="example">Example / Illustration</option>
+                    <option value="similarity">Similarity / Comparison</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+             <div class="category-item">
+                <label>Therefore,</label>
+                <select onchange="checkCategory(this, 'cause_effect')">
+                    <option value="">-- Select Category --</option>
+                    <option value="cause_effect">Cause and Effect</option>
+                    <option value="contrast">Contrast</option>
+                    <option value="example">Example / Illustration</option>
+                    <option value="similarity">Similarity / Comparison</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+             <div class="category-item">
+                <label>Moreover,</label>
+                <select onchange="checkCategory(this, 'addition')">
+                    <option value="">-- Select Category --</option>
+                    <option value="cause_effect">Cause and Effect</option>
+                    <option value="contrast">Contrast</option>
+                    <option value="example">Example / Illustration</option>
+                    <option value="addition">Addition / Progression</option>
+                    <option value="similarity">Similarity / Comparison</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+             <div class="category-item">
+                <label>Similarly,</label>
+                <select onchange="checkCategory(this, 'similarity')">
+                    <option value="">-- Select Category --</option>
+                    <option value="cause_effect">Cause and Effect</option>
+                    <option value="contrast">Contrast</option>
+                    <option value="example">Example / Illustration</option>
+                    <option value="addition">Addition / Progression</option>
+                    <option value="similarity">Similarity / Comparison</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+             <div class="category-item">
+                <label>As a result,</label>
+                <select onchange="checkCategory(this, 'cause_effect')">
+                    <option value="">-- Select Category --</option>
+                    <option value="cause_effect">Cause and Effect</option>
+                    <option value="contrast">Contrast</option>
+                    <option value="example">Example / Illustration</option>
+                    <option value="addition">Addition / Progression</option>
+                    <option value="similarity">Similarity / Comparison</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+             <div class="category-item">
+                <label>In addition,</label>
+                <select onchange="checkCategory(this, 'addition')">
+                    <option value="">-- Select Category --</option>
+                    <option value="cause_effect">Cause and Effect</option>
+                    <option value="contrast">Contrast</option>
+                    <option value="example">Example / Illustration</option>
+                    <option value="addition">Addition / Progression</option>
+                    <option value="similarity">Similarity / Comparison</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+             <div class="category-item">
+                <label>Nevertheless,</label>
+                <select onchange="checkCategory(this, 'contrast')">
+                    <option value="">-- Select Category --</option>
+                    <option value="cause_effect">Cause and Effect</option>
+                    <option value="contrast">Contrast</option>
+                    <option value="example">Example / Illustration</option>
+                    <option value="addition">Addition / Progression</option>
+                    <option value="similarity">Similarity / Comparison</option>
+                </select>
+                <span class="category-feedback-icon"></span>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 2: Multiple Choice (10 Questions)</h2>
+            <p>Choose the best discourse marker to complete the sentence. Click an option to see if you're correct.</p>
+            <div class="question-box">
+                <p>The company invested heavily in marketing. _______, their sales figures did not improve.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">However</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'However')">Therefore</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'However')">In addition</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>The population of the city has grown rapidly, _______ to a severe housing shortage.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'leading to')">likewise</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">leading to</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'leading to')">in contrast</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>The new policy aims to reduce traffic congestion. _______, it is hoped it will also decrease air pollution.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">In addition</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'In addition')">As a result</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'In addition')">Despite this</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>He was sick all week. _______, he was unable to attend the conference.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'As a result')">In contrast</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'As a result')">Similarly</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">As a result</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>Some people believe that technology is the answer to all of our problems. _______, others argue that it creates new issues.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">Conversely</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Conversely')">Therefore</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Conversely')">Moreover</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>The project failed. _______, the team learned valuable lessons from the experience.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">Nevertheless</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Nevertheless')">Because</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Nevertheless')">So</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>They decided to cancel the outdoor event _______ the heavy rain.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'due to')">although</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">due to</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'due to')">since</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>She studied hard for the exam. _______, she passed with flying colors.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Therefore')">In contrast</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">Therefore</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Therefore')">Despite this</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>The city's economy is booming. _______, unemployment rates are at a historic low.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">In fact</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'In fact')">However</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'In fact')">For instance</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+            <div class="question-box">
+                <p>The new software is powerful. _______, it is very user-friendly.</p>
+                <ul class="options-list">
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Moreover')">Nevertheless</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'incorrect', 'Moreover')">On the other hand</li>
+                    <li class="option" onclick="checkMultipleChoice(this, 'correct')">Moreover</li>
+                </ul>
+                <div class="feedback"></div>
+            </div>
+        </div>
+
+        <div class="exercise-section">
+            <h2>Exercise 3: Paragraph Improvement</h2>
+            <p>The following paragraphs lack logical connections. Add appropriate discourse markers from the list below to improve the flow. Indicate where you would add them.</p>
+            <p><strong>Available Markers:</strong> As a result, Similarly, For example, In fact, Nevertheless, In particular, In addition</p>
+            
+            <div class="question-box">
+                <p>Learning a new language is challenging. It requires consistent practice and patience. Learning a musical instrument is also demanding and requires regular effort to master. People who dedicate time to one will likely find success in the other.</p>
+                <textarea placeholder="Write your revised paragraph here..."></textarea>
+            </div>
+            <div class="question-box">
+                <p>The company's profits have been consistently high. They have also expanded into new international markets. The CEO, however, decided to resign last week. The public was shocked by this unexpected decision.</p>
+                <textarea placeholder="Write your revised paragraph here..."></textarea>
+            </div>
+             <div class="question-box">
+                <p>Many people argue that cars are a major source of pollution. They release harmful gases into the atmosphere. Public transport is a more environmentally friendly alternative. People should use buses and trains more often to reduce their carbon footprint.</p>
+                <textarea placeholder="Write your revised paragraph here..."></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        const tabcontent = document.getElementsByClassName("tab-content");
+        for (let i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        const tabbuttons = document.getElementsByClassName("tab-button");
+        for (let i = 0; i < tabbuttons.length; i++) {
+            tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    function checkMultipleChoice(element, answerType, correctAnswer = '') {
+        const feedback = element.closest('.question-box').querySelector('.feedback');
+        const allOptions = element.parentNode.querySelectorAll('.option');
+
+        allOptions.forEach(opt => {
+            opt.style.backgroundColor = '#ecf0f1';
+            opt.style.pointerEvents = 'none';
+        });
+
+        if (answerType === 'correct') {
+            feedback.textContent = 'Correct! ✅';
+            feedback.className = 'feedback correct show';
+            element.style.backgroundColor = '#27ae60';
+        } else {
+            feedback.textContent = `Incorrect. ❌ The correct answer is: ${correctAnswer}.`;
+            feedback.className = 'feedback incorrect show';
+            element.style.backgroundColor = '#c0392b';
+        }
+    }
+
+    function checkCategory(selectElement, correctAnswer) {
+        const feedbackIcon = selectElement.nextElementSibling;
+        if (selectElement.value === correctAnswer) {
+            feedbackIcon.textContent = '✅';
+            feedbackIcon.style.color = '#27ae60';
+        } else {
+            feedbackIcon.textContent = '❌';
+            feedbackIcon.style.color = '#c0392b';
+        }
+        feedbackIcon.style.display = 'inline';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('stages').style.display = 'block';
+    });
+</script>
+
+</body>
+</html>
