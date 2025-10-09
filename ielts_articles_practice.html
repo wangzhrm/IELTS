@@ -1,0 +1,314 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 1: Articles Practice for Data Description</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        h1 { color: #2c3e50; }
+        p { margin-bottom: 20px; }
+        .question { margin-bottom: 20px; border: 1px solid #ccc; padding: 15px; border-radius: 5px; background-color: #f9f9f9; }
+        .answer { display: none; background-color: #e8f4f8; padding: 10px; margin-top: 10px; border-radius: 5px; }
+        select { margin: 0 5px; padding: 5px; }
+        button { padding: 8px 15px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #2980b9; }
+    </style>
+    <script>
+        function showAnswer(qid) {
+            document.getElementById('answer' + qid).style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    <h1>IELTS Writing Task 1: Articles Practice for Data Description</h1>
+    <p>These 20 practice questions test your mastery of articles ('a', 'an', 'the', or no article '/') in sentences typical of IELTS Writing Task 1, where you describe data from charts, graphs, or tables. Each sentence has blanks for you to select the correct article. After choosing, click "Show Answer" to see the correct answers and a clear explanation. The sentences are designed to reflect common IELTS Writing Task 1 contexts, with unambiguous correct answers to avoid disputes.</p>
+
+    <div class="question">
+        <p>1. ______ chart illustrates ______ significant increase in ______ global population from 1990 to 2020.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(1)">Show Answer</button>
+        <div id="answer1" class="answer">
+            <strong>Correct:</strong> The , a , the<br>
+            <strong>Explanation:</strong> 'Chart' is specific (the one being described), so 'the'; 'increase' is one of many possible, consonant sound, so 'a'; 'global population' is unique, so 'the'.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>2. ______ data shows that ______ production of ______ electricity rose sharply in 2015.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(2)">Show Answer</button>
+        <div id="answer2" class="answer">
+            <strong>Correct:</strong> The , the , /<br>
+            <strong>Explanation:</strong> 'Data' is specific (from the chart), so 'the'; 'production' is specific in context, so 'the'; 'electricity' is uncountable and general, so no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>3. In 2020, ______ number of ______ tourists visiting ______ Europe decreased due to ______ pandemic.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(3)">Show Answer</button>
+        <div id="answer3" class="answer">
+            <strong>Correct:</strong> the , / , / , the<br>
+            <strong>Explanation:</strong> 'Number' is specific (in 2020), so 'the'; 'tourists' is plural and general, no article; 'Europe' is a proper noun, no article; 'pandemic' is specific (contextually known), so 'the'.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>4. ______ bar graph compares ______ average income in ______ urban and rural areas in 2018.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(4)">Show Answer</button>
+        <div id="answer4" class="answer">
+            <strong>Correct:</strong> The , the , /<br>
+            <strong>Explanation:</strong> 'Bar graph' is specific (the one described), so 'the'; 'average income' is specific in context, so 'the'; 'urban and rural areas' is general, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>5. ______ percentage of ______ students attending ______ university rose steadily over ______ decade.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(5)">Show Answer</button>
+        <div id="answer5" class="answer">
+            <strong>Correct:</strong> The , / , a , the<br>
+            <strong>Explanation:</strong> 'Percentage' is specific (in the data), so 'the'; 'students' is plural and general, no article; 'university' is one unspecified, consonant sound, so 'a'; 'decade' is specific (time period), so 'the'.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>6. ______ table highlights ______ consumption of ______ renewable energy in 2022.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(6)">Show Answer</button>
+        <div id="answer6" class="answer">
+            <strong>Correct:</strong> The , the , /<br>
+            <strong>Explanation:</strong> 'Table' is specific (the one described), so 'the'; 'consumption' is specific in context, so 'the'; 'renewable energy' is uncountable and general, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>7. ______ unemployment rate in ______ Japan reached ______ lowest level in 2023.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(7)">Show Answer</button>
+        <div id="answer7" class="answer">
+            <strong>Correct:</strong> The , / , the<br>
+            <strong>Explanation:</strong> 'Unemployment rate' is specific (in data), so 'the'; 'Japan' is a proper noun, no article; 'lowest level' is superlative, so 'the'.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>8. ______ pie chart shows ______ distribution of ______ household expenses in 2020.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(8)">Show Answer</button>
+        <div id="answer8" class="answer">
+            <strong>Correct:</strong> The , the , /<br>
+            <strong>Explanation:</strong> 'Pie chart' is specific, so 'the'; 'distribution' is specific in context, so 'the'; 'household expenses' is general, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>9. In ______ first quarter of 2021, ______ sales of ______ electric cars surged.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(9)">Show Answer</button>
+        <div id="answer9" class="answer">
+            <strong>Correct:</strong> the , the , /<br>
+            <strong>Explanation:</strong> 'First quarter' is ordinal, so 'the'; 'sales' is specific (in data), so 'the'; 'electric cars' is plural and general, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>10. ______ graph indicates ______ steady rise in ______ use of ______ public transport.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(10)">Show Answer</button>
+        <div id="answer10" class="answer">
+            <strong>Correct:</strong> The , a , the , /<br>
+            <strong>Explanation:</strong> 'Graph' is specific, so 'the'; 'rise' is one of many, consonant sound, so 'a'; 'use' is specific in context, so 'the'; 'public transport' is uncountable and general, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>11. ______ exports of ______ coffee from ______ Brazil increased in 2022.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(11)">Show Answer</button>
+        <div id="answer11" class="answer">
+            <strong>Correct:</strong> The , / , /<br>
+            <strong>Explanation:</strong> 'Exports' is specific (in data), so 'the'; 'coffee' is uncountable and general, no article; 'Brazil' is a proper noun, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>12. ______ line graph compares ______ number of ______ visitors to two museums.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(12)">Show Answer</button>
+        <div id="answer12" class="answer">
+            <strong>Correct:</strong> The , the , /<br>
+            <strong>Explanation:</strong> 'Line graph' is specific, so 'the'; 'number' is specific (in data), so 'the'; 'visitors' is plural and general, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>13. ______ average temperature in ______ summer of 2023 was ______ highest recorded.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(13)">Show Answer</button>
+        <div id="answer13" class="answer">
+            <strong>Correct:</strong> The , / , the<br>
+            <strong>Explanation:</strong> 'Average temperature' is specific (in data), so 'the'; 'summer' is a season, no article; 'highest' is superlative, so 'the'.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>14. ______ consumption of ______ sugar in ______ developed countries declined slightly.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(14)">Show Answer</button>
+        <div id="answer14" class="answer">
+            <strong>Correct:</strong> The , / , /<br>
+            <strong>Explanation:</strong> 'Consumption' is specific (in data), so 'the'; 'sugar' is uncountable and general, no article; 'developed countries' is plural and general, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>15. ______ chart shows ______ sharp decline in ______ use of ______ coal in 2021.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(15)">Show Answer</button>
+        <div id="answer15" class="answer">
+            <strong>Correct:</strong> The , a , the , /<br>
+            <strong>Explanation:</strong> 'Chart' is specific, so 'the'; 'decline' is one of many, consonant sound, so 'a'; 'use' is specific in context, so 'the'; 'coal' is uncountable and general, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>16. ______ population of ______ elderly in ______ Japan is increasing rapidly.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(16)">Show Answer</button>
+        <div id="answer16" class="answer">
+            <strong>Correct:</strong> The , the , /<br>
+            <strong>Explanation:</strong> 'Population' is specific (in data), so 'the'; 'elderly' is a specific group, so 'the'; 'Japan' is a proper noun, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>17. In ______ 2020, ______ production of ______ cars in ______ Germany peaked.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(17)">Show Answer</button>
+        <div id="answer17" class="answer">
+            <strong>Correct:</strong> / , the , / , /<br>
+            <strong>Explanation:</strong> Years like '2020' take no article; 'production' is specific, so 'the'; 'cars' is plural and general, no article; 'Germany' is a proper noun, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>18. ______ bar chart compares ______ amount of ______ rainfall in two regions.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(18)">Show Answer</button>
+        <div id="answer18" class="answer">
+            <strong>Correct:</strong> The , the , /<br>
+            <strong>Explanation:</strong> 'Bar chart' is specific, so 'the'; 'amount' is specific (in data), so 'the'; 'rainfall' is uncountable and general, no article.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>19. ______ number of ______ people using ______ internet grew steadily over ______ years.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(19)">Show Answer</button>
+        <div id="answer19" class="answer">
+            <strong>Correct:</strong> The , / , the , the<br>
+            <strong>Explanation:</strong> 'Number' is specific (in data), so 'the'; 'people' is plural and general, no article; 'internet' is unique, so 'the'; 'years' is specific (time period), so 'the'.
+        </div>
+    </div>
+
+    <div class="question">
+        <p>20. ______ table illustrates ______ trend in ______ employment rates in ______ Asia.</p>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <select><option>/</option><option>a</option><option>an</option><option>the</option></select>
+        <button onclick="showAnswer(20)">Show Answer</button>
+        <div id="answer20" class="answer">
+            <strong>Correct:</strong> The , a , / , /<br>
+            <strong>Explanation:</strong> 'Table' is specific, so 'the'; 'trend' is one of many, consonant sound, so 'a'; 'employment rates' is plural and general, no article; 'Asia' is a proper noun, no article.
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,251 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 1: Articles Practice Test with Answers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            color: #000;
+            background-color: #fff;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24pt;
+        }
+        h2 {
+            font-size: 18pt;
+        }
+        p {
+            font-size: 12pt;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .answer {
+            background-color: #e8f4f8;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        @media print {
+            body {
+                margin: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>IELTS Writing Task 1: Articles Practice Test with Answers</h1>
+    <h2>Instructions</h2>
+    <p>Below are the same 20 questions from the IELTS Writing Task 1 Articles Practice Test, with the correct articles ('a', 'an', 'the', or no article '/') filled in. Each question is followed by an explanation of why the answers are correct, designed to reflect typical IELTS Writing Task 1 contexts for describing charts, graphs, and tables.</p>
+
+    <div class="question">
+        <p>1. The diagram depicts the process of the water cycle in nature.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, the, the</p>
+            <p><strong>Explanation:</strong> 'Diagram' is specific (the one described), so 'the'; 'process' is specific in context, so 'the'; 'water cycle' is unique, so 'the'.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>2. The figures reveal a gradual decline in the sales of / newspapers over the period.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, a, the, /, the</p>
+            <p><strong>Explanation:</strong> 'Figures' is specific (in data), so 'the'; 'decline' is one of many, consonant sound, so 'a'; 'sales' is specific, so 'the'; 'newspapers' is plural and general, no article; 'period' is specific (in data), so 'the'.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>3. In 2019, the expenditure on / education in the United States was the highest among the countries surveyed.</p>
+        <div class="answer">
+            <p class="correct">Correct: the, /, the, the, the</p>
+            <p><strong>Explanation:</strong> 'Expenditure' is specific (in 2019), so 'the'; 'education' is uncountable and general, no article; 'United States' is a proper noun with 'the'; 'highest' is superlative, so 'the'; 'countries' is specific (surveyed), so 'the'.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>4. The map shows the changes in the layout of the town from 1990 to 2020.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, the, the, the</p>
+            <p><strong>Explanation:</strong> 'Map' is specific, so 'the'; 'changes' is specific (in data), so 'the'; 'layout' is specific, so 'the'; 'town' is specific (in context), so 'the'.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>5. The proportion of the workforce employed in / agriculture decreased significantly.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, the, /</p>
+            <p><strong>Explanation:</strong> 'Proportion' is specific (in data), so 'the'; 'workforce' is specific (in context), so 'the'; 'agriculture' is uncountable and general, no article.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>6. The information provided indicates a peak in / tourism during the summer months.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, a, /, the</p>
+            <p><strong>Explanation:</strong> 'Information' is specific (provided), so 'the'; 'peak' is one of many, consonant sound, so 'a'; 'tourism' is uncountable and general, no article; 'summer months' is specific, so 'the'.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>7. The line chart compares the levels of / pollution in three cities.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, the, /</p>
+            <p><strong>Explanation:</strong> 'Line chart' is specific, so 'the'; 'levels' is specific (in data), so 'the'; 'pollution' is uncountable and general, no article.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>8. The overall trend shows an increase in the adoption of / renewable sources.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, an, the, /</p>
+            <p><strong>Explanation:</strong> 'Overall trend' is specific, so 'the'; 'increase' is one of many, vowel sound, so 'an'; 'adoption' is specific, so 'the'; 'renewable sources' is plural and general, no article.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>9. During the second half of the year, the revenue from / exports rose sharply.</p>
+        <div class="answer">
+            <p class="correct">Correct: the, the, the, /</p>
+            <p><strong>Explanation:</strong> 'Second half' is specific, so 'the'; 'year' is specific, so 'the'; 'revenue' is specific (in data), so 'the'; 'exports' is plural and general, no article.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>10. The data illustrates the disparity between the rich and / poor nations in the access to the internet.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, the, the, /, the, the</p>
+            <p><strong>Explanation:</strong> 'Data' is specific, so 'the'; 'disparity' is specific, so 'the'; 'rich' is specific (group), so 'the'; 'poor nations' is plural and general, no article; 'access' is specific, so 'the'; 'internet' is unique, so 'the'.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>11. The bar graph highlights the differences in the consumption of / fast food across age groups.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, the, the, /</p>
+            <p><strong>Explanation:</strong> 'Bar graph' is specific, so 'the'; 'differences' is specific, so 'the'; 'consumption' is specific, so 'the'; 'fast food' is uncountable and general, no article.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>12. The statistics show that / women outnumber / men in / higher education.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, /, /, /</p>
+            <p><strong>Explanation:</strong> 'Statistics' is specific (in data), so 'the'; 'women' and 'men' are plural and general, no article; 'higher education' is uncountable and general, no article.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>13. The pie chart represents the share of the market held by each company.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, the, the</p>
+            <p><strong>Explanation:</strong> 'Pie chart' is specific, so 'the'; 'share' is specific, so 'the'; 'market' is specific, so 'the'.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>14. The growth rate of the economy in / China surpassed that of / other countries.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, the, /, /</p>
+            <p><strong>Explanation:</strong> 'Growth rate' is specific, so 'the'; 'economy' is specific, so 'the'; 'China' is a proper noun, no article; 'other countries' is plural and general, no article.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>15. The table compares the amount of / time spent on / leisure activities.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, the, /, /</p>
+            <p><strong>Explanation:</strong> 'Table' is specific, so 'the'; 'amount' is specific, so 'the'; 'time' and 'leisure activities' are uncountable and general, no article.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>16. The results indicate a fluctuation in the stock prices throughout the year.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, a, the, the</p>
+            <p><strong>Explanation:</strong> 'Results' is specific, so 'the'; 'fluctuation' is one of many, consonant sound, so 'a'; 'stock prices' is specific, so 'the'; 'year' is specific, so 'the'.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>17. In / Europe, the use of / public transportation is more common than in / North America.</p>
+        <div class="answer">
+            <p class="correct">Correct: /, the, /, /</p>
+            <p><strong>Explanation:</strong> 'Europe' and 'North America' are proper nouns, no article; 'use' is specific, so 'the'; 'public transportation' is uncountable and general, no article.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>18. The survey reveals a preference for / online shopping among the younger generation.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, a, /, the</p>
+            <p><strong>Explanation:</strong> 'Survey' is specific, so 'the'; 'preference' is one of many, consonant sound, so 'a'; 'online shopping' is uncountable and general, no article; 'younger generation' is specific, so 'the'.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>19. The flow chart outlines the steps involved in the manufacturing of / clothing.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, the, the, /</p>
+            <p><strong>Explanation:</strong> 'Flow chart' is specific, so 'the'; 'steps' is specific, so 'the'; 'manufacturing' is specific, so 'the'; 'clothing' is uncountable and general, no article.</p>
+        </div>
+    </div>
+
+    <div class="question">
+        <p>20. The overall pattern demonstrates a correlation between the education level and / income.</p>
+        <div class="answer">
+            <p class="correct">Correct: The, a, the, /</p>
+            <p><strong>Explanation:</strong> 'Overall pattern' is specific, so 'the'; 'correlation' is one of many, consonant sound, so 'a'; 'education level' is specific, so 'the'; 'income' is uncountable and general, no article.</p>
+        </div>
+    </div>
+
+</body>
+</html>

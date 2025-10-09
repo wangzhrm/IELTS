@@ -1,0 +1,167 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 1: Articles Practice Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            color: #000;
+            background-color: #fff;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24pt;
+        }
+        h2 {
+            font-size: 18pt;
+        }
+        p {
+            font-size: 12pt;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .blank {
+            display: inline-block;
+            width: 50px;
+            border-bottom: 1px solid #000;
+            text-align: center;
+        }
+        @media print {
+            body {
+                margin: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>IELTS Writing Task 1: Articles Practice Test</h1>
+    <h2>Instructions</h2>
+    <p>Fill in each blank with the appropriate article: 'a', 'an', 'the', or leave it blank (/) if no article is needed. These sentences are typical of descriptions used in IELTS Writing Task 1 for charts, graphs, and tables.</p>
+    
+    <div class="question">
+        <p>1. ______ diagram depicts ______ process of ______ water cycle in nature.</p>
+    </div>
+    
+    <div class="question">
+        <p>2. ______ figures reveal ______ gradual decline in ______ sales of ______ newspapers over ______ period.</p>
+    </div>
+    
+    <div class="question">
+        <p>3. In 2019, ______ expenditure on ______ education in ______ United States was ______ highest among ______ countries surveyed.</p>
+    </div>
+    
+    <div class="question">
+        <p>4. ______ map shows ______ changes in ______ layout of ______ town from 1990 to 2020.</p>
+    </div>
+    
+    <div class="question">
+        <p>5. ______ proportion of ______ workforce employed in ______ agriculture decreased significantly.</p>
+    </div>
+    
+    <div class="question">
+        <p>6. ______ information provided indicates ______ peak in ______ tourism during ______ summer months.</p>
+    </div>
+    
+    <div class="question">
+        <p>7. ______ line chart compares ______ levels of ______ pollution in three cities.</p>
+    </div>
+    
+    <div class="question">
+        <p>8. ______ overall trend shows ______ increase in ______ adoption of ______ renewable sources.</p>
+    </div>
+    
+    <div class="question">
+        <p>9. During ______ second half of ______ year, ______ revenue from ______ exports rose sharply.</p>
+    </div>
+    
+    <div class="question">
+        <p>10. ______ data illustrates ______ disparity between ______ rich and ______ poor nations in ______ access to ______ internet.</p>
+    </div>
+    
+    <div class="question">
+        <p>11. ______ bar graph highlights ______ differences in ______ consumption of ______ fast food across age groups.</p>
+    </div>
+    
+    <div class="question">
+        <p>12. ______ statistics show that ______ women outnumber ______ men in ______ higher education.</p>
+    </div>
+    
+    <div class="question">
+        <p>13. ______ pie chart represents ______ share of ______ market held by each company.</p>
+    </div>
+    
+    <div class="question">
+        <p>14. ______ growth rate of ______ economy in ______ China surpassed that of ______ other countries.</p>
+    </div>
+    
+    <div class="question">
+        <p>15. ______ table compares ______ amount of ______ time spent on ______ leisure activities.</p>
+    </div>
+    
+    <div class="question">
+        <p>16. ______ results indicate ______ fluctuation in ______ stock prices throughout ______ year.</p>
+    </div>
+    
+    <div class="question">
+        <p>17. In ______ Europe, ______ use of ______ public transportation is more common than in ______ North America.</p>
+    </div>
+    
+    <div class="question">
+        <p>18. ______ survey reveals ______ preference for ______ online shopping among ______ younger generation.</p>
+    </div>
+    
+    <div class="question">
+        <p>19. ______ flow chart outlines ______ steps involved in ______ manufacturing of ______ clothing.</p>
+    </div>
+    
+    <div class="question">
+        <p>20. ______ overall pattern demonstrates ______ correlation between ______ education level and ______ income.</p>
+    </div>
+
+</body>
+</html>
