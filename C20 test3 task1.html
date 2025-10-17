@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f7f7;
+            padding: 2rem;
+        }
+        .ielts-container {
+            max-width: 900px;
+            margin: auto;
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+        .ielts-header {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .ielts-instruction {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #4a5568;
+            margin-bottom: 1.5rem;
+        }
+        .image-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .ielts-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .ielts-textarea {
+            width: 100%;
+            min-height: 350px;
+            border: 1px solid #cbd5e0;
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #2d3748;
+            resize: vertical;
+            transition: all 0.2s ease-in-out;
+        }
+        .ielts-textarea:focus {
+            outline: none;
+            border-color: #4c51bf;
+            box-shadow: 0 0 0 3px rgba(76, 81, 191, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+<div class="ielts-container">
+
+    <!-- IELTS Section Header -->
+    <div class="ielts-header">
+        <h1 class="text-xl">Writing Task 1</h1>
+    </div>
+
+    <!-- Instructions -->
+    <div class="ielts-instruction">
+        <p class="mb-2">You should spend about 20 minutes on this task.</p>
+        <p>Write at least 150 words.</p>
+        <p class="mt-4">
+            The charts below give information about a public library in a town called Little Chalfont.
+            Summarise the information by selecting and reporting the main features, and make comparisons where relevant.
+        </p>
+    </div>
+
+    <!-- Image -->
+    <div class="image-container">
+        <img src="https://tonysew.wordpress.com/wp-content/uploads/2025/09/e59bbee789871-1.jpg" alt="Charts showing library data" class="ielts-image rounded-lg">
+    </div>
+
+    <!-- Answer Box -->
+    <div class="ielts-answer">
+        <textarea id="answerBox" class="ielts-textarea" placeholder="Write your response here..."></textarea>
+    </div>
+
+</div>
+
+</body>
+</html>

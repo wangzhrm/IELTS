@@ -1,0 +1,132 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IELTS Writing Task 2</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            margin: 40px;
+            line-height: 1.5;
+            background-color: #fff;
+            color: #000;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14pt;
+            margin-bottom: 20px;
+        }
+        .task-section {
+            margin-bottom: 20px;
+        }
+        .task-section p {
+            margin: 10px 0;
+        }
+        .task-instructions {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .task-image {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #000;
+        }
+        .answer-section {
+            margin-top: 20px;
+        }
+        .answer-box {
+            border: 1px solid #000;
+            min-height: 400px;
+            background: repeating-linear-gradient(
+                0deg,
+                #fff,
+                #fff 24pt,
+                #ccc 24pt,
+                #ccc 25pt
+            );
+            padding: 10px;
+            margin-top: 10px;
+        }
+        .page-number {
+            text-align: center;
+            font-size: 10pt;
+            margin-top: 20px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            IELTS Writing Task 1
+        </div>
+        <div class="task-section">
+            <p><strong>Part 1</strong></p>
+            <p>You should spend about 20 minutes on this task. Write at least 150 words.</p>
+            <p>The plans below show a harbour in 2000 and how it looks today.</p>
+            <p class="task-instructions">Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</p>
+            <div class="image-container">
+                <img src="https://tonysew.wordpress.com/wp-content/uploads/2025/09/cf00af10-175f-4674-9a5f-5d4c5f29ca26.jpg" alt="Harbour plans 2000 and today" class="task-image">
+            </div>
+        </div>
+        <div class="answer-section">
+            <p><strong>Write your answer in the box below.</strong></p>
+            <div class="answer-box"></div>
+        </div>
+        <div class="page-number">Page 1</div>
+    </div>
+</body>
+</html>
