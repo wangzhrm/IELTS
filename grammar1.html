@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High School English Grammar Mastery Dashboard</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                        },
+                        tier1: {
+                            light: '#f0fdf4',
+                            border: '#86efac',
+                            tag: '#16a34a',
+                            dark: '#14532d'
+                        },
+                        tier2: {
+                            light: '#eff6ff',
+                            border: '#93c5fd',
+                            tag: '#2563eb',
+                            dark: '#1e3a8a'
+                        },
+                        tier3: {
+                            light: '#fffbeeb',
+                            border: '#fde68a',
+                            tag: '#d97706',
+                            dark: '#78350f'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Sticky Header & Search Bar -->
+    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-gradient-to-tr from-indigo-600 to-brand-600 text-white p-2 rounded-xl shadow-md">
+                    <i class="fa-solid fa-book-bookmark text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-slate-900 text-base sm:text-lg leading-tight">High School English Grammar Mastery</h1>
+                    <p class="text-xs text-slate-500 hidden sm:block">Advanced English Grammar Rules, Structures & Practice Exercises</p>
+                </div>
+            </div>
+
+            <!-- Search & Quick Actions -->
+            <div class="flex items-center gap-2 sm:gap-4 flex-1 max-w-md justify-end">
+                <div class="relative w-full max-w-xs">
+                    <input type="text" id="searchInput" placeholder="Search rules, syntax, keywords..." 
+                        class="w-full pl-9 pr-4 py-1.5 text-sm bg-slate-100 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition-all">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                </div>
+                
+                <button id="toggleAllBtn" onclick="toggleAllAnswers()" 
+                    class="px-3 py-1.5 text-xs font-semibold bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 rounded-lg transition-colors whitespace-nowrap">
+                    <i class="fa-solid fa-eye mr-1"></i> <span id="toggleAllText">Expand All Answers</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Sidebar Navigation & Quick Tools -->
+        <aside class="lg:col-span-3 space-y-6">
+            <!-- Navigation Card -->
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm sticky top-22">
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Grammar Modules (By Tier)</h2>
+                <nav class="space-y-1 text-sm custom-scrollbar max-h-[calc(100vh-220px)] overflow-y-auto pr-1">
+                    <div class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded mb-1 flex items-center gap-1">
+                        <i class="fa-solid fa-layer-group text-emerald-600"></i> Tier 1: Core Priority Topics
+                    </div>
+                    <a href="#attributive" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-700 font-medium">1. Attributive Clause</a>
+                    <a href="#non-finite" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-700 font-medium">2. Non-Finite Verbs</a>
+                    <a href="#tenses" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-700 font-medium">3. Tense Contrast</a>
+                    <a href="#passive" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-700 font-medium">4. Passive Voice</a>
+                    <a href="#noun-clauses" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-700 font-medium">5. Noun Clauses</a>
+
+                    <div class="text-xs font-bold text-blue-700 bg-blue-50 px-2 py-1 rounded mt-4 mb-1 flex items-center gap-1">
+                        <i class="fa-solid fa-list-check text-blue-600"></i> Tier 2: Secondary Focus Topics
+                    </div>
+                    <a href="#adverbial" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-700">6. Adverbial Clauses</a>
+                    <a href="#subjunctive" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-700">7. Subjunctive Mood</a>
+                    <a href="#modals" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-700">8. Modal Verbs & Deduction</a>
+                    <a href="#concord" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-700">9. Subject-Verb Concord</a>
+                    <a href="#inversion" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-700">10. Inversion</a>
+
+                    <div class="text-xs font-bold text-amber-800 bg-amber-50 px-2 py-1 rounded mt-4 mb-1 flex items-center gap-1">
+                        <i class="fa-solid fa-shield-halved text-amber-600"></i> Tier 3: Supplementary Topics
+                    </div>
+                    <a href="#emphasis" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-600">11. Emphatic Sentences</a>
+                    <a href="#ellipsis" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-600">12. Ellipsis</a>
+                    <a href="#misc" class="nav-link block px-2.5 py-1.5 rounded-md hover:bg-slate-100 text-slate-600">13. Comparison & Articles</a>
+                </nav>
+
+                <!-- Practice Timer Tool -->
+                <div class="mt-4 pt-4 border-t border-slate-100">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-slate-600"><i class="fa-solid fa-stopwatch text-indigo-600 mr-1"></i> Practice Timer</span>
+                        <span id="timerDisplay" class="font-mono text-sm font-bold text-indigo-600">10:00</span>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="startTimer()" class="flex-1 py-1 text-xs bg-indigo-600 text-white rounded hover:bg-indigo-700">Start</button>
+                        <button onclick="pauseTimer()" class="flex-1 py-1 text-xs bg-slate-200 text-slate-700 rounded hover:bg-slate-300">Pause</button>
+                        <button onclick="resetTimer()" class="px-2 py-1 text-xs bg-slate-100 text-slate-500 rounded hover:bg-slate-200">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="lg:col-span-9 space-y-8">
+
+            <!-- Study Blueprint Banner -->
+            <section class="bg-gradient-to-br from-slate-900 to-indigo-950 text-white p-6 rounded-2xl shadow-lg relative overflow-hidden">
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 text-indigo-400 font-semibold text-xs tracking-wider uppercase mb-2">
+                        <i class="fa-solid fa-graduation-cap"></i> High School Grammar Mastery Framework
+                    </div>
+                    <h2 class="text-xl sm:text-2xl font-bold mb-3">Structured English Grammar Reference & Practice</h2>
+                    <p class="text-xs sm:text-sm text-slate-300 mb-4 max-w-3xl leading-relaxed">
+                        This guide outlines the 13 core English grammar structures essential for advanced high school literacy, syntax analysis, and standardized testing. Each unit includes concise bilingual explanations, formulas, worked examples, and interactive practice items.
+                    </p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                        <div class="bg-white/10 p-3 rounded-lg border border-white/10">
+                            <span class="font-bold text-emerald-400 block mb-1">Tier 1: Core Priority</span>
+                            <p class="text-slate-300">High-frequency structures: Attributive & Noun Clauses, Non-finite Verbs, Tenses, and Passives.</p>
+                        </div>
+                        <div class="bg-white/10 p-3 rounded-lg border border-white/10">
+                            <span class="font-bold text-blue-400 block mb-1">Tier 2: Secondary Focus</span>
+                            <p class="text-slate-300">Adverbial Clauses, Subjunctive Mood, Modals, Subject-Verb Agreement, and Inversion.</p>
+                        </div>
+                        <div class="bg-white/10 p-3 rounded-lg border border-white/10">
+                            <span class="font-bold text-amber-400 block mb-1">Tier 3: Supplementary</span>
+                            <p class="text-slate-300">Emphatic structures, Ellipsis, Articles, and Comparative patterns.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TIER 1 SECTION -->
+            <div class="flex items-center gap-3 pt-4 border-b border-slate-200 pb-2">
+                <span class="px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-full">TIER 1</span>
+                <h2 class="text-xl font-bold text-slate-800">Tier 1: Core Priority Topics</h2>
+            </div>
+
+            <!-- KEY POINT 1: Attributive Clause -->
+            <section id="attributive" class="grammar-card bg-white rounded-2xl border border-emerald-200 shadow-sm overflow-hidden">
+                <div class="bg-emerald-50/50 p-5 border-b border-emerald-100 flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-emerald-600 text-white text-xs font-bold rounded">1. Core Syntax</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">Attributive Clause (定语从句)</h3>
+                        <p class="text-xs text-slate-500">Restrictive vs Non-restrictive, Relative pronouns/adverbs, Prep + Which/Whom</p>
+                    </div>
+                    <span class="text-xs text-emerald-700 bg-emerald-100 font-semibold px-2.5 py-1 rounded-md">Priority: High</span>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <!-- Bilingual Explanation -->
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wide border-l-4 border-emerald-500 pl-2">Key Rules & Syntax Analysis (语法详解与易错陷阱)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">English Concept & Rules:</p>
+                                <p class="text-slate-600">An attributive clause modifies a noun or pronoun (the antecedent). Relative pronouns (<i>who, whom, whose, that, which</i>) or relative adverbs (<i>when, where, why</i>) introduce the clause. Non-restrictive clauses add extra information, are separated by commas, and <b>cannot</b> use <i>that</i>.</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">中文解析与易错陷阱 (Rules & Common Traps):</p>
+                                <p class="text-slate-600"><span class="text-emerald-700 font-semibold">分析方法：</span>先找先行词，再分析从句成分（缺主语/宾语用代词，缺状语用副词）。<br><span class="text-rose-600 font-semibold">高频陷阱：</span>① 非限制性定语从句（有逗号）及介词后绝对不能使用 <code class="bg-emerald-100 px-1 rounded">that</code>；② 介词提前时仅能用 <code class="bg-emerald-100 px-1 rounded">prep + which (物)</code> 或 <code class="bg-emerald-100 px-1 rounded">prep + whom (人)</code>。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formulas & Patterns -->
+                    <div class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-xs sm:text-sm space-y-1">
+                        <p class="text-amber-400">// Pattern Formulas</p>
+                        <p>1. Restrictive: Antecedent + relative pronoun/adverb + clause</p>
+                        <p>2. Non-restrictive: Antecedent, + which/who/whose + clause (No "that")</p>
+                        <p>3. Prepositional: Preposition + which/whom + clause</p>
+                    </div>
+
+                    <!-- Worked Examples -->
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-2">Annotated Examples (示范例句)</h4>
+                        <div class="space-y-2 text-xs sm:text-sm font-mono bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <p>1. The country <span class="text-emerald-600 font-bold">which/that</span> I visited last year was beautiful. <span class="text-slate-400">(Restrictive - object of "visited")</span></p>
+                            <p>2. Mo Yan, <span class="text-emerald-600 font-bold">whose</span> novels are world-famous, won the Nobel Prize. <span class="text-slate-400">(Non-restrictive - possessive)</span></p>
+                            <p>3. This is the school <span class="text-emerald-600 font-bold">in which / where</span> my father taught English. <span class="text-slate-400">(Adverbial of place)</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Practice Questions -->
+                    <div class="space-y-3 pt-2">
+                        <h4 class="text-sm font-bold text-slate-800 flex items-center justify-between">
+                            <span>Interactive Practice (巩固练习)</span>
+                            <span class="text-xs text-slate-400 font-normal">Click toggle button to check answer and breakdown</span>
+                        </h4>
+
+                        <!-- Question 1 -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q1. Complete the sentence: London, _______ I spent my childhood, has changed a lot in recent years.</p>
+                            <button onclick="toggleAnswer('q1_attributive')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q1_attributive" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: where / in which</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> The antecedent is "London" (a place), and it serves as an adverbial of place in the subordinate clause (I spent my childhood <i>in London</i>). Because it is a non-restrictive clause with a comma, use relative adverb <i>where</i> or <i>in which</i>. <i>That</i> cannot be used after a comma.</p>
+                            </div>
+                        </div>
+
+                        <!-- Question 2 -->
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q2. Correct the error: The manager is the person to that you should apologize.</p>
+                            <button onclick="toggleAnswer('q2_attributive')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q2_attributive" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: Change "to that" to "to whom"</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> When a preposition precedes a relative pronoun referring to a person, <i>whom</i> must be used instead of <i>that</i> or <i>who</i>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KEY POINT 2: Non-finite Verbs -->
+            <section id="non-finite" class="grammar-card bg-white rounded-2xl border border-emerald-200 shadow-sm overflow-hidden">
+                <div class="bg-emerald-50/50 p-5 border-b border-emerald-100 flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-emerald-600 text-white text-xs font-bold rounded">2. Core Verb Patterns</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">Non-finite Verbs (非谓语动词)</h3>
+                        <p class="text-xs text-slate-500">Infinitive (to do), Participles (-ing / -ed), Perfect & Passive forms</p>
+                    </div>
+                    <span class="text-xs text-emerald-700 bg-emerald-100 font-semibold px-2.5 py-1 rounded-md">Priority: High</span>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wide border-l-4 border-emerald-500 pl-2">Key Rules & Syntax Analysis (语法详解与易错陷阱)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">English Concept & Rules:</p>
+                                <p class="text-slate-600">Non-finite verbs do not serve as main predicate verbs. Infinitives (<i>to do</i>) indicate purpose or future action; Present Participles (<i>-ing</i>) express active voice or ongoing action; Past Participles (<i>-ed</i>) express passive voice or completed state.</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">中文解析与易错陷阱 (Rules & Common Traps):</p>
+                                <p class="text-slate-600"><span class="text-emerald-700 font-semibold">分析方法：</span>找非谓语动词的<b>逻辑主语</b>（通常为主句主语），判断主动与被动关系。<br><span class="text-rose-600 font-semibold">高频陷阱：</span>① 动作发生在主句动词之前时，必须用完成式 <code class="bg-emerald-100 px-1 rounded">having done / having been done</code>；② 谨防“悬垂分词”（非谓语逻辑主语与主句主语不一致导致语意错误）。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 text-slate-100 p-4 rounded-xl font-mono text-xs sm:text-sm space-y-1">
+                        <p class="text-amber-400">// Pattern Formulas</p>
+                        <p>1. Present Participle: Doing (Active / Ongoing)</p>
+                        <p>2. Past Participle: Done (Passive / Completed)</p>
+                        <p>3. Perfect Participle: Having done / Having been done (Prior Action)</p>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-2">Annotated Examples (示范例句)</h4>
+                        <div class="space-y-2 text-xs sm:text-sm font-mono bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <p>1. <span class="text-emerald-600 font-bold">Hearing</span> the bell, the students entered the classroom. <span class="text-slate-400">(Active & Simultaneous action)</span></p>
+                            <p>2. <span class="text-emerald-600 font-bold">Having finished</span> his assignment, Tom went out to play. <span class="text-slate-400">(Active & Prior action)</span></p>
+                            <p>3. <span class="text-emerald-600 font-bold">Encouraged</span> by the teacher, she made great progress. <span class="text-slate-400">(Passive relationship with "she")</span></p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <h4 class="text-sm font-bold text-slate-800">Interactive Practice (巩固练习)</h4>
+                        
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q1. Complete: _______ (see) from the top of the hill, the city looks magnificent.</p>
+                            <button onclick="toggleAnswer('q1_nonfinite')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q1_nonfinite" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: Seen</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> The logical subject of the participle is "the city". Since "the city" is seen (passive relationship), the past participle <i>Seen</i> must be used.</p>
+                            </div>
+                        </div>
+
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q2. Complete: (Looking / Having looked) at the map for ten minutes, he finally found the destination.</p>
+                            <button onclick="toggleAnswer('q2_nonfinite')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q2_nonfinite" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: Having looked</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> Looking at the map lasted 10 minutes and was completed prior to finding the destination. Therefore, the perfect participle form <i>Having looked</i> is required.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KEY POINT 3: Tense Contrast -->
+            <section id="tenses" class="grammar-card bg-white rounded-2xl border border-emerald-200 shadow-sm overflow-hidden">
+                <div class="bg-emerald-50/50 p-5 border-b border-emerald-100 flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-emerald-600 text-white text-xs font-bold rounded">3. Tenses</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">Tense Contrast (时态对比)</h3>
+                        <p class="text-xs text-slate-500">Present Perfect vs Past Simple, Present Perfect Continuous, Past Perfect</p>
+                    </div>
+                    <span class="text-xs text-emerald-700 bg-emerald-100 font-semibold px-2.5 py-1 rounded-md">Priority: High</span>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wide border-l-4 border-emerald-500 pl-2">Key Rules & Syntax Analysis (语法详解与易错陷阱)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">English Concept & Rules:</p>
+                                <p class="text-slate-600">Present Perfect (<i>have done</i>) connects past actions to present results. Past Simple refers strictly to completed past events with no present link. Present Perfect Continuous (<i>have been doing</i>) stresses ongoing duration up to now. Past Perfect (<i>had done</i>) denotes an action completed before a specific past time ("past-in-the-past").</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">中文解析与时间标志词 (Time Indicators):</p>
+                                <p class="text-slate-600">• <b>Past Simple:</b> <i>yesterday, ago, in 2015, last week.</i><br>• <b>Present Perfect:</b> <i>so far, since, for 3 years, recently, up to now.</i><br>• <b>Past Perfect:</b> <i>by the time, before (past point), had + p.p.</i></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-2">Annotated Examples (示范例句)</h4>
+                        <div class="space-y-2 text-xs sm:text-sm font-mono bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <p>1. I <span class="text-emerald-600 font-bold">have lived</span> in Beijing for 5 years. <span class="text-slate-400">(Still living here now)</span></p>
+                            <p>2. I <span class="text-emerald-600 font-bold">lived</span> in Beijing for 5 years. <span class="text-slate-400">(Completed past event; no longer lives there)</span></p>
+                            <p>3. By the time we arrived, the train <span class="text-emerald-600 font-bold">had already left</span>. <span class="text-slate-400">(Past-in-the-past)</span></p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <h4 class="text-sm font-bold text-slate-800">Interactive Practice (巩固练习)</h4>
+                        
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q1. Complete: Up to now, scientists _______ (discover) hundreds of exoplanets.</p>
+                            <button onclick="toggleAnswer('q1_tenses')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q1_tenses" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: have discovered</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> The time marker "up to now" signals present perfect tense, linking past discoveries to current scientific knowledge.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KEY POINT 4: Passive Voice -->
+            <section id="passive" class="grammar-card bg-white rounded-2xl border border-emerald-200 shadow-sm overflow-hidden">
+                <div class="bg-emerald-50/50 p-5 border-b border-emerald-100 flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-emerald-600 text-white text-xs font-bold rounded">4. Voice</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">Passive Voice (被动语态)</h3>
+                        <p class="text-xs text-slate-500">Simple Passive, Present Continuous Passive (am/is/are being done), Perfect Passive</p>
+                    </div>
+                    <span class="text-xs text-emerald-700 bg-emerald-100 font-semibold px-2.5 py-1 rounded-md">Priority: High</span>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wide border-l-4 border-emerald-500 pl-2">Key Rules & Syntax Analysis (语法详解与易错陷阱)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">English Concept & Rules:</p>
+                                <p class="text-slate-600">Passive voice emphasizes the recipient of an action (<i>Subject + be + Past Participle</i>). Present Continuous Passive takes the structure <code class="bg-emerald-100 px-1 rounded">be + being + done</code>.</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">中文解析与易错陷阱 (Rules & Common Traps):</p>
+                                <p class="text-slate-600"><span class="text-rose-600 font-semibold">关键陷阱：</span>不及物动词（如 <i>happen, take place, occur, rise, remain, appear</i>）没有被动语态！例如：“事故发生了”应为 <i>An accident happened</i> (不用 was happened)。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-2">Annotated Examples (示范例句)</h4>
+                        <div class="space-y-2 text-xs sm:text-sm font-mono bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <p>1. A new stadium <span class="text-emerald-600 font-bold">is being constructed</span> near the park. <span class="text-slate-400">(Present continuous passive)</span></p>
+                            <p>2. Great achievements <span class="text-emerald-600 font-bold">have been made</span> in recent years. <span class="text-slate-400">(Present perfect passive)</span></p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <h4 class="text-sm font-bold text-slate-800">Interactive Practice (巩固练习)</h4>
+                        
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q1. Rewrite in passive form: "Engineers are repairing the server right now."</p>
+                            <button onclick="toggleAnswer('q1_passive')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q1_passive" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: The server is being repaired by engineers right now.</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> Convert to present continuous passive structure: <code class="bg-slate-200 px-1 rounded">Subject + is/are + being + past participle</code>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KEY POINT 5: Noun Clauses -->
+            <section id="noun-clauses" class="grammar-card bg-white rounded-2xl border border-emerald-200 shadow-sm overflow-hidden">
+                <div class="bg-emerald-50/50 p-5 border-b border-emerald-100 flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-emerald-600 text-white text-xs font-bold rounded">5. Complex Clauses</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">Noun Clauses (名词性从句)</h3>
+                        <p class="text-xs text-slate-500">Object, Subject, Predicative, Appositive Clause (Appositive vs Attributive Clause)</p>
+                    </div>
+                    <span class="text-xs text-emerald-700 bg-emerald-100 font-semibold px-2.5 py-1 rounded-md">Priority: High</span>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wide border-l-4 border-emerald-500 pl-2">Key Rules & Syntax Analysis (语法详解与易错陷阱)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">English Concept & Rules:</p>
+                                <p class="text-slate-600">Noun clauses function as syntactic nouns (Subject, Object, Predicative, Appositive). Appositive clauses elaborate on the content of abstract nouns (<i>fact, news, idea, promise, belief, thought</i>).</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">核心对比：同位语从句 VS 定语从句</p>
+                                <p class="text-slate-600">• <b>同位语从句：</b><i>that</i> 仅为连接词，在从句中<span class="text-emerald-700 font-bold">不充当成分</span>，完整解释前面抽象名词的内容。<br>• <b>定语从句：</b><i>that</i> 是关系代词，在从句中<span class="text-rose-600 font-bold">充当主语或宾语</span>，对主词进行修饰限定。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-2">Annotated Examples (示范例句)</h4>
+                        <div class="space-y-2 text-xs sm:text-sm font-mono bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <p>1. The news <span class="text-emerald-600 font-bold">that our team won the championship</span> cheered everyone up. <span class="text-slate-400">(Appositive clause - complete clause)</span></p>
+                            <p>2. The news <span class="text-emerald-600 font-bold">that he shared yesterday</span> was surprising. <span class="text-slate-400">(Attributive clause - 'that' acts as object)</span></p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <h4 class="text-sm font-bold text-slate-800">Interactive Practice (巩固练习)</h4>
+                        
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q1. Identify clause type: "There is no doubt that artificial intelligence will transform industries."</p>
+                            <button onclick="toggleAnswer('q1_noun')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q1_noun" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: Appositive Clause (同位语从句)</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> The clause "that AI will transform industries" is complete and explains the exact nature of "doubt". <i>That</i> plays no syntactic role inside the clause.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TIER 2 SECTION -->
+            <div class="flex items-center gap-3 pt-6 border-b border-slate-200 pb-2">
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-bold rounded-full">TIER 2</span>
+                <h2 class="text-xl font-bold text-slate-800">Tier 2: Secondary Focus Topics</h2>
+            </div>
+
+            <!-- KEY POINT 6: Adverbial Clauses -->
+            <section id="adverbial" class="grammar-card bg-white rounded-2xl border border-blue-200 shadow-sm overflow-hidden">
+                <div class="bg-blue-50/50 p-5 border-b border-blue-100 flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-blue-600 text-white text-xs font-bold rounded">6. Adverbials</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">Adverbial Clauses (状语从句)</h3>
+                        <p class="text-xs text-slate-500">Time, condition, concession, result, purpose; Primary-Future Sub-Present rule</p>
+                    </div>
+                    <span class="text-xs text-blue-700 bg-blue-100 font-semibold px-2.5 py-1 rounded-md">Priority: Medium</span>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wide border-l-4 border-blue-500 pl-2">Key Rules & Syntax Analysis (语法详解与易错陷阱)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">English Concept & Rules:</p>
+                                <p class="text-slate-600">Adverbial clauses modify verbs or main clauses, indicating time (<i>as soon as, when</i>), condition (<i>if, unless</i>), concession (<i>although, even though</i>), or purpose (<i>so that</i>).</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">核心法则：“主将从现” (Sequence of Tenses):</p>
+                                <p class="text-slate-600">在<b>时间</b>与<b>条件</b>状语从句中，主句若为一般将来时，从句必须用<b>一般现在时</b>表达将来含义。<br><i>Example:</i> We will set off as soon as he <b>arrives</b>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <h4 class="text-sm font-bold text-slate-800">Interactive Practice (巩固练习)</h4>
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q1. Complete: We will cancel the outdoor activity if it _______ (rain) tomorrow.</p>
+                            <button onclick="toggleAnswer('q1_adverbial')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q1_adverbial" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: rains</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> In conditional clauses introduced by "if", use present simple tense (rains) when the main clause uses future simple (will cancel).</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KEY POINT 7: Subjunctive Mood -->
+            <section id="subjunctive" class="grammar-card bg-white rounded-2xl border border-blue-200 shadow-sm overflow-hidden">
+                <div class="bg-blue-50/50 p-5 border-b border-blue-100 flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-blue-600 text-white text-xs font-bold rounded">7. Mood</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">Subjunctive Mood (虚拟语气)</h3>
+                        <p class="text-xs text-slate-500">Hypothetical conditionals, Wish, Suggest/Demand, It's high time...</p>
+                    </div>
+                    <span class="text-xs text-blue-700 bg-blue-100 font-semibold px-2.5 py-1 rounded-md">Priority: Medium</span>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wide border-l-4 border-blue-500 pl-2">Key Rules & Syntax Analysis (语法详解与易错陷阱)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">Conditional Patterns:</p>
+                                <p class="text-slate-600">
+                                    • <b>Present Unreal:</b> If + did/were, S + would/could + do.<br>
+                                    • <b>Past Unreal:</b> If + had done, S + would/could + have done.<br>
+                                    • <b>Future Unreal:</b> If + did/should do/were to do, S + would + do.
+                                </p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">特殊虚拟句型 (Special Subjunctive Forms):</p>
+                                <p class="text-slate-600">① 建议/要求动词 (<i>suggest, insist, order, demand</i>) 后的宾语从句动词用 <code class="bg-blue-100 px-1 rounded">(should) + do</code>；<br>② <i>It's high time that + S + did / should do</i>.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-sm font-bold text-slate-800 mb-2">Annotated Examples (示范例句)</h4>
+                        <div class="space-y-2 text-xs sm:text-sm font-mono bg-slate-50 p-4 rounded-xl border border-slate-200">
+                            <p>1. If I <span class="text-blue-600 font-bold">were</span> you, I <span class="text-blue-600 font-bold">would accept</span> the offer. <span class="text-slate-400">(Present unreal)</span></p>
+                            <p>2. If you <span class="text-blue-600 font-bold">had worked</span> harder, you <span class="text-blue-600 font-bold">would have passed</span>. <span class="text-slate-400">(Past unreal)</span></p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <h4 class="text-sm font-bold text-slate-800">Interactive Practice (巩固练习)</h4>
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q1. Complete: If she _______ (know) about the meeting yesterday, she would have attended.</p>
+                            <button onclick="toggleAnswer('q1_subjunctive')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q1_subjunctive" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: had known</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> The clause refers to past unreal conditions (marked by "yesterday"), requiring the past perfect form <i>had known</i>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KEY POINT 8: Modal Verbs -->
+            <section id="modals" class="grammar-card bg-white rounded-2xl border border-blue-200 shadow-sm overflow-hidden">
+                <div class="bg-blue-50/50 p-5 border-b border-blue-100 flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-blue-600 text-white text-xs font-bold rounded">8. Modals</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">Modal Verbs & Speculation (情态动词推测与情感)</h3>
+                        <p class="text-xs text-slate-500">must / can't / should / might + have done</p>
+                    </div>
+                    <span class="text-xs text-blue-700 bg-blue-100 font-semibold px-2.5 py-1 rounded-md">Priority: Medium</span>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wide border-l-4 border-blue-500 pl-2">Key Rules & Syntax Analysis (语法详解与易错陷阱)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">Deduction & Regret Structures:</p>
+                                <p class="text-slate-600">
+                                    • <b>must have done:</b> High-certainty positive deduction about past.<br>
+                                    • <b>can't have done:</b> High-certainty negative deduction about past.<br>
+                                    • <b>should have done:</b> Expressing regret (should have, but didn't).
+                                </p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">中文解析：推测语气强度对比</p>
+                                <p class="text-slate-600"><i>must have done</i> (肯定100%推测) &gt; <i>may/might have done</i> (不确定推测) vs <i>can't have done</i> (不可能/否定推测)。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <h4 class="text-sm font-bold text-slate-800">Interactive Practice (巩固练习)</h4>
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q1. Complete: The ground is completely wet. It _______ (must / should) have rained overnight.</p>
+                            <button onclick="toggleAnswer('q1_modals')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q1_modals" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: must</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> Based on concrete evidence ("ground is wet"), express high-certainty positive past deduction with <i>must have rained</i>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KEY POINT 9: Subject-Verb Concord -->
+            <section id="concord" class="grammar-card bg-white rounded-2xl border border-blue-200 shadow-sm overflow-hidden">
+                <div class="bg-blue-50/50 p-5 border-b border-blue-100 flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-blue-600 text-white text-xs font-bold rounded">9. Agreement</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">Subject-Verb Concord (主谓一致)</h3>
+                        <p class="text-xs text-slate-500">Grammatical, Notional, and Proximity Principles</p>
+                    </div>
+                    <span class="text-xs text-blue-700 bg-blue-100 font-semibold px-2.5 py-1 rounded-md">Priority: Medium</span>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wide border-l-4 border-blue-500 pl-2">Key Rules & Principles (三大原则)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">1. Grammatical Concord</p>
+                                <p class="text-slate-600">Form matches form. Singular subjects take singular verbs.</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">2. Notional Concord</p>
+                                <p class="text-slate-600">Collective nouns (<i>family, team</i>): singular if seen as a unit, plural if seen as individual members.</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">3. Proximity Principle</p>
+                                <p class="text-slate-600"><i>either...or, neither...nor, not only...but also</i> agree with the nearest subject.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <h4 class="text-sm font-bold text-slate-800">Interactive Practice (巩固练习)</h4>
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q1. Choose correct verb: Neither the teacher nor the students _______ (was / were) aware of the schedule change.</p>
+                            <button onclick="toggleAnswer('q1_concord')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q1_concord" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: were</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> Follow the proximity rule for "neither...nor". The verb agrees with the closer subject "the students" (plural), requiring <i>were</i>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KEY POINT 10: Inversion -->
+            <section id="inversion" class="grammar-card bg-white rounded-2xl border border-blue-200 shadow-sm overflow-hidden">
+                <div class="bg-blue-50/50 p-5 border-b border-blue-100 flex justify-between items-start flex-wrap gap-2">
+                    <div>
+                        <span class="px-2.5 py-0.5 bg-blue-600 text-white text-xs font-bold rounded">10. Word Order</span>
+                        <h3 class="text-lg font-bold text-slate-900 mt-1">Inversion (倒装句)</h3>
+                        <p class="text-xs text-slate-500">Partial Inversion: Negative adverbs, "Only + adverbial"</p>
+                    </div>
+                    <span class="text-xs text-blue-700 bg-blue-100 font-semibold px-2.5 py-1 rounded-md">Priority: Medium</span>
+                </div>
+
+                <div class="p-6 space-y-6">
+                    <div class="space-y-3">
+                        <h4 class="text-sm font-bold text-slate-800 uppercase tracking-wide border-l-4 border-blue-500 pl-2">Key Rules & Syntax Analysis (语法详解与易错陷阱)</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">Partial Inversion Formula:</p>
+                                <p class="text-slate-600">Place auxiliary verb / modal verb before the main subject.<br><code class="bg-blue-100 px-1 rounded">Trigger Word + Auxiliary + Subject + Main Verb</code></p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">Common Inversion Triggers:</p>
+                                <p class="text-slate-600">① Negative adverbs at front: <i>Never, Seldom, Hardly, Little, Barely</i>.<br>② <i>Only + prepositional phrase / adverbial clause</i> at front.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 pt-2">
+                        <h4 class="text-sm font-bold text-slate-800">Interactive Practice (巩固练习)</h4>
+                        <div class="border border-slate-200 rounded-xl p-4 bg-white">
+                            <p class="text-xs sm:text-sm text-slate-800 font-medium mb-2">Q1. Rewrite starting with "Seldom": "I seldom witness such dedicated enthusiasm."</p>
+                            <button onclick="toggleAnswer('q1_inversion')" class="text-xs text-brand-600 font-semibold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-circle-question"></i> <span class="ans-toggle-text">Show Answer & Analysis</span>
+                            </button>
+                            <div id="q1_inversion" class="hidden mt-3 p-3 bg-slate-50 rounded-lg text-xs border border-slate-200 space-y-1">
+                                <p class="font-bold text-emerald-700">Answer: Seldom do I witness such dedicated enthusiasm.</p>
+                                <p class="text-slate-600"><strong>Analysis:</strong> Fronting the negative adverb "Seldom" triggers partial inversion, inserting auxiliary <i>do</i> before subject <i>I</i>.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TIER 3 SECTION -->
+            <div class="flex items-center gap-3 pt-6 border-b border-slate-200 pb-2">
+                <span class="px-3 py-1 bg-amber-100 text-amber-900 text-xs font-bold rounded-full">TIER 3</span>
+                <h2 class="text-xl font-bold text-slate-800">Tier 3: Supplementary Topics</h2>
+            </div>
+
+            <!-- KEY POINT 11: Emphatic Sentences -->
+            <section id="emphasis" class="grammar-card bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="bg-amber-50/50 p-4 border-b border-amber-100 flex justify-between items-center">
+                    <h3 class="text-base font-bold text-slate-900">11. Emphatic Sentences (强调句)</h3>
+                    <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-mono">It is/was... that/who...</span>
+                </div>
+                <div class="p-5 space-y-4 text-xs sm:text-sm">
+                    <p class="text-slate-600"><strong>Formula:</strong> <code class="bg-slate-100 px-1 rounded">It is/was + [Emphasized Element] + that/who + [Remainder of Sentence]</code>.</p>
+                    <p class="text-slate-600"><strong>Test method:</strong> If removing "It is/was... that" leaves a complete, grammatical sentence, it is an emphatic sentence.</p>
+                    
+                    <div class="border border-slate-200 rounded-lg p-3 bg-white">
+                        <p class="font-medium text-slate-800">Q1. Emphasize the underlined location: "I met Dr. Smith <u>in the laboratory</u> yesterday."</p>
+                        <button onclick="toggleAnswer('q1_emphatic')" class="mt-2 text-xs text-brand-600 font-semibold hover:underline">Show Answer & Analysis</button>
+                        <div id="q1_emphatic" class="hidden mt-2 p-2 bg-slate-50 rounded text-xs">
+                            <p class="font-bold text-emerald-700">Answer: It was in the laboratory that I met Dr. Smith yesterday.</p>
+                            <p class="text-slate-600">Wrap the prepositional phrase "in the laboratory" with "It was... that".</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KEY POINT 12: Ellipsis -->
+            <section id="ellipsis" class="grammar-card bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="bg-amber-50/50 p-4 border-b border-amber-100 flex justify-between items-center">
+                    <h3 class="text-base font-bold text-slate-900">12. Ellipsis (省略句)</h3>
+                    <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-mono">Adverbial & Infinitive Ellipsis</span>
+                </div>
+                <div class="p-5 space-y-4 text-xs sm:text-sm">
+                    <p class="text-slate-600"><strong>Rule:</strong> In adverbial clauses, if the subject matches the main clause subject and is followed by a <i>be</i> verb, "Subject + be" can be omitted.<br><i>Example:</i> While (he was) crossing the street, he noticed the sign.</p>
+                    
+                    <div class="border border-slate-200 rounded-lg p-3 bg-white">
+                        <p class="font-medium text-slate-800">Q1. Simplify clause: "When he was asked about the incident, he remained silent."</p>
+                        <button onclick="toggleAnswer('q1_ellipsis')" class="mt-2 text-xs text-brand-600 font-semibold hover:underline">Show Answer & Analysis</button>
+                        <div id="q1_ellipsis" class="hidden mt-2 p-2 bg-slate-50 rounded text-xs">
+                            <p class="font-bold text-emerald-700">Answer: When asked about the incident, he remained silent.</p>
+                            <p class="text-slate-600">Omit identical subject "he" and verb "was".</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- KEY POINT 13: Comparison & Articles -->
+            <section id="misc" class="grammar-card bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="bg-amber-50/50 p-4 border-b border-amber-100 flex justify-between items-center">
+                    <h3 class="text-base font-bold text-slate-900">13. Comparison & Articles (比较级与冠词)</h3>
+                    <span class="text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-mono">Advanced Determiners & Multipliers</span>
+                </div>
+                <div class="p-5 space-y-4 text-xs sm:text-sm">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <span class="font-bold text-slate-800 block mb-1">Multiplier Patterns</span>
+                            <p class="text-slate-600 text-xs">• A is 3 times as big as B.<br>• A is 3 times bigger than B.<br>• A is 3 times the size of B.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                            <span class="font-bold text-slate-800 block mb-1">Definite Article (The) Rules</span>
+                            <p class="text-slate-600 text-xs">Use <i>the</i> for unique entities, superlatives, musical instruments (<i>play the piano</i>), and specific groups.</p>
+                        </div>
+                    </div>
+
+                    <div class="border border-slate-200 rounded-lg p-3 bg-white">
+                        <p class="font-medium text-slate-800">Q1. Complete comparison: "This new engine is three times _______ (efficient) than the old model."</p>
+                        <button onclick="toggleAnswer('q1_misc')" class="mt-2 text-xs text-brand-600 font-semibold hover:underline">Show Answer & Analysis</button>
+                        <div id="q1_misc" class="hidden mt-2 p-2 bg-slate-50 rounded text-xs">
+                            <p class="font-bold text-emerald-700">Answer: more efficient</p>
+                            <p class="text-slate-600">Follow the comparative pattern: <i>[Multiplier] + comparative degree + than</i>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-12 py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500 space-y-1">
+            <p>High School English Grammar Mastery & Practice Dashboard</p>
+            <p>Designed for Interactive Self-study, Syntax Analysis & Reference</p>
+        </div>
+    </footer>
+
+    <!-- Interactive Scripts -->
+    <script>
+        function toggleAnswer(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('hidden');
+            }
+        }
+
+        let allExpanded = false;
+        function toggleAllAnswers() {
+            allExpanded = !allExpanded;
+            const answers = document.querySelectorAll('[id^="q"]');
+            const toggleText = document.getElementById('toggleAllText');
+            
+            answers.forEach(ans => {
+                if (allExpanded) {
+                    ans.classList.remove('hidden');
+                } else {
+                    ans.classList.add('hidden');
+                }
+            });
+
+            toggleText.innerText = allExpanded ? "Collapse All Answers" : "Expand All Answers";
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.grammar-card');
+
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        });
+
+        let timerSeconds = 600;
+        let timerInterval = null;
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            document.getElementById('timerDisplay').innerText = 
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (timerInterval) return;
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    pauseTimer();
+                    alert("⏰ Practice timer completed! Take a break or review your answers.");
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timerSeconds = 600;
+            updateTimerDisplay();
+        }
+    </script>
+</body>
+</html>
