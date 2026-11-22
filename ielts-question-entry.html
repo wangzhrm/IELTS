@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IELTS Question Entry</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<style>
+:root{--bg:#f2f4f3;--panel:#fff;--ink:#16252b;--mute:#5d6c72;--line:#d3dbd9;--acc:#0b6b6f;--accink:#fff;--hl:#f6d860;--bad:#b3261e;--r:6px}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#111a1d;--panel:#192327;--ink:#e6eeee;--mute:#92a3a8;--line:#2c3a3f;--acc:#4fb3b6;--accink:#0c1517;--hl:#c9a92c;--bad:#ff8a80}}
+*{box-sizing:border-box}
+html{color-scheme:light dark}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+header{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel)}
+h1{font:600 20px Georgia,"Songti SC",serif;margin:0;flex:1}
+h2{font:600 17px Georgia,"Songti SC",serif;margin:0 0 10px}
+main{max-width:980px;margin:0 auto;padding:20px}
+button,select,input,textarea{font:inherit;color:inherit}
+button{border:1px solid var(--line);background:var(--panel);padding:6px 12px;border-radius:var(--r);cursor:pointer}
+button:hover{border-color:var(--acc)}
+button.pri{background:var(--acc);color:var(--accink);border-color:var(--acc)}
+button.del{color:var(--bad)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+input,select,textarea{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
+textarea{resize:vertical;min-height:70px}
+label{display:block;font-size:13px;color:var(--mute);margin-bottom:3px}
+.picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:16px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.grow{flex:1;min-width:140px}
+.tabs{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap}
+.tabs button[aria-selected=true]{background:var(--hl);color:#222;border-color:var(--hl)}
+.item{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.item span{flex:1}
+.q{border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:var(--r);padding:12px;margin-bottom:10px;display:grid;gap:8px}
+.q .top{display:grid;grid-template-columns:90px 1fr auto;gap:8px}
+.q .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.muted{color:var(--mute)}
+.thumb{max-height:80px;max-width:140px;border:1px solid var(--line);border-radius:4px}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:var(--r);display:none;z-index:9;max-width:90vw}
+dialog{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);color:var(--ink);max-width:440px;width:92vw}
+dialog::backdrop{background:#0008}
+.hidden{display:none!important}
+@media(max-width:560px){.q .two{grid-template-columns:1fr}.q .top{grid-template-columns:80px 1fr}.q .top button{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<header>
+  <h1>IELTS question entry</h1>
+  <button id="btnManage" aria-expanded="false">Manage structure</button>
+  <button id="btnCfg">Connection</button>
+</header>
+<main>
+  <section id="manage" class="card hidden" aria-label="Manage structure">
+    <h2>Manage structure</h2>
+    <div class="tabs" id="mTabs" role="tablist"></div>
+    <div id="mBody"></div>
+  </section>
+
+  <div class="picker" id="picker"></div>
+  <div id="editor"><p class="muted">Choose a category, volume, test and section to start entering questions. Use “Manage structure” to add any that are missing.</p></div>
+</main>
+
+<dialog id="dlg">
+  <form method="dialog" id="cfgForm">
+    <h2>Connect to Supabase</h2>
+    <p class="muted">Saved only in this browser. Use the project URL and anon (publishable) key. Sign in if your tables use the provided row-level security.</p>
+    <label for="cUrl">Project URL</label><input id="cUrl" placeholder="https://xxxx.supabase.co" autocomplete="off">
+    <label for="cKey" style="margin-top:8px">Anon key</label><input id="cKey" autocomplete="off">
+    <label for="cMail" style="margin-top:8px">Email (optional)</label><input id="cMail" type="email" autocomplete="username">
+    <label for="cPass" style="margin-top:8px">Password (optional)</label><input id="cPass" type="password" autocomplete="current-password">
+    <div class="row" style="margin-top:14px;justify-content:flex-end">
+      <button type="button" id="cCancel">Cancel</button>
+      <button type="submit" class="pri">Connect</button>
+    </div>
+  </form>
+</dialog>
+<div id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const toast=(m,bad)=>{const t=$('#toast');t.textContent=m;t.style.display='block';t.style.background=bad?'var(--bad)':'';t.style.color=bad?'#fff':'';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',3200)};
+const LV=[
+ {k:'category',t:'ielts_categories',label:'Category',p:null,ph:'e.g. Cambridge IELTS Academic'},
+ {k:'volume',t:'ielts_volumes',label:'Volume',p:'category_id',ph:'e.g. Cambridge 18'},
+ {k:'test',t:'ielts_tests',label:'Test No.',p:'volume_id',ph:'e.g. Test 1'},
+ {k:'section',t:'ielts_sections',label:'Section',p:'test_id',ph:'e.g. Part 1 / Passage 1 / Writing'}];
+const TYPES={listening:'Listening',reading:'Reading',writing:'Writing'};
+const QT={mcq:'Multiple choice',tfng:'True / False / Not Given',ynng:'Yes / No / Not Given',fill:'Completion (blank)',short:'Short answer',matching:'Matching',other:'Other'};
+const OPT_TYPES=['mcq','matching'];
+let db=null,sel={},data={},mTab=0,mEdit=null;
+
+// Built-in connection (publishable key only). Edit here if the project changes.
+const DEFAULT_CFG={url:'https://civil-prawn-d0gflguvzee35fad8.ap-shanghai.tcb-api.tencentcloudapi.com',key:'eyJhbGciOiJSUzI1NiIsImtpZCI6IjZkN2IyMmIyLWI4NjktNDNjNy04NGY0LWY0NTE2MDgxNDRhNSJ9.eyJpc3MiOiJodHRwczovL2NpdmlsLXByYXduLWQwZ2ZsZ3V2emVlMzVmYWQ4LmFwLXNoYW5naGFpLnRjYi1hcGkudGVuY2VudGNsb3VkYXBpLmNvbSIsInN1YiI6ImFub24iLCJhdWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsImV4cCI6NDA5ODg1NDQzMywiaWF0IjoxNzk1MTcxMjMzLCJub25jZSI6IlpOYXlDMXJ5VERxTmg1UFpFM0pxN3ciLCJhdF9oYXNoIjoiWk5heUMxcnlURHFOaDVQWkUzSnE3dyIsIm5hbWUiOiJBbm9ueW1vdXMiLCJzY29wZSI6ImFub255bW91cyIsInByb2plY3RfaWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsIm1ldGEiOnsicGxhdGZvcm0iOiJQdWJsaXNoYWJsZUtleSJ9LCJyb2xlIjoiYW5vbiIsImlzX2Fub255bW91cyI6dHJ1ZSwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiYW5vbnltb3VzIiwicHJvdmlkZXJzIjpbImFub255bW91cyJdfSwidXNlcl9tZXRhZGF0YSI6eyJuYW1lIjoiQW5vbnltb3VzIn0sInVzZXJfdHlwZSI6IiIsImNsaWVudF90eXBlIjoiY2xpZW50X3VzZXIiLCJpc19zeXN0ZW1fYWRtaW4iOmZhbHNlfQ.udoyytgC9Z6QZjHnz7-v9rtM7K2C6PVYhVX9KgOrx76Q_j4phvYpItbrMc8eAfRiewAzXvyW2heL2U3mTofad8-q10i5R8TyJ6ZsR80qzsTs6CcAk699o3uAhB0E5QTa7GqEDrhlnVtu9Bi9-DroWgMMgV6CXgLCz-d0h1YQq1AReBNe1JNJv7MYMQG08YGmUEqgfgGlKwB-G7YJ5Ya6b3WLEVNLRBAPHOCMa8ExCiy9fAK1oDRyBlLq4ieH7pOaMriPYm7Y7C0XyemeLQ_0E5PDRPg9QNTCenwDG3usKCKV9hZGeiVmTKZHPYFBMgwM-iBlOslXPAjDW3Au8u85Jw'};
+const cfg=()=>{let o={};try{o=JSON.parse(localStorage.getItem('ielts_cfg')||'{}')}catch{}return{...DEFAULT_CFG,...o}};
+const ready=()=>{if(db)return true;toast('Not connected yet. Click Connection and enter your URL and key.',1);return false};
+async function connect(c){
+  if(!window.supabase){toast('The Supabase library did not load. Check your network, then reload.',1);return false}
+  try{db=window.supabase.createClient(c.url,c.key)}catch(e){db=null;toast('Invalid URL or key: '+e.message,1);return false}
+  if(c.mail&&c.pass){const{error}=await db.auth.signInWithPassword({email:c.mail,password:c.pass});if(error){toast('Sign-in failed: '+error.message,1);return false}}
+  return true;
+}
+async function load(i){
+  const L=LV[i];let q=db.from(L.t).select('*');
+  if(L.p){if(!sel[LV[i-1].k]){data[L.k]=[];return}q=q.eq(L.p,sel[LV[i-1].k])}
+  const{data:rows,error}=await q.order('created_at');
+  if(error){toast(error.message,1);data[L.k]=[];return}
+  data[L.k]=rows;
+}
+const secLabel=s=>`${TYPES[s.type]} - ${s.name}`+(s.q_from?` (Q${s.q_from}-${s.q_to||''})`:'');
+const rowLabel=(L,r)=>L.k==='section'?secLabel(r):r.name;
+
+function drawPicker(){
+  $('#picker').innerHTML=LV.map((L,i)=>`<div><label for="s_${L.k}">${L.label}</label><select id="s_${L.k}" data-i="${i}"><option value="">Select...</option>${(data[L.k]||[]).map(r=>`<option value="${r.id}" ${sel[L.k]===r.id?'selected':''}>${esc(rowLabel(L,r))}</option>`).join('')}</select></div>`).join('');
+  document.querySelectorAll('#picker select').forEach(s=>s.onchange=async()=>{
+    const i=+s.dataset.i;sel[LV[i].k]=s.value;
+    for(let j=i+1;j<LV.length;j++){sel[LV[j].k]='';data[LV[j].k]=[]}
+    if(i<LV.length-1)await load(i+1);
+    drawPicker();drawManage();drawEditor();
+  });
+}
+
+/* ---------- manage (hidden by default) ---------- */
+$('#btnManage').onclick=()=>{if(!ready()){openCfg();return}const m=$('#manage'),o=m.classList.toggle('hidden');$('#btnManage').setAttribute('aria-expanded',!o);if(!o)drawManage()};
+function drawManage(){
+  if($('#manage').classList.contains('hidden'))return;
+  $('#mTabs').innerHTML=LV.map((L,i)=>`<button role="tab" aria-selected="${i===mTab}" data-i="${i}">${L.label}</button>`).join('');
+  document.querySelectorAll('#mTabs button').forEach(b=>b.onclick=()=>{mTab=+b.dataset.i;mEdit=null;drawManage()});
+  const L=LV[mTab],parent=mTab?LV[mTab-1]:null;
+  if(parent&&!sel[parent.k]){$('#mBody').innerHTML=`<p class="muted">Select a ${parent.label.toLowerCase()} above first. ${L.label} items belong to it.</p>`;return}
+  const rows=data[L.k]||[],ed=rows.find(r=>r.id===mEdit)||{};
+  const secFields=L.k==='section'?`
+    <div style="width:140px"><label>Type</label><select id="mType">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${ed.type===k?'selected':''}>${v}</option>`).join('')}</select></div>
+    <div style="width:90px"><label>Q from</label><input id="mFrom" type="number" min="1" value="${ed.q_from??''}"></div>
+    <div style="width:90px"><label>Q to</label><input id="mTo" type="number" min="1" value="${ed.q_to??''}"></div>`:'';
+  $('#mBody').innerHTML=`
+    <div class="row" style="align-items:flex-end;margin-bottom:12px">
+      <div class="grow"><label>${mEdit?'Rename / edit':'New'} ${L.label.toLowerCase()}</label><input id="mName" placeholder="${esc(L.ph)}" value="${esc(ed.name||'')}"></div>${secFields}
+      <button class="pri" id="mSave">${mEdit?'Save changes':'Add'}</button>${mEdit?'<button id="mCancel">Cancel</button>':''}
+    </div>
+    ${rows.length?rows.map(r=>`<div class="item"><span>${esc(rowLabel(L,r))}</span><button data-e="${r.id}">Edit</button><button class="del" data-d="${r.id}">Delete</button></div>`).join(''):'<p class="muted">Nothing here yet.</p>'}`;
+  $('#mSave').onclick=async()=>{
+    if(!ready())return;
+    const name=$('#mName').value.trim();if(!name)return toast('Enter a name',1);
+    const rec={name};if(parent)rec[L.p]=sel[parent.k];
+    if(L.k==='section'){rec.type=$('#mType').value;rec.q_from=+$('#mFrom').value||null;rec.q_to=+$('#mTo').value||null}
+    const{error}=mEdit?await db.from(L.t).update(rec).eq('id',mEdit):await db.from(L.t).insert(rec);
+    if(error)return toast(error.message,1);
+    toast(mEdit?'Saved':'Added');mEdit=null;await load(mTab);drawPicker();drawManage();drawEditor();
+  };
+  if($('#mCancel'))$('#mCancel').onclick=()=>{mEdit=null;drawManage()};
+  document.querySelectorAll('[data-e]').forEach(b=>b.onclick=()=>{mEdit=b.dataset.e;drawManage()});
+  document.querySelectorAll('[data-d]').forEach(b=>b.onclick=async()=>{
+    if(!ready())return;
+    if(!confirm('Delete this '+L.label.toLowerCase()+' and everything inside it? This cannot be undone.'))return;
+    const{error}=await db.from(L.t).delete().eq('id',b.dataset.d);
+    if(error)return toast(error.message,1);
+    if(sel[L.k]===b.dataset.d){sel[L.k]='';for(let j=mTab+1;j<LV.length;j++){sel[LV[j].k]='';data[LV[j].k]=[]}}
+    toast('Deleted');await load(mTab);drawPicker();drawManage();drawEditor();
+  });
+}
+
+/* ---------- editor ---------- */
+const curSection=()=>(data.section||[]).find(s=>s.id===sel.section);
+async function drawEditor(){
+  const s=curSection(),ed=$('#editor');
+  if(!s){ed.innerHTML='<p class="muted">Choose a category, volume, test and section to start entering questions.</p>';return}
+  const head=`<div class="card"><h2>${esc(secLabel(s))}</h2>`;
+  let body='';
+  if(s.type==='listening')body=`<label for="fAudio">Audio URL (mp3)</label><input id="fAudio" type="url" value="${esc(s.audio_url||'')}" placeholder="https://.../section1.mp3"><audio id="aPrev" controls class="${s.audio_url?'':'hidden'}" style="width:100%;margin-top:8px" src="${esc(s.audio_url||'')}"></audio></div>${qBlock()}`;
+  else if(s.type==='reading')body=`<label for="fPass">Passage text</label><textarea id="fPass" style="min-height:240px">${esc(s.passage||'')}</textarea></div>${qBlock()}`;
+  else{
+    const imgs=Array.isArray(s.task1_images)&&s.task1_images.length?s.task1_images:[''];
+    body=`<h2>Task 1</h2><label for="fT1">Task 1 requirements</label><textarea id="fT1" style="min-height:110px">${esc(s.task1_text||'')}</textarea>
+      <label style="margin-top:10px">Task 1 image URLs</label><div id="imgs">${imgs.map(imgRow).join('')}</div>
+      <button type="button" id="addImg" style="margin-top:6px">Add another image</button></div>
+      <div class="card"><h2>Task 2</h2><label for="fT2">Task 2 requirements</label><textarea id="fT2" style="min-height:130px">${esc(s.task2_text||'')}</textarea></div>`;
+  }
+  ed.innerHTML=head+body+`<div class="row"><button class="pri" id="save">Save section</button></div>`;
+  if(s.type==='writing'){
+    $('#addImg').onclick=()=>{$('#imgs').insertAdjacentHTML('beforeend',imgRow(''));wireImgs()};wireImgs();
+  }else{
+    if(s.type==='listening')$('#fAudio').oninput=e=>{const a=$('#aPrev');a.src=e.target.value;a.classList.toggle('hidden',!e.target.value)};
+    $('#addQ').onclick=()=>addQ({number:nextNum()});
+    $('#genQ').onclick=genQ;
+    const{data:qs,error}=await db.from('ielts_questions').select('*').eq('section_id',s.id).order('number');
+    if(error)toast(error.message,1);else(qs||[]).forEach(addQ);
+  }
+  $('#save').onclick=save;
+}
+const imgRow=u=>`<div class="row" style="margin-bottom:6px"><input class="img grow" type="url" placeholder="https://.../task1.png" value="${esc(u)}"><img class="thumb ${u?'':'hidden'}" src="${esc(u)}" alt="" onerror="this.classList.add('hidden')"><button type="button" class="del rm">Remove</button></div>`;
+function wireImgs(){document.querySelectorAll('#imgs .row').forEach(r=>{
+  r.querySelector('.img').oninput=e=>{const t=r.querySelector('.thumb');t.src=e.target.value;t.classList.toggle('hidden',!e.target.value)};
+  r.querySelector('.rm').onclick=()=>{if(document.querySelectorAll('#imgs .row').length>1)r.remove();else r.querySelector('.img').value=''};
+})}
+const qBlock=()=>`<div class="card"><div class="row" style="margin-bottom:10px"><h2 style="margin:0;flex:1">Questions</h2><button type="button" id="genQ">Create blanks for Q range</button><button type="button" id="addQ">Add question</button></div><div id="qs"></div></div>`;
+const nextNum=()=>Math.max(0,...[...document.querySelectorAll('#qs .num')].map(i=>+i.value||0))+1;
+function genQ(){
+  const s=curSection();if(!s.q_from||!s.q_to)return toast('Set Q from / Q to for this section in Manage structure',1);
+  const have=new Set([...document.querySelectorAll('#qs .num')].map(i=>+i.value));
+  for(let n=s.q_from;n<=s.q_to;n++)if(!have.has(n))addQ({number:n});
+}
+function addQ(q){
+  const d=document.createElement('div');d.className='q';
+  const t=q.qtype||'mcq',opts=Array.isArray(q.options)?q.options.join('\n'):'';
+  d.innerHTML=`<div class="top"><div><label>No.</label><input class="num" type="number" min="1" value="${q.number??''}"></div>
+    <div><label>Type</label><select class="qt">${Object.entries(QT).map(([k,v])=>`<option value="${k}" ${k===t?'selected':''}>${v}</option>`).join('')}</select></div>
+    <button type="button" class="del rm" style="align-self:end">Remove</button></div>
+    <div><label>Question text</label><textarea class="prompt">${esc(q.prompt||'')}</textarea></div>
+    <div class="optw ${OPT_TYPES.includes(t)?'':'hidden'}"><label>Options (one per line)</label><textarea class="opts">${esc(opts)}</textarea></div>
+    <div class="two"><div><label>Correct answer</label><input class="ans" value="${esc(q.answer||'')}"></div><div><label>Explanation (optional)</label><input class="exp" value="${esc(q.explanation||'')}"></div></div>`;
+  d.querySelector('.qt').onchange=e=>d.querySelector('.optw').classList.toggle('hidden',!OPT_TYPES.includes(e.target.value));
+  d.querySelector('.rm').onclick=()=>d.remove();
+  $('#qs').appendChild(d);
+}
+async function save(){
+  if(!ready())return;
+  const s=curSection(),btn=$('#save');btn.disabled=true;
+  try{
+    let upd={},qs=null;
+    if(s.type==='listening')upd.audio_url=$('#fAudio').value.trim()||null;
+    if(s.type==='reading')upd.passage=$('#fPass').value;
+    if(s.type==='writing'){
+      upd.task1_text=$('#fT1').value;upd.task2_text=$('#fT2').value;
+      upd.task1_images=[...document.querySelectorAll('#imgs .img')].map(i=>i.value.trim()).filter(Boolean);
+    }else{
+      qs=[...document.querySelectorAll('#qs .q')].map(d=>{const t=d.querySelector('.qt').value;return{
+        section_id:s.id,number:+d.querySelector('.num').value,qtype:t,prompt:d.querySelector('.prompt').value,
+        options:OPT_TYPES.includes(t)?d.querySelector('.opts').value.split('\n').map(x=>x.trim()).filter(Boolean):[],
+        answer:d.querySelector('.ans').value.trim(),explanation:d.querySelector('.exp').value.trim()}});
+      if(qs.some(q=>!q.number))throw new Error('Every question needs a number');
+      if(new Set(qs.map(q=>q.number)).size!==qs.length)throw new Error('Duplicate question numbers');
+    }
+    let r=await db.from('ielts_sections').update(upd).eq('id',s.id);if(r.error)throw r.error;
+    Object.assign(s,upd);
+    if(qs){
+      r=await db.from('ielts_questions').delete().eq('section_id',s.id);if(r.error)throw r.error;
+      if(qs.length){r=await db.from('ielts_questions').insert(qs);if(r.error)throw r.error}
+    }
+    toast('Saved');
+  }catch(e){toast(e.message||String(e),1)}
+  btn.disabled=false;
+}
+
+/* ---------- connection ---------- */
+const dlg=$('#dlg');
+function openCfg(){const c=cfg();$('#cUrl').value=c.url||'';$('#cKey').value=c.key||'';$('#cMail').value=c.mail||'';$('#cPass').value='';dlg.showModal()}
+$('#btnCfg').onclick=openCfg;$('#cCancel').onclick=()=>dlg.close();
+$('#cfgForm').onsubmit=async e=>{
+  e.preventDefault();
+  const c={url:$('#cUrl').value.trim(),key:$('#cKey').value.trim(),mail:$('#cMail').value.trim(),pass:$('#cPass').value};
+  if(!c.url||!c.key)return toast('URL and key are required',1);
+  // the password is never stored; only URL, key and email
+  try{localStorage.setItem('ielts_cfg',JSON.stringify({url:c.url,key:c.key,mail:c.mail}))}catch{}
+  dlg.close();start(c);
+};
+async function start(c){
+  if(!await connect(c))return;
+  sel={};data={};
+  try{await load(0)}catch(e){return toast('Could not reach the database: '+e.message,1)}
+  drawPicker();drawManage();drawEditor();
+  if(data.category!==undefined)toast('Connected');
+}
+drawPicker();
+const c0=cfg();
+if(c0.url&&c0.key&&!c0.mail)start(c0);else openCfg();
+</script>
+</body>
+</html>
