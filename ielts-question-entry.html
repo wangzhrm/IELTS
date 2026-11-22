@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>IELTS Question Entry</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <style>
 :root{--bg:#f2f4f3;--panel:#fff;--ink:#16252b;--mute:#5d6c72;--line:#d3dbd9;--acc:#0b6b6f;--accink:#fff;--hl:#f6d860;--bad:#b3261e;--r:6px}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#111a1d;--panel:#192327;--ink:#e6eeee;--mute:#92a3a8;--line:#2c3a3f;--acc:#4fb3b6;--accink:#0c1517;--hl:#c9a92c;--bad:#ff8a80}}
@@ -41,6 +40,7 @@ label{display:block;font-size:13px;color:var(--mute);margin-bottom:3px}
 dialog{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);color:var(--ink);max-width:440px;width:92vw}
 dialog::backdrop{background:#0008}
 .hidden{display:none!important}
+#cMail,#cPass,label[for=cMail],label[for=cPass]{display:none}
 @media(max-width:560px){.q .two{grid-template-columns:1fr}.q .top{grid-template-columns:80px 1fr}.q .top button{grid-column:1/-1}}
 </style>
 </head>
@@ -64,8 +64,8 @@ dialog::backdrop{background:#0008}
 <dialog id="dlg">
   <form method="dialog" id="cfgForm">
     <h2>Connect to Supabase</h2>
-    <p class="muted">Saved only in this browser. Use the project URL and anon (publishable) key. Sign in if your tables use the provided row-level security.</p>
-    <label for="cUrl">Project URL</label><input id="cUrl" placeholder="https://xxxx.supabase.co" autocomplete="off">
+    <p class="muted">Saved only in this browser. Gateway address and publishable key for your CloudBase environment.</p>
+    <label for="cUrl">Project URL</label><input id="cUrl" placeholder="https://ENV_ID.api.tcloudbasegateway.com" autocomplete="off">
     <label for="cKey" style="margin-top:8px">Anon key</label><input id="cKey" autocomplete="off">
     <label for="cMail" style="margin-top:8px">Email (optional)</label><input id="cMail" type="email" autocomplete="username">
     <label for="cPass" style="margin-top:8px">Password (optional)</label><input id="cPass" type="password" autocomplete="current-password">
@@ -92,13 +92,36 @@ const OPT_TYPES=['mcq','matching'];
 let db=null,sel={},data={},mTab=0,mEdit=null;
 
 // Built-in connection (publishable key only). Edit here if the project changes.
-const DEFAULT_CFG={url:'https://civil-prawn-d0gflguvzee35fad8.ap-shanghai.tcb-api.tencentcloudapi.com',key:'eyJhbGciOiJSUzI1NiIsImtpZCI6IjZkN2IyMmIyLWI4NjktNDNjNy04NGY0LWY0NTE2MDgxNDRhNSJ9.eyJpc3MiOiJodHRwczovL2NpdmlsLXByYXduLWQwZ2ZsZ3V2emVlMzVmYWQ4LmFwLXNoYW5naGFpLnRjYi1hcGkudGVuY2VudGNsb3VkYXBpLmNvbSIsInN1YiI6ImFub24iLCJhdWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsImV4cCI6NDA5ODg1NDQzMywiaWF0IjoxNzk1MTcxMjMzLCJub25jZSI6IlpOYXlDMXJ5VERxTmg1UFpFM0pxN3ciLCJhdF9oYXNoIjoiWk5heUMxcnlURHFOaDVQWkUzSnE3dyIsIm5hbWUiOiJBbm9ueW1vdXMiLCJzY29wZSI6ImFub255bW91cyIsInByb2plY3RfaWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsIm1ldGEiOnsicGxhdGZvcm0iOiJQdWJsaXNoYWJsZUtleSJ9LCJyb2xlIjoiYW5vbiIsImlzX2Fub255bW91cyI6dHJ1ZSwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiYW5vbnltb3VzIiwicHJvdmlkZXJzIjpbImFub255bW91cyJdfSwidXNlcl9tZXRhZGF0YSI6eyJuYW1lIjoiQW5vbnltb3VzIn0sInVzZXJfdHlwZSI6IiIsImNsaWVudF90eXBlIjoiY2xpZW50X3VzZXIiLCJpc19zeXN0ZW1fYWRtaW4iOmZhbHNlfQ.udoyytgC9Z6QZjHnz7-v9rtM7K2C6PVYhVX9KgOrx76Q_j4phvYpItbrMc8eAfRiewAzXvyW2heL2U3mTofad8-q10i5R8TyJ6ZsR80qzsTs6CcAk699o3uAhB0E5QTa7GqEDrhlnVtu9Bi9-DroWgMMgV6CXgLCz-d0h1YQq1AReBNe1JNJv7MYMQG08YGmUEqgfgGlKwB-G7YJ5Ya6b3WLEVNLRBAPHOCMa8ExCiy9fAK1oDRyBlLq4ieH7pOaMriPYm7Y7C0XyemeLQ_0E5PDRPg9QNTCenwDG3usKCKV9hZGeiVmTKZHPYFBMgwM-iBlOslXPAjDW3Au8u85Jw'};
-const cfg=()=>{let o={};try{o=JSON.parse(localStorage.getItem('ielts_cfg')||'{}')}catch{}return{...DEFAULT_CFG,...o}};
+const DEFAULT_CFG={url:'https://civil-prawn-d0gflguvzee35fad8.api.tcloudbasegateway.com',key:'eyJhbGciOiJSUzI1NiIsImtpZCI6IjZkN2IyMmIyLWI4NjktNDNjNy04NGY0LWY0NTE2MDgxNDRhNSJ9.eyJpc3MiOiJodHRwczovL2NpdmlsLXByYXduLWQwZ2ZsZ3V2emVlMzVmYWQ4LmFwLXNoYW5naGFpLnRjYi1hcGkudGVuY2VudGNsb3VkYXBpLmNvbSIsInN1YiI6ImFub24iLCJhdWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsImV4cCI6NDA5ODg1NDQzMywiaWF0IjoxNzk1MTcxMjMzLCJub25jZSI6IlpOYXlDMXJ5VERxTmg1UFpFM0pxN3ciLCJhdF9oYXNoIjoiWk5heUMxcnlURHFOaDVQWkUzSnE3dyIsIm5hbWUiOiJBbm9ueW1vdXMiLCJzY29wZSI6ImFub255bW91cyIsInByb2plY3RfaWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsIm1ldGEiOnsicGxhdGZvcm0iOiJQdWJsaXNoYWJsZUtleSJ9LCJyb2xlIjoiYW5vbiIsImlzX2Fub255bW91cyI6dHJ1ZSwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiYW5vbnltb3VzIiwicHJvdmlkZXJzIjpbImFub255bW91cyJdfSwidXNlcl9tZXRhZGF0YSI6eyJuYW1lIjoiQW5vbnltb3VzIn0sInVzZXJfdHlwZSI6IiIsImNsaWVudF90eXBlIjoiY2xpZW50X3VzZXIiLCJpc19zeXN0ZW1fYWRtaW4iOmZhbHNlfQ.udoyytgC9Z6QZjHnz7-v9rtM7K2C6PVYhVX9KgOrx76Q_j4phvYpItbrMc8eAfRiewAzXvyW2heL2U3mTofad8-q10i5R8TyJ6ZsR80qzsTs6CcAk699o3uAhB0E5QTa7GqEDrhlnVtu9Bi9-DroWgMMgV6CXgLCz-d0h1YQq1AReBNe1JNJv7MYMQG08YGmUEqgfgGlKwB-G7YJ5Ya6b3WLEVNLRBAPHOCMa8ExCiy9fAK1oDRyBlLq4ieH7pOaMriPYm7Y7C0XyemeLQ_0E5PDRPg9QNTCenwDG3usKCKV9hZGeiVmTKZHPYFBMgwM-iBlOslXPAjDW3Au8u85Jw'};
+const cfg=()=>{let o={};try{o=JSON.parse(localStorage.getItem('ielts_cfg2')||'{}')}catch{}return{...DEFAULT_CFG,...o}};
 const ready=()=>{if(db)return true;toast('Not connected yet. Click Connection and enter your URL and key.',1);return false};
+function makeDb(base,key){
+  const H={'Content-Type':'application/json',Authorization:'Bearer '+key};
+  const from=t=>{
+    let m='GET',body=null,qs=[];
+    const run=async()=>{
+      try{
+        const r=await fetch(base+'/v1/rdb/rest/'+t+(qs.length?'?'+qs.join('&'):''),{method:m,headers:H,body:body?JSON.stringify(body):undefined});
+        const txt=await r.text();let j=null;try{j=txt?JSON.parse(txt):null}catch{}
+        if(!r.ok)return{data:null,error:{message:(j&&(j.message||j.error||j.msg))||('HTTP '+r.status+' '+txt.slice(0,200))}};
+        return{data:m==='GET'?j:null,error:null};
+      }catch(e){return{data:null,error:{message:e.message}}}
+    };
+    const b={
+      select(c){qs.push('select='+encodeURIComponent(c||'*'));return b},
+      insert(r){m='POST';body=r;return b},
+      update(r){m='PATCH';body=r;return b},
+      delete(){m='DELETE';return b},
+      eq(c,v){qs.push(encodeURIComponent(c)+'=eq.'+encodeURIComponent(v));return b},
+      order(c,o){qs.push('order='+encodeURIComponent(c)+(o&&o.ascending===false?'.desc':'.asc'));return b},
+      then(res,rej){return run().then(res,rej)}
+    };
+    return b;
+  };
+  return{from};
+}
 async function connect(c){
-  if(!window.supabase){toast('The Supabase library did not load. Check your network, then reload.',1);return false}
-  try{db=window.supabase.createClient(c.url,c.key)}catch(e){db=null;toast('Invalid URL or key: '+e.message,1);return false}
-  if(c.mail&&c.pass){const{error}=await db.auth.signInWithPassword({email:c.mail,password:c.pass});if(error){toast('Sign-in failed: '+error.message,1);return false}}
+  db=makeDb(c.url.replace(/\/+$/,''),c.key);
   return true;
 }
 async function load(i){
@@ -252,7 +275,7 @@ $('#cfgForm').onsubmit=async e=>{
   const c={url:$('#cUrl').value.trim(),key:$('#cKey').value.trim(),mail:$('#cMail').value.trim(),pass:$('#cPass').value};
   if(!c.url||!c.key)return toast('URL and key are required',1);
   // the password is never stored; only URL, key and email
-  try{localStorage.setItem('ielts_cfg',JSON.stringify({url:c.url,key:c.key,mail:c.mail}))}catch{}
+  try{localStorage.setItem('ielts_cfg2',JSON.stringify({url:c.url,key:c.key,mail:c.mail}))}catch{}
   dlg.close();start(c);
 };
 async function start(c){
