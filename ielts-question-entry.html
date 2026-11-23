@@ -13,7 +13,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-app
 header{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel)}
 h1{font:600 20px Georgia,"Songti SC",serif;margin:0;flex:1}
 h2{font:600 17px Georgia,"Songti SC",serif;margin:0 0 10px}
-main{max-width:980px;margin:0 auto;padding:20px}
+h3{font:600 15px Georgia,"Songti SC",serif;margin:12px 0 4px}
+main{max-width:1400px;margin:0 auto;padding:20px}
 button,select,input,textarea{font:inherit;color:inherit}
 button{border:1px solid var(--line);background:var(--panel);padding:6px 12px;border-radius:var(--r);cursor:pointer}
 button:hover{border-color:var(--acc)}
@@ -22,6 +23,7 @@ button.del{color:var(--bad)}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 input,select,textarea{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
 textarea{resize:vertical;min-height:70px}
+textarea.code{font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;min-height:300px;white-space:pre;tab-size:2}
 label{display:block;font-size:13px;color:var(--mute);margin-bottom:3px}
 .picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:20px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:16px}
@@ -36,11 +38,17 @@ label{display:block;font-size:13px;color:var(--mute);margin-bottom:3px}
 .q .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .muted{color:var(--mute)}
 .thumb{max-height:80px;max-width:140px;border:1px solid var(--line);border-radius:4px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.pvwrap{position:sticky;top:12px}
+iframe.pv{width:100%;height:68vh;border:1px solid var(--line);border-radius:4px;background:#fff}
+.pvtxt{white-space:pre-wrap;margin:0}
+#pv img{max-width:100%;display:block;margin:6px 0}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:var(--r);display:none;z-index:9;max-width:90vw}
 dialog{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);color:var(--ink);max-width:440px;width:92vw}
 dialog::backdrop{background:#0008}
 .hidden{display:none!important}
 #cMail,#cPass,label[for=cMail],label[for=cPass]{display:none}
+@media(max-width:900px){.split{grid-template-columns:1fr}.pvwrap{position:static}}
 @media(max-width:560px){.q .two{grid-template-columns:1fr}.q .top{grid-template-columns:80px 1fr}.q .top button{grid-column:1/-1}}
 </style>
 </head>
@@ -85,10 +93,13 @@ const LV=[
  {k:'category',t:'ielts_categories',label:'Category',p:null,ph:'e.g. Cambridge IELTS Academic'},
  {k:'volume',t:'ielts_volumes',label:'Volume',p:'category_id',ph:'e.g. Cambridge 18'},
  {k:'test',t:'ielts_tests',label:'Test No.',p:'volume_id',ph:'e.g. Test 1'},
- {k:'section',t:'ielts_sections',label:'Section',p:'test_id',ph:'e.g. Part 1 / Passage 1 / Writing'}];
-const TYPES={listening:'Listening',reading:'Reading',writing:'Writing'};
+ {k:'section',t:'ielts_sections',label:'Section',p:'test_id',ph:''}];
+const MLV=LV.slice(0,3); // sections are fixed, so they are not managed by hand
+const TYPES={listening:'Listening',speaking:'Speaking',reading:'Reading',writing:'Writing'};
+const ORDER=Object.keys(TYPES);
 const QT={mcq:'Multiple choice',tfng:'True / False / Not Given',ynng:'Yes / No / Not Given',fill:'Completion (blank)',short:'Short answer',matching:'Matching',other:'Other'};
 const OPT_TYPES=['mcq','matching'];
+const HAS_Q=t=>t==='listening'||t==='reading';
 let db=null,sel={},data={},mTab=0,mEdit=null;
 
 // Built-in connection (publishable key only). Edit here if the project changes.
@@ -124,14 +135,23 @@ async function connect(c){
   db=makeDb(c.url.replace(/\/+$/,''),c.key);
   return true;
 }
-async function load(i){
+async function load(i,retried){
   const L=LV[i];let q=db.from(L.t).select('*');
   if(L.p){if(!sel[LV[i-1].k]){data[L.k]=[];return}q=q.eq(L.p,sel[LV[i-1].k])}
   const{data:rows,error}=await q.order('created_at');
   if(error){toast(error.message,1);data[L.k]=[];return}
+  if(L.k==='section'){
+    // every test always has these four sections; create any that are missing
+    const miss=ORDER.filter(t=>!rows.some(r=>r.type===t));
+    if(miss.length&&!retried){
+      const{error:e2}=await db.from(L.t).insert(miss.map(t=>({test_id:sel.test,type:t,name:TYPES[t]})));
+      if(e2)toast(e2.message,1);else return load(i,true);
+    }
+    rows.sort((a,b)=>ORDER.indexOf(a.type)-ORDER.indexOf(b.type));
+  }
   data[L.k]=rows;
 }
-const secLabel=s=>`${TYPES[s.type]} - ${s.name}`+(s.q_from?` (Q${s.q_from}-${s.q_to||''})`:'');
+const secLabel=s=>TYPES[s.type]||s.name;
 const rowLabel=(L,r)=>L.k==='section'?secLabel(r):r.name;
 
 function drawPicker(){
@@ -148,18 +168,14 @@ function drawPicker(){
 $('#btnManage').onclick=()=>{if(!ready()){openCfg();return}const m=$('#manage'),o=m.classList.toggle('hidden');$('#btnManage').setAttribute('aria-expanded',!o);if(!o)drawManage()};
 function drawManage(){
   if($('#manage').classList.contains('hidden'))return;
-  $('#mTabs').innerHTML=LV.map((L,i)=>`<button role="tab" aria-selected="${i===mTab}" data-i="${i}">${L.label}</button>`).join('');
+  $('#mTabs').innerHTML=MLV.map((L,i)=>`<button role="tab" aria-selected="${i===mTab}" data-i="${i}">${L.label}</button>`).join('');
   document.querySelectorAll('#mTabs button').forEach(b=>b.onclick=()=>{mTab=+b.dataset.i;mEdit=null;drawManage()});
   const L=LV[mTab],parent=mTab?LV[mTab-1]:null;
   if(parent&&!sel[parent.k]){$('#mBody').innerHTML=`<p class="muted">Select a ${parent.label.toLowerCase()} above first. ${L.label} items belong to it.</p>`;return}
   const rows=data[L.k]||[],ed=rows.find(r=>r.id===mEdit)||{};
-  const secFields=L.k==='section'?`
-    <div style="width:140px"><label>Type</label><select id="mType">${Object.entries(TYPES).map(([k,v])=>`<option value="${k}" ${ed.type===k?'selected':''}>${v}</option>`).join('')}</select></div>
-    <div style="width:90px"><label>Q from</label><input id="mFrom" type="number" min="1" value="${ed.q_from??''}"></div>
-    <div style="width:90px"><label>Q to</label><input id="mTo" type="number" min="1" value="${ed.q_to??''}"></div>`:'';
   $('#mBody').innerHTML=`
     <div class="row" style="align-items:flex-end;margin-bottom:12px">
-      <div class="grow"><label>${mEdit?'Rename / edit':'New'} ${L.label.toLowerCase()}</label><input id="mName" placeholder="${esc(L.ph)}" value="${esc(ed.name||'')}"></div>${secFields}
+      <div class="grow"><label>${mEdit?'Rename / edit':'New'} ${L.label.toLowerCase()}</label><input id="mName" placeholder="${esc(L.ph)}" value="${esc(ed.name||'')}"></div>
       <button class="pri" id="mSave">${mEdit?'Save changes':'Add'}</button>${mEdit?'<button id="mCancel">Cancel</button>':''}
     </div>
     ${rows.length?rows.map(r=>`<div class="item"><span>${esc(rowLabel(L,r))}</span><button data-e="${r.id}">Edit</button><button class="del" data-d="${r.id}">Delete</button></div>`).join(''):'<p class="muted">Nothing here yet.</p>'}`;
@@ -167,7 +183,6 @@ function drawManage(){
     if(!ready())return;
     const name=$('#mName').value.trim();if(!name)return toast('Enter a name',1);
     const rec={name};if(parent)rec[L.p]=sel[parent.k];
-    if(L.k==='section'){rec.type=$('#mType').value;rec.q_from=+$('#mFrom').value||null;rec.q_to=+$('#mTo').value||null}
     const{error}=mEdit?await db.from(L.t).update(rec).eq('id',mEdit):await db.from(L.t).insert(rec);
     if(error)return toast(error.message,1);
     toast(mEdit?'Saved':'Added');mEdit=null;await load(mTab);drawPicker();drawManage();drawEditor();
@@ -190,9 +205,11 @@ async function drawEditor(){
   const s=curSection(),ed=$('#editor');
   if(!s){ed.innerHTML='<p class="muted">Choose a category, volume, test and section to start entering questions.</p>';return}
   const head=`<div class="card"><h2>${esc(secLabel(s))}</h2>`;
+  const htmlBox=lbl=>`<label for="fHtml">${lbl}</label><textarea id="fHtml" class="code" spellcheck="false" placeholder="&lt;div&gt;...&lt;/div&gt;">${esc(s.passage||'')}</textarea></div>`;
   let body='';
-  if(s.type==='listening')body=`<label for="fAudio">Audio URL (mp3)</label><input id="fAudio" type="url" value="${esc(s.audio_url||'')}" placeholder="https://.../section1.mp3"><audio id="aPrev" controls class="${s.audio_url?'':'hidden'}" style="width:100%;margin-top:8px" src="${esc(s.audio_url||'')}"></audio></div>${qBlock()}`;
-  else if(s.type==='reading')body=`<label for="fPass">Passage text</label><textarea id="fPass" style="min-height:240px">${esc(s.passage||'')}</textarea></div>${qBlock()}`;
+  if(s.type==='listening')body=`<label for="fAudio">Audio URL (mp3)</label><input id="fAudio" type="url" value="${esc(s.audio_url||'')}" placeholder="https://.../section1.mp3" style="margin-bottom:10px">${htmlBox('Listening content (HTML code)')}${qBlock()}`;
+  else if(s.type==='reading')body=`${htmlBox('Reading passage and questions (HTML code)')}${qBlock()}`;
+  else if(s.type==='speaking')body=htmlBox('Speaking content (HTML code)');
   else{
     const imgs=Array.isArray(s.task1_images)&&s.task1_images.length?s.task1_images:[''];
     body=`<h2>Task 1</h2><label for="fT1">Task 1 requirements</label><textarea id="fT1" style="min-height:110px">${esc(s.task1_text||'')}</textarea>
@@ -200,29 +217,50 @@ async function drawEditor(){
       <button type="button" id="addImg" style="margin-top:6px">Add another image</button></div>
       <div class="card"><h2>Task 2</h2><label for="fT2">Task 2 requirements</label><textarea id="fT2" style="min-height:130px">${esc(s.task2_text||'')}</textarea></div>`;
   }
-  ed.innerHTML=head+body+`<div class="row"><button class="pri" id="save">Save section</button></div>`;
+  ed.innerHTML=`<div class="split"><div>${head+body}<div class="row"><button class="pri" id="save">Save section</button></div></div>
+    <aside class="pvwrap"><div class="card"><h2>Preview</h2><div id="pv"></div></div></aside></div>`;
   if(s.type==='writing'){
-    $('#addImg').onclick=()=>{$('#imgs').insertAdjacentHTML('beforeend',imgRow(''));wireImgs()};wireImgs();
-  }else{
-    if(s.type==='listening')$('#fAudio').oninput=e=>{const a=$('#aPrev');a.src=e.target.value;a.classList.toggle('hidden',!e.target.value)};
+    $('#addImg').onclick=()=>{$('#imgs').insertAdjacentHTML('beforeend',imgRow(''));wireImgs();renderPv()};wireImgs();
+  }
+  if(HAS_Q(s.type)){
     $('#addQ').onclick=()=>addQ({number:nextNum()});
     $('#genQ').onclick=genQ;
     const{data:qs,error}=await db.from('ielts_questions').select('*').eq('section_id',s.id).order('number');
     if(error)toast(error.message,1);else(qs||[]).forEach(addQ);
   }
+  let h;
+  ed.oninput=e=>{if(e.target.closest('.q'))return;clearTimeout(h);h=setTimeout(renderPv,250)};
+  renderPv();
   $('#save').onclick=save;
+}
+/* ---------- live preview ---------- */
+function renderPv(){
+  const s=curSection(),pv=$('#pv');if(!s||!pv)return;
+  if(s.type==='writing'){
+    const imgs=[...document.querySelectorAll('#imgs .img')].map(i=>i.value.trim()).filter(Boolean);
+    pv.innerHTML=`<h3>Task 1</h3><p class="pvtxt">${esc($('#fT1').value)||'<span class="muted">(no text yet)</span>'}</p>${imgs.map(u=>`<img src="${esc(u)}" alt="">`).join('')}<h3>Task 2</h3><p class="pvtxt">${esc($('#fT2').value)||'<span class="muted">(no text yet)</span>'}</p>`;
+    return;
+  }
+  const code=$('#fHtml').value;
+  let audio='';
+  if(s.type==='listening'){const u=$('#fAudio').value.trim();if(u)audio=`<audio controls style="width:100%;margin-bottom:10px" src="${esc(u)}"></audio>`}
+  let f=pv.querySelector('iframe');
+  if(!f){pv.innerHTML='<div id="pvAudio"></div><iframe class="pv" sandbox="allow-scripts" title="Preview"></iframe>';f=pv.querySelector('iframe')}
+  const a=pv.querySelector('#pvAudio');if(a.dataset.u!==audio){a.innerHTML=audio;a.dataset.u=audio}
+  f.srcdoc='<!DOCTYPE html><meta charset="utf-8"><base target="_blank"><style>body{font:15px/1.6 system-ui,sans-serif;color:#111;background:#fff;margin:14px}</style>'+code;
 }
 const imgRow=u=>`<div class="row" style="margin-bottom:6px"><input class="img grow" type="url" placeholder="https://.../task1.png" value="${esc(u)}"><img class="thumb ${u?'':'hidden'}" src="${esc(u)}" alt="" onerror="this.classList.add('hidden')"><button type="button" class="del rm">Remove</button></div>`;
 function wireImgs(){document.querySelectorAll('#imgs .row').forEach(r=>{
   r.querySelector('.img').oninput=e=>{const t=r.querySelector('.thumb');t.src=e.target.value;t.classList.toggle('hidden',!e.target.value)};
-  r.querySelector('.rm').onclick=()=>{if(document.querySelectorAll('#imgs .row').length>1)r.remove();else r.querySelector('.img').value=''};
+  r.querySelector('.rm').onclick=()=>{if(document.querySelectorAll('#imgs .row').length>1)r.remove();else r.querySelector('.img').value='';renderPv()};
 })}
-const qBlock=()=>`<div class="card"><div class="row" style="margin-bottom:10px"><h2 style="margin:0;flex:1">Questions</h2><button type="button" id="genQ">Create blanks for Q range</button><button type="button" id="addQ">Add question</button></div><div id="qs"></div></div>`;
+const qBlock=()=>`<div class="card"><div class="row" style="margin-bottom:10px"><h2 style="margin:0;flex:1">Answer key</h2><button type="button" id="genQ">Create blanks for a range</button><button type="button" id="addQ">Add question</button></div><div id="qs"></div></div>`;
 const nextNum=()=>Math.max(0,...[...document.querySelectorAll('#qs .num')].map(i=>+i.value||0))+1;
 function genQ(){
-  const s=curSection();if(!s.q_from||!s.q_to)return toast('Set Q from / Q to for this section in Manage structure',1);
+  const r=(prompt('Question numbers to create, e.g. 1-10')||'').match(/(\d+)\s*[-–]\s*(\d+)/);
+  if(!r)return;
   const have=new Set([...document.querySelectorAll('#qs .num')].map(i=>+i.value));
-  for(let n=s.q_from;n<=s.q_to;n++)if(!have.has(n))addQ({number:n});
+  for(let n=+r[1];n<=+r[2];n++)if(!have.has(n))addQ({number:n});
 }
 function addQ(q){
   const d=document.createElement('div');d.className='q';
@@ -243,11 +281,12 @@ async function save(){
   try{
     let upd={},qs=null;
     if(s.type==='listening')upd.audio_url=$('#fAudio').value.trim()||null;
-    if(s.type==='reading')upd.passage=$('#fPass').value;
+    if(s.type!=='writing')upd.passage=$('#fHtml').value; // HTML code is stored in the "passage" column
     if(s.type==='writing'){
       upd.task1_text=$('#fT1').value;upd.task2_text=$('#fT2').value;
       upd.task1_images=[...document.querySelectorAll('#imgs .img')].map(i=>i.value.trim()).filter(Boolean);
-    }else{
+    }
+    if(HAS_Q(s.type)){
       qs=[...document.querySelectorAll('#qs .q')].map(d=>{const t=d.querySelector('.qt').value;return{
         section_id:s.id,number:+d.querySelector('.num').value,qtype:t,prompt:d.querySelector('.prompt').value,
         options:OPT_TYPES.includes(t)?d.querySelector('.opts').value.split('\n').map(x=>x.trim()).filter(Boolean):[],
