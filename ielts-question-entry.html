@@ -144,8 +144,11 @@ async function load(i,retried){
     // every test always has these four sections; create any that are missing
     const miss=ORDER.filter(t=>!rows.some(r=>r.type===t));
     if(miss.length&&!retried){
-      const{error:e2}=await db.from(L.t).insert(miss.map(t=>({test_id:sel.test,type:t,name:TYPES[t]})));
-      if(e2)toast(e2.message,1);else return load(i,true);
+      for(const t of miss){
+        const{error:e2}=await db.from(L.t).insert({test_id:sel.test,type:t,name:TYPES[t]});
+        if(e2)toast('Could not create '+TYPES[t]+' section: '+e2.message,1);
+      }
+      return load(i,true);
     }
     rows.sort((a,b)=>ORDER.indexOf(a.type)-ORDER.indexOf(b.type));
   }
