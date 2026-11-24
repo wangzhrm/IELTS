@@ -87,7 +87,7 @@
     border-color: #fca5a5;
   }
 
-  button, input, select {
+  button, input, select, textarea {
     font-family: var(--font-main);
     font-size: var(--font-size-base);
   }
@@ -238,6 +238,49 @@
     padding-right: 6px;
   }
 
+  /* Writing Input + Bottom-Right Word Count */
+  .writing-box-wrap {
+    position: relative;
+    border: 1px solid #64748b;
+    border-radius: 4px;
+    background: #ffffff;
+    padding-bottom: 28px;
+  }
+
+  textarea.writing-area {
+    width: 100%;
+    min-height: 300px;
+    border: none;
+    outline: none;
+    resize: vertical;
+    padding: 12px 14px;
+    line-height: 1.65;
+    color: var(--ink);
+    background: transparent;
+    display: block;
+  }
+
+  .word-count-badge {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    background: #f8fafc;
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+    pointer-events: none;
+  }
+
+  .writing-actions {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
   mark.ielts-hl {
     background: var(--hl);
     color: var(--ink);
@@ -253,10 +296,11 @@
   }
 
   .student-review-answer {
-    display: inline-block;
-    margin-left: 8px;
+    display: block;
+    margin-top: 6px;
     font-weight: 700;
     color: var(--student-blue);
+    white-space: pre-wrap;
   }
 
   .status-banner {
@@ -346,7 +390,7 @@
 <main class="container">
   <div id="statusBanner" class="status-banner"></div>
 
-  <!-- BUILDER MODE (when no ?paper=... is in the URL) -->
+  <!-- BUILDER MODE -->
   <section id="builderSection" class="card" style="display:none;">
     <h2 style="margin-top:0;">Create IELTS Test Paper &amp; Shareable Student Link</h2>
     <p class="reminder" style="margin-bottom:14px;">
@@ -355,7 +399,7 @@
 
     <div style="margin-bottom:14px;">
       <label for="paperTitleInput" style="display:block;font-weight:700;margin-bottom:4px;">Test Paper Title</label>
-      <input id="paperTitleInput" type="text" placeholder="e.g. Cambridge 18 Test 2 - Reading Practice" style="width:100%;max-width:480px;">
+      <input id="paperTitleInput" type="text" placeholder="e.g. IELTS Writing / Reading Practice" style="width:100%;max-width:480px;">
     </div>
 
     <div class="picker-row">
@@ -477,15 +521,58 @@
     statusBanner.style.display = 'block';
   }
 
-  /* Split passage & questions if your stored HTML uses a <!--QUESTIONS--> marker,
-     otherwise render the stored HTML directly inside the container */
-  function renderSectionHtml(sec) {
-    const rawHtml = sec.passage || '';
-    const parts = rawHtml.split(/<!--\s*QUESTIONS\s*-->/i);
-    const title = sec.name || sec.type || 'Section';
+  function extractSectionContent(sec) {
+    return sec.passage || sec.content || sec.html || sec.prompt || sec.description || sec.body || sec.text || '';
+  }
 
+  function isWritingSection(sec, rawHtml) {
+    const t = String(sec.type || '').toLowerCase();
+    const n = String(sec.name || '').toLowerCase();
+    return t.includes('writ') || t.includes('task') || n.includes('task 1') || n.includes('task 2') || /<!--\s*WRITING\s*-->/i.test(rawHtml);
+  }
+
+  function countWords(str) {
+    const trimmed = (str || '').trim();
+    if (!trimmed) return 0;
+    return trimmed.split(/\s+/).length;
+  }
+
+  function renderSectionHtml(sec, idx) {
+    const rawHtml = extractSectionContent(sec);
+    const title = sec.name || sec.type || `Section ${idx + 1}`;
+    const qKey = `writing_${sec.id || idx + 1}`;
+    const wcId = `wc_${sec.id || idx + 1}`;
+
+    if (isWritingSection(sec, rawHtml)) {
+      return `
+        <article class="passage-block">
+          <div class="passage-header">
+            <p class="passage-label" style="margin:0;font-weight:700;text-transform:uppercase;">${esc(sec.type || 'Writing')}</p>
+            <h2 class="passage-title">${esc(title)}</h2>
+          </div>
+          <div class="split-grid">
+            <div class="passage-pane" data-highlightable>
+              <p class="hl-tip">Select text in the prompt to highlight; click a highlight to remove it.</p>
+              ${rawHtml || '<p style="color:var(--muted);">No task prompt stored for this section.</p>'}
+            </div>
+            <div class="questions-pane">
+              <div class="writing-box-wrap">
+                <textarea class="writing-area" data-q="${esc(qKey)}" data-wc="${esc(wcId)}" placeholder="Type your response here..."></textarea>
+                <span id="${esc(wcId)}" class="word-count-badge">Words: 0</span>
+              </div>
+              <div class="writing-actions">
+                <button type="button" class="submit-writing-btn">Submit Writing</button>
+                <span class="writing-save-note" style="color:var(--muted);"></span>
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    const parts = rawHtml.split(/<!--\s*QUESTIONS\s*-->/i);
     let audioHtml = '';
-    if (sec.type === 'listening' && sec.audio_url) {
+    if (String(sec.type || '').toLowerCase() === 'listening' && sec.audio_url) {
       audioHtml = `<audio controls style="width:100%;margin-bottom:12px;" src="${esc(sec.audio_url)}"></audio>`;
     }
 
@@ -523,7 +610,7 @@
     `;
   }
 
-  function wireHighlighting() {
+  function wireInteractiveFeatures() {
     document.querySelectorAll('[data-highlightable]').forEach(pane => {
       pane.addEventListener('click', e => {
         const mark = e.target.closest('mark.ielts-hl');
@@ -553,6 +640,37 @@
           mark.appendChild(frag);
           range.insertNode(mark);
           sel.removeAllRanges();
+        }
+      });
+    });
+
+    testContent.querySelectorAll('textarea.writing-area').forEach(ta => {
+      const wcId = ta.getAttribute('data-wc');
+      const wcEl = wcId ? document.getElementById(wcId) : null;
+      const updateWc = () => {
+        if (wcEl) wcEl.textContent = `Words: ${countWords(ta.value)}`;
+      };
+      ta.addEventListener('input', updateWc);
+      updateWc();
+    });
+
+    testContent.querySelectorAll('.submit-writing-btn').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const noteEl = btn.parentElement.querySelector('.writing-save-note');
+        const answers = collectStudentAnswers();
+        const submittedAt = new Date().toISOString();
+        if (noteEl) noteEl.textContent = 'Saving...';
+        try {
+          await dbRequest(SUBMISSIONS_TABLE, 'POST', {
+            paper_id: paperId || 'writing_practice',
+            submitted_at: submittedAt,
+            answers
+          });
+          const label = new Date(submittedAt).toLocaleString();
+          if (noteEl) noteEl.textContent = `Submitted & saved (${label}).`;
+          showBanner(`Writing submitted and saved at ${label}.`);
+        } catch (err) {
+          if (noteEl) noteEl.textContent = 'Save error: ' + err.message;
         }
       });
     });
@@ -673,12 +791,11 @@
   }
 
   function renderTestSections(secs) {
-    testContent.innerHTML = secs.map(renderSectionHtml).join('');
-    wireHighlighting();
+    testContent.innerHTML = secs.map((s, i) => renderSectionHtml(s, i)).join('');
+    wireInteractiveFeatures();
     renderAnswerKeyInputs();
   }
 
-  /* Load Paper when ?paper=... is present */
   async function initPaperFromUrl(id) {
     builderSection.style.display = 'none';
     try {
@@ -710,7 +827,6 @@
     }
   }
 
-  /* Timer & Submission */
   function formatTime(sec) {
     const m = Math.floor(sec / 60);
     const s = sec % 60;
@@ -726,7 +842,11 @@
     const answers = {};
     testContent.querySelectorAll('input, select, textarea').forEach((el, i) => {
       const key = el.getAttribute('data-q') || el.name || el.id || `q_${i + 1}`;
-      answers[key] = (el.value || '').trim();
+      if (el.tagName === 'TEXTAREA') {
+        answers[key] = `${el.value || ''} (${countWords(el.value)} words)`;
+      } else {
+        answers[key] = (el.value || '').trim();
+      }
     });
     return answers;
   }
@@ -776,7 +896,6 @@
 
   submitBtn.onclick = () => finalizeAndStoreAnswers('Test submitted.');
 
-  /* Answer Key & Stored Submissions (wang123) */
   function getQuestionElements() {
     return [...testContent.querySelectorAll('input, select, textarea')];
   }
@@ -849,7 +968,8 @@
       const badge = document.createElement('span');
       badge.className = 'student-review-answer';
       badge.textContent = `[Student answer: ${val !== '' ? val : '(blank)'}]`;
-      el.insertAdjacentElement('afterend', badge);
+      const targetAfter = el.closest('.writing-box-wrap') || el;
+      targetAfter.insertAdjacentElement('afterend', badge);
     });
   }
 
@@ -859,8 +979,7 @@
     listEl.innerHTML = '';
     statusEl.textContent = 'Loading stored submissions...';
     try {
-      const qFilter = paperId ? `&paper_id=eq.${encodeURIComponent(paperId)}` : '';
-      const rows = await dbRequest(`${SUBMISSIONS_TABLE}?select=*${qFilter}&order=submitted_at.desc`);
+      const rows = await dbRequest(`${SUBMISSIONS_TABLE}?select=*&order=submitted_at.desc`);
       if (!Array.isArray(rows) || !rows.length) {
         statusEl.textContent = 'No stored student answers found yet.';
         return;
