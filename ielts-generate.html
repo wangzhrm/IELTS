@@ -238,6 +238,30 @@
     padding-right: 6px;
   }
 
+  .writing-prompt-text {
+    white-space: pre-wrap;
+    margin: 6px 0 12px 0;
+  }
+
+  .writing-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0 14px 0;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+
+  .writing-task-block {
+    margin-bottom: 20px;
+  }
+
+  .writing-task-label {
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 0 6px 0;
+  }
+
   /* Writing Input + Bottom-Right Word Count */
   .writing-box-wrap {
     position: relative;
@@ -249,7 +273,7 @@
 
   textarea.writing-area {
     width: 100%;
-    min-height: 300px;
+    min-height: 240px;
     border: none;
     outline: none;
     resize: vertical;
@@ -525,10 +549,30 @@
     return sec.passage || sec.content || sec.html || sec.prompt || sec.description || sec.body || sec.text || '';
   }
 
+  function parseTask1Images(sec) {
+    if (Array.isArray(sec.task1_images)) {
+      return sec.task1_images.map(u => String(u || '').trim()).filter(Boolean);
+    }
+    if (typeof sec.task1_images === 'string' && sec.task1_images.trim()) {
+      try {
+        const parsed = JSON.parse(sec.task1_images);
+        if (Array.isArray(parsed)) return parsed.map(u => String(u || '').trim()).filter(Boolean);
+      } catch (_) {}
+      return sec.task1_images.split(/[\n,]+/).map(u => u.trim()).filter(Boolean);
+    }
+    return [];
+  }
+
   function isWritingSection(sec, rawHtml) {
     const t = String(sec.type || '').toLowerCase();
     const n = String(sec.name || '').toLowerCase();
-    return t.includes('writ') || t.includes('task') || n.includes('task 1') || n.includes('task 2') || /<!--\s*WRITING\s*-->/i.test(rawHtml);
+    return (
+      t.includes('writ') ||
+      sec.task1_text !== undefined ||
+      sec.task2_text !== undefined ||
+      sec.task1_images !== undefined ||
+      /<!--\s*WRITING\s*-->/i.test(rawHtml)
+    );
   }
 
   function countWords(str) {
@@ -540,10 +584,33 @@
   function renderSectionHtml(sec, idx) {
     const rawHtml = extractSectionContent(sec);
     const title = sec.name || sec.type || `Section ${idx + 1}`;
-    const qKey = `writing_${sec.id || idx + 1}`;
-    const wcId = `wc_${sec.id || idx + 1}`;
+    const baseId = sec.id || (idx + 1);
 
     if (isWritingSection(sec, rawHtml)) {
+      const t1Text = sec.task1_text || '';
+      const t2Text = sec.task2_text || '';
+      const t1Imgs = parseTask1Images(sec);
+      const hasTaskFields = Boolean(t1Text || t2Text || t1Imgs.length);
+
+      const t1Key = `writing_task1_${baseId}`;
+      const t2Key = `writing_task2_${baseId}`;
+      const t1WcId = `wc_t1_${baseId}`;
+      const t2WcId = `wc_t2_${baseId}`;
+
+      const leftPromptHtml = hasTaskFields
+        ? `
+          <div class="writing-task-block">
+            <p class="writing-task-label">Task 1</p>
+            <div class="writing-prompt-text">${esc(t1Text) || '<span style="color:var(--muted);">(No Task 1 text stored)</span>'}</div>
+            ${t1Imgs.map(url => `<img class="writing-img" src="${esc(url)}" alt="Task 1 diagram/chart">`).join('')}
+          </div>
+          <div class="writing-task-block">
+            <p class="writing-task-label">Task 2</p>
+            <div class="writing-prompt-text">${esc(t2Text) || '<span style="color:var(--muted);">(No Task 2 text stored)</span>'}</div>
+          </div>
+        `
+        : (rawHtml || '<p style="color:var(--muted);">No writing task requirements stored for this section.</p>');
+
       return `
         <article class="passage-block">
           <div class="passage-header">
@@ -553,12 +620,22 @@
           <div class="split-grid">
             <div class="passage-pane" data-highlightable>
               <p class="hl-tip">Select text in the prompt to highlight; click a highlight to remove it.</p>
-              ${rawHtml || '<p style="color:var(--muted);">No task prompt stored for this section.</p>'}
+              ${leftPromptHtml}
             </div>
             <div class="questions-pane">
-              <div class="writing-box-wrap">
-                <textarea class="writing-area" data-q="${esc(qKey)}" data-wc="${esc(wcId)}" placeholder="Type your response here..."></textarea>
-                <span id="${esc(wcId)}" class="word-count-badge">Words: 0</span>
+              <div class="writing-task-block">
+                <p class="writing-task-label">Task 1 Response</p>
+                <div class="writing-box-wrap">
+                  <textarea class="writing-area" data-q="${esc(t1Key)}" data-wc="${esc(t1WcId)}" placeholder="Write your Task 1 response here..."></textarea>
+                  <span id="${esc(t1WcId)}" class="word-count-badge">Words: 0</span>
+                </div>
+              </div>
+              <div class="writing-task-block">
+                <p class="writing-task-label">Task 2 Response</p>
+                <div class="writing-box-wrap">
+                  <textarea class="writing-area" data-q="${esc(t2Key)}" data-wc="${esc(t2WcId)}" placeholder="Write your Task 2 response here..."></textarea>
+                  <span id="${esc(t2WcId)}" class="word-count-badge">Words: 0</span>
+                </div>
               </div>
               <div class="writing-actions">
                 <button type="button" class="submit-writing-btn">Submit Writing</button>
@@ -810,13 +887,13 @@
       if (paper.title) document.title = paper.title;
 
       let secs = Array.isArray(paper.sections_snapshot) ? paper.sections_snapshot : [];
-      if (!secs.length && Array.isArray(paper.section_ids) && paper.section_ids.length) {
+      if (Array.isArray(paper.section_ids) && paper.section_ids.length) {
         const fetched = [];
         for (const sid of paper.section_ids) {
           const found = await dbRequest(`ielts_sections?select=*&id=eq.${encodeURIComponent(sid)}&limit=1`);
           if (Array.isArray(found) && found[0]) fetched.push(found[0]);
         }
-        secs = fetched;
+        if (fetched.length) secs = fetched;
       }
       selectedSections = secs;
       renderTestSections(secs);
