@@ -23,7 +23,7 @@ button.del{color:var(--bad)}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 input,select,textarea{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:var(--r);background:var(--panel)}
 textarea{resize:vertical;min-height:70px}
-textarea.code{font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;min-height:300px;white-space:pre;tab-size:2}
+textarea.code{font:13px/1.45 ui-monospace,Menlo,Consolas,monospace;min-height:420px;white-space:pre;tab-size:2}
 label{display:block;font-size:13px;color:var(--mute);margin-bottom:3px}
 .picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:20px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin-bottom:16px}
@@ -99,7 +99,7 @@ const TYPES={listening:'Listening',speaking:'Speaking',reading:'Reading',writing
 const ORDER=Object.keys(TYPES);
 const QT={mcq:'Multiple choice',tfng:'True / False / Not Given',ynng:'Yes / No / Not Given',fill:'Completion (blank)',short:'Short answer',matching:'Matching',other:'Other'};
 const OPT_TYPES=['mcq','matching'];
-const HAS_Q=t=>t==='listening'||t==='reading';
+const HAS_Q=t=>t==='listening';
 let db=null,sel={},data={},mTab=0,mEdit=null;
 
 // Built-in connection (publishable key only). Edit here if the project changes.
@@ -206,12 +206,12 @@ function drawManage(){
 const curSection=()=>(data.section||[]).find(s=>s.id===sel.section);
 async function drawEditor(){
   const s=curSection(),ed=$('#editor');
-  if(!s){ed.innerHTML='<p class="muted">Choose a category, volume, test and section to start entering questions.</p>';return}
+  if(!s){ed.innerHTML='<p class="muted">Choose a category, volume, test and section to start entering questions. Use “Manage structure” to add any that are missing.</p>';return}
   const head=`<div class="card"><h2>${esc(secLabel(s))}</h2>`;
   const htmlBox=lbl=>`<label for="fHtml">${lbl}</label><textarea id="fHtml" class="code" spellcheck="false" placeholder="&lt;div&gt;...&lt;/div&gt;">${esc(s.passage||'')}</textarea></div>`;
   let body='';
   if(s.type==='listening')body=`<label for="fAudio">Audio URL (mp3)</label><input id="fAudio" type="url" value="${esc(s.audio_url||'')}" placeholder="https://.../section1.mp3" style="margin-bottom:10px">${htmlBox('Listening content (HTML code)')}${qBlock()}`;
-  else if(s.type==='reading')body=`${htmlBox('Reading passage and questions (HTML code)')}${qBlock()}`;
+  else if(s.type==='reading')body=htmlBox('Reading passage and interactive questions (HTML code)');
   else if(s.type==='speaking')body=htmlBox('Speaking content (HTML code)');
   else{
     const imgs=Array.isArray(s.task1_images)&&s.task1_images.length?s.task1_images:[''];
