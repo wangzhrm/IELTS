@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>IELTS Paper Builder &amp; Test</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
   :root {
     --bg: #f4f5f6;
@@ -262,6 +263,42 @@
     margin: 0 0 6px 0;
   }
 
+  .task-hint {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* Task tabs */
+  .task-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--line);
+  }
+
+  .task-tabs .tab-btn {
+    background: #f1f5f9;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    padding: 9px 22px;
+    font-weight: 700;
+    margin-bottom: -2px;
+  }
+
+  .task-tabs .tab-btn:hover:not(:disabled) { background: #e2e8f0; }
+
+  .task-tabs .tab-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+  }
+
+  .task-panel { display: none; }
+  .task-panel.active { display: block; }
+
   /* Writing Input + Bottom-Right Word Count */
   .writing-box-wrap {
     position: relative;
@@ -273,7 +310,7 @@
 
   textarea.writing-area {
     width: 100%;
-    min-height: 240px;
+    min-height: 340px;
     border: none;
     outline: none;
     resize: vertical;
@@ -295,14 +332,6 @@
     border-radius: 3px;
     border: 1px solid var(--line);
     pointer-events: none;
-  }
-
-  .writing-actions {
-    margin-top: 12px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
   }
 
   mark.ielts-hl {
@@ -335,6 +364,9 @@
     border: 1px solid #93c5fd;
     color: #1e3a8a;
     display: none;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
   }
 
   #reviewDot {
@@ -412,7 +444,10 @@
 </header>
 
 <main class="container">
-  <div id="statusBanner" class="status-banner"></div>
+  <div id="statusBanner" class="status-banner">
+    <span id="statusText"></span>
+    <button id="pdfBtn" type="button" class="secondary" style="display:none;">Download PDF</button>
+  </div>
 
   <!-- BUILDER MODE -->
   <section id="builderSection" class="card" style="display:none;">
@@ -505,6 +540,8 @@
   let adminUnlocked = false;
   let selectedSections = [];
   let savedAnswerKey = {};
+  let lastSubmittedAt = null;
+  let lastWritingSnapshot = null; // textarea values captured at submit time
 
   const startBtn = document.getElementById('startBtn');
   const submitBtn = document.getElementById('submitBtn');
@@ -513,6 +550,8 @@
   const testContent = document.getElementById('testContent');
   const lockedNote = document.getElementById('lockedNote');
   const statusBanner = document.getElementById('statusBanner');
+  const statusText = document.getElementById('statusText');
+  const pdfBtn = document.getElementById('pdfBtn');
   const reviewDot = document.getElementById('reviewDot');
   const reviewPanel = document.getElementById('reviewPanel');
 
@@ -541,8 +580,8 @@
   }
 
   function showBanner(msg) {
-    statusBanner.textContent = msg;
-    statusBanner.style.display = 'block';
+    statusText.textContent = msg;
+    statusBanner.style.display = 'flex';
   }
 
   function extractSectionContent(sec) {
@@ -565,7 +604,6 @@
 
   function isWritingSection(sec, rawHtml) {
     const t = String(sec.type || '').toLowerCase();
-    const n = String(sec.name || '').toLowerCase();
     return (
       t.includes('writ') ||
       sec.task1_text !== undefined ||
@@ -592,57 +630,53 @@
       const t1Imgs = parseTask1Images(sec);
       const hasTaskFields = Boolean(t1Text || t2Text || t1Imgs.length);
 
-      const t1Key = `writing_task1_${baseId}`;
-      const t2Key = `writing_task2_${baseId}`;
-      const t1WcId = `wc_t1_${baseId}`;
-      const t2WcId = `wc_t2_${baseId}`;
+      const fallbackPrompt = rawHtml || '<p style="color:var(--muted);">No writing task requirements stored for this section.</p>';
 
-      const leftPromptHtml = hasTaskFields
-        ? `
-          <div class="writing-task-block">
-            <p class="writing-task-label">Task 1</p>
-            <div class="writing-prompt-text">${esc(t1Text) || '<span style="color:var(--muted);">(No Task 1 text stored)</span>'}</div>
-            ${t1Imgs.map(url => `<img class="writing-img" src="${esc(url)}" alt="Task 1 diagram/chart">`).join('')}
-          </div>
-          <div class="writing-task-block">
-            <p class="writing-task-label">Task 2</p>
-            <div class="writing-prompt-text">${esc(t2Text) || '<span style="color:var(--muted);">(No Task 2 text stored)</span>'}</div>
-          </div>
-        `
-        : (rawHtml || '<p style="color:var(--muted);">No writing task requirements stored for this section.</p>');
+      const t1Prompt = hasTaskFields
+        ? `<div class="writing-prompt-text">${esc(t1Text) || '<span style="color:var(--muted);">(No Task 1 text stored)</span>'}</div>
+           ${t1Imgs.map(url => `<img class="writing-img" src="${esc(url)}" alt="Task 1 diagram/chart">`).join('')}`
+        : fallbackPrompt;
+
+      const t2Prompt = hasTaskFields
+        ? `<div class="writing-prompt-text">${esc(t2Text) || '<span style="color:var(--muted);">(No Task 2 text stored)</span>'}</div>`
+        : fallbackPrompt;
+
+      const panel = (n, promptHtml) => {
+        const key = `writing_task${n}_${baseId}`;
+        const wcId = `wc_t${n}_${baseId}`;
+        const hint = n === 1 ? 'Write at least 150 words.' : 'Write at least 250 words.';
+        return `
+          <div class="task-panel${n === 1 ? ' active' : ''}" data-panel="${n}">
+            <div class="split-grid">
+              <div class="passage-pane" data-highlightable>
+                <p class="hl-tip">Select text in the prompt to highlight; click a highlight to remove it.</p>
+                <p class="writing-task-label">Task ${n}</p>
+                ${promptHtml}
+              </div>
+              <div class="questions-pane">
+                <p class="writing-task-label">Task ${n} Response</p>
+                <p class="task-hint">${hint}</p>
+                <div class="writing-box-wrap">
+                  <textarea class="writing-area" data-q="${esc(key)}" data-wc="${esc(wcId)}" placeholder="Write your Task ${n} response here..."></textarea>
+                  <span id="${esc(wcId)}" class="word-count-badge">Words: 0</span>
+                </div>
+              </div>
+            </div>
+          </div>`;
+      };
 
       return `
-        <article class="passage-block">
+        <article class="passage-block writing-section" data-section-index="${idx}">
           <div class="passage-header">
             <p class="passage-label" style="margin:0;font-weight:700;text-transform:uppercase;">${esc(sec.type || 'Writing')}</p>
             <h2 class="passage-title">${esc(title)}</h2>
           </div>
-          <div class="split-grid">
-            <div class="passage-pane" data-highlightable>
-              <p class="hl-tip">Select text in the prompt to highlight; click a highlight to remove it.</p>
-              ${leftPromptHtml}
-            </div>
-            <div class="questions-pane">
-              <div class="writing-task-block">
-                <p class="writing-task-label">Task 1 Response</p>
-                <div class="writing-box-wrap">
-                  <textarea class="writing-area" data-q="${esc(t1Key)}" data-wc="${esc(t1WcId)}" placeholder="Write your Task 1 response here..."></textarea>
-                  <span id="${esc(t1WcId)}" class="word-count-badge">Words: 0</span>
-                </div>
-              </div>
-              <div class="writing-task-block">
-                <p class="writing-task-label">Task 2 Response</p>
-                <div class="writing-box-wrap">
-                  <textarea class="writing-area" data-q="${esc(t2Key)}" data-wc="${esc(t2WcId)}" placeholder="Write your Task 2 response here..."></textarea>
-                  <span id="${esc(t2WcId)}" class="word-count-badge">Words: 0</span>
-                </div>
-              </div>
-              <div class="writing-actions">
-                <button type="button" class="submit-writing-btn">Submit Writing</button>
-                <span class="writing-save-note" style="color:var(--muted);"></span>
-              </div>
-            </div>
+          <div class="task-tabs" role="tablist">
+            <button type="button" class="tab-btn active" role="tab" data-tab="1">Task 1</button>
+            <button type="button" class="tab-btn" role="tab" data-tab="2">Task 2</button>
           </div>
+          ${panel(1, t1Prompt)}
+          ${panel(2, t2Prompt)}
         </article>
       `;
     }
@@ -688,6 +722,20 @@
   }
 
   function wireInteractiveFeatures() {
+    // Task tabs
+    testContent.querySelectorAll('.writing-section').forEach(article => {
+      const tabs = article.querySelectorAll('.tab-btn');
+      const panels = article.querySelectorAll('.task-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const n = tab.getAttribute('data-tab');
+          tabs.forEach(t => t.classList.toggle('active', t === tab));
+          panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-panel') === n));
+        });
+      });
+    });
+
+    // Highlighting
     document.querySelectorAll('[data-highlightable]').forEach(pane => {
       pane.addEventListener('click', e => {
         const mark = e.target.closest('mark.ielts-hl');
@@ -721,6 +769,7 @@
       });
     });
 
+    // Word counters
     testContent.querySelectorAll('textarea.writing-area').forEach(ta => {
       const wcId = ta.getAttribute('data-wc');
       const wcEl = wcId ? document.getElementById(wcId) : null;
@@ -729,27 +778,6 @@
       };
       ta.addEventListener('input', updateWc);
       updateWc();
-    });
-
-    testContent.querySelectorAll('.submit-writing-btn').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const noteEl = btn.parentElement.querySelector('.writing-save-note');
-        const answers = collectStudentAnswers();
-        const submittedAt = new Date().toISOString();
-        if (noteEl) noteEl.textContent = 'Saving...';
-        try {
-          await dbRequest(SUBMISSIONS_TABLE, 'POST', {
-            paper_id: paperId || 'writing_practice',
-            submitted_at: submittedAt,
-            answers
-          });
-          const label = new Date(submittedAt).toLocaleString();
-          if (noteEl) noteEl.textContent = `Submitted & saved (${label}).`;
-          showBanner(`Writing submitted and saved at ${label}.`);
-        } catch (err) {
-          if (noteEl) noteEl.textContent = 'Save error: ' + err.message;
-        }
-      });
     });
   }
 
@@ -928,6 +956,123 @@
     return answers;
   }
 
+  /* ---------- PDF generation ---------- */
+
+  async function imageToDataUrl(url) {
+    try {
+      const res = await fetch(url, { mode: 'cors' });
+      if (!res.ok) return null;
+      const blob = await res.blob();
+      return await new Promise((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onload = () => resolve(fr.result);
+        fr.onerror = reject;
+        fr.readAsDataURL(blob);
+      });
+    } catch (_) {
+      return null;
+    }
+  }
+
+  async function buildPdfReportElement(submittedAt, snapshot) {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'position:fixed;top:0;left:-10000px;width:720px;background:#fff;color:#111;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.55;padding:0;';
+
+    const paperTitle = (document.getElementById('paperTitleInput')?.value || '').trim() || document.title || 'IELTS Writing Test';
+    let html = `
+      <div style="border-bottom:2px solid #0f4c81;padding-bottom:8px;margin-bottom:14px;">
+        <div style="font-size:20px;font-weight:700;">${esc(paperTitle)}</div>
+        <div style="color:#444;">Submitted: ${esc(new Date(submittedAt).toLocaleString())}</div>
+      </div>`;
+
+    for (let idx = 0; idx < selectedSections.length; idx++) {
+      const sec = selectedSections[idx];
+      const raw = extractSectionContent(sec);
+      if (!isWritingSection(sec, raw)) continue;
+
+      const baseId = sec.id || (idx + 1);
+      const t1Text = sec.task1_text || '';
+      const t2Text = sec.task2_text || '';
+      const imgs = parseTask1Images(sec);
+      const hasTaskFields = Boolean(t1Text || t2Text || imgs.length);
+
+      const a1 = snapshot[`writing_task1_${baseId}`] || '';
+      const a2 = snapshot[`writing_task2_${baseId}`] || '';
+
+      let imgHtml = '';
+      for (const url of imgs) {
+        const data = await imageToDataUrl(url);
+        imgHtml += data
+          ? `<img src="${data}" style="max-width:100%;height:auto;display:block;margin:8px 0;border:1px solid #ccc;">`
+          : `<div style="margin:8px 0;color:#555;">[Task 1 image could not be embedded: ${esc(url)}]</div>`;
+      }
+
+      const block = (n, promptHtml, extraHtml, answer) => `
+        <div style="margin-bottom:18px;">
+          <div style="font-size:15px;font-weight:700;background:#eef2f7;padding:5px 8px;margin-bottom:8px;">Task ${n}</div>
+          <div style="font-weight:700;margin-bottom:3px;">Question</div>
+          <div style="white-space:pre-wrap;margin-bottom:6px;">${promptHtml}</div>
+          ${extraHtml}
+          <div style="font-weight:700;margin:10px 0 3px 0;">Student Answer <span style="font-weight:400;color:#555;">(${countWords(answer)} words)</span></div>
+          <div style="white-space:pre-wrap;border:1px solid #bbb;padding:8px 10px;color:#1d4ed8;min-height:40px;">${answer.trim() ? esc(answer) : '<span style="color:#888;">(blank)</span>'}</div>
+        </div>`;
+
+      const p1 = hasTaskFields ? esc(t1Text) : raw;
+      const p2 = hasTaskFields ? esc(t2Text) : raw;
+
+      html += `<div style="font-size:16px;font-weight:700;margin:6px 0 10px 0;">${esc(sec.name || sec.type || 'Writing')}</div>`;
+      html += block(1, p1, imgHtml, a1);
+      html += `<div class="html2pdf__page-break"></div>`;
+      html += block(2, p2, '', a2);
+    }
+
+    wrap.innerHTML = html;
+    document.body.appendChild(wrap);
+    return wrap;
+  }
+
+  async function generatePdf(submittedAt, snapshot) {
+    const hasWriting = selectedSections.some(s => isWritingSection(s, extractSectionContent(s)));
+    if (!hasWriting) return false;
+    if (typeof window.html2pdf !== 'function') {
+      throw new Error('PDF library could not be loaded');
+    }
+    const el = await buildPdfReportElement(submittedAt, snapshot);
+    try {
+      const stamp = new Date(submittedAt).toISOString().slice(0, 19).replace(/[:T]/g, '-');
+      await window.html2pdf().set({
+        margin: [12, 12, 12, 12],
+        filename: `IELTS_Writing_${stamp}.pdf`,
+        image: { type: 'jpeg', quality: 0.95 },
+        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff', scrollX: 0, scrollY: 0 },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'] }
+      }).from(el).save();
+    } finally {
+      el.remove();
+    }
+    return true;
+  }
+
+  pdfBtn.onclick = async () => {
+    if (!lastSubmittedAt || !lastWritingSnapshot) return;
+    pdfBtn.disabled = true;
+    try {
+      await generatePdf(lastSubmittedAt, lastWritingSnapshot);
+    } catch (err) {
+      showBanner('PDF error: ' + err.message);
+    }
+    pdfBtn.disabled = false;
+  };
+
+  function captureWritingSnapshot() {
+    const snap = {};
+    testContent.querySelectorAll('textarea.writing-area').forEach(ta => {
+      snap[ta.getAttribute('data-q')] = ta.value || '';
+    });
+    return snap;
+  }
+
   async function finalizeAndStoreAnswers(reason) {
     if (testSubmitted) return;
     testSubmitted = true;
@@ -935,20 +1080,38 @@
     submitBtn.disabled = true;
 
     const answers = collectStudentAnswers();
+    lastWritingSnapshot = captureWritingSnapshot();
     testContent.querySelectorAll('input, select, textarea').forEach(el => { el.disabled = true; });
 
     const submittedAt = new Date().toISOString();
+    lastSubmittedAt = submittedAt;
     showBanner(`${reason} Saving your answers automatically...`);
 
+    let saveMsg;
     try {
       await dbRequest(SUBMISSIONS_TABLE, 'POST', {
         paper_id: paperId || 'default',
         submitted_at: submittedAt,
         answers
       });
-      showBanner(`${reason} All answers have been automatically saved (${new Date(submittedAt).toLocaleString()}).`);
+      saveMsg = `${reason} All answers have been automatically saved (${new Date(submittedAt).toLocaleString()}).`;
     } catch (err) {
-      showBanner(`${reason} Database sync reported: ${err.message}`);
+      saveMsg = `${reason} Database sync reported: ${err.message}.`;
+    }
+
+    // Generate the PDF (questions + student answers for Task 1 and Task 2)
+    const hasWriting = selectedSections.some(s => isWritingSection(s, extractSectionContent(s)));
+    if (hasWriting) {
+      showBanner(`${saveMsg} Preparing your PDF...`);
+      pdfBtn.style.display = 'inline-block';
+      try {
+        await generatePdf(submittedAt, lastWritingSnapshot);
+        showBanner(`${saveMsg} A PDF with the questions and your answers has been downloaded.`);
+      } catch (err) {
+        showBanner(`${saveMsg} PDF could not be generated automatically (${err.message}). Use the Download PDF button to retry.`);
+      }
+    } else {
+      showBanner(saveMsg);
     }
   }
 
