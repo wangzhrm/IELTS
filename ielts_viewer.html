@@ -28,12 +28,15 @@
   .sub .meta { color: var(--muted); font-size: 13px; display: block; }
   .detail { min-width: 0; }
   .card { background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 18px 20px; margin-bottom: 16px; }
+  .summary-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
   .summary h2 { margin: 0 0 4px 0; font-size: 20px; }
   .summary p { margin: 2px 0; color: var(--muted); }
   .summary strong { color: var(--ink); }
-  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
-  .pane { min-width: 0; max-height: 80vh; overflow-y: auto; }
-  .pane.passage { padding-right: 14px; border-right: 1px solid var(--line); }
+
+  /* Passage / task prompt on top, questions and answers below it, full width */
+  .split { display: block; }
+  .pane { min-width: 0; }
+  .pane.passage { padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
   .sec-title { margin: 0 0 10px 0; font-size: 17px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
   .task-label { font-weight: 700; margin: 12px 0 4px; }
   .prompt { white-space: pre-wrap; }
@@ -52,8 +55,17 @@
   @media (max-width: 1000px) {
     .layout { grid-template-columns: 1fr; }
     .list { position: static; max-height: 300px; }
-    .split { grid-template-columns: 1fr; }
-    .pane, .pane.passage { max-height: none; border-right: 0; padding-right: 0; }
+  }
+
+  /* Print only the selected submission (no header, no submissions list) */
+  @media print {
+    body { background: #fff; }
+    header, .list, .no-print, #gate { display: none !important; }
+    .layout { display: block; padding: 0; }
+    .card { border: 0; padding: 0; margin-bottom: 18px; }
+    .detail { width: 100%; }
+    .answer-box, .final-box { break-inside: avoid; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
 </head>
@@ -71,7 +83,7 @@
     <div class="list-head" id="listHead"></div>
     <div id="subList"></div>
   </aside>
-  <main class="detail" id="detail"><div class="card empty">Select a submission on the left to see the questions and the student's answers.</div></main>
+  <main class="detail" id="detail"><div class="card empty no-print">Select a submission on the left to see the questions and the student's answers.</div></main>
 </div>
 
 <script>
@@ -147,14 +159,19 @@
     const title = paper ? (paper.title || 'Untitled paper') : '(paper not found)';
     const detail = $('detail');
 
-    let html = `<div class="card summary"><h2>${esc(title)}</h2>
+    let html = `<div class="card summary">
+      <div class="summary-top"><h2>${esc(title)}</h2>
+        <button id="printBtn" type="button" class="no-print">Print</button></div>
       <p>Stored: <strong>${esc(when)}</strong></p>
       <p>Paper ID: ${esc(sub.paper_id)}</p><p id="scoreLine"></p></div>`;
+
+    const bindPrint = () => { $('printBtn').onclick = () => window.print(); };
 
     if (!paper) {
       html += `<div class="card"><p>The questions for this paper are not in the database, so only the raw answers are shown.</p>
         <table class="raw">${Object.entries(answers).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="ans">${esc(v || '(blank)')}</td></tr>`).join('')}</table></div>`;
       detail.innerHTML = html;
+      bindPrint();
       return;
     }
 
@@ -197,6 +214,7 @@
 
     detail.innerHTML = html;
     detail.appendChild(box);
+    bindPrint();
     $('scoreLine').innerHTML = keyed ? `Auto-marked: <strong>${right} / ${keyed}</strong> against the saved answer key` : 'No answer key saved for this paper, so nothing is auto-marked.';
   }
 
