@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IELTS Submissions Viewer</title>
+<style>
+  :root {
+    --bg: #f3f4f6; --paper: #fff; --ink: #1a1a1a; --muted: #5b6472; --line: #d3d9e0;
+    --accent: #0f4c81; --student: #1d4ed8; --ok: #166534; --okbg: #dcfce7; --bad: #991b1b; --badbg: #fee2e2;
+    --sel: #e8f0fa;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 Arial, Helvetica, sans-serif; }
+  header { background: var(--paper); border-bottom: 1px solid var(--line); padding: 12px 20px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+  header h1 { font-size: 18px; margin: 0 auto 0 0; }
+  button, select, input { font: inherit; }
+  button { padding: 7px 14px; border-radius: 4px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
+  button.secondary { background: var(--paper); color: var(--ink); border-color: var(--line); }
+  select, input { padding: 6px 9px; border: 1px solid #64748b; border-radius: 4px; background: #fff; max-width: 100%; }
+  .layout { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 16px; padding: 16px; align-items: start; }
+  .list { background: var(--paper); border: 1px solid var(--line); border-radius: 4px; position: sticky; top: 12px; max-height: calc(100vh - 90px); overflow-y: auto; }
+  .list-head { padding: 10px 12px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+  .sub { display: block; width: 100%; text-align: left; background: none; color: var(--ink); border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 10px 12px; }
+  .sub:hover { background: #f8fafc; }
+  .sub.active { background: var(--sel); box-shadow: inset 3px 0 0 var(--accent); }
+  .sub .when { font-weight: 700; display: block; }
+  .sub .meta { color: var(--muted); font-size: 13px; display: block; }
+  .detail { min-width: 0; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 18px 20px; margin-bottom: 16px; }
+  .summary h2 { margin: 0 0 4px 0; font-size: 20px; }
+  .summary p { margin: 2px 0; color: var(--muted); }
+  .summary strong { color: var(--ink); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+  .pane { min-width: 0; max-height: 80vh; overflow-y: auto; }
+  .pane.passage { padding-right: 14px; border-right: 1px solid var(--line); }
+  .sec-title { margin: 0 0 10px 0; font-size: 17px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+  .task-label { font-weight: 700; margin: 12px 0 4px; }
+  .prompt { white-space: pre-wrap; }
+  .prompt-img { max-width: 100%; height: auto; border: 1px solid var(--line); }
+  .answer-box { white-space: pre-wrap; border: 1px solid #64748b; border-radius: 4px; padding: 10px 12px; color: var(--student); font-weight: 700; min-height: 60px; background: #fff; }
+  .count { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .questions-pane input[type=text], .questions-pane input:not([type]), .questions-pane select { color: var(--student) !important; font-weight: 700; background: #f5f8ff !important; }
+  .mark { display: inline-block; margin-left: 6px; padding: 0 7px; border-radius: 3px; font-size: 13px; font-weight: 700; }
+  .mark.ok { background: var(--okbg); color: var(--ok); }
+  .mark.bad { background: var(--badbg); color: var(--bad); }
+  .empty { color: var(--muted); padding: 30px; text-align: center; }
+  table.raw { border-collapse: collapse; width: 100%; }
+  table.raw td { border: 1px solid var(--line); padding: 6px 10px; vertical-align: top; }
+  table.raw td:first-child { width: 35%; font-weight: 700; }
+  td.ans { color: var(--student); white-space: pre-wrap; }
+  @media (max-width: 1000px) {
+    .layout { grid-template-columns: 1fr; }
+    .list { position: static; max-height: 300px; }
+    .split { grid-template-columns: 1fr; }
+    .pane, .pane.passage { max-height: none; border-right: 0; padding-right: 0; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>IELTS Submissions Viewer</h1>
+  <label>Paper: <select id="paperFilter"><option value="">All papers</option></select></label>
+  <button id="refreshBtn" class="secondary" type="button">Refresh</button>
+</header>
+
+<div id="gate" class="empty">Loading…</div>
+
+<div class="layout" id="app" style="display:none;">
+  <aside class="list">
+    <div class="list-head" id="listHead"></div>
+    <div id="subList"></div>
+  </aside>
+  <main class="detail" id="detail"><div class="card empty">Select a submission on the left to see the questions and the student's answers.</div></main>
+</div>
+
+<script>
+(function () {
+  const DB_BASE = 'https://civil-prawn-d0gflguvzee35fad8.api.tcloudbasegateway.com/v1/rdb/rest';
+  const DB_KEY = 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjZkN2IyMmIyLWI4NjktNDNjNy04NGY0LWY0NTE2MDgxNDRhNSJ9.eyJpc3MiOiJodHRwczovL2NpdmlsLXByYXduLWQwZ2ZsZ3V2emVlMzVmYWQ4LmFwLXNoYW5naGFpLnRjYi1hcGkudGVuY2VudGNsb3VkYXBpLmNvbSIsInN1YiI6ImFub24iLCJhdWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsImV4cCI6NDA5ODg1NDQzMywiaWF0IjoxNzk1MTcxMjMzLCJub25jZSI6IlpOYXlDMXJ5VERxTmg1UFpFM0pxN3ciLCJhdF9oYXNoIjoiWk5heUMxcnlURHFOaDVQWkUzSnE3dyIsIm5hbWUiOiJBbm9ueW1vdXMiLCJzY29wZSI6ImFub255bW91cyIsInByb2plY3RfaWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsIm1ldGEiOnsicGxhdGZvcm0iOiJQdWJsaXNoYWJsZUtleSJ9LCJyb2xlIjoiYW5vbiIsImlzX2Fub255bW91cyI6dHJ1ZSwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiYW5vbnltb3VzIiwicHJvdmlkZXJzIjpbImFub255bW91cyJdfSwidXNlcl9tZXRhZGF0YSI6eyJuYW1lIjoiQW5vbnltb3VzIn0sInVzZXJfdHlwZSI6IiIsImNsaWVudF90eXBlIjoiY2xpZW50X3VzZXIiLCJpc19zeXN0ZW1fYWRtaW4iOmZhbHNlfQ.udoyytgC9Z6QZjHnz7-v9rtM7K2C6PVYhVX9KgOrx76Q_j4phvYpItbrMc8eAfRiewAzXvyW2heL2U3mTofad8-q10i5R8TyJ6ZsR80qzsTs6CcAk699o3uAhB0E5QTa7GqEDrhlnVtu9Bi9-DroWgMMgV6CXgLCz-d0h1YQq1AReBNe1JNJv7MYMQG08YGmUEqgfgGlKwB-G7YJ5Ya6b3WLEVNLRBAPHOCMa8ExCiy9fAK1oDRyBlLq4ieH7pOaMriPYm7Y7C0XyemeLQ_0E5PDRPg9QNTCenwDG3usKCKV9hZGeiVmTKZHPYFBMgwM-iBlOslXPAjDW3Au8u85Jw';
+  const PASSWORD = 'wang123';
+
+  let papers = {};      // id -> paper row
+  let keys = {};        // paper_id -> answers object
+  let subs = [];        // submissions, newest first
+  let activeId = null;
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  async function db(path) {
+    const res = await fetch(`${DB_BASE}/${path}`, { headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${DB_KEY}` } });
+    const text = await res.text();
+    let json = null; try { json = text ? JSON.parse(text) : null; } catch (_) {}
+    if (!res.ok) throw new Error((json && (json.message || json.error || json.msg)) || `HTTP ${res.status}`);
+    return json;
+  }
+
+  /* ---- same section rendering rules as the test page ---- */
+  const content = s => s.passage || s.content || s.html || s.prompt || s.description || s.body || s.text || '';
+  function t1Images(s) {
+    if (Array.isArray(s.task1_images)) return s.task1_images.map(u => String(u || '').trim()).filter(Boolean);
+    if (typeof s.task1_images === 'string' && s.task1_images.trim()) {
+      try { const p = JSON.parse(s.task1_images); if (Array.isArray(p)) return p.map(u => String(u || '').trim()).filter(Boolean); } catch (_) {}
+      return s.task1_images.split(/[\n,]+/).map(u => u.trim()).filter(Boolean);
+    }
+    return [];
+  }
+  function isWriting(s, raw) {
+    return String(s.type || '').toLowerCase().includes('writ') || s.task1_text !== undefined || s.task2_text !== undefined ||
+      s.task1_images !== undefined || /<!--\s*WRITING\s*-->/i.test(raw);
+  }
+  function sectionHtml(s, idx) {
+    const raw = content(s);
+    const title = s.name || s.type || `Section ${idx + 1}`;
+    const base = s.id || (idx + 1);
+    if (isWriting(s, raw)) {
+      const a = s.task1_text || '', b = s.task2_text || '', imgs = t1Images(s);
+      const hasFields = Boolean(a || b || imgs.length);
+      const task = (n, prompt) => `
+        <div class="split">
+          <div class="pane passage"><p class="task-label">Task ${n} question</p>${prompt}</div>
+          <div class="pane"><p class="task-label">Task ${n} student answer</p>
+            <div class="answer-box"><textarea hidden data-q="writing_task${n}_${esc(base)}"></textarea><span data-ans></span></div>
+            <div class="count" data-count></div></div>
+        </div>`;
+      const p1 = hasFields ? `<div class="prompt">${esc(a)}</div>${imgs.map(u => `<img class="prompt-img" src="${esc(u)}" alt="Task 1 chart">`).join('')}` : raw;
+      const p2 = hasFields ? `<div class="prompt">${esc(b)}</div>` : raw;
+      return `<section class="card"><h3 class="sec-title">${esc(title)}</h3>${task(1, p1)}<hr style="border:0;border-top:1px solid var(--line);margin:18px 0;">${task(2, p2)}</section>`;
+    }
+    const parts = raw.split(/<!--\s*QUESTIONS\s*-->/i);
+    if (parts.length > 1) {
+      return `<section class="card"><h3 class="sec-title">${esc(title)}</h3><div class="split">
+        <div class="pane passage">${parts[0]}</div>
+        <div class="pane questions-pane">${parts.slice(1).join('')}</div></div></section>`;
+    }
+    return `<section class="card"><h3 class="sec-title">${esc(title)}</h3><div class="questions-pane">${raw}</div></section>`;
+  }
+
+  /* ---- detail view ---- */
+  function showSubmission(sub) {
+    activeId = sub.id ?? sub.submitted_at;
+    renderList();
+    const paper = papers[sub.paper_id];
+    const answers = sub.answers || {};
+    const when = new Date(sub.submitted_at).toLocaleString();
+    const title = paper ? (paper.title || 'Untitled paper') : '(paper not found)';
+    const detail = $('detail');
+
+    let html = `<div class="card summary"><h2>${esc(title)}</h2>
+      <p>Stored: <strong>${esc(when)}</strong></p>
+      <p>Paper ID: ${esc(sub.paper_id)}</p><p id="scoreLine"></p></div>`;
+
+    if (!paper) {
+      html += `<div class="card"><p>The questions for this paper are not in the database, so only the raw answers are shown.</p>
+        <table class="raw">${Object.entries(answers).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="ans">${esc(v || '(blank)')}</td></tr>`).join('')}</table></div>`;
+      detail.innerHTML = html;
+      return;
+    }
+
+    const secs = Array.isArray(paper.sections_snapshot) ? paper.sections_snapshot : [];
+    const box = document.createElement('div');
+    box.innerHTML = secs.map(sectionHtml).join('') || '<div class="card">This paper has no sections.</div>';
+
+    // Same key rule as the test page, so answers line up with the right question
+    const key = keys[sub.paper_id] || {};
+    let keyed = 0, right = 0;
+    box.querySelectorAll('input, select, textarea').forEach((el, i) => {
+      const k = el.getAttribute('data-q') || el.name || el.id || `q_${i + 1}`;
+      const raw = answers[k] ?? '';
+      if (el.tagName === 'TEXTAREA') {
+        const m = String(raw).match(/^([\s\S]*?)\s*\((\d+) words\)$/);
+        const text = m ? m[1] : raw, words = m ? m[2] : '';
+        const holder = el.parentElement;
+        holder.querySelector('[data-ans]').textContent = text.trim() ? text : '(blank)';
+        const c = holder.parentElement.querySelector('[data-count]');
+        if (c) c.textContent = words !== '' ? `${words} words` : '';
+        return;
+      }
+      if (el.type === 'radio' || el.type === 'checkbox') {
+        el.checked = String(el.value).trim() === String(raw).trim();
+      } else {
+        el.value = raw;
+      }
+      el.disabled = true;
+      const kv = String(key[k] ?? '').trim();
+      if (kv && el.type !== 'radio' && el.type !== 'checkbox') {
+        keyed++;
+        const ok = String(raw).trim().toLowerCase() === kv.toLowerCase();
+        if (ok) right++;
+        const tag = document.createElement('span');
+        tag.className = 'mark ' + (ok ? 'ok' : 'bad');
+        tag.textContent = ok ? 'correct' : `expected: ${kv}`;
+        el.insertAdjacentElement('afterend', tag);
+      }
+    });
+
+    detail.innerHTML = html;
+    detail.appendChild(box);
+    $('scoreLine').innerHTML = keyed ? `Auto-marked: <strong>${right} / ${keyed}</strong> against the saved answer key` : 'No answer key saved for this paper, so nothing is auto-marked.';
+  }
+
+  /* ---- list ---- */
+  function renderList() {
+    const filter = $('paperFilter').value;
+    const rows = subs.filter(s => !filter || s.paper_id === filter);
+    $('listHead').textContent = `${rows.length} submission${rows.length === 1 ? '' : 's'}, newest first`;
+    const list = $('subList');
+    list.innerHTML = '';
+    if (!rows.length) { list.innerHTML = '<div class="empty">No submissions yet.</div>'; return; }
+    rows.forEach(s => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'sub' + ((s.id ?? s.submitted_at) === activeId ? ' active' : '');
+      const p = papers[s.paper_id];
+      b.innerHTML = `<span class="when">${esc(new Date(s.submitted_at).toLocaleString())}</span>
+        <span class="meta">${esc(p ? p.title : s.paper_id)}</span>`;
+      b.onclick = () => showSubmission(s);
+      list.appendChild(b);
+    });
+  }
+
+  async function load() {
+    $('listHead').textContent = 'Loading…';
+    try {
+      const [paperRows, subRows, keyRows] = await Promise.all([
+        db('ielts_papers?select=*'),
+        db('ielts_reading_submissions?select=*&order=submitted_at.desc'),
+        db('ielts_reading_answer_key?select=*').catch(() => [])
+      ]);
+      papers = {}; (paperRows || []).forEach(p => papers[p.id] = p);
+      keys = {};
+      (keyRows || []).slice().sort((a, b) => String(a.updated_at || '').localeCompare(String(b.updated_at || '')))
+        .forEach(r => { if (r.answers) keys[r.paper_id] = r.answers; });
+      subs = (subRows || []).slice().sort((a, b) => String(b.submitted_at).localeCompare(String(a.submitted_at)));
+
+      const sel = $('paperFilter'), cur = sel.value;
+      const ids = [...new Set(subs.map(s => s.paper_id))];
+      sel.innerHTML = '<option value="">All papers</option>' +
+        ids.map(id => `<option value="${esc(id)}">${esc(papers[id] ? papers[id].title : id)}</option>`).join('');
+      sel.value = ids.includes(cur) ? cur : '';
+      renderList();
+    } catch (err) {
+      $('listHead').textContent = 'Could not load: ' + err.message;
+    }
+  }
+
+  $('paperFilter').onchange = renderList;
+  $('refreshBtn').onclick = load;
+
+  const pwd = prompt('Enter password:');
+  if (pwd === PASSWORD) {
+    $('gate').style.display = 'none';
+    $('app').style.display = 'grid';
+    load();
+  } else {
+    $('gate').textContent = 'Incorrect password. Reload the page to try again.';
+  }
+})();
+</script>
+</body>
+</html>
