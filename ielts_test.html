@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IELTS Paper Builder &amp; Test</title>
+<style>
+  :root {
+    --bg: #f4f5f6;
+    --paper: #ffffff;
+    --ink: #1a1a1a;
+    --muted: #4b5563;
+    --line: #cbd5e1;
+    --accent: #0f4c81;
+    --accent-hover: #0b3860;
+    --student-blue: #1d4ed8;
+    --hl: #fef08a;
+    --font-main: Arial, Helvetica, sans-serif;
+    --font-size-base: 15px;
+    --line-height-base: 1.6;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
+  body {
+    margin: 0;
+    padding: 0 0 64px 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-main);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+  }
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .top-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 240px;
+  }
+
+  .reminder {
+    margin: 0;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-base);
+    color: var(--ink);
+  }
+
+  .top-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .timer-box {
+    font-size: 16px;
+    font-weight: 700;
+    background: #f1f5f9;
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 4px;
+    min-width: 100px;
+    text-align: center;
+  }
+
+  .timer-box.warning {
+    color: #991b1b;
+    background: #fef2f2;
+    border-color: #fca5a5;
+  }
+
+  button, input, select, textarea {
+    font-family: var(--font-main);
+    font-size: var(--font-size-base);
+  }
+
+  button {
+    line-height: 1.3;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--accent);
+    background: var(--accent);
+    color: #ffffff;
+    cursor: pointer;
+  }
+
+  button:hover:not(:disabled) { background: var(--accent-hover); }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  button.secondary { background: var(--paper); color: var(--ink); border-color: var(--line); }
+  button.secondary:hover:not(:disabled) { background: #f8fafc; }
+
+  input, select {
+    padding: 7px 10px;
+    border: 1px solid #64748b;
+    border-radius: 4px;
+    background: #ffffff;
+    color: var(--ink);
+  }
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+    margin: 16px 0;
+    padding: 0 16px;
+  }
+
+  .card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 20px 22px;
+    margin-bottom: 20px;
+  }
+
+  .picker-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .section-list {
+    display: grid;
+    gap: 8px;
+    margin: 12px 0 18px 0;
+  }
+
+  .section-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: #fafafa;
+  }
+
+  .selected-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: #f1f5f9;
+    margin: 4px 6px 4px 0;
+  }
+
+  .share-box {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 12px;
+  }
+
+  .share-box input {
+    flex: 1;
+    min-width: 260px;
+  }
+
+  .locked-overlay-note {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin-bottom: 18px;
+    color: var(--muted);
+  }
+
+  #testContent.locked {
+    opacity: 0.45;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .passage-block {
+    width: 100%;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 20px 22px;
+    margin-bottom: 24px;
+  }
+
+  .passage-header {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .passage-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 4px 0 0 0;
+  }
+
+  .split-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+    width: 100%;
+  }
+
+  .passage-pane {
+    min-width: 0;
+    max-height: 78vh;
+    overflow-y: auto;
+    padding-right: 16px;
+    border-right: 1px solid var(--line);
+  }
+
+  .questions-pane {
+    min-width: 0;
+    max-height: 78vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
+  }
+
+  .writing-prompt-text {
+    white-space: pre-wrap;
+    margin: 6px 0 12px 0;
+  }
+
+  .writing-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0 14px 0;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+
+  .writing-task-block {
+    margin-bottom: 20px;
+  }
+
+  .writing-task-label {
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 0 6px 0;
+  }
+
+  .task-hint {
+    margin: 0 0 8px 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* Task tabs */
+  .task-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--line);
+  }
+
+  .task-tabs .tab-btn {
+    background: #f1f5f9;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    padding: 9px 22px;
+    font-weight: 700;
+    margin-bottom: -2px;
+  }
+
+  .task-tabs .tab-btn:hover:not(:disabled) { background: #e2e8f0; }
+
+  .task-tabs .tab-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+  }
+
+  .task-panel { display: none; }
+  .task-panel.active { display: block; }
+
+  /* Writing Input + Bottom-Right Word Count */
+  .writing-box-wrap {
+    position: relative;
+    border: 1px solid #64748b;
+    border-radius: 4px;
+    background: #ffffff;
+    padding-bottom: 28px;
+  }
+
+  textarea.writing-area {
+    width: 100%;
+    min-height: 340px;
+    border: none;
+    outline: none;
+    resize: vertical;
+    padding: 12px 14px;
+    line-height: 1.65;
+    color: var(--ink);
+    background: transparent;
+    display: block;
+  }
+
+  .word-count-badge {
+    position: absolute;
+    right: 10px;
+    bottom: 6px;
+    font-size: 13px;
+    color: var(--muted);
+    background: #f8fafc;
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px solid var(--line);
+    pointer-events: none;
+  }
+
+  mark.ielts-hl {
+    background: var(--hl);
+    color: var(--ink);
+    padding: 1px 0;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  .hl-tip {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 12px 0;
+  }
+
+  .student-review-answer {
+    display: block;
+    margin-top: 6px;
+    font-weight: 700;
+    color: var(--student-blue);
+    white-space: pre-wrap;
+  }
+
+  .status-banner {
+    margin: 12px 0;
+    padding: 10px 14px;
+    border-radius: 4px;
+    background: #eef6ff;
+    border: 1px solid #93c5fd;
+    color: #1e3a8a;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  #reviewDot {
+    position: fixed;
+    right: 14px;
+    bottom: 14px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    border: 1px solid #d1d5db;
+    padding: 0;
+    z-index: 100;
+    cursor: pointer;
+  }
+
+  #reviewPanel {
+    display: none;
+    width: calc(100% - 32px);
+    max-width: 100%;
+    margin: 24px 16px 40px 16px;
+    padding: 22px 24px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+  }
+
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px 16px;
+    margin: 12px 0 18px 0;
+  }
+
+  .key-item label { display: block; font-weight: 700; margin-bottom: 4px; }
+  .key-item input { width: 100%; }
+
+  .submissions-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .sub-btn {
+    background: #f1f5f9;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .sub-btn.active { background: var(--student-blue); color: #ffffff; border-color: var(--student-blue); }
+
+  @media (max-width: 1024px) {
+    .split-grid { grid-template-columns: 1fr; gap: 20px; }
+    .passage-pane {
+      max-height: 48vh;
+      border-right: none;
+      border-bottom: 1px solid var(--line);
+      padding-right: 6px;
+      padding-bottom: 14px;
+    }
+    .questions-pane { max-height: none; overflow-y: visible; }
+  }
+
+  /* ---- Results view after submission + print layout ---- */
+  body.submitted .passage-pane,
+  body.submitted .questions-pane { max-height: none; overflow: visible; }
+  body.submitted .task-panel { display: block !important; margin-bottom: 28px; }
+  body.submitted .task-tabs { display: none; }
+  body.submitted input:disabled,
+  body.submitted select:disabled { color: var(--student-blue); font-weight: 700; opacity: 1; }
+  .final-answer {
+    white-space: pre-wrap;
+    border: 1px solid #64748b;
+    border-radius: 4px;
+    padding: 10px 14px;
+    color: var(--student-blue);
+    font-weight: 700;
+    background: #fff;
+    min-height: 60px;
+  }
+
+  @media print {
+    body { background: #fff; padding: 0; }
+    .topbar, #statusBanner, #reviewDot, #reviewPanel, #lockedNote,
+    .hl-tip, .word-count-badge { display: none !important; }
+    .container { margin: 0; padding: 0; }
+    .passage-block { border: 0; padding: 0; margin-bottom: 20px; }
+    .split-grid { display: block; }
+    .passage-pane { border-right: 0; padding-right: 0; margin-bottom: 14px; }
+    mark.ielts-hl { background: none; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="top-left">
+    <button id="startBtn" type="button">Start</button>
+    <p class="reminder">
+      Reminder: Please ensure you have 60 minutes in one sitting to complete all questions. All answers will be stored automatically and saved, and no extra time will be allowed for students to complete these questions.
+    </p>
+  </div>
+  <div class="top-right">
+    <div id="timerDisplay" class="timer-box">60:00</div>
+    <button id="submitBtn" type="button" disabled>Submit</button>
+  </div>
+</header>
+
+<main class="container">
+  <div id="statusBanner" class="status-banner">
+    <span id="statusText"></span>
+    <button id="pdfBtn" type="button" class="secondary" style="display:none;">Print / Save as PDF</button>
+  </div>
+
+  <!-- BUILDER MODE -->
+  <section id="builderSection" class="card" style="display:none;">
+    <h2 style="margin-top:0;">Create IELTS Test Paper &amp; Shareable Student Link</h2>
+    <p class="reminder" style="margin-bottom:14px;">
+      Select passages/sections from your database to include in this test paper, save the paper, and send the generated URL to students.
+    </p>
+
+    <div style="margin-bottom:14px;">
+      <label for="paperTitleInput" style="display:block;font-weight:700;margin-bottom:4px;">Test Paper Title</label>
+      <input id="paperTitleInput" type="text" placeholder="e.g. IELTS Writing / Reading Practice" style="width:100%;max-width:480px;">
+    </div>
+
+    <div class="picker-row">
+      <div>
+        <label for="selCategory" style="display:block;font-weight:700;margin-bottom:4px;">Category</label>
+        <select id="selCategory" style="width:100%;"><option value="">Select category...</option></select>
+      </div>
+      <div>
+        <label for="selVolume" style="display:block;font-weight:700;margin-bottom:4px;">Volume</label>
+        <select id="selVolume" style="width:100%;"><option value="">Select volume...</option></select>
+      </div>
+      <div>
+        <label for="selTest" style="display:block;font-weight:700;margin-bottom:4px;">Test</label>
+        <select id="selTest" style="width:100%;"><option value="">Select test...</option></select>
+      </div>
+    </div>
+
+    <div id="availableSectionsBox"></div>
+
+    <div style="margin-top:16px;">
+      <strong>Selected Sections in This Paper:</strong>
+      <div id="selectedSectionsList" style="margin-top:6px;">None selected yet.</div>
+    </div>
+
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <button id="createPaperBtn" type="button">Save Paper &amp; Generate Student URL</button>
+      <span id="builderStatus" style="color:var(--muted);"></span>
+    </div>
+
+    <div id="shareResult" class="share-box" style="display:none;">
+      <input id="shareUrlInput" type="text" readonly>
+      <button id="copyShareUrlBtn" type="button" class="secondary">Copy Student Link</button>
+      <a id="openStudentLink" href="#" target="_blank"><button type="button" class="secondary">Open Student View</button></a>
+    </div>
+  </section>
+
+  <!-- STUDENT TEST MODE -->
+  <div id="lockedNote" class="locked-overlay-note">
+    Click <strong>Start</strong> at the top to begin your 60-minute IELTS test. Once started, the timer counts down automatically and cannot be paused or extended.
+  </div>
+
+  <div id="testContent" class="locked"></div>
+</main>
+
+<button id="reviewDot" type="button" title="Review / Answer Key" aria-label="Review / Answer Key"></button>
+
+<section id="reviewPanel" aria-label="Answer Key and Student Submissions">
+  <h2>Answer Key &amp; Stored Student Submissions</h2>
+
+  <h3>1. Correct Answers (Saved to Database)</h3>
+  <div id="answerKeyGrid" class="review-grid"></div>
+  <button id="saveKeyBtn" type="button">Save / Update Correct Answers</button>
+  <span id="keyStatus" style="margin-left:10px;color:var(--muted);"></span>
+
+  <h3 style="margin-top:24px;">2. Stored Student Submissions (Click a Timestamp to View Answers in Blue)</h3>
+  <button id="refreshSubsBtn" type="button" class="secondary">Refresh Stored Submissions</button>
+  <button id="clearReviewHighlightBtn" type="button" class="secondary">Clear Blue Answer View</button>
+  <div id="submissionsList" class="submissions-list"></div>
+  <div id="subStatus" style="color:var(--muted);"></div>
+</section>
+
+<script>
+(function() {
+  const DB_BASE = 'https://civil-prawn-d0gflguvzee35fad8.api.tcloudbasegateway.com/v1/rdb/rest';
+  const DB_KEY = 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjZkN2IyMmIyLWI4NjktNDNjNy04NGY0LWY0NTE2MDgxNDRhNSJ9.eyJpc3MiOiJodHRwczovL2NpdmlsLXByYXduLWQwZ2ZsZ3V2emVlMzVmYWQ4LmFwLXNoYW5naGFpLnRjYi1hcGkudGVuY2VudGNsb3VkYXBpLmNvbSIsInN1YiI6ImFub24iLCJhdWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsImV4cCI6NDA5ODg1NDQzMywiaWF0IjoxNzk1MTcxMjMzLCJub25jZSI6IlpOYXlDMXJ5VERxTmg1UFpFM0pxN3ciLCJhdF9oYXNoIjoiWk5heUMxcnlURHFOaDVQWkUzSnE3dyIsIm5hbWUiOiJBbm9ueW1vdXMiLCJzY29wZSI6ImFub255bW91cyIsInByb2plY3RfaWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsIm1ldGEiOnsicGxhdGZvcm0iOiJQdWJsaXNoYWJsZUtleSJ9LCJyb2xlIjoiYW5vbiIsImlzX2Fub255bW91cyI6dHJ1ZSwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiYW5vbnltb3VzIiwicHJvdmlkZXJzIjpbImFub255bW91cyJdfSwidXNlcl9tZXRhZGF0YSI6eyJuYW1lIjoiQW5vbnltb3VzIn0sInVzZXJfdHlwZSI6IiIsImNsaWVudF90eXBlIjoiY2xpZW50X3VzZXIiLCJpc19zeXN0ZW1fYWRtaW4iOmZhbHNlfQ.udoyytgC9Z6QZjHnz7-v9rtM7K2C6PVYhVX9KgOrx76Q_j4phvYpItbrMc8eAfRiewAzXvyW2heL2U3mTofad8-q10i5R8TyJ6ZsR80qzsTs6CcAk699o3uAhB0E5QTa7GqEDrhlnVtu9Bi9-DroWgMMgV6CXgLCz-d0h1YQq1AReBNe1JNJv7MYMQG08YGmUEqgfgGlKwB-G7YJ5Ya6b3WLEVNLRBAPHOCMa8ExCiy9fAK1oDRyBlLq4ieH7pOaMriPYm7Y7C0XyemeLQ_0E5PDRPg9QNTCenwDG3usKCKV9hZGeiVmTKZHPYFBMgwM-iBlOslXPAjDW3Au8u85Jw';
+
+  const PAPERS_TABLE = 'ielts_papers';
+  const SUBMISSIONS_TABLE = 'ielts_reading_submissions';
+  const ANSWER_KEY_TABLE = 'ielts_reading_answer_key';
+  const TOTAL_SECONDS = 60 * 60;
+
+  const params = new URLSearchParams(window.location.search);
+  const paperId = params.get('paper');
+
+  let remainingSeconds = TOTAL_SECONDS;
+  let timerInterval = null;
+  let testStarted = false;
+  let testSubmitted = false;
+  let adminUnlocked = false;
+  let selectedSections = [];
+  let savedAnswerKey = {};
+
+  const startBtn = document.getElementById('startBtn');
+  const submitBtn = document.getElementById('submitBtn');
+  const timerDisplay = document.getElementById('timerDisplay');
+  const builderSection = document.getElementById('builderSection');
+  const testContent = document.getElementById('testContent');
+  const lockedNote = document.getElementById('lockedNote');
+  const statusBanner = document.getElementById('statusBanner');
+  const statusText = document.getElementById('statusText');
+  const pdfBtn = document.getElementById('pdfBtn');
+  const reviewDot = document.getElementById('reviewDot');
+  const reviewPanel = document.getElementById('reviewPanel');
+
+  async function dbRequest(path, method = 'GET', body = null) {
+    const res = await fetch(`${DB_BASE}/${path}`, {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${DB_KEY}`
+      },
+      body: body ? JSON.stringify(body) : undefined
+    });
+    const text = await res.text();
+    let json = null;
+    try { json = text ? JSON.parse(text) : null; } catch (_) {}
+    if (!res.ok) {
+      throw new Error((json && (json.message || json.error || json.msg)) || `HTTP ${res.status}`);
+    }
+    return json;
+  }
+
+  function esc(s) {
+    return String(s ?? '').replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
+  }
+
+  function showBanner(msg) {
+    statusText.textContent = msg;
+    statusBanner.style.display = 'flex';
+  }
+
+  function extractSectionContent(sec) {
+    return sec.passage || sec.content || sec.html || sec.prompt || sec.description || sec.body || sec.text || '';
+  }
+
+  function parseTask1Images(sec) {
+    if (Array.isArray(sec.task1_images)) {
+      return sec.task1_images.map(u => String(u || '').trim()).filter(Boolean);
+    }
+    if (typeof sec.task1_images === 'string' && sec.task1_images.trim()) {
+      try {
+        const parsed = JSON.parse(sec.task1_images);
+        if (Array.isArray(parsed)) return parsed.map(u => String(u || '').trim()).filter(Boolean);
+      } catch (_) {}
+      return sec.task1_images.split(/[\n,]+/).map(u => u.trim()).filter(Boolean);
+    }
+    return [];
+  }
+
+  function isWritingSection(sec, rawHtml) {
+    const t = String(sec.type || '').toLowerCase();
+    return (
+      t.includes('writ') ||
+      sec.task1_text !== undefined ||
+      sec.task2_text !== undefined ||
+      sec.task1_images !== undefined ||
+      /<!--\s*WRITING\s*-->/i.test(rawHtml)
+    );
+  }
+
+  function countWords(str) {
+    const trimmed = (str || '').trim();
+    if (!trimmed) return 0;
+    return trimmed.split(/\s+/).length;
+  }
+
+  function renderSectionHtml(sec, idx) {
+    const rawHtml = extractSectionContent(sec);
+    const title = sec.name || sec.type || `Section ${idx + 1}`;
+    const baseId = sec.id || (idx + 1);
+
+    if (isWritingSection(sec, rawHtml)) {
+      const t1Text = sec.task1_text || '';
+      const t2Text = sec.task2_text || '';
+      const t1Imgs = parseTask1Images(sec);
+      const hasTaskFields = Boolean(t1Text || t2Text || t1Imgs.length);
+
+      const fallbackPrompt = rawHtml || '<p style="color:var(--muted);">No writing task requirements stored for this section.</p>';
+
+      const t1Prompt = hasTaskFields
+        ? `<div class="writing-prompt-text">${esc(t1Text) || '<span style="color:var(--muted);">(No Task 1 text stored)</span>'}</div>
+           ${t1Imgs.map(url => `<img class="writing-img" src="${esc(url)}" alt="Task 1 diagram/chart">`).join('')}`
+        : fallbackPrompt;
+
+      const t2Prompt = hasTaskFields
+        ? `<div class="writing-prompt-text">${esc(t2Text) || '<span style="color:var(--muted);">(No Task 2 text stored)</span>'}</div>`
+        : fallbackPrompt;
+
+      const panel = (n, promptHtml) => {
+        const key = `writing_task${n}_${baseId}`;
+        const wcId = `wc_t${n}_${baseId}`;
+        const hint = n === 1 ? 'Write at least 150 words.' : 'Write at least 250 words.';
+        return `
+          <div class="task-panel${n === 1 ? ' active' : ''}" data-panel="${n}">
+            <div class="split-grid">
+              <div class="passage-pane" data-highlightable>
+                <p class="hl-tip">Select text in the prompt to highlight; click a highlight to remove it.</p>
+                <p class="writing-task-label">Task ${n}</p>
+                ${promptHtml}
+              </div>
+              <div class="questions-pane">
+                <p class="writing-task-label">Task ${n} Response</p>
+                <p class="task-hint">${hint}</p>
+                <div class="writing-box-wrap">
+                  <textarea class="writing-area" data-q="${esc(key)}" data-wc="${esc(wcId)}" placeholder="Write your Task ${n} response here..."></textarea>
+                  <span id="${esc(wcId)}" class="word-count-badge">Words: 0</span>
+                </div>
+              </div>
+            </div>
+          </div>`;
+      };
+
+      return `
+        <article class="passage-block writing-section" data-section-index="${idx}">
+          <div class="passage-header">
+            <p class="passage-label" style="margin:0;font-weight:700;text-transform:uppercase;">${esc(sec.type || 'Writing')}</p>
+            <h2 class="passage-title">${esc(title)}</h2>
+          </div>
+          <div class="task-tabs" role="tablist">
+            <button type="button" class="tab-btn active" role="tab" data-tab="1">Task 1</button>
+            <button type="button" class="tab-btn" role="tab" data-tab="2">Task 2</button>
+          </div>
+          ${panel(1, t1Prompt)}
+          ${panel(2, t2Prompt)}
+        </article>
+      `;
+    }
+
+    const parts = rawHtml.split(/<!--\s*QUESTIONS\s*-->/i);
+    let audioHtml = '';
+    if (String(sec.type || '').toLowerCase() === 'listening' && sec.audio_url) {
+      audioHtml = `<audio controls style="width:100%;margin-bottom:12px;" src="${esc(sec.audio_url)}"></audio>`;
+    }
+
+    if (parts.length > 1) {
+      return `
+        <article class="passage-block">
+          <div class="passage-header">
+            <p class="passage-label" style="margin:0;font-weight:700;text-transform:uppercase;">${esc(sec.type || 'Reading')}</p>
+            <h2 class="passage-title">${esc(title)}</h2>
+          </div>
+          <div class="split-grid">
+            <div class="passage-pane" data-highlightable>
+              <p class="hl-tip">Select text in the passage to highlight; click a highlight to remove it.</p>
+              ${audioHtml}${parts[0]}
+            </div>
+            <div class="questions-pane">
+              ${parts.slice(1).join('')}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    return `
+      <article class="passage-block">
+        <div class="passage-header">
+          <p class="passage-label" style="margin:0;font-weight:700;text-transform:uppercase;">${esc(sec.type || 'Section')}</p>
+          <h2 class="passage-title">${esc(title)}</h2>
+        </div>
+        <div class="passage-pane" data-highlightable style="max-height:none;border-right:none;padding-right:0;">
+          <p class="hl-tip">Select text to highlight; click a highlight to remove it.</p>
+          ${audioHtml}${rawHtml}
+        </div>
+      </article>
+    `;
+  }
+
+  function wireInteractiveFeatures() {
+    // Task tabs
+    testContent.querySelectorAll('.writing-section').forEach(article => {
+      const tabs = article.querySelectorAll('.tab-btn');
+      const panels = article.querySelectorAll('.task-panel');
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const n = tab.getAttribute('data-tab');
+          tabs.forEach(t => t.classList.toggle('active', t === tab));
+          panels.forEach(p => p.classList.toggle('active', p.getAttribute('data-panel') === n));
+        });
+      });
+    });
+
+    // Highlighting
+    document.querySelectorAll('[data-highlightable]').forEach(pane => {
+      pane.addEventListener('click', e => {
+        const mark = e.target.closest('mark.ielts-hl');
+        if (mark && pane.contains(mark)) {
+          const parent = mark.parentNode;
+          while (mark.firstChild) parent.insertBefore(mark.firstChild, mark);
+          parent.removeChild(mark);
+          parent.normalize();
+        }
+      });
+
+      pane.addEventListener('mouseup', () => {
+        if (testContent.classList.contains('locked')) return;
+        const sel = window.getSelection();
+        if (!sel || sel.isCollapsed || sel.rangeCount === 0) return;
+        const range = sel.getRangeAt(0);
+        if (!pane.contains(range.commonAncestorContainer) || range.toString().trim() === '') return;
+        try {
+          const mark = document.createElement('mark');
+          mark.className = 'ielts-hl';
+          range.surroundContents(mark);
+          sel.removeAllRanges();
+        } catch (_) {
+          const frag = range.extractContents();
+          const mark = document.createElement('mark');
+          mark.className = 'ielts-hl';
+          mark.appendChild(frag);
+          range.insertNode(mark);
+          sel.removeAllRanges();
+        }
+      });
+    });
+
+    // Word counters
+    testContent.querySelectorAll('textarea.writing-area').forEach(ta => {
+      const wcId = ta.getAttribute('data-wc');
+      const wcEl = wcId ? document.getElementById(wcId) : null;
+      const updateWc = () => {
+        if (wcEl) wcEl.textContent = `Words: ${countWords(ta.value)}`;
+      };
+      ta.addEventListener('input', updateWc);
+      updateWc();
+    });
+  }
+
+  /* Builder Mode */
+  async function initBuilder() {
+    builderSection.style.display = 'block';
+    const selCat = document.getElementById('selCategory');
+    const selVol = document.getElementById('selVolume');
+    const selTest = document.getElementById('selTest');
+    const secBox = document.getElementById('availableSectionsBox');
+
+    const cats = await dbRequest('ielts_categories?select=*&order=created_at.asc') || [];
+    selCat.innerHTML = '<option value="">Select category...</option>' +
+      cats.map(c => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');
+
+    selCat.onchange = async () => {
+      selVol.innerHTML = '<option value="">Select volume...</option>';
+      selTest.innerHTML = '<option value="">Select test...</option>';
+      secBox.innerHTML = '';
+      if (!selCat.value) return;
+      const vols = await dbRequest(`ielts_volumes?select=*&category_id=eq.${encodeURIComponent(selCat.value)}&order=created_at.asc`) || [];
+      selVol.innerHTML = '<option value="">Select volume...</option>' +
+        vols.map(v => `<option value="${esc(v.id)}">${esc(v.name)}</option>`).join('');
+    };
+
+    selVol.onchange = async () => {
+      selTest.innerHTML = '<option value="">Select test...</option>';
+      secBox.innerHTML = '';
+      if (!selVol.value) return;
+      const tests = await dbRequest(`ielts_tests?select=*&volume_id=eq.${encodeURIComponent(selVol.value)}&order=created_at.asc`) || [];
+      selTest.innerHTML = '<option value="">Select test...</option>' +
+        tests.map(t => `<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('');
+    };
+
+    selTest.onchange = async () => {
+      secBox.innerHTML = '';
+      if (!selTest.value) return;
+      const secs = await dbRequest(`ielts_sections?select=*&test_id=eq.${encodeURIComponent(selTest.value)}&order=created_at.asc`) || [];
+      if (!secs.length) {
+        secBox.innerHTML = '<p style="color:var(--muted);">No sections found in this test.</p>';
+        return;
+      }
+      secBox.innerHTML = '<strong>Sections in this test:</strong><div class="section-list">' +
+        secs.map(s => `
+          <div class="section-row">
+            <span><strong>${esc(s.name || s.type)}</strong> (${esc(s.type || '')})</span>
+            <button type="button" class="secondary add-sec-btn" data-sec='${esc(JSON.stringify(s))}'>Add to Paper</button>
+          </div>
+        `).join('') + '</div>';
+
+      secBox.querySelectorAll('.add-sec-btn').forEach(btn => {
+        btn.onclick = () => {
+          const sec = JSON.parse(btn.getAttribute('data-sec'));
+          if (!selectedSections.some(x => x.id === sec.id)) {
+            selectedSections.push(sec);
+            renderSelectedSections();
+            renderTestSections(selectedSections);
+          }
+        };
+      });
+    };
+
+    document.getElementById('createPaperBtn').onclick = async () => {
+      const title = document.getElementById('paperTitleInput').value.trim() || 'IELTS Test Paper';
+      if (!selectedSections.length) {
+        document.getElementById('builderStatus').textContent = 'Please add at least one section first.';
+        return;
+      }
+      document.getElementById('builderStatus').textContent = 'Saving paper...';
+      const newId = 'paper_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+      try {
+        await dbRequest(PAPERS_TABLE, 'POST', {
+          id: newId,
+          title,
+          section_ids: selectedSections.map(s => s.id),
+          sections_snapshot: selectedSections,
+          created_at: new Date().toISOString()
+        });
+        const url = `${window.location.origin}${window.location.pathname}?paper=${encodeURIComponent(newId)}`;
+        document.getElementById('shareUrlInput').value = url;
+        document.getElementById('openStudentLink').href = url;
+        document.getElementById('shareResult').style.display = 'flex';
+        document.getElementById('builderStatus').textContent = 'Saved! Share the URL below with students.';
+      } catch (err) {
+        document.getElementById('builderStatus').textContent = 'Error saving paper: ' + err.message;
+      }
+    };
+
+    document.getElementById('copyShareUrlBtn').onclick = () => {
+      const inp = document.getElementById('shareUrlInput');
+      inp.select();
+      navigator.clipboard?.writeText(inp.value);
+      document.getElementById('builderStatus').textContent = 'Link copied!';
+    };
+  }
+
+  function renderSelectedSections() {
+    const box = document.getElementById('selectedSectionsList');
+    if (!selectedSections.length) {
+      box.textContent = 'None selected yet.';
+      return;
+    }
+    box.innerHTML = selectedSections.map((s, idx) => `
+      <span class="selected-chip">
+        ${idx + 1}. ${esc(s.name || s.type)}
+        <button type="button" class="secondary" style="padding:2px 7px;" data-rm="${idx}">×</button>
+      </span>
+    `).join('');
+    box.querySelectorAll('[data-rm]').forEach(b => {
+      b.onclick = () => {
+        selectedSections.splice(+b.dataset.rm, 1);
+        renderSelectedSections();
+        renderTestSections(selectedSections);
+      };
+    });
+  }
+
+  function renderTestSections(secs) {
+    testContent.innerHTML = secs.map((s, i) => renderSectionHtml(s, i)).join('');
+    wireInteractiveFeatures();
+    renderAnswerKeyInputs();
+  }
+
+  async function initPaperFromUrl(id) {
+    builderSection.style.display = 'none';
+    try {
+      const rows = await dbRequest(`${PAPERS_TABLE}?select=*&id=eq.${encodeURIComponent(id)}&limit=1`);
+      if (!Array.isArray(rows) || !rows.length) {
+        testContent.innerHTML = '<div class="card">Test paper not found.</div>';
+        testContent.classList.remove('locked');
+        lockedNote.style.display = 'none';
+        return;
+      }
+      const paper = rows[0];
+      if (paper.title) document.title = paper.title;
+
+      let secs = Array.isArray(paper.sections_snapshot) ? paper.sections_snapshot : [];
+      if (Array.isArray(paper.section_ids) && paper.section_ids.length) {
+        const fetched = [];
+        for (const sid of paper.section_ids) {
+          const found = await dbRequest(`ielts_sections?select=*&id=eq.${encodeURIComponent(sid)}&limit=1`);
+          if (Array.isArray(found) && found[0]) fetched.push(found[0]);
+        }
+        if (fetched.length) secs = fetched;
+      }
+      selectedSections = secs;
+      renderTestSections(secs);
+    } catch (err) {
+      testContent.innerHTML = `<div class="card">Could not load paper: ${esc(err.message)}</div>`;
+      testContent.classList.remove('locked');
+      lockedNote.style.display = 'none';
+    }
+  }
+
+  function formatTime(sec) {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }
+
+  function updateTimerDisplay() {
+    timerDisplay.textContent = formatTime(remainingSeconds);
+    if (remainingSeconds <= 300) timerDisplay.classList.add('warning');
+  }
+
+  function collectStudentAnswers() {
+    const answers = {};
+    testContent.querySelectorAll('input, select, textarea').forEach((el, i) => {
+      const key = el.getAttribute('data-q') || el.name || el.id || `q_${i + 1}`;
+      if (el.tagName === 'TEXTAREA') {
+        answers[key] = `${el.value || ''} (${countWords(el.value)} words)`;
+      } else {
+        answers[key] = (el.value || '').trim();
+      }
+    });
+    return answers;
+  }
+
+  /* ---------- Results view (print / save as PDF) ---------- */
+
+  function showResultView() {
+    document.body.classList.add('submitted');
+    testContent.classList.remove('locked');
+    lockedNote.style.display = 'none';
+
+    // Replace each writing box with plain text so long essays print in full
+    testContent.querySelectorAll('textarea.writing-area').forEach(ta => {
+      const box = document.createElement('div');
+      box.className = 'final-answer';
+      box.textContent = ta.value.trim() ? ta.value : '(blank)';
+      const info = document.createElement('p');
+      info.className = 'task-hint';
+      info.textContent = `${countWords(ta.value)} words`;
+      (ta.closest('.writing-box-wrap') || ta).replaceWith(box);
+      box.after(info);
+    });
+
+    pdfBtn.style.display = 'inline-block';
+    pdfBtn.disabled = false;
+    pdfBtn.onclick = () => window.print();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function finalizeAndStoreAnswers(reason) {
+    if (testSubmitted) return;
+    testSubmitted = true;
+    clearInterval(timerInterval);
+    submitBtn.disabled = true;
+
+    const answers = collectStudentAnswers();
+    testContent.querySelectorAll('input, select, textarea').forEach(el => { el.disabled = true; });
+
+    const submittedAt = new Date().toISOString();
+    showBanner(`${reason} Saving your answers automatically...`);
+
+    let saveMsg;
+    try {
+      await dbRequest(SUBMISSIONS_TABLE, 'POST', {
+        paper_id: paperId || 'default',
+        submitted_at: submittedAt,
+        answers
+      });
+      saveMsg = `${reason} All answers have been automatically saved (${new Date(submittedAt).toLocaleString()}).`;
+    } catch (err) {
+      saveMsg = `${reason} Database sync reported: ${err.message}.`;
+    }
+
+    showBanner(`${saveMsg} Your questions and answers are shown below. Click "Print / Save as PDF" to keep a copy.`);
+    showResultView();
+  }
+
+  startBtn.onclick = () => {
+    if (testStarted) return;
+    testStarted = true;
+    startBtn.disabled = true;
+    submitBtn.disabled = false;
+    testContent.classList.remove('locked');
+    lockedNote.style.display = 'none';
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+      remainingSeconds -= 1;
+      updateTimerDisplay();
+      if (remainingSeconds <= 0) {
+        remainingSeconds = 0;
+        updateTimerDisplay();
+        finalizeAndStoreAnswers('Time is over.');
+      }
+    }, 1000);
+  };
+
+  submitBtn.onclick = () => finalizeAndStoreAnswers('Test submitted.');
+
+  function getQuestionElements() {
+    return [...testContent.querySelectorAll('input, select, textarea')];
+  }
+
+  function renderAnswerKeyInputs() {
+    const els = getQuestionElements();
+    const grid = document.getElementById('answerKeyGrid');
+    if (!els.length) {
+      grid.innerHTML = '<p style="color:var(--muted);">No answer fields detected in the current paper.</p>';
+      return;
+    }
+    grid.innerHTML = els.map((el, idx) => {
+      const qKey = el.getAttribute('data-q') || el.name || el.id || `q_${idx + 1}`;
+      return `
+        <div class="key-item">
+          <label for="key_${esc(qKey)}">${esc(qKey)}</label>
+          <input id="key_${esc(qKey)}" type="text" value="${esc(savedAnswerKey[qKey] || '')}">
+        </div>
+      `;
+    }).join('');
+  }
+
+  async function loadAnswerKeyFromDb() {
+    try {
+      const qFilter = paperId ? `&paper_id=eq.${encodeURIComponent(paperId)}` : '';
+      const rows = await dbRequest(`${ANSWER_KEY_TABLE}?select=*${qFilter}&limit=1`);
+      if (Array.isArray(rows) && rows.length > 0 && rows[0].answers) {
+        savedAnswerKey = rows[0].answers;
+      }
+    } catch (_) {}
+    renderAnswerKeyInputs();
+  }
+
+  document.getElementById('saveKeyBtn').onclick = async () => {
+    const els = getQuestionElements();
+    const keyObj = {};
+    els.forEach((el, idx) => {
+      const qKey = el.getAttribute('data-q') || el.name || el.id || `q_${idx + 1}`;
+      keyObj[qKey] = (document.getElementById(`key_${qKey}`)?.value || '').trim();
+    });
+    savedAnswerKey = keyObj;
+    document.getElementById('keyStatus').textContent = 'Saving...';
+    try {
+      await dbRequest(ANSWER_KEY_TABLE, 'POST', {
+        paper_id: paperId || 'default',
+        answers: keyObj,
+        updated_at: new Date().toISOString()
+      });
+      document.getElementById('keyStatus').textContent = 'Correct answers saved.';
+    } catch (err) {
+      document.getElementById('keyStatus').textContent = 'DB error: ' + err.message;
+    }
+  };
+
+  function clearStudentBlueHighlights() {
+    document.querySelectorAll('.student-review-answer').forEach(el => el.remove());
+    document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+  }
+
+  function showSubmissionAnswersInBlue(submission, btnEl) {
+    clearStudentBlueHighlights();
+    if (btnEl) btnEl.classList.add('active');
+    testContent.classList.remove('locked');
+    lockedNote.style.display = 'none';
+
+    const ansMap = submission.answers || {};
+    getQuestionElements().forEach((el, idx) => {
+      const qKey = el.getAttribute('data-q') || el.name || el.id || `q_${idx + 1}`;
+      const val = ansMap[qKey] ?? '';
+      const badge = document.createElement('span');
+      badge.className = 'student-review-answer';
+      badge.textContent = `[Student answer: ${val !== '' ? val : '(blank)'}]`;
+      const targetAfter = el.closest('.writing-box-wrap') || el;
+      targetAfter.insertAdjacentElement('afterend', badge);
+    });
+  }
+
+  async function loadSubmissions() {
+    const listEl = document.getElementById('submissionsList');
+    const statusEl = document.getElementById('subStatus');
+    listEl.innerHTML = '';
+    statusEl.textContent = 'Loading stored submissions...';
+    try {
+      const rows = await dbRequest(`${SUBMISSIONS_TABLE}?select=*&order=submitted_at.desc`);
+      if (!Array.isArray(rows) || !rows.length) {
+        statusEl.textContent = 'No stored student answers found yet.';
+        return;
+      }
+      statusEl.textContent = `Found ${rows.length} stored submission(s):`;
+      rows.forEach(row => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'sub-btn';
+        btn.textContent = row.submitted_at ? new Date(row.submitted_at).toLocaleString() : `Submission #${row.id}`;
+        btn.onclick = () => showSubmissionAnswersInBlue(row, btn);
+        listEl.appendChild(btn);
+      });
+    } catch (err) {
+      statusEl.textContent = 'Could not load submissions: ' + err.message;
+    }
+  }
+
+  document.getElementById('refreshSubsBtn').onclick = loadSubmissions;
+  document.getElementById('clearReviewHighlightBtn').onclick = clearStudentBlueHighlights;
+
+  reviewDot.onclick = async () => {
+    if (!adminUnlocked) {
+      const pwd = prompt('Enter password:');
+      if (pwd !== 'wang123') {
+        if (pwd !== null) alert('Incorrect password.');
+        return;
+      }
+      adminUnlocked = true;
+    }
+    const isOpen = reviewPanel.style.display === 'block';
+    if (isOpen) {
+      reviewPanel.style.display = 'none';
+      return;
+    }
+    reviewPanel.style.display = 'block';
+    renderAnswerKeyInputs();
+    await loadAnswerKeyFromDb();
+    await loadSubmissions();
+    reviewPanel.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  if (paperId) {
+    initPaperFromUrl(paperId);
+  } else {
+    initBuilder().catch(err => {
+      document.getElementById('builderStatus').textContent = 'Could not load database structure: ' + err.message;
+    });
+  }
+})();
+</script>
+</body>
+</html>
