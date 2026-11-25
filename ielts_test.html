@@ -455,12 +455,44 @@
     mark.ielts-hl { background: none; }
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
+
+  /* ---- Student mode: nothing of the paper is visible before Start ---- */
+  body.student-mode #testContent.locked { display: none; }
+  .name-wrap { display: flex; align-items: center; gap: 8px; }
+  .name-wrap label { font-weight: 700; }
+  .name-wrap input { width: 240px; max-width: 100%; }
+  .student-line { font-size: 16px; font-weight: 700; margin: 0 0 14px 0; }
+
+  /* ---- Task prompt + chart: always shown in full (no inner scrolling) ---- */
+  .writing-section .passage-pane { max-height: none; overflow: visible; }
+  .writing-img { width: auto; max-width: 100%; height: auto; margin: 10px 0 6px 0; }
+  .img-link { display: block; max-width: 100%; }
+  .img-hint { font-size: 13px; color: var(--muted); margin: 0 0 14px 0; }
+  .img-fail { border: 1px solid #fca5a5; background: #fef2f2; color: #991b1b; padding: 10px 12px; border-radius: 4px; margin: 10px 0; }
+
+  @media (max-width: 700px) {
+    .container { padding: 0 10px; }
+    .topbar { padding: 10px 12px; gap: 10px; }
+    .top-left { min-width: 0; gap: 10px; }
+    .reminder { font-size: 13px; }
+    body.started .reminder { display: none; }
+    .name-wrap { width: 100%; }
+    .name-wrap input { flex: 1; width: auto; }
+    input, select, textarea { font-size: 16px; }
+    .passage-block, .card { padding: 14px 12px; }
+    .task-tabs .tab-btn { padding: 9px 16px; }
+    textarea.writing-area { min-height: 280px; }
+  }
 </style>
 </head>
 <body>
 
 <header class="topbar">
   <div class="top-left">
+    <div id="nameWrap" class="name-wrap">
+      <label for="studentName">Name</label>
+      <input id="studentName" type="text" placeholder="Enter your full name" autocomplete="name" maxlength="80">
+    </div>
     <button id="startBtn" type="button">Start</button>
     <p class="reminder">
       Reminder: Please ensure you have 60 minutes in one sitting to complete all questions. All answers will be stored automatically and saved, and no extra time will be allowed for students to complete these questions.
@@ -526,7 +558,7 @@
 
   <!-- STUDENT TEST MODE -->
   <div id="lockedNote" class="locked-overlay-note">
-    Click <strong>Start</strong> at the top to begin your 60-minute IELTS test. Once started, the timer counts down automatically and cannot be paused or extended.
+    Type your <strong>name</strong> at the top, then click <strong>Start</strong> to begin your 60-minute IELTS test. The questions will appear only after you click Start. Once started, the timer counts down automatically and cannot be paused or extended.
   </div>
 
   <div id="testContent" class="locked"></div>
@@ -569,6 +601,7 @@
   let adminUnlocked = false;
   let selectedSections = [];
   let savedAnswerKey = {};
+  let studentName = '';
 
   const startBtn = document.getElementById('startBtn');
   const submitBtn = document.getElementById('submitBtn');
@@ -579,6 +612,8 @@
   const statusBanner = document.getElementById('statusBanner');
   const statusText = document.getElementById('statusText');
   const pdfBtn = document.getElementById('pdfBtn');
+  const nameWrap = document.getElementById('nameWrap');
+  const studentNameInput = document.getElementById('studentName');
   const reviewDot = document.getElementById('reviewDot');
   const reviewPanel = document.getElementById('reviewPanel');
 
@@ -661,7 +696,7 @@
 
       const t1Prompt = hasTaskFields
         ? `<div class="writing-prompt-text">${esc(t1Text) || '<span style="color:var(--muted);">(No Task 1 text stored)</span>'}</div>
-           ${t1Imgs.map(url => `<img class="writing-img" src="${esc(url)}" alt="Task 1 diagram/chart">`).join('')}`
+           ${t1Imgs.map(url => `<a class="img-link" href="${esc(url)}" target="_blank" rel="noopener"><img class="writing-img" src="${esc(url)}" alt="Task 1 diagram/chart"></a><p class="img-hint">Tap or click the image to open it full size.</p>`).join('')}`
         : fallbackPrompt;
 
       const t2Prompt = hasTaskFields
@@ -793,6 +828,23 @@
           range.insertNode(mark);
           sel.removeAllRanges();
         }
+      });
+    });
+
+    // Show a message with a link if a chart image cannot be loaded
+    testContent.querySelectorAll('img.writing-img').forEach(img => {
+      img.addEventListener('error', () => {
+        const note = document.createElement('div');
+        note.className = 'img-fail';
+        const a = document.createElement('a');
+        a.href = img.src;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.textContent = 'Tap here to open the image';
+        note.textContent = 'The image could not be displayed. ';
+        note.appendChild(a);
+        const link = img.closest('a.img-link');
+        (link || img).replaceWith(note);
       });
     });
 
@@ -950,8 +1002,7 @@
         }
         if (fetched.length) secs = fetched;
       }
-      selectedSections = secs;
-      renderTestSections(secs);
+      selectedSections = secs;   // rendered only after the student clicks Start
     } catch (err) {
       testContent.innerHTML = `<div class="card">Could not load paper: ${esc(err.message)}</div>`;
       testContent.classList.remove('locked');
@@ -987,6 +1038,12 @@
 
   function showResultView() {
     document.body.classList.add('submitted');
+    if (studentName) {
+      const line = document.createElement('p');
+      line.className = 'student-line';
+      line.textContent = `Student: ${studentName}`;
+      testContent.parentNode.insertBefore(line, testContent);
+    }
     testContent.classList.remove('locked');
     lockedNote.style.display = 'none';
 
@@ -1015,6 +1072,7 @@
     submitBtn.disabled = true;
 
     const answers = collectStudentAnswers();
+    if (studentName) answers.__student_name = studentName;
     testContent.querySelectorAll('input, select, textarea').forEach(el => { el.disabled = true; });
 
     const submittedAt = new Date().toISOString();
@@ -1036,9 +1094,23 @@
     showResultView();
   }
 
+  studentNameInput.addEventListener('input', () => {
+    startBtn.disabled = testStarted || !studentNameInput.value.trim();
+  });
+
   startBtn.onclick = () => {
     if (testStarted) return;
+    if (paperId) {
+      studentName = studentNameInput.value.trim();
+      if (!studentName) {
+        studentNameInput.focus();
+        return;
+      }
+      studentNameInput.disabled = true;
+      renderTestSections(selectedSections);
+    }
     testStarted = true;
+    document.body.classList.add('started');
     startBtn.disabled = true;
     submitBtn.disabled = false;
     testContent.classList.remove('locked');
@@ -1177,6 +1249,7 @@
       return;
     }
     reviewPanel.style.display = 'block';
+    if (!testContent.innerHTML.trim() && selectedSections.length) renderTestSections(selectedSections);
     renderAnswerKeyInputs();
     await loadAnswerKeyFromDb();
     await loadSubmissions();
@@ -1184,8 +1257,11 @@
   };
 
   if (paperId) {
+    document.body.classList.add('student-mode');
+    startBtn.disabled = true;   // enabled once a name is typed
     initPaperFromUrl(paperId);
   } else {
+    nameWrap.style.display = 'none';   // teacher / builder view
     initBuilder().catch(err => {
       document.getElementById('builderStatus').textContent = 'Could not load database structure: ' + err.message;
     });
