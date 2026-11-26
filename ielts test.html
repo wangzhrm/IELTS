@@ -268,7 +268,6 @@
     color: var(--muted);
   }
 
-  /* Task tabs */
   .task-tabs {
     display: flex;
     gap: 6px;
@@ -298,7 +297,6 @@
   .task-panel { display: none; }
   .task-panel.active { display: block; }
 
-  /* Writing Input + Bottom-Right Word Count */
   .writing-box-wrap {
     position: relative;
     border: 1px solid #64748b;
@@ -426,7 +424,6 @@
     .questions-pane { max-height: none; overflow-y: visible; }
   }
 
-  /* ---- Results view after submission + print layout ---- */
   body.submitted .passage-pane,
   body.submitted .questions-pane { max-height: none; overflow: visible; }
   body.submitted .task-panel { display: block !important; margin-bottom: 28px; }
@@ -456,14 +453,12 @@
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 
-  /* ---- Student mode: nothing of the paper is visible before Start ---- */
   body.student-mode #testContent.locked { display: none; }
   .name-wrap { display: flex; align-items: center; gap: 8px; }
   .name-wrap label { font-weight: 700; }
   .name-wrap input { width: 240px; max-width: 100%; }
   .student-line { font-size: 16px; font-weight: 700; margin: 0 0 14px 0; }
 
-  /* ---- Task prompt + chart: always shown in full (no inner scrolling) ---- */
   .writing-section .passage-pane { max-height: none; overflow: visible; }
   .writing-img { width: auto; max-width: 100%; height: auto; margin: 10px 0 6px 0; }
   .img-link { display: block; max-width: 100%; }
@@ -588,6 +583,7 @@
 
   const PAPERS_TABLE = 'ielts_papers';
   const SUBMISSIONS_TABLE = 'ielts_reading_submissions';
+  const SUBMISSION_TIMES_TABLE = 'ielts_submission_times';
   const ANSWER_KEY_TABLE = 'ielts_reading_answer_key';
   const TOTAL_SECONDS = 60 * 60;
 
@@ -602,6 +598,7 @@
   let selectedSections = [];
   let savedAnswerKey = {};
   let studentName = '';
+  let startedAtMs = null;
 
   const startBtn = document.getElementById('startBtn');
   const submitBtn = document.getElementById('submitBtn');
@@ -644,6 +641,24 @@
   function showBanner(msg) {
     statusText.textContent = msg;
     statusBanner.style.display = 'flex';
+  }
+
+  function formatDuration(sec) {
+    const safeSec = Math.max(0, Math.round(sec || 0));
+    const m = Math.floor(safeSec / 60);
+    const s = safeSec % 60;
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  }
+
+  function computeTimeUsed(timedOut) {
+    if (timedOut) {
+      return TOTAL_SECONDS;
+    }
+    if (startedAtMs) {
+      const wallElapsed = Math.round((Date.now() - startedAtMs) / 1000);
+      return Math.min(TOTAL_SECONDS, Math.max(0, wallElapsed));
+    }
+    return Math.min(TOTAL_SECONDS, Math.max(0, TOTAL_SECONDS - remainingSeconds));
   }
 
   function extractSectionContent(sec) {
@@ -784,7 +799,6 @@
   }
 
   function wireInteractiveFeatures() {
-    // Task tabs
     testContent.querySelectorAll('.writing-section').forEach(article => {
       const tabs = article.querySelectorAll('.tab-btn');
       const panels = article.querySelectorAll('.task-panel');
@@ -797,7 +811,6 @@
       });
     });
 
-    // Highlighting
     document.querySelectorAll('[data-highlightable]').forEach(pane => {
       pane.addEventListener('click', e => {
         const mark = e.target.closest('mark.ielts-hl');
@@ -831,7 +844,6 @@
       });
     });
 
-    // Show a message with a link if a chart image cannot be loaded
     testContent.querySelectorAll('img.writing-img').forEach(img => {
       img.addEventListener('error', () => {
         const note = document.createElement('div');
@@ -848,7 +860,6 @@
       });
     });
 
-    // Word counters
     testContent.querySelectorAll('textarea.writing-area').forEach(ta => {
       const wcId = ta.getAttribute('data-wc');
       const wcEl = wcId ? document.getElementById(wcId) : null;
@@ -860,7 +871,6 @@
     });
   }
 
-  /* Builder Mode */
   async function initBuilder() {
     builderSection.style.display = 'block';
     const selCat = document.getElementById('selCategory');
@@ -1002,7 +1012,7 @@
         }
         if (fetched.length) secs = fetched;
       }
-      selectedSections = secs;   // rendered only after the student clicks Start
+      selectedSections = secs;
     } catch (err) {
       testContent.innerHTML = `<div class="card">Could not load paper: ${esc(err.message)}</div>`;
       testContent.classList.remove('locked');
@@ -1034,20 +1044,17 @@
     return answers;
   }
 
-  /* ---------- Results view (print / save as PDF) ---------- */
-
-  function showResultView() {
+  function showResultView(timeUsedSec) {
     document.body.classList.add('submitted');
     if (studentName) {
       const line = document.createElement('p');
       line.className = 'student-line';
-      line.textContent = `Student: ${studentName}`;
+      line.textContent = `Student: ${studentName} · Time Used: ${formatDuration(timeUsedSec)} (${timeUsedSec}s)`;
       testContent.parentNode.insertBefore(line, testContent);
     }
     testContent.classList.remove('locked');
     lockedNote.style.display = 'none';
 
-    // Replace each writing box with plain text so long essays print in full
     testContent.querySelectorAll('textarea.writing-area').forEach(ta => {
       const box = document.createElement('div');
       box.className = 'final-answer';
@@ -1065,18 +1072,27 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  async function finalizeAndStoreAnswers(reason) {
+  async function finalizeAndStoreAnswers(reason, timedOut = false) {
     if (testSubmitted) return;
     testSubmitted = true;
     clearInterval(timerInterval);
     submitBtn.disabled = true;
 
+    const timeUsedSec = computeTimeUsed(timedOut);
+    const timeUsedFormatted = formatDuration(timeUsedSec);
+    const startedIso = new Date(startedAtMs || Date.now() - timeUsedSec * 1000).toISOString();
+    const submittedAt = new Date().toISOString();
+
     const answers = collectStudentAnswers();
     if (studentName) answers.__student_name = studentName;
+    answers.__started_at = startedIso;
+    answers.__time_spent_seconds = timeUsedSec;
+    answers.__time_spent_formatted = timeUsedFormatted;
+    answers.__end_reason = timedOut ? 'timeout' : 'submitted';
+
     testContent.querySelectorAll('input, select, textarea').forEach(el => { el.disabled = true; });
 
-    const submittedAt = new Date().toISOString();
-    showBanner(`${reason} Saving your answers automatically...`);
+    showBanner(`${reason} Time used: ${timeUsedFormatted}. Saving your answers automatically...`);
 
     let saveMsg;
     try {
@@ -1085,13 +1101,24 @@
         submitted_at: submittedAt,
         answers
       });
-      saveMsg = `${reason} All answers have been automatically saved (${new Date(submittedAt).toLocaleString()}).`;
+      try {
+        await dbRequest(SUBMISSION_TIMES_TABLE, 'POST', {
+          paper_id: paperId || 'default',
+          student_name: studentName || null,
+          started_at: startedIso,
+          submitted_at: submittedAt,
+          time_spent_seconds: timeUsedSec,
+          time_spent_formatted: timeUsedFormatted,
+          end_reason: timedOut ? 'timeout' : 'submitted'
+        });
+      } catch (_) {}
+      saveMsg = `${reason} Time used: ${timeUsedFormatted} (${timeUsedSec}s). All answers have been automatically saved (${new Date(submittedAt).toLocaleString()}).`;
     } catch (err) {
-      saveMsg = `${reason} Database sync reported: ${err.message}.`;
+      saveMsg = `${reason} Time used: ${timeUsedFormatted} (${timeUsedSec}s). Database sync reported: ${err.message}.`;
     }
 
     showBanner(`${saveMsg} Your questions and answers are shown below. Click "Print / Save as PDF" to keep a copy.`);
-    showResultView();
+    showResultView(timeUsedSec);
   }
 
   studentNameInput.addEventListener('input', () => {
@@ -1109,6 +1136,7 @@
       studentNameInput.disabled = true;
       renderTestSections(selectedSections);
     }
+    startedAtMs = Date.now();
     testStarted = true;
     document.body.classList.add('started');
     startBtn.disabled = true;
@@ -1122,12 +1150,12 @@
       if (remainingSeconds <= 0) {
         remainingSeconds = 0;
         updateTimerDisplay();
-        finalizeAndStoreAnswers('Time is over.');
+        finalizeAndStoreAnswers('Time is over.', true);
       }
     }, 1000);
   };
 
-  submitBtn.onclick = () => finalizeAndStoreAnswers('Test submitted.');
+  submitBtn.onclick = () => finalizeAndStoreAnswers('Test submitted.', false);
 
   function getQuestionElements() {
     return [...testContent.querySelectorAll('input, select, textarea')];
@@ -1195,6 +1223,13 @@
     lockedNote.style.display = 'none';
 
     const ansMap = submission.answers || {};
+    const timeLabel = ansMap.__time_spent_formatted
+      ? ` · Time used: ${ansMap.__time_spent_formatted}`
+      : '';
+    if (ansMap.__student_name || timeLabel) {
+      showBanner(`Viewing ${ansMap.__student_name || 'Student'}${timeLabel}`);
+    }
+
     getQuestionElements().forEach((el, idx) => {
       const qKey = el.getAttribute('data-q') || el.name || el.id || `q_${idx + 1}`;
       const val = ansMap[qKey] ?? '';
@@ -1222,7 +1257,11 @@
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'sub-btn';
-        btn.textContent = row.submitted_at ? new Date(row.submitted_at).toLocaleString() : `Submission #${row.id}`;
+        const ans = row.answers || {};
+        const who = ans.__student_name ? `${ans.__student_name} · ` : '';
+        const dur = ans.__time_spent_formatted ? ` (${ans.__time_spent_formatted})` : '';
+        const when = row.submitted_at ? new Date(row.submitted_at).toLocaleString() : `Submission #${row.id}`;
+        btn.textContent = `${who}${when}${dur}`;
         btn.onclick = () => showSubmissionAnswersInBlue(row, btn);
         listEl.appendChild(btn);
       });
@@ -1258,10 +1297,10 @@
 
   if (paperId) {
     document.body.classList.add('student-mode');
-    startBtn.disabled = true;   // enabled once a name is typed
+    startBtn.disabled = true;
     initPaperFromUrl(paperId);
   } else {
-    nameWrap.style.display = 'none';   // teacher / builder view
+    nameWrap.style.display = 'none';
     initBuilder().catch(err => {
       document.getElementById('builderStatus').textContent = 'Could not load database structure: ' + err.message;
     });
