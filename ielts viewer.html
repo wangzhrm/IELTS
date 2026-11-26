@@ -30,8 +30,9 @@
   .card { background: var(--paper); border: 1px solid var(--line); border-radius: 4px; padding: 18px 20px; margin-bottom: 16px; }
   .summary-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
   .summary h2 { margin: 0 0 4px 0; font-size: 20px; }
-  .summary p { margin: 2px 0; color: var(--muted); }
+  .summary p { margin: 4px 0; color: var(--muted); }
   .summary strong { color: var(--ink); }
+  .timing-meta { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 8px 20px; }
 
   /* Passage / task prompt on top, questions and answers below it, full width */
   .split { display: block; }
@@ -41,18 +42,18 @@
   .task-label { font-weight: 700; margin: 12px 0 4px; }
   .prompt { white-space: pre-wrap; }
   .prompt-img { max-width: 100%; height: auto; border: 1px solid var(--line); }
-  /* Student writing: plain sans-serif, regular weight, black on white (as in the IELTS computer-based test), 1.5 line spacing */
-  .answer-box { white-space: pre-wrap; border: 1px solid #64748b; border-radius: 4px; padding: 14px 16px; color: #000; font-family: Arial, Helvetica, sans-serif; font-size: 16px; font-weight: 400; line-height: 1.5; min-height: 120px; background: #fff; }
-  .count { color: var(--muted); font-size: 13px; margin-top: 4px; }
-  .questions-pane input[type=text], .questions-pane input:not([type]), .questions-pane select { color: var(--student) !important; font-weight: 700; background: #f5f8ff !important; }
+  /* Student writing: double-spaced (line-height: 2) for remarks, revisions, and comments */
+  .answer-box { white-space: pre-wrap; border: 1px solid #64748b; border-radius: 4px; padding: 16px 18px; color: #000; font-family: Arial, Helvetica, sans-serif; font-size: 16px; font-weight: 400; line-height: 2; min-height: 160px; background: #fff; }
+  .count { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .questions-pane input[type=text], .questions-pane input:not([type]), .questions-pane select { color: var(--student) !important; font-weight: 700; background: #f5f8ff !important; line-height: 2; padding: 6px 10px; }
   .mark { display: inline-block; margin-left: 6px; padding: 0 7px; border-radius: 3px; font-size: 13px; font-weight: 700; }
   .mark.ok { background: var(--okbg); color: var(--ok); }
   .mark.bad { background: var(--badbg); color: var(--bad); }
   .empty { color: var(--muted); padding: 30px; text-align: center; }
   table.raw { border-collapse: collapse; width: 100%; }
-  table.raw td { border: 1px solid var(--line); padding: 6px 10px; vertical-align: top; }
-  table.raw td:first-child { width: 35%; font-weight: 700; }
-  td.ans { color: var(--student); white-space: pre-wrap; }
+  table.raw td { border: 1px solid var(--line); padding: 10px 12px; vertical-align: top; line-height: 2; }
+  table.raw td:first-child { width: 35%; font-weight: 700; line-height: 1.5; }
+  td.ans { color: var(--student); white-space: pre-wrap; line-height: 2; }
   @media (max-width: 1000px) {
     .layout { grid-template-columns: 1fr; }
     .list { position: static; max-height: 300px; }
@@ -92,10 +93,12 @@
   const DB_BASE = 'https://civil-prawn-d0gflguvzee35fad8.api.tcloudbasegateway.com/v1/rdb/rest';
   const DB_KEY = 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjZkN2IyMmIyLWI4NjktNDNjNy04NGY0LWY0NTE2MDgxNDRhNSJ9.eyJpc3MiOiJodHRwczovL2NpdmlsLXByYXduLWQwZ2ZsZ3V2emVlMzVmYWQ4LmFwLXNoYW5naGFpLnRjYi1hcGkudGVuY2VudGNsb3VkYXBpLmNvbSIsInN1YiI6ImFub24iLCJhdWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsImV4cCI6NDA5ODg1NDQzMywiaWF0IjoxNzk1MTcxMjMzLCJub25jZSI6IlpOYXlDMXJ5VERxTmg1UFpFM0pxN3ciLCJhdF9oYXNoIjoiWk5heUMxcnlURHFOaDVQWkUzSnE3dyIsIm5hbWUiOiJBbm9ueW1vdXMiLCJzY29wZSI6ImFub255bW91cyIsInByb2plY3RfaWQiOiJjaXZpbC1wcmF3bi1kMGdmbGd1dnplZTM1ZmFkOCIsIm1ldGEiOnsicGxhdGZvcm0iOiJQdWJsaXNoYWJsZUtleSJ9LCJyb2xlIjoiYW5vbiIsImlzX2Fub255bW91cyI6dHJ1ZSwiYXBwX21ldGFkYXRhIjp7InByb3ZpZGVyIjoiYW5vbnltb3VzIiwicHJvdmlkZXJzIjpbImFub255bW91cyJdfSwidXNlcl9tZXRhZGF0YSI6eyJuYW1lIjoiQW5vbnltb3VzIn0sInVzZXJfdHlwZSI6IiIsImNsaWVudF90eXBlIjoiY2xpZW50X3VzZXIiLCJpc19zeXN0ZW1fYWRtaW4iOmZhbHNlfQ.udoyytgC9Z6QZjHnz7-v9rtM7K2C6PVYhVX9KgOrx76Q_j4phvYpItbrMc8eAfRiewAzXvyW2heL2U3mTofad8-q10i5R8TyJ6ZsR80qzsTs6CcAk699o3uAhB0E5QTa7GqEDrhlnVtu9Bi9-DroWgMMgV6CXgLCz-d0h1YQq1AReBNe1JNJv7MYMQG08YGmUEqgfgGlKwB-G7YJ5Ya6b3WLEVNLRBAPHOCMa8ExCiy9fAK1oDRyBlLq4ieH7pOaMriPYm7Y7C0XyemeLQ_0E5PDRPg9QNTCenwDG3usKCKV9hZGeiVmTKZHPYFBMgwM-iBlOslXPAjDW3Au8u85Jw';
   const PASSWORD = 'wang123';
+  const SUBMISSION_TIMES_TABLE = 'ielts_submission_times';
 
   let papers = {};      // id -> paper row
   let keys = {};        // paper_id -> answers object
   let subs = [];        // submissions, newest first
+  let timeCache = {};   // submission key -> timing record from DB
   let activeId = null;
 
   const $ = id => document.getElementById(id);
@@ -107,6 +110,80 @@
     let json = null; try { json = text ? JSON.parse(text) : null; } catch (_) {}
     if (!res.ok) throw new Error((json && (json.message || json.error || json.msg)) || `HTTP ${res.status}`);
     return json;
+  }
+
+  function formatDuration(sec) {
+    const n = Number(sec);
+    if (!Number.isFinite(n) || n < 0) return null;
+    const rounded = Math.round(n);
+    const m = Math.floor(rounded / 60);
+    const s = rounded % 60;
+    return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')} (${rounded}s)`;
+  }
+
+  function subKey(sub) {
+    return String(sub.id ?? sub.submitted_at);
+  }
+
+  async function fetchTimingFromDb(sub) {
+    const key = subKey(sub);
+    if (timeCache[key]) return timeCache[key];
+
+    const answers = sub.answers || {};
+    let matchedRow = null;
+
+    try {
+      const filters = [];
+      if (sub.paper_id) filters.push(`paper_id=eq.${encodeURIComponent(sub.paper_id)}`);
+      if (sub.submitted_at) filters.push(`submitted_at=eq.${encodeURIComponent(sub.submitted_at)}`);
+      const query = filters.length
+        ? `${SUBMISSION_TIMES_TABLE}?select=*&${filters.join('&')}&limit=10`
+        : `${SUBMISSION_TIMES_TABLE}?select=*&order=submitted_at.desc&limit=50`;
+      const rows = await db(query);
+      if (Array.isArray(rows) && rows.length) {
+        const stuName = answers.__student_name || '';
+        matchedRow = rows.find(r => stuName && r.student_name && String(r.student_name).trim() === String(stuName).trim()) || rows[0];
+      }
+    } catch (_) {
+      // Fallback to metadata stored inside answers if dedicated table is unavailable
+    }
+
+    const submittedIso = (matchedRow && matchedRow.submitted_at) || sub.submitted_at;
+    const startedIso = (matchedRow && matchedRow.started_at) || answers.__started_at || null;
+    const studentName = (matchedRow && matchedRow.student_name) || answers.__student_name || null;
+
+    let durationText = 'Not recorded';
+    if (matchedRow && matchedRow.time_spent_formatted) {
+      const secPart = Number.isFinite(Number(matchedRow.time_spent_seconds))
+        ? ` (${Math.round(Number(matchedRow.time_spent_seconds))}s)`
+        : '';
+      durationText = `${matchedRow.time_spent_formatted}${secPart}`;
+    } else if (matchedRow && Number.isFinite(Number(matchedRow.time_spent_seconds))) {
+      durationText = formatDuration(matchedRow.time_spent_seconds);
+    } else if (answers.__time_spent_formatted) {
+      const secPart = Number.isFinite(Number(answers.__time_spent_seconds))
+        ? ` (${Math.round(Number(answers.__time_spent_seconds))}s)`
+        : '';
+      durationText = `${answers.__time_spent_formatted}${secPart}`;
+    } else if (Number.isFinite(Number(answers.__time_spent_seconds))) {
+      durationText = formatDuration(answers.__time_spent_seconds);
+    } else if (startedIso && submittedIso) {
+      const diffSec = Math.round((new Date(submittedIso).getTime() - new Date(startedIso).getTime()) / 1000);
+      if (Number.isFinite(diffSec) && diffSec >= 0) {
+        durationText = formatDuration(diffSec);
+      }
+    }
+
+    const timing = {
+      studentName,
+      submittedAt: submittedIso ? new Date(submittedIso).toLocaleString() : '(unknown)',
+      startedAt: startedIso ? new Date(startedIso).toLocaleString() : null,
+      durationText,
+      endReason: (matchedRow && matchedRow.end_reason) || answers.__end_reason || null
+    };
+
+    timeCache[key] = timing;
+    return timing;
   }
 
   /* ---- same section rendering rules as the test page ---- */
@@ -151,28 +228,54 @@
   }
 
   /* ---- detail view ---- */
-  function showSubmission(sub) {
-    activeId = sub.id ?? sub.submitted_at;
+  async function showSubmission(sub) {
+    const currentKey = subKey(sub);
+    activeId = currentKey;
     renderList();
+
     const paper = papers[sub.paper_id];
     const answers = sub.answers || {};
-    const when = new Date(sub.submitted_at).toLocaleString();
+    const fallbackWhen = sub.submitted_at ? new Date(sub.submitted_at).toLocaleString() : '(unknown)';
     const title = paper ? (paper.title || 'Untitled paper') : '(paper not found)';
     const detail = $('detail');
 
-    let html = `<div class="card summary">
+    detail.innerHTML = `<div class="card summary">
       <div class="summary-top"><h2>${esc(title)}</h2>
         <button id="printBtn" type="button" class="no-print">Print</button></div>
-      <p>Stored: <strong>${esc(when)}</strong></p>
+      <p>Submitted at: <strong id="submittedTimeVal">${esc(fallbackWhen)}</strong></p>
+      <p>Time taken: <strong id="timeTakenVal">Loading from database…</strong></p>
       <p>Paper ID: ${esc(sub.paper_id)}</p><p id="scoreLine"></p></div>`;
 
     const bindPrint = () => { $('printBtn').onclick = () => window.print(); };
+    bindPrint();
+
+    const timing = await fetchTimingFromDb(sub);
+    if (activeId !== currentKey) return;
+
+    const summaryEl = detail.querySelector('.summary');
+    const timingBox = document.createElement('div');
+    timingBox.className = 'timing-meta';
+    const partsMeta = [];
+    if (timing.studentName) partsMeta.push(`<p>Student: <strong>${esc(timing.studentName)}</strong></p>`);
+    partsMeta.push(`<p>Submitted at: <strong>${esc(timing.submittedAt)}</strong></p>`);
+    partsMeta.push(`<p>Time taken: <strong>${esc(timing.durationText)}</strong></p>`);
+    if (timing.startedAt) partsMeta.push(`<p>Started at: <strong>${esc(timing.startedAt)}</strong></p>`);
+    if (timing.endReason) partsMeta.push(`<p>Ended by: <strong>${esc(timing.endReason)}</strong></p>`);
+    partsMeta.push(`<p>Paper ID: ${esc(sub.paper_id)}</p>`);
+
+    summaryEl.innerHTML = `
+      <div class="summary-top"><h2>${esc(title)}</h2>
+        <button id="printBtn" type="button" class="no-print">Print</button></div>
+      <div class="timing-meta">${partsMeta.join('')}</div>
+      <p id="scoreLine"></p>`;
+    bindPrint();
 
     if (!paper) {
-      html += `<div class="card"><p>The questions for this paper are not in the database, so only the raw answers are shown.</p>
-        <table class="raw">${Object.entries(answers).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="ans">${esc(v || '(blank)')}</td></tr>`).join('')}</table></div>`;
-      detail.innerHTML = html;
-      bindPrint();
+      const rawCard = document.createElement('div');
+      rawCard.className = 'card';
+      rawCard.innerHTML = `<p>The questions for this paper are not in the database, so only the raw answers are shown.</p>
+        <table class="raw">${Object.entries(answers).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="ans">${esc(v || '(blank)')}</td></tr>`).join('')}</table>`;
+      detail.appendChild(rawCard);
       return;
     }
 
@@ -213,9 +316,7 @@
       }
     });
 
-    detail.innerHTML = html;
     detail.appendChild(box);
-    bindPrint();
     $('scoreLine').innerHTML = keyed ? `Auto-marked: <strong>${right} / ${keyed}</strong> against the saved answer key` : 'No answer key saved for this paper, so nothing is auto-marked.';
   }
 
@@ -230,9 +331,10 @@
     rows.forEach(s => {
       const b = document.createElement('button');
       b.type = 'button';
-      b.className = 'sub' + ((s.id ?? s.submitted_at) === activeId ? ' active' : '');
+      b.className = 'sub' + (subKey(s) === activeId ? ' active' : '');
       const p = papers[s.paper_id];
-      b.innerHTML = `<span class="when">${esc(new Date(s.submitted_at).toLocaleString())}</span>
+      const stu = (s.answers && s.answers.__student_name) ? `${s.answers.__student_name} · ` : '';
+      b.innerHTML = `<span class="when">${esc(stu)}${esc(new Date(s.submitted_at).toLocaleString())}</span>
         <span class="meta">${esc(p ? p.title : s.paper_id)}</span>`;
       b.onclick = () => showSubmission(s);
       list.appendChild(b);
@@ -241,6 +343,7 @@
 
   async function load() {
     $('listHead').textContent = 'Loading…';
+    timeCache = {};
     try {
       const [paperRows, subRows, keyRows] = await Promise.all([
         db('ielts_papers?select=*'),
