@@ -478,6 +478,38 @@
     .task-tabs .tab-btn { padding: 9px 16px; }
     textarea.writing-area { min-height: 280px; }
   }
+
+  /* ===== Real IELTS computer-test look for Writing ===== */
+  .writing-section { padding: 0; background: #f3f4f6; border: 1px solid #cfd6dc; overflow: hidden; }
+  .writing-section .hl-tip { display: none; }
+  .writing-section .ielts-head { background: #fff; padding: 14px 18px; border-bottom: 1px solid #cbd5e1; }
+  .writing-section .ielts-head h3 { margin: 0 0 8px; font-size: 17px; font-weight: 700; }
+  .writing-section .ielts-head p { margin: 0; font-size: 12px; color: #333; }
+  .writing-section .ielts-body { padding: 14px 12px; }
+  .writing-section .passage-pane { max-height: none; overflow: visible; border-right: none; padding: 4px 8px; font-size: 13px; line-height: 1.5; }
+  .writing-section .questions-pane { max-height: none; overflow: visible; padding: 0; }
+  .writing-section .writing-task-label { display: none; }
+  .writing-section .writing-box-wrap { border: 1px solid #5f9ea0; border-radius: 0; padding-bottom: 0; background: #fff; }
+  .writing-section textarea.writing-area { min-height: 62vh; resize: none; font-size: 13px; line-height: 1.5; padding: 4px 6px; }
+  .writing-section .word-count-badge { position: static; display: block; margin-top: 8px; padding: 0; border: none; background: none; font-size: 12px; color: #333; }
+
+  .ielts-footer { display: flex; align-items: center; gap: 14px; padding: 6px 10px; background: #e6e9ec; border-top: 1px solid #cbd5e1; font-size: 12px; }
+  .ielts-footer .rev-wrap { display: inline-flex; align-items: center; gap: 5px; margin-right: 6px; }
+  .ielts-footer .rev-box { width: 12px; height: 12px; padding: 0; border: 1px solid #555; border-radius: 2px; background: #fff; }
+  .ielts-footer .rev-box:hover:not(:disabled) { background: #fff; }
+  .ielts-footer .rev-box.on { background: #0f4c81; }
+  .ielts-footer .tab-btn { background: transparent; color: #111; border: none; padding: 4px 6px; font-size: 12px; font-weight: 700; border-radius: 0; }
+  .ielts-footer .tab-btn:hover:not(:disabled) { background: #d8dde2; }
+  .ielts-footer .tab-num { display: inline-block; min-width: 18px; padding: 1px 4px; margin-left: 3px; text-align: center; border: 1px solid #999; background: #fff; }
+  .ielts-footer .tab-btn.active .tab-num { background: #7ec8f0; border-color: #3a9bd0; }
+
+  .writing-section .task-panel { display: none; }
+  .writing-section .task-panel.active { display: block; }
+  body.submitted .writing-section .ielts-footer,
+  body.submitted .writing-section .word-count-badge { display: none; }
+  body.submitted .writing-section .task-panel { border-bottom: 1px solid #cbd5e1; }
+  @media print { .ielts-footer { display: none !important; } }
+  @media (max-width: 1024px) { .writing-section textarea.writing-area { min-height: 320px; } }
 </style>
 </head>
 <body>
@@ -721,21 +753,24 @@
       const panel = (n, promptHtml) => {
         const key = `writing_task${n}_${baseId}`;
         const wcId = `wc_t${n}_${baseId}`;
-        const hint = n === 1 ? 'Write at least 150 words.' : 'Write at least 250 words.';
+        const words = n === 1 ? 150 : 250;
+        const mins = n === 1 ? 20 : 40;
         return `
           <div class="task-panel${n === 1 ? ' active' : ''}" data-panel="${n}">
-            <div class="split-grid">
-              <div class="passage-pane" data-highlightable>
-                <p class="hl-tip">Select text in the prompt to highlight; click a highlight to remove it.</p>
-                <p class="writing-task-label">Task ${n}</p>
-                ${promptHtml}
-              </div>
-              <div class="questions-pane">
-                <p class="writing-task-label">Task ${n} Response</p>
-                <p class="task-hint">${hint}</p>
-                <div class="writing-box-wrap">
-                  <textarea class="writing-area" data-q="${esc(key)}" data-wc="${esc(wcId)}" placeholder="Write your Task ${n} response here..."></textarea>
-                  <span id="${esc(wcId)}" class="word-count-badge">Words: 0</span>
+            <div class="ielts-head">
+              <h3>Part ${n}</h3>
+              <p>You should spend about ${mins} minutes on this task. Write at least ${words} words.</p>
+            </div>
+            <div class="ielts-body">
+              <div class="split-grid">
+                <div class="passage-pane" data-highlightable>
+                  ${promptHtml}
+                </div>
+                <div class="questions-pane">
+                  <div class="writing-box-wrap">
+                    <textarea class="writing-area" data-q="${esc(key)}" data-wc="${esc(wcId)}" spellcheck="false"></textarea>
+                  </div>
+                  <span id="${esc(wcId)}" class="word-count-badge">Word count: 0</span>
                 </div>
               </div>
             </div>
@@ -744,16 +779,13 @@
 
       return `
         <article class="passage-block writing-section" data-section-index="${idx}">
-          <div class="passage-header">
-            <p class="passage-label" style="margin:0;font-weight:700;text-transform:uppercase;">${esc(sec.type || 'Writing')}</p>
-            <h2 class="passage-title">${esc(title)}</h2>
-          </div>
-          <div class="task-tabs" role="tablist">
-            <button type="button" class="tab-btn active" role="tab" data-tab="1">Task 1</button>
-            <button type="button" class="tab-btn" role="tab" data-tab="2">Task 2</button>
-          </div>
           ${panel(1, t1Prompt)}
           ${panel(2, t2Prompt)}
+          <div class="ielts-footer task-tabs-footer" role="tablist">
+            <span class="rev-wrap"><button type="button" class="rev-box" onclick="this.classList.toggle('on')" aria-label="Review"></button> Review</span>
+            <button type="button" class="tab-btn active" role="tab" data-tab="1">Part 1 <span class="tab-num">1</span></button>
+            <button type="button" class="tab-btn" role="tab" data-tab="2">Part 2 <span class="tab-num">2</span></button>
+          </div>
         </article>
       `;
     }
@@ -864,7 +896,7 @@
       const wcId = ta.getAttribute('data-wc');
       const wcEl = wcId ? document.getElementById(wcId) : null;
       const updateWc = () => {
-        if (wcEl) wcEl.textContent = `Words: ${countWords(ta.value)}`;
+        if (wcEl) wcEl.textContent = `Word count: ${countWords(ta.value)}`;
       };
       ta.addEventListener('input', updateWc);
       updateWc();
