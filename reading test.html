@@ -195,9 +195,9 @@ window.addEventListener('hashchange', route);
 /* ========================= 管理员登录 ========================= */
 function requireAdmin(cb) {
   if (localStorage.getItem('ielts_admin') === '1') { cb(); return; }
-  const m = showModal(`<h2>老师端登录</h2><div class="notice">默认账号：<strong>wangzhrm / wang123</strong>，可在「系统设置」中修改。</div>
-    <label class="field"><span>管理员用户名</span><input class="input" id="adminUser" value="wangzhrm"></label>
-    <label class="field"><span>管理员密码</span><input class="input" id="adminPwd" type="password"></label>
+  const m = showModal(`<h2>老师端登录</h2>
+    <label class="field"><span>管理员用户名</span><input class="input" id="adminUser" placeholder="请输入管理员用户名" autocomplete="username"></label>
+    <label class="field"><span>管理员密码</span><input class="input" id="adminPwd" type="password" placeholder="请输入管理员密码" autocomplete="current-password"></label>
     <div id="adminErr" class="notice error" style="display:none"></div>
     <div class="modal-actions"><button class="btn" id="cancelAdmin">取消</button><button class="btn primary" id="okAdmin">登录</button></div>`);
   const submit = async () => {
