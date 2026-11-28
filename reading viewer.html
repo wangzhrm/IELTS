@@ -114,7 +114,9 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;p
 
 'use strict';
 /* ========================= 基础工具 ========================= */
-const API_URL = new URLSearchParams(location.search).get('api') || localStorage.getItem('ielts_api') || '/ielts-api';
+const DEFAULT_API_URL = 'https://civil-prawn-d0gflguvzee35fad8-1395372774.ap-shanghai.app.tcloudbase.com/ielts-api';
+const storedApi = localStorage.getItem('ielts_api');
+const API_URL = new URLSearchParams(location.search).get('api') || (storedApi && storedApi !== '/ielts-api' ? storedApi : DEFAULT_API_URL);
 if (new URLSearchParams(location.search).get('api')) localStorage.setItem('ielts_api', API_URL);
 
 async function api(action, payload = {}) {
