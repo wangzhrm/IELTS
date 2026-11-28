@@ -362,14 +362,16 @@ async function parsePdf() {
     setParseStatus('正在加载 PDF 解析组件…', 3);
     const pdfjs = await import('https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.mjs');
     pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@4.10.38/build/pdf.worker.mjs';
-    const pages = [], images = [], fileMeta = [];
+    const pages = [], images = [], fileMeta = [], groups = [];
     for (let fi = 0; fi < files.length; fi++) {
       const file = files[fi];
       setParseStatus(`正在解析文件 ${fi + 1}/${files.length}：${file.name}`, 5 + Math.round(fi / files.length * 48));
       const bytes = new Uint8Array(await file.arrayBuffer());
       const pdf = await pdfjs.getDocument({ data: bytes }).promise;
       const firstPage = pages.length + 1;
-      fileMeta.push({ index: fi + 1, name: file.name, pageCount: pdf.numPages, firstPage, lastPage: firstPage + pdf.numPages - 1 });
+      const fileInfo = { index: fi + 1, name: file.name, pageCount: pdf.numPages, firstPage, lastPage: firstPage + pdf.numPages - 1 };
+      fileMeta.push(fileInfo);
+      const groupPages = [];
       for (let no = 1; no <= pdf.numPages; no++) {
         const globalPage = pages.length + 1;
         const page = await pdf.getPage(no); const tc = await page.getTextContent(); const lines = new Map();
@@ -387,14 +389,21 @@ async function parsePdf() {
           const near=sorted.reduce((best,l)=>{const d=Math.abs(l.y-((rect.y+rect.h/2)/1.6+(page.view?.[1]||0)));return !best||d<best.d?{d,text:l.text}:best;},null);
           images.push({index:images.length+1,page:globalPage,pdfPage:no,file:file.name,fileIndex:fi+1,dataUrl:crop.toDataURL('image/jpeg',0.8),nearText:near?.text||''});
         }
-        pages.push({page:globalPage,pdfPage:no,file:file.name,fileIndex:fi+1,text:sorted.map(l=>l.text).join('\n'),image:canvas.toDataURL('image/jpeg',0.65),images:images.filter(x=>x.page===globalPage)});
+        const pageObj = {page:globalPage,pdfPage:no,file:file.name,fileIndex:fi+1,text:sorted.map(l=>l.text).join('\n'),image:canvas.toDataURL('image/jpeg',0.65),images:images.filter(x=>x.page===globalPage)};
+        pages.push(pageObj); groupPages.push(pageObj);
         setParseStatus(`已解析 ${file.name} 第 ${no}/${pdf.numPages} 页（文件 ${fi+1}/${files.length}）`, 5+Math.round((fi+no/pdf.numPages)/files.length*48));
       }
+      groups.push({ file: fileInfo, pages: groupPages });
     }
     T.pages=pages; T.images=images;
     setParseStatus(`已解析 ${files.length} 个 PDF，共 ${pages.length} 页；正在调用 AI 合并识别文章与题目…`,58);
-    let content; try { const r=await api('ai.parsePdf',{pages,files:fileMeta}); content=r.content; toast('AI 识别完成'); }
-    catch(e) { content=fallbackParse(pages,images,fileMeta); toast('AI 识别失败，已使用简化解析：'+e.message,true); }
+    setParseStatus(`正在逐份识别 ${groups.length} 个 PDF 的文章与题目…`,62);
+    let content;
+    try { const r=await api('ai.parsePdfBatch',{groups}); content=r.content; toast('AI 识别完成'); }
+    catch(e) {
+      try { const r=await api('ai.parsePdf',{pages,files:fileMeta}); content=r.content; toast('AI 识别完成（合并模式）'); }
+      catch(e2) { content=fallbackParse(pages,images,fileMeta); toast('AI 识别失败，已使用简化解析：'+e2.message,true); }
+    }
     T.content=normalizeContent(content); T.content.images=T.images; insertImageMarkers(T.content,T.images);
     T.answers=Object.fromEntries(T.content.questions.map(q=>[q.id,q.answer||[]]));
     document.getElementById('paperTitle').value=T.content.title||''; document.getElementById('paperInstructions').value=T.content.instructions||'';
