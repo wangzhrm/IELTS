@@ -356,6 +356,14 @@ function validateContent(content) {
   return content;
 }
 
+const PAGE_ALIASES = {
+  '/index.html': '/IELTS Reading Lab - Home.html',
+  '/teacher.html': '/IELTS Reading Lab - Teacher.html',
+  '/select-test.html': '/IELTS Reading Lab - Select Test.html',
+  '/grade.html': '/IELTS Reading Lab - Grading.html',
+  '/student.html': '/IELTS Reading Lab - Student Test.html'
+};
+
 const MIME = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
   '.mjs': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8',
@@ -365,7 +373,8 @@ const MIME = {
 
 function serveStatic(req, res, pathname) {
   let rel = decodeURIComponent(pathname);
-  if (rel === '/' || rel === '/index.html') rel = '/index.html';
+  if (rel === '/') rel = '/IELTS Reading Lab - Home.html';
+  else if (PAGE_ALIASES[rel]) rel = PAGE_ALIASES[rel];
   let filePath = path.join(PUBLIC_DIR, path.normalize(rel).replace(/^(\.\.[/\\])+/, ''));
   if (!fs.existsSync(filePath) && rel.startsWith('/vendor/')) {
     const fromNodeModules = path.join(__dirname, 'node_modules', 'pdfjs-dist', 'build', path.basename(rel));

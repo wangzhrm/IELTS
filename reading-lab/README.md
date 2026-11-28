@@ -13,10 +13,12 @@ npm start
 
 ## 页面入口
 
-- `/teacher.html` 老师端：PDF 上传与 AI 识别、题库编辑、学生账号管理、AI 设置
-- `/select-test.html` 选择测试：Volume/Test 选择、生成学生链接、成绩时间线
-- `/grade.html` 批改与发布：AI 比对、人工逐题核实、雅思分数换算、发布成绩
-- `/student.html?volume=1&test=1` 学生答题页（由选测试页生成链接）
+- `/IELTS%20Reading%20Lab%20-%20Teacher.html` 老师端：PDF 上传与 AI 识别、题库编辑、学生账号管理、AI 设置
+- `/IELTS%20Reading%20Lab%20-%20Select%20Test.html` 选择测试：Volume/Test 选择、生成学生链接、成绩时间线
+- `/IELTS%20Reading%20Lab%20-%20Grading.html` 批改与发布：AI 比对、人工逐题核实、雅思分数换算、发布成绩
+- `/IELTS%20Reading%20Lab%20-%20Student%20Test.html?volume=1&test=1` 学生答题页（由选测试页生成链接）
+
+旧路径 `/teacher.html`、`/select-test.html`、`/grade.html`、`/student.html` 会自动跳转到上述新页面，之前发出的链接仍然有效。
 
 ## 默认账号
 
