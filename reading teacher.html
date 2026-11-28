@@ -355,6 +355,26 @@ function renderPdfFileList() {
     : '未选择文件；可一次选择多个 PDF（例如 3 个文件组成一套 Test）。';
 }
 function setParseStatus(text, p) { document.getElementById('parseStatus').textContent = text; document.getElementById('parseProgress').style.width = (p||0)+'%'; }
+function splitBytes(str, maxBytes) {
+  const out = []; let cur = '', n = 0;
+  for (let i = 0; i < str.length; i++) {
+    const c = str.charCodeAt(i); const b = c < 0x80 ? 1 : (c < 0x800 ? 2 : 3);
+    if (n + b > maxBytes) { out.push(cur); cur = ''; n = 0; }
+    cur += str[i]; n += b;
+  }
+  if (cur) out.push(cur);
+  return out;
+}
+async function uploadAndRun(target, payload, from, to) {
+  const json = JSON.stringify(payload);
+  const chunks = splitBytes(json, 60000);
+  const uploadId = 'u' + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+  for (let i = 0; i < chunks.length; i++) {
+    await api('ai.uploadChunk', { uploadId, index: i, total: chunks.length, chunk: chunks[i] });
+    setParseStatus(`正在上传识别数据 ${i + 1}/${chunks.length} 片…`, Math.round(from + (i + 1) / chunks.length * (to - from)));
+  }
+  return api('ai.runUploaded', { uploadId, target });
+}
 async function parsePdf() {
   const files = Array.from(document.getElementById('pdfFiles').files || []).filter(f => /\.pdf$/i.test(f.name || '') || f.type === 'application/pdf');
   if (!files.length) return toast('请先选择 PDF 文件（可多选）', true);
@@ -396,12 +416,11 @@ async function parsePdf() {
       groups.push({ file: fileInfo, pages: groupPages });
     }
     T.pages=pages; T.images=images;
-    setParseStatus(`已解析 ${files.length} 个 PDF，共 ${pages.length} 页；正在调用 AI 合并识别文章与题目…`,58);
-    setParseStatus(`正在逐份识别 ${groups.length} 个 PDF 的文章与题目…`,62);
+    setParseStatus(`已解析 ${files.length} 个 PDF，共 ${pages.length} 页；正在上传并逐份识别…`,58);
     let content;
-    try { const r=await api('ai.parsePdfBatch',{groups}); content=r.content; toast('AI 识别完成'); }
+    try { const r=await uploadAndRun('ai.parsePdfBatch',{groups},60,88); content=r.content; toast('AI 识别完成'); }
     catch(e) {
-      try { const r=await api('ai.parsePdf',{pages,files:fileMeta}); content=r.content; toast('AI 识别完成（合并模式）'); }
+      try { const r=await uploadAndRun('ai.parsePdf',{pages,files:fileMeta},60,88); content=r.content; toast('AI 识别完成（合并模式）'); }
       catch(e2) { content=fallbackParse(pages,images,fileMeta); toast('AI 识别失败，已使用简化解析：'+e2.message,true); }
     }
     T.content=normalizeContent(content); T.content.images=T.images; insertImageMarkers(T.content,T.images);
@@ -415,7 +434,7 @@ function transformToRect(m,page,scale,cw,ch) { const [a,b,c,d,e,f]=m; const pts=
 function fallbackParse(pages, images, files = []) { const text=pages.map(p=>`[${p.file||'PDF'} P${p.pdfPage||p.page}]\n${p.text||''}`).join('\n'); const idx=text.search(/Questions\s+1\b/i); const article=idx>=0?text.slice(0,idx):text.slice(0,Math.floor(text.length*.65)); const qtext=idx>=0?text.slice(idx):text.slice(Math.floor(text.length*.65)); const passageCount=Math.min(3,Math.max(1,files.length||1)); const chunkSize=Math.max(200,Math.ceil(article.length/passageCount)); const passages=[]; for(let i=0;i<passageCount;i++){const part=article.slice(i*chunkSize,(i+1)*chunkSize); passages.push({id:'p'+(i+1),title:'Reading Passage '+(i+1),html:part.split(/\n{2,}|\n(?=[A-Z])/).map(x=>x.trim()).filter(Boolean).map(x=>`<p>${esc(x)}</p>`).join('\n')});} const qLines=qtext.split('\n').map(x=>x.trim()).filter(x=>/^\d+[\.\)]?\s+/.test(x)).slice(0,40); const questions=qLines.map((l,i)=>({id:'q'+(i+1),number:i+1,type:'completion',passageId:'p'+Math.min(3,Math.floor(i/(qLines.length/3))+1),prompt:l.replace(/^\d+[\.\)]?\s+/,''),options:[],answer:[]})); return { title:'IELTS Academic Reading Test',instructions:'Answer all questions.',passages,sections:[],questions,images }; }
 function insertImageMarkers(c,imgs) { imgs.forEach((img,i)=>{ const marker=`[[IMAGE:${i+1}]]`; const needle=String(img.nearText||'').trim().slice(0,80); let placed=false; for (const p of c.passages) { if (needle&&p.html.includes(needle)) { p.html=p.html.replace(needle,needle+' '+marker); placed=true; break; } } if (!placed&&c.passages[0]) c.passages[0].html+=`\n<p>${marker}</p>`; }); }
 async function generateAnswers() { try { setParseStatus('正在调用 AI 生成答案…',70); const r=await api('ai.generateAnswers',{id:T.testId}); T.answers=r.answers; T.content.questions.forEach(q=>{q.answer=r.answers[q.id]||q.answer||[];}); renderQuestionEditor(); renderPreview(); toast('答案已生成，请逐题核实后保存'); setParseStatus('AI 答案已生成，请核实并点击保存。',100); } catch(e){ toast(e.message,true); } }
-async function saveTest() { try { T.content.images=T.images; const answers=Object.fromEntries(T.content.questions.map(q=>[q.id,q.answer||[]])); await api('test.save',{id:T.testId,content:T.content,answers}); const d=await api('bootstrap'); T.volumes=d.volumes; renderTestPicker('testPicker'); toast('已保存到当前 Test'); } catch(e){ toast(e.message,true); } }
+async function saveTest() { try { T.content.images=T.images; const answers=Object.fromEntries(T.content.questions.map(q=>[q.id,q.answer||[]])); setParseStatus('正在保存题库…',5); await uploadAndRun('test.save',{id:T.testId,content:T.content,answers},5,95); const d=await api('bootstrap'); T.volumes=d.volumes; renderTestPicker('testPicker'); toast('已保存到当前 Test'); setParseStatus('题库已保存。',100); } catch(e){ toast(e.message,true); } }
 async function loadStudents() {
   try { const d=await api('students.list'); document.getElementById('studentTable').innerHTML=d.students.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.username)}</td><td class="small muted">${fmtDate(s.created_at)}</td><td><button class="btn sm" data-edit="${esc(s.id)}">修改</button> <button class="btn sm danger" data-del="${esc(s.id)}">删除</button></td></tr>`).join('')||'<tr><td colspan="4" class="muted">暂无学生</td></tr>';
     document.getElementById('studentTable').onclick=e=>{ const ed=e.target.closest('[data-edit]'),dl=e.target.closest('[data-del]'); if(ed) openStudentModal(d.students.find(s=>s.id===ed.dataset.edit)); if(dl) deleteStudent(dl.dataset.del); };
