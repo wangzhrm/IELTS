@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>IELTS Reading Lab · 老师端</title>
+  <link rel="stylesheet" href="/shared.css">
+  <style>
+    .app-shell { display: grid; grid-template-columns: 240px 1fr; min-height: calc(100vh - 64px); }
+    .side { background: #fff; border-right: 1px solid var(--line); padding: 18px 14px; }
+    .side .label { font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: .6px; margin: 12px 4px 8px; }
+    .main { padding: 22px 26px; min-width: 0; }
+  </style>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand"><span class="brand-mark">I</span> IELTS Reading Lab · 老师端</div>
+    <div class="header-actions">
+      <button class="btn sm" id="logoutBtn">退出登录</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="side">
+      <div class="label">题库</div>
+      <div class="chip-row" id="volumePicker"></div>
+      <div class="label">Test</div>
+      <div class="chip-row" id="testPicker"></div>
+      <div class="label">页面</div>
+      <div class="chip-row">
+        <a class="chip" href="/select-test.html" target="_blank">选测试卷页</a>
+        <a class="chip" href="/grade.html" target="_blank">批改页</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="tabs">
+        <button class="tab active" data-tab="library">题库管理</button>
+        <button class="tab" data-tab="students">学生账号</button>
+        <button class="tab" data-tab="ai">AI 设置</button>
+      </div>
+
+      <section class="tab-view active" id="view-library">
+        <div class="panel">
+          <div class="panel-title">
+            <h2>当前：Volume <span id="curVolume">1</span> · Test <span id="curTest">1</span></h2>
+            <span class="muted small" id="testMeta"></span>
+          </div>
+          <div class="grid cols-2">
+            <div>
+              <label class="field"><span>试卷标题</span><input class="input" id="paperTitle" placeholder="例如 IELTS Academic Reading Test"></label>
+              <label class="field"><span>考试说明</span><textarea class="textarea" id="paperInstructions"></textarea></label>
+            </div>
+            <div>
+              <div class="notice">上传 PDF 后，系统会用浏览器解析文字与图片，再调用 AI 识别成雅思阅读文章与题目。未配置 AI 时会自动进入简化解析模式。</div>
+              <label class="field"><span>选择 PDF 文件</span><input class="input" id="pdfFile" type="file" accept="application/pdf"></label>
+              <div class="progress" style="margin-bottom:12px"><div id="parseProgress"></div></div>
+              <div class="chip-row">
+                <button class="btn primary" id="parseBtn">解析 PDF 并识别题目</button>
+                <button class="btn" id="generateAnswersBtn">AI 产生答案</button>
+                <button class="btn green" id="saveBtn">保存到当前 Test</button>
+              </div>
+              <div id="parseStatus" class="small muted" style="margin-top:10px"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title"><h2>文章</h2><button class="btn sm" id="addPassageBtn">+ 新增文章</button></div>
+          <div id="passageEditor"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title"><h2>题目</h2><button class="btn sm" id="addQuestionBtn">+ 新增题目</button></div>
+          <div id="questionEditor"></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title"><h2>实时预览</h2><span class="muted small">图片会出现在 AI 标注的位置</span></div>
+          <div class="preview-box" id="contentPreview"></div>
+        </div>
+      </section>
+
+      <section class="tab-view" id="view-students">
+        <div class="panel">
+          <div class="panel-title"><h2>学生账号管理</h2><button class="btn primary sm" id="addStudentBtn">+ 新建学生</button></div>
+          <table><thead><tr><th>姓名</th><th>账号</th><th>创建时间</th><th style="width:160px">操作</th></tr></thead><tbody id="studentTable"></tbody></table>
+        </div>
+      </section>
+
+      <section class="tab-view" id="view-ai">
+        <div class="panel">
+          <h2>AI 模型设置</h2>
+          <div class="notice">支持 OpenAI Chat Completions 兼容接口。PDF 识别建议使用支持图片输入的模型，例如 gpt-4o、qwen-vl-max。</div>
+          <div class="grid cols-2">
+            <label class="field"><span>API Base URL</span><input class="input" id="aiBaseUrl" placeholder="https://api.openai.com/v1"></label>
+            <label class="field"><span>API Key</span><input class="input" id="aiKey" type="password" placeholder="留空表示不修改"></label>
+            <label class="field"><span>文本模型</span><input class="input" id="aiModel" placeholder="gpt-4o-mini"></label>
+            <label class="field"><span>图片识别模型</span><input class="input" id="aiVisionModel" placeholder="gpt-4o"></label>
+          </div>
+          <div class="chip-row">
+            <button class="btn primary" id="saveAiBtn">保存 AI 设置</button>
+            <button class="btn danger" id="changeAdminPwdBtn">修改管理员密码</button>
+          </div>
+          <div id="aiStatus" class="small muted" style="margin-top:10px"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="studentModal"></div>
+  <div class="modal-backdrop" id="adminPwdModal"></div>
+  <script type="module" src="/teacher.js"></script>
+</body>
+</html>
