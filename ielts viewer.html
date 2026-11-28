@@ -76,6 +76,12 @@
   .ai-report { border: 1px solid #ddd6fe; border-radius: 6px; background: var(--paper); overflow: hidden; margin-bottom: 16px; }
   .ai-report-head { background: linear-gradient(90deg, #f5f3ff, #eff6ff); padding: 13px 18px; border-bottom: 1px solid #ddd6fe; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   .ai-report-head h3 { margin: 0; font-size: 17px; }
+  details.ai-report > summary.ai-report-head { cursor: pointer; list-style: none; }
+  details.ai-report > summary.ai-report-head::-webkit-details-marker { display: none; }
+  details.ai-report > summary.ai-report-head::after { content: '▾'; font-size: 13px; color: var(--muted); }
+  details.ai-report[open] > summary.ai-report-head::after { content: '▴'; }
+  .ai-save-tag { color: var(--ok); font-size: 12px; font-weight: 700; }
+  .ai-save-tag.err { color: var(--bad); }
   .ai-report-sub { color: var(--muted); font-size: 12.5px; margin-top: 3px; }
   .band-badge { background: #6d28d9; color: #fff; border-radius: 6px; padding: 6px 15px; font-size: 20px; font-weight: 800; white-space: nowrap; }
   .band-badge.low { background: #b91c1c; }
@@ -161,6 +167,18 @@
 
   async function db(path) {
     const res = await fetch(`${DB_BASE}/${path}`, { headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${DB_KEY}` } });
+    const text = await res.text();
+    let json = null; try { json = text ? JSON.parse(text) : null; } catch (_) {}
+    if (!res.ok) throw new Error((json && (json.message || json.error || json.msg)) || `HTTP ${res.status}`);
+    return json;
+  }
+
+  async function dbWrite(path, method, body, prefer) {
+    const res = await fetch(`${DB_BASE}/${path}`, {
+      method,
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${DB_KEY}`, 'Prefer': prefer || 'return=representation' },
+      body: body === undefined ? undefined : JSON.stringify(body)
+    });
     const text = await res.text();
     let json = null; try { json = text ? JSON.parse(text) : null; } catch (_) {}
     if (!res.ok) throw new Error((json && (json.message || json.error || json.msg)) || `HTTP ${res.status}`);
@@ -288,6 +306,8 @@
   const AI_DEFAULT_MODEL = 'qwen3-vl-plus';   // vision + text: reads Task 1 charts
   const AI_PROXY = 'https://images.weserv.nl/?url=';
   const LS_KEY = 'ielts_ai_api_key', LS_MODEL = 'ielts_ai_model', LS_IMGMODE = 'ielts_ai_img_mode';
+  const AI_REPORTS_TABLE = 'ielts_ai_reports';
+  let currentSub = null;   // submission currently open in the detail view
   let manualCharts = [];   // teacher-uploaded chart images (data URIs), fallback only
 
   const aiLs = (k, d) => { try { return localStorage.getItem(k) || d; } catch (_) { return d; } };
@@ -305,6 +325,7 @@
     return `<div id="aiPanel" class="ai-panel no-print">
       <div class="ai-toolbar">
         <button id="aiMarkBtn" type="button" class="ai-mark-btn">AI 阅卷</button>
+        <button id="aiToggleBtn" type="button" class="ai-small" style="display:none;">展开全部</button>
         <span class="ai-status" id="aiStatus">点击后按 IELTS 官方四项标准批改本篇提交的 Task 1 / Task 2，并生成逐级提分报告。</span>
       </div>
       <details class="ai-settings" id="aiSettings">
@@ -323,7 +344,7 @@
         </div>
         <div class="ai-hint">手动上传 Task 1 图表（自动读取失败时使用，可多选）：
           <input type="file" id="aiChartFile" accept="image/*" multiple style="font-size:12.5px;margin-top:6px;"><span id="aiChartInfo"></span></div>
-        <div class="ai-hint">批改结果只在本页显示，<strong>不会被打印</strong>；Print 按钮仍只输出题目与学生文章（保持原有双倍行距）。</div>
+        <div class="ai-hint">批改完成后<strong>自动保存到数据库</strong>，下次打开同一份提交会直接显示（默认收起，点标题展开）；报告<strong>不会被打印</strong>，Print 按钮仍只输出题目与学生文章（保持原有双倍行距）。</div>
         <div style="margin-top:9px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
           <button type="button" class="ai-small" id="aiSaveBtn">保存设置到本机</button>
           <span class="ai-hint" id="aiSaveInfo" style="margin:0;"></span>
@@ -338,6 +359,16 @@
     manualCharts = [];
     const btn = $('aiMarkBtn');
     if (btn) btn.onclick = runAiMarking;
+    const toggle = $('aiToggleBtn');
+    if (toggle) toggle.onclick = () => {
+      const host = $('aiReports');
+      if (!host) return;
+      const ds = Array.from(host.querySelectorAll('details.ai-report'));
+      if (!ds.length) return;
+      const shouldOpen = ds.some(d => !d.open);
+      ds.forEach(d => { d.open = shouldOpen; });
+      toggle.textContent = shouldOpen ? '收起全部' : '展开全部';
+    };
     const save = $('aiSaveBtn');
     if (save) save.onclick = () => {
       aiSetLs(LS_KEY, $('aiKey').value.trim());
@@ -533,7 +564,7 @@ ROADMAP RULES: output one object for EVERY integer target band from (floor(band)
     catch (e) { throw new Error('报告解析失败（' + e.message + '），请点「重新批改」重试。'); }
   }
 
-  function renderReport(r, task, model) {
+  function renderReport(r, task, model, savedAt) {
     const band = num(r.band, 0);
     const badgeCls = band <= 4 ? 'low' : band <= 6 ? 'mid' : 'high';
     const crit = Array.isArray(r.criteria) ? r.criteria : [];
@@ -571,11 +602,13 @@ ROADMAP RULES: output one object for EVERY integer target band from (floor(band)
     const chartSec = task.n === '1' && r.chart_reading && !/^N\/A$/i.test(String(r.chart_reading).trim())
       ? `<div class="ai-sec"><h4>图表解读与数据核对</h4><div class="ai-text">${esc(r.chart_reading)}</div></div>` : '';
 
-    return `<div class="ai-report-head">
+    const savedLabel = savedAt ? '已自动保存 ' + esc(savedAt) : '批改完成后自动保存';
+    return `<summary class="ai-report-head">
       <div><h3>AI 阅卷报告 · Task ${esc(task.n)}${task.sec ? ' · Section ' + esc(task.sec) : ''}</h3>
-        <div class="ai-report-sub">IELTS Writing ${task.n === '1' ? 'Task 1' : 'Task 2'} 官方四项评分标准 · 模型 ${esc(model)} · 学生原文 ${wordCountOf(task.answer)} 词</div></div>
+        <div class="ai-report-sub">IELTS Writing ${task.n === '1' ? 'Task 1' : 'Task 2'} 官方四项评分标准 · 模型 ${esc(model)} · 学生原文 ${wordCountOf(task.answer)} 词</div>
+        <div class="ai-report-sub"><span class="ai-save-tag" data-save-tag>${savedLabel}</span> · 点击标题展开 / 收起</div></div>
       <span class="band-badge ${badgeCls}">${esc(band)} 分</span>
-    </div>
+    </summary>
     <div class="ai-body">
       <div class="ai-toolrow no-print">
         <button type="button" class="ai-small" data-act="copy">复制报告</button>
@@ -627,7 +660,70 @@ ROADMAP RULES: output one object for EVERY integer target band from (floor(band)
     return L.join('\n');
   }
 
-  function bindReportActions(card, r, task, model) {
+  function reportCard(r, task, model, savedAt, sub) {
+    const card = document.createElement('details');
+    card.className = 'ai-report no-print';
+    card.innerHTML = renderReport(r, task, model, savedAt);
+    card.open = false;
+    bindReportActions(card, r, task, model, sub);
+    return card;
+  }
+
+  function markSaved(card, text, isErr) {
+    if (!card) return;
+    const tag = card.querySelector('[data-save-tag]');
+    if (!tag) return;
+    tag.textContent = text;
+    tag.className = 'ai-save-tag' + (isErr ? ' err' : '');
+  }
+
+  async function saveOneReport(sub, task, r, model) {
+    const row = {
+      submission_id: subKey(sub),
+      paper_id: sub.paper_id || null,
+      task: String(task.n),
+      section: String(task.sec || ''),
+      report: r,
+      model: String(model || ''),
+      band: num(r.band, 0),
+      updated_at: new Date().toISOString()
+    };
+    return dbWrite(`${AI_REPORTS_TABLE}?on_conflict=submission_id,task,section`, 'POST', [row], 'resolution=merge-duplicates,return=representation');
+  }
+
+  async function loadSavedReports(sub) {
+    const host = $('aiReports');
+    if (!host || !sub) return;
+    const id = subKey(sub);
+    host.innerHTML = '';
+    setAiStatus('正在读取已保存的批改报告…');
+    let rows;
+    try {
+      rows = await db(`${AI_REPORTS_TABLE}?select=*&submission_id=eq.${encodeURIComponent(id)}&order=task.asc,section.asc`) || [];
+    } catch (e) {
+      setAiStatus('已保存报告读取失败：' + e.message);
+      return;
+    }
+    if (activeId !== id) return;
+    const domTasks = collectAiTasks();
+    rows.forEach(row => {
+      let r = row.report;
+      if (typeof r === 'string') { try { r = JSON.parse(r); } catch (_) { return; } }
+      if (!r || typeof r !== 'object') return;
+      const t = domTasks.find(x => String(x.n) === String(row.task) && String(x.sec || '') === String(row.section || ''))
+        || { n: String(row.task), sec: String(row.section || ''), prompt: '', imgs: [], answer: '' };
+      const when = row.updated_at ? new Date(row.updated_at).toLocaleString() : '';
+      host.appendChild(reportCard(r, t, row.model || AI_DEFAULT_MODEL, when, sub));
+    });
+    const n = host.querySelectorAll('details.ai-report').length;
+    const toggle = $('aiToggleBtn');
+    if (toggle) { toggle.style.display = n ? '' : 'none'; toggle.textContent = '展开全部'; }
+    const mark = $('aiMarkBtn');
+    if (mark) mark.textContent = n ? '重新 AI 阅卷（覆盖已保存）' : 'AI 阅卷';
+    setAiStatus(n ? `已加载 ${n} 份已保存报告（默认收起，点击标题展开）。` : '点击后按 IELTS 官方四项标准批改本篇提交的 Task 1 / Task 2，并生成逐级提分报告。');
+  }
+
+  function bindReportActions(card, r, task, model, sub) {
     card.querySelectorAll('[data-act]').forEach(b => {
       b.onclick = async () => {
         const act = b.getAttribute('data-act');
@@ -650,13 +746,18 @@ ROADMAP RULES: output one object for EVERY integer target band from (floor(band)
           setTimeout(() => URL.revokeObjectURL(a.href), 3000);
         } else if (act === 'retry') {
           b.disabled = true; b.textContent = '重新批改中…';
-          const body = card.querySelector('.ai-body');
-          if (body) body.innerHTML = '<div class="ai-loading">正在重新调用千问模型…</div>';
           try {
             const r2 = await gradeOne(task);
             const m2 = getModel();
-            card.innerHTML = renderReport(r2, task, m2);
+            card.innerHTML = renderReport(r2, task, m2, '');
+            card.open = false;
             bindReportActions(card, r2, task, m2);
+            const when = new Date().toLocaleString();
+            markSaved(card, '正在自动保存…');
+            try {
+              await saveOneReport(sub, task, r2, m2);
+              markSaved(card, '已自动保存 ' + when);
+            } catch (e) { markSaved(card, '自动保存失败：' + e.message, true); }
           } catch (e) {
             card.innerHTML = '<div class="ai-body"><div class="ai-error">重新批改失败：' + esc(e.message) + '</div></div>';
           }
@@ -668,30 +769,45 @@ ROADMAP RULES: output one object for EVERY integer target band from (floor(band)
   async function runAiMarking() {
     const btn = $('aiMarkBtn'), host = $('aiReports');
     if (!btn || !host) return;
+    if (!currentSub) { setAiStatus('请先选择一份提交。'); return; }
+    if (host.querySelector('details.ai-report') && !confirm('这份提交已有保存的批改报告。重新批改会覆盖旧报告并再次消耗 API 额度，确定继续吗？')) return;
     const tasks = collectAiTasks();
     if (!tasks.length) { setAiStatus('未找到写作任务，请等待试卷题目与学生文章加载完成后再试。'); return; }
+    const sub = currentSub;
     btn.disabled = true;
     host.innerHTML = '';
+    const toggle = $('aiToggleBtn');
+    if (toggle) { toggle.style.display = ''; toggle.textContent = '展开全部'; }
     let done = 0;
     const total = tasks.length;
-    setAiStatus('正在批改 0/' + total + ' …（含 Task 1 图表识别，通常需 30–90 秒）');
+    setAiStatus('正在批改 0/' + total + ' …（结果会自动保存并默认收起）');
     await Promise.all(tasks.map(async (task) => {
-      const card = document.createElement('div');
+      const card = document.createElement('details');
       card.className = 'ai-report no-print';
-      card.innerHTML = '<div class="ai-body"><div class="ai-loading">正在调用千问模型批改 Task ' + esc(task.n) + '…请勿关闭页面。</div></div>';
+      card.innerHTML = `<summary class="ai-report-head"><div><h3>正在批改 Task ${esc(task.n)}…</h3>
+        <div class="ai-report-sub">请勿关闭页面，完成后报告会自动保存并默认收起。</div></div></summary>`;
       host.appendChild(card);
       const model = getModel();
       try {
         const r = await gradeOne(task);
-        card.innerHTML = renderReport(r, task, model);
-        bindReportActions(card, r, task, model);
+        card.innerHTML = renderReport(r, task, model, '');
+        card.open = false;
+        bindReportActions(card, r, task, model, sub);
+        const when = new Date().toLocaleString();
+        markSaved(card, '正在自动保存…');
+        try {
+          await saveOneReport(sub, task, r, model);
+          markSaved(card, '已自动保存 ' + when);
+        } catch (e) { markSaved(card, '自动保存失败：' + e.message, true); }
       } catch (e) {
         card.innerHTML = '<div class="ai-body"><div class="ai-error">批改失败：' + esc(e.message) + '</div></div>';
       }
       done++;
-      setAiStatus('已完成 ' + done + '/' + total + (done === total ? ' · 全部完成' : ' …'));
+      setAiStatus('已完成 ' + done + '/' + total + (done === total ? ' · 报告已自动保存（默认收起，点击标题展开）' : ' …'));
     }));
     btn.disabled = false;
+    const mark = $('aiMarkBtn');
+    if (mark) mark.textContent = '重新 AI 阅卷（覆盖已保存）';
   }
   /* ================== END OF AI MARKING ================== */
 
@@ -699,6 +815,7 @@ ROADMAP RULES: output one object for EVERY integer target band from (floor(band)
   async function showSubmission(sub) {
     const currentKey = subKey(sub);
     activeId = currentKey;
+    currentSub = sub;
     renderList();
 
     const paper = papers[sub.paper_id];
@@ -745,6 +862,7 @@ ROADMAP RULES: output one object for EVERY integer target band from (floor(band)
       rawCard.innerHTML = `<p>The questions for this paper are not in the database, so only the raw answers are shown.</p>
         <table class="raw">${Object.entries(answers).map(([k, v]) => `<tr><td>${esc(k)}</td><td class="ans">${esc(v || '(blank)')}</td></tr>`).join('')}</table>`;
       detail.appendChild(rawCard);
+      loadSavedReports(sub);
       return;
     }
 
@@ -787,6 +905,7 @@ ROADMAP RULES: output one object for EVERY integer target band from (floor(band)
 
     detail.appendChild(box);
     $('scoreLine').innerHTML = keyed ? `Auto-marked: <strong>${right} / ${keyed}</strong> against the saved answer key` : 'No answer key saved for this paper, so nothing is auto-marked.';
+    loadSavedReports(sub);
   }
 
   /* ---- list ---- */
