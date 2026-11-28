@@ -59,14 +59,69 @@
     .list { position: static; max-height: 300px; }
   }
 
-  /* Print only the selected submission (no header, no submissions list) */
+  /* ---- AI marking (screen only, never printed) ---- */
+  .ai-panel { background: var(--paper); border: 1px solid #ddd6fe; border-radius: 6px; padding: 14px 16px; margin-bottom: 16px; }
+  .ai-toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .ai-mark-btn { background: #6d28d9; border-color: #6d28d9; font-weight: 700; padding: 9px 18px; font-size: 15px; }
+  .ai-mark-btn:hover:not(:disabled) { background: #5b21b6; border-color: #5b21b6; }
+  .ai-mark-btn:disabled { opacity: .55; cursor: not-allowed; }
+  .ai-status { color: var(--muted); font-size: 13px; }
+  .ai-settings { margin-top: 12px; border: 1px solid var(--line); border-radius: 4px; background: #f8fafc; padding: 10px 12px; }
+  .ai-settings > summary { cursor: pointer; font-weight: 700; color: var(--accent); font-size: 14px; }
+  .ai-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 10px; }
+  .ai-grid label { font-size: 12.5px; color: var(--muted); display: block; }
+  .ai-grid input, .ai-grid select { width: 100%; margin-top: 4px; font-size: 13px; }
+  .ai-hint { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 9px; }
+  .ai-warn { background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412; padding: 8px 10px; border-radius: 4px; font-size: 12.5px; line-height: 1.6; margin-top: 10px; }
+  .ai-report { border: 1px solid #ddd6fe; border-radius: 6px; background: var(--paper); overflow: hidden; margin-bottom: 16px; }
+  .ai-report-head { background: linear-gradient(90deg, #f5f3ff, #eff6ff); padding: 13px 18px; border-bottom: 1px solid #ddd6fe; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .ai-report-head h3 { margin: 0; font-size: 17px; }
+  .ai-report-sub { color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+  .band-badge { background: #6d28d9; color: #fff; border-radius: 6px; padding: 6px 15px; font-size: 20px; font-weight: 800; white-space: nowrap; }
+  .band-badge.low { background: #b91c1c; }
+  .band-badge.mid { background: #b45309; }
+  .band-badge.high { background: #166534; }
+  .ai-body { padding: 16px 18px; }
+  .ai-toolrow { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .ai-small { padding: 5px 11px; font-size: 12.5px; background: var(--paper); color: var(--ink); border-color: var(--line); }
+  .ai-small:hover { background: #f1f5f9; }
+  .ai-sec { margin-bottom: 20px; }
+  .ai-sec:last-child { margin-bottom: 0; }
+  .ai-sec > h4 { margin: 0 0 9px; font-size: 15px; color: var(--accent); border-left: 3px solid var(--accent); padding-left: 9px; }
+  .criteria-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+  .crit { border: 1px solid var(--line); border-radius: 4px; padding: 10px 12px; background: #fff; }
+  .crit-top { display: flex; justify-content: space-between; gap: 8px; font-weight: 700; font-size: 13px; }
+  .crit-score { color: #6d28d9; white-space: nowrap; }
+  .crit p { margin: 7px 0 0; font-size: 13px; color: #374151; line-height: 1.7; }
+  .ai-list { margin: 0; padding-left: 20px; font-size: 13.5px; line-height: 1.8; }
+  .ai-list li { margin-bottom: 3px; }
+  .ai-text { font-size: 13.5px; line-height: 1.85; white-space: pre-wrap; }
+  .road-step { border-left: 3px solid #c4b5fd; padding: 0 0 16px 17px; margin-left: 7px; position: relative; }
+  .road-step:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .road-step::before { content: ''; position: absolute; left: -7px; top: 5px; width: 11px; height: 11px; border-radius: 50%; background: #6d28d9; }
+  .road-target { font-weight: 800; color: #6d28d9; font-size: 15px; }
+  .road-head { font-size: 14px; font-weight: 700; margin: 3px 0 7px; line-height: 1.6; }
+  .edit-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 9px 0 3px; }
+  .edit-box { border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; font-size: 12.5px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+  .edit-box b { display: block; font-size: 11.5px; margin-bottom: 4px; letter-spacing: .5px; }
+  .edit-box.old { background: #fef2f2; border-color: #fecaca; color: #7f1d1d; }
+  .edit-box.new { background: #f0fdf4; border-color: #bbf7d0; color: #14532d; }
+  .edit-why { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin: 0 0 6px; }
+  .model-essay { background: #f8fafc; border: 1px solid var(--line); border-radius: 4px; padding: 15px 17px; white-space: pre-wrap; font-family: Georgia, 'Times New Roman', serif; font-size: 15px; line-height: 1.95; }
+  .ai-error { background: var(--badbg); color: var(--bad); padding: 11px 13px; border-radius: 4px; font-size: 13.5px; line-height: 1.7; white-space: pre-wrap; }
+  .ai-loading { color: var(--muted); font-size: 13.5px; padding: 6px 0; }
+  @media (max-width: 700px) { .edit-row { grid-template-columns: 1fr; } }
+
+  /* Print only the selected submission (no header, no submissions list, no AI panel/reports) */
   @media print {
     body { background: #fff; }
-    header, .list, .no-print, #gate { display: none !important; }
+    header, .list, .no-print, #gate, #aiPanel, .ai-report { display: none !important; }
     .layout { display: block; padding: 0; }
     .card { border: 0; padding: 0; margin-bottom: 18px; }
     .detail { width: 100%; }
     .answer-box, .final-box { break-inside: avoid; }
+    /* Keep the original double-spaced student writing exactly as on screen */
+    .answer-box, td.ans { line-height: 2 !important; }
     * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
 </style>
@@ -208,7 +263,7 @@
       const a = s.task1_text || '', b = s.task2_text || '', imgs = t1Images(s);
       const hasFields = Boolean(a || b || imgs.length);
       const task = (n, prompt) => `
-        <div class="split">
+        <div class="split" data-task="${n}" data-section="${esc(base)}">
           <div class="pane passage"><p class="task-label">Task ${n} question</p>${prompt}</div>
           <div class="pane"><p class="task-label">Task ${n} student answer</p>
             <div class="answer-box"><textarea hidden data-q="writing_task${n}_${esc(base)}"></textarea><span data-ans></span></div>
@@ -227,6 +282,419 @@
     return `<section class="card"><h3 class="sec-title">${esc(title)}</h3><div class="questions-pane">${raw}</div></section>`;
   }
 
+  /* ==================== AI MARKING (Qwen / DashScope) ==================== */
+  const AI_ENDPOINT = 'https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions';
+  const AI_DEFAULT_KEY = 'sk-7c05d9f825484840b0bfc008176a89d5';
+  const AI_DEFAULT_MODEL = 'qwen3-vl-plus';   // vision + text: reads Task 1 charts
+  const AI_PROXY = 'https://images.weserv.nl/?url=';
+  const LS_KEY = 'ielts_ai_api_key', LS_MODEL = 'ielts_ai_model', LS_IMGMODE = 'ielts_ai_img_mode';
+  let manualCharts = [];   // teacher-uploaded chart images (data URIs), fallback only
+
+  const aiLs = (k, d) => { try { return localStorage.getItem(k) || d; } catch (_) { return d; } };
+  const aiSetLs = (k, v) => { try { localStorage.setItem(k, v); } catch (_) {} };
+  const num = (v, d) => { const n = Number(v); return Number.isFinite(n) ? n : d; };
+  const wordCountOf = s => { const t = String(s || '').trim(); return t ? t.split(/\s+/).length : 0; };
+  const getKey = () => ($('aiKey') && $('aiKey').value.trim()) || aiLs(LS_KEY, AI_DEFAULT_KEY) || AI_DEFAULT_KEY;
+  const getModel = () => ($('aiModel') ? $('aiModel').value : aiLs(LS_MODEL, AI_DEFAULT_MODEL));
+  const getImgMode = () => ($('aiImgMode') ? $('aiImgMode').value : aiLs(LS_IMGMODE, 'proxy'));
+  const setAiStatus = t => { const el = $('aiStatus'); if (el) el.textContent = t; };
+
+  function aiPanelHtml() {
+    const m = aiLs(LS_MODEL, AI_DEFAULT_MODEL), mode = aiLs(LS_IMGMODE, 'proxy');
+    const sel = (v, cur) => v === cur ? ' selected' : '';
+    return `<div id="aiPanel" class="ai-panel no-print">
+      <div class="ai-toolbar">
+        <button id="aiMarkBtn" type="button" class="ai-mark-btn">AI 阅卷</button>
+        <span class="ai-status" id="aiStatus">点击后按 IELTS 官方四项标准批改本篇提交的 Task 1 / Task 2，并生成逐级提分报告。</span>
+      </div>
+      <details class="ai-settings" id="aiSettings">
+        <summary>AI 阅卷设置（API Key / 模型 / 图表）</summary>
+        <div class="ai-grid">
+          <label>千问 API Key<input type="password" id="aiKey" value="${esc(aiLs(LS_KEY, AI_DEFAULT_KEY))}" autocomplete="off"></label>
+          <label>模型<select id="aiModel">
+            <option value="qwen3-vl-plus"${sel('qwen3-vl-plus', m)}>qwen3-vl-plus（可识图，推荐）</option>
+            <option value="qwen-plus"${sel('qwen-plus', m)}>qwen-plus（纯文本，仅 Task 2）</option>
+          </select></label>
+          <label>图表图片处理<select id="aiImgMode">
+            <option value="proxy"${sel('proxy', mode)}>自动代理（推荐，可读取图床）</option>
+            <option value="direct"${sel('direct', mode)}>直接传原图 URL</option>
+            <option value="manual"${sel('manual', mode)}>仅用手动上传的图片</option>
+          </select></label>
+        </div>
+        <div class="ai-hint">手动上传 Task 1 图表（自动读取失败时使用，可多选）：
+          <input type="file" id="aiChartFile" accept="image/*" multiple style="font-size:12.5px;margin-top:6px;"><span id="aiChartInfo"></span></div>
+        <div class="ai-hint">批改结果只在本页显示，<strong>不会被打印</strong>；Print 按钮仍只输出题目与学生文章（保持原有双倍行距）。</div>
+        <div style="margin-top:9px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <button type="button" class="ai-small" id="aiSaveBtn">保存设置到本机</button>
+          <span class="ai-hint" id="aiSaveInfo" style="margin:0;"></span>
+        </div>
+        <div class="ai-warn">安全提示：默认 API Key 写在本页面源码中，而本仓库是公开的，任何访问者查看源码都能看到它。建议在此处填入你自己的密钥并点「保存设置到本机」（仅存于你的浏览器，不写入仓库），并到阿里云百炼控制台定期更换 / 撤销已公开的密钥。</div>
+      </details>
+    </div>
+    <div id="aiReports" class="no-print"></div>`;
+  }
+
+  function mountAiPanel() {
+    manualCharts = [];
+    const btn = $('aiMarkBtn');
+    if (btn) btn.onclick = runAiMarking;
+    const save = $('aiSaveBtn');
+    if (save) save.onclick = () => {
+      aiSetLs(LS_KEY, $('aiKey').value.trim());
+      aiSetLs(LS_MODEL, $('aiModel').value);
+      aiSetLs(LS_IMGMODE, $('aiImgMode').value);
+      $('aiSaveInfo').textContent = '已保存到本机浏览器。';
+      setTimeout(() => { const el = $('aiSaveInfo'); if (el) el.textContent = ''; }, 3000);
+    };
+    const file = $('aiChartFile');
+    if (file) file.onchange = async (e) => {
+      manualCharts = [];
+      for (const f of Array.from(e.target.files || [])) {
+        try { manualCharts.push(await blobToDataUri(f)); } catch (_) {}
+      }
+      const info = $('aiChartInfo');
+      if (info) info.textContent = manualCharts.length ? ' 已载入 ' + manualCharts.length + ' 张图片。' : ' 图片读取失败。';
+      if (manualCharts.length && $('aiImgMode')) $('aiImgMode').value = 'manual';
+    };
+  }
+
+  function blobToDataUri(blob) {
+    return new Promise((resolve, reject) => {
+      const r = new FileReader();
+      r.onload = () => resolve(String(r.result));
+      r.onerror = () => reject(new Error('read failed'));
+      r.readAsDataURL(blob);
+    });
+  }
+
+  /* Pull prompt / chart / student answer straight from the rendered DOM */
+  function collectAiTasks() {
+    const detail = $('detail');
+    if (!detail) return [];
+    const out = [];
+    detail.querySelectorAll('.split[data-task]').forEach(split => {
+      const n = split.getAttribute('data-task');
+      const sec = split.getAttribute('data-section') || '';
+      const p = split.querySelector('.pane.passage .prompt');
+      const prompt = p ? p.textContent.trim() : '';
+      const imgs = Array.from(split.querySelectorAll('img')).map(i => i.getAttribute('src') || '').filter(Boolean);
+      const a = split.querySelector('[data-ans]');
+      let answer = a ? a.textContent.trim() : '';
+      if (answer === '(blank)' || /^\(\s*0\s*words?\s*\)$/i.test(answer)) answer = '';
+      out.push({ n, sec, prompt, imgs, answer });
+    });
+    return out;
+  }
+
+  /* Only Task 1 carries a chart; Task 2 is graded on text alone */
+  function resolveImages(task) {
+    if (task.n !== '1') return [];
+    const mode = getImgMode();
+    if (mode === 'manual') return manualCharts.slice();
+    const list = (task.imgs || []).filter(Boolean);
+    if (mode === 'direct') return list;
+    return list.map(u => u.startsWith('data:') ? u : AI_PROXY + encodeURIComponent(u));
+  }
+
+  async function inlineImages(task) {
+    if (task.n !== '1') return [];
+    const out = [];
+    for (const u of (task.imgs || [])) {
+      for (const c of [AI_PROXY + encodeURIComponent(u), u]) {
+        try {
+          const res = await fetch(c, { mode: 'cors' });
+          if (res.ok) { out.push(await blobToDataUri(await res.blob())); break; }
+        } catch (_) {}
+      }
+    }
+    return out;
+  }
+
+  function buildSystemPrompt(n) {
+    const isT1 = n === '1';
+    const c1 = isT1 ? 'Task Achievement (TA)' : 'Task Response (TR)';
+    const c1code = isT1 ? 'TA' : 'TR';
+    const rules = isT1
+      ? 'Task 1: minimum 150 words in 20 minutes; requires a clear overview, selection of the main features, relevant comparisons and accurate references to the data; no personal opinion and no speculation about causes. A chart image is attached — read it first (chart type, axes, units, categories, time span, key figures, trends, peaks, troughs, crossings), then judge whether the student described the data accurately. Penalise invented or contradictory figures under TA.'
+      : 'Task 2: minimum 250 words in 40 minutes; requires addressing all parts of the prompt, a clear position throughout, relevant and extended ideas, logical organisation and adequate supporting examples. Penalise underlength, off-topic or memorised content under TR.';
+    return `You are a senior IELTS Writing examiner with more than 10 years of marking experience. Grade strictly against the official IELTS Writing ${isT1 ? 'Task 1' : 'Task 2'} band descriptors.
+
+FOUR CRITERIA (each 0-9, half bands allowed): ${c1}, Coherence and Cohesion (CC), Lexical Resource (LR), Grammatical Range and Accuracy (GRA). The final band is the average of the four, rounded to the nearest 0.5 following IELTS rules.
+${rules}
+Word count matters: state the actual word count in your analysis and apply the IELTS penalty when the answer is under length. If the answer is blank, set band to 0 and explain briefly.
+
+LANGUAGE RULE — IMPORTANT: write ALL analysis, comments, reasons, headlines and advice in SIMPLIFIED CHINESE. Only the student's quoted sentences, the rewritten English sentences, and the band-9 model essay may be in English. Never prefix Chinese text with labels like "中文：". Never write English commentary.
+
+Return STRICT JSON ONLY — no markdown code fences, no text before or after — using exactly this shape:
+{
+  "band": 4.5,
+  "criteria": [
+    {"code":"${c1code}","name":"${c1}","score":4.0,"comment":"中文具体点评，必须引用学生原句"},
+    {"code":"CC","name":"Coherence and Cohesion","score":5.0,"comment":"中文具体点评"},
+    {"code":"LR","name":"Lexical Resource","score":5.0,"comment":"中文具体点评"},
+    {"code":"GRA","name":"Grammatical Range and Accuracy","score":4.0,"comment":"中文具体点评"}
+  ],
+  "chart_reading": "${isT1 ? '中文：对图表的准确解读，以及学生描述与图表事实的偏差；若未看到图表则写 N/A' : 'N/A'}",
+  "word_count": "中文：实际字数、是否达到最低字数要求及扣分影响",
+  "summary": "中文：总体评价，具体解释为什么只拿到这个分数，必须引用学生原句",
+  "strengths": ["中文：做得好的地方，引用原文"],
+  "key_problems": ["中文：最拉分的问题，每条含学生原文例句与扣分原因"],
+  "roadmap": [
+    {"target":5,"headline":"中文：最容易做到、性价比最高的一步","actions":["中文具体建议1","中文具体建议2"],
+     "edits":[{"original":"学生原句（英文）","revised":"改写后的英文句子","why":"中文说明"}]}
+  ],
+  "model_essay": "英文完整9分范文（${isT1 ? 'Task 1 至少 170 词' : 'Task 2 至少 280 词'}）",
+  "model_essay_notes": "中文：范文为何能拿9分，与学生文章的关键差距"
+}
+
+ROADMAP RULES: output one object for EVERY integer target band from (floor(band)+1) up to 9 inclusive, in ascending order. If band >= 9, use []. For each target, give the single most achievable change that unlocks that band, 2-4 concrete actionable steps, and 1-3 "edits" that rewrite the STUDENT'S OWN sentences. Advice must be specific and operational (name the exact grammar point, the exact data to add, the exact sentence to restructure) — never vague like "improve grammar" or "use more vocabulary". Difficulty must escalate: 5 = quickest fix, 9 = near-perfect control.`;
+  }
+
+  function buildUserPrompt(task, hasImage) {
+    return [
+      'IELTS WRITING TASK ' + task.n + ' PROMPT:',
+      task.prompt || '(No prompt text stored — judge from the attached chart image if present.)',
+      '',
+      'STUDENT ANSWER (verbatim, do not silently correct it):',
+      task.answer || '(blank — the student submitted nothing)',
+      '',
+      hasImage ? 'A chart image is attached above. Read it carefully before marking.' : 'No chart image is attached to this task.',
+      '',
+      task.answer ? 'Now grade this answer and output the JSON only.' : 'The answer is blank: set band to 0 and output the JSON only.'
+    ].join('\n');
+  }
+
+  async function callQwen(messages) {
+    const model = getModel();
+    const body = { model, messages, max_tokens: 8000, temperature: 0.2 };
+    if (/^qwen3/i.test(model)) body.enable_thinking = false;
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 240000);
+    let res, text;
+    try {
+      res = await fetch(AI_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + getKey() },
+        body: JSON.stringify(body),
+        signal: ctrl.signal
+      });
+      text = await res.text();
+    } catch (e) {
+      if (e.name === 'AbortError') throw new Error('请求超时（4 分钟）。请稍后重试，或在设置里换用 qwen-plus。');
+      throw new Error('无法连接千问 API：' + e.message);
+    } finally { clearTimeout(timer); }
+    let d;
+    try { d = JSON.parse(text); } catch (_) { throw new Error('API 返回内容不是 JSON：' + String(text).slice(0, 200)); }
+    if (!res.ok) throw new Error((d.error && d.error.message) || ('HTTP ' + res.status));
+    const c = d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+    if (!c) throw new Error('模型未返回内容，请重试。');
+    return c;
+  }
+
+  async function gradeOne(task) {
+    const images = resolveImages(task);
+    const sys = buildSystemPrompt(task.n);
+    const usr = buildUserPrompt(task, images.length > 0);
+    const build = imgs => {
+      const content = imgs.map(u => ({ type: 'image_url', image_url: { url: u } }));
+      content.push({ type: 'text', text: usr });
+      return [{ role: 'system', content: sys }, { role: 'user', content }];
+    };
+    let text;
+    try {
+      text = await callQwen(build(images));
+    } catch (e) {
+      if (images.length && /download multimodal|invalid_parameter|failed to download/i.test(e.message)) {
+        const inline = await inlineImages(task);
+        if (inline.length) text = await callQwen(build(inline));
+        else throw new Error(e.message + '\n图表下载失败。请在「AI 阅卷设置」里手动上传图表图片后重试。');
+      } else throw e;
+    }
+    return parseReport(text);
+  }
+
+  function parseReport(txt) {
+    let s = String(txt || '').trim();
+    const fence = s.match(/^```(?:json)?\s*([\s\S]*?)```/i);
+    if (fence) s = fence[1].trim();
+    const a = s.indexOf('{'), b = s.lastIndexOf('}');
+    if (a < 0 || b <= a) throw new Error('模型输出不是有效 JSON，请点「重新批改」重试。\n' + s.slice(0, 200));
+    try {
+      const obj = JSON.parse(s.slice(a, b + 1));
+      // The model sometimes labels Chinese text with a "中文：" prefix — strip it everywhere.
+      const strip = v => {
+        if (typeof v === 'string') return v.replace(/^\s*中文\s*[:：]\s*/, '').trim();
+        if (Array.isArray(v)) return v.map(strip);
+        if (v && typeof v === 'object') { const o = {}; for (const k in v) o[k] = strip(v[k]); return o; }
+        return v;
+      };
+      return strip(obj);
+    }
+    catch (e) { throw new Error('报告解析失败（' + e.message + '），请点「重新批改」重试。'); }
+  }
+
+  function renderReport(r, task, model) {
+    const band = num(r.band, 0);
+    const badgeCls = band <= 4 ? 'low' : band <= 6 ? 'mid' : 'high';
+    const crit = Array.isArray(r.criteria) ? r.criteria : [];
+    const strengths = Array.isArray(r.strengths) ? r.strengths : [];
+    const problems = Array.isArray(r.key_problems) ? r.key_problems : [];
+    const road = (Array.isArray(r.roadmap) ? r.roadmap : []).slice()
+      .sort((a, b) => num(a.target, 0) - num(b.target, 0));
+    const essay = String(r.model_essay || '').trim();
+    const wc = essay ? essay.split(/\s+/).filter(Boolean).length : 0;
+    const list = arr => arr.length
+      ? '<ul class="ai-list">' + arr.map(x => '<li>' + esc(x) + '</li>').join('') + '</ul>'
+      : '<div class="ai-hint">（无）</div>';
+
+    const critHtml = crit.length ? '<div class="criteria-grid">' + crit.map(c =>
+      `<div class="crit"><div class="crit-top"><span>${esc(c.code || '')} · ${esc(c.name || '')}</span><span class="crit-score">${esc(c.score ?? '-')} 分</span></div>
+       <p>${esc(c.comment || '')}</p></div>`).join('') + '</div>' : '<div class="ai-hint">（模型未返回分项评分）</div>';
+
+    const roadHtml = road.length ? road.map(step => {
+      const t = num(step.target, 0);
+      const actions = Array.isArray(step.actions) ? step.actions : [];
+      const edits = Array.isArray(step.edits) ? step.edits : [];
+      return `<div class="road-step">
+        <div class="road-target">${esc(band)} → ${esc(t)} 分</div>
+        <div class="road-head">${esc(step.headline || '')}</div>
+        ${list(actions)}
+        ${edits.map(e => `
+          <div class="edit-row">
+            <div class="edit-box old"><b>原文 / ORIGINAL</b>${esc(e.original || '')}</div>
+            <div class="edit-box new"><b>修改后 / REVISED</b>${esc(e.revised || '')}</div>
+          </div>
+          <div class="edit-why">${esc(e.why || '')}</div>`).join('')}
+      </div>`;
+    }).join('') : '<div class="ai-hint">已达到 9 分，无需提分路线。</div>';
+
+    const chartSec = task.n === '1' && r.chart_reading && !/^N\/A$/i.test(String(r.chart_reading).trim())
+      ? `<div class="ai-sec"><h4>图表解读与数据核对</h4><div class="ai-text">${esc(r.chart_reading)}</div></div>` : '';
+
+    return `<div class="ai-report-head">
+      <div><h3>AI 阅卷报告 · Task ${esc(task.n)}${task.sec ? ' · Section ' + esc(task.sec) : ''}</h3>
+        <div class="ai-report-sub">IELTS Writing ${task.n === '1' ? 'Task 1' : 'Task 2'} 官方四项评分标准 · 模型 ${esc(model)} · 学生原文 ${wordCountOf(task.answer)} 词</div></div>
+      <span class="band-badge ${badgeCls}">${esc(band)} 分</span>
+    </div>
+    <div class="ai-body">
+      <div class="ai-toolrow no-print">
+        <button type="button" class="ai-small" data-act="copy">复制报告</button>
+        <button type="button" class="ai-small" data-act="download">下载报告</button>
+        <button type="button" class="ai-small" data-act="retry">重新批改</button>
+      </div>
+      <div class="ai-sec"><h4>四项评分标准</h4>${critHtml}</div>
+      <div class="ai-sec"><h4>为什么只拿到 ${esc(band)} 分</h4><div class="ai-text">${esc(r.summary || '')}</div></div>
+      <div class="ai-sec"><h4>字数与硬性要求</h4><div class="ai-text">${esc(r.word_count || '')}</div></div>
+      ${chartSec}
+      <div class="ai-sec"><h4>做得好的地方</h4>${list(strengths)}</div>
+      <div class="ai-sec"><h4>主要失分点</h4>${list(problems)}</div>
+      <div class="ai-sec"><h4>逐级提分路线（5 → 9 分，含具体修改意见）</h4>${roadHtml}</div>
+      <div class="ai-sec"><h4>9 分范文</h4>
+        <div class="model-essay">${esc(essay)}</div>
+        <p class="count">约 ${wc} 词</p>
+        <div class="ai-text" style="margin-top:10px;">${esc(r.model_essay_notes || '')}</div>
+      </div>
+    </div>`;
+  }
+
+  function reportToText(r, task) {
+    const band = num(r.band, 0);
+    const L = [];
+    L.push('# IELTS Writing Task ' + task.n + ' — AI 阅卷报告', '');
+    L.push('**预估总分：' + band + ' 分**', '');
+    L.push('## 四项评分标准');
+    (Array.isArray(r.criteria) ? r.criteria : []).forEach(c =>
+      L.push('- ' + (c.code || '') + ' ' + (c.name || '') + '：' + (c.score ?? '-') + ' 分 — ' + (c.comment || '')));
+    L.push('', '## 为什么只拿到 ' + band + ' 分', String(r.summary || ''));
+    L.push('', '## 字数与硬性要求', String(r.word_count || ''));
+    if (task.n === '1' && r.chart_reading) L.push('', '## 图表解读与数据核对', String(r.chart_reading));
+    L.push('', '## 做得好的地方');
+    (Array.isArray(r.strengths) ? r.strengths : []).forEach(x => L.push('- ' + x));
+    L.push('', '## 主要失分点');
+    (Array.isArray(r.key_problems) ? r.key_problems : []).forEach(x => L.push('- ' + x));
+    L.push('', '## 逐级提分路线');
+    (Array.isArray(r.roadmap) ? r.roadmap : []).slice().sort((a, b) => num(a.target, 0) - num(b.target, 0)).forEach(s => {
+      L.push('', '### ' + band + ' → ' + s.target + ' 分：' + (s.headline || ''));
+      (Array.isArray(s.actions) ? s.actions : []).forEach(x => L.push('- ' + x));
+      (Array.isArray(s.edits) ? s.edits : []).forEach(e => {
+        L.push('  - 原文：' + (e.original || ''));
+        L.push('    修改后：' + (e.revised || ''));
+        L.push('    说明：' + (e.why || ''));
+      });
+    });
+    L.push('', '## 9 分范文', String(r.model_essay || ''));
+    L.push('', '## 范文点评', String(r.model_essay_notes || ''));
+    return L.join('\n');
+  }
+
+  function bindReportActions(card, r, task, model) {
+    card.querySelectorAll('[data-act]').forEach(b => {
+      b.onclick = async () => {
+        const act = b.getAttribute('data-act');
+        if (act === 'copy') {
+          const txt = reportToText(r, task);
+          try { await navigator.clipboard.writeText(txt); b.textContent = '已复制'; }
+          catch (_) {
+            const ta = document.createElement('textarea');
+            ta.value = txt; document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); b.textContent = '已复制'; } catch (_) { b.textContent = '复制失败'; }
+            ta.remove();
+          }
+          setTimeout(() => { if (b.isConnected) b.textContent = '复制报告'; }, 1800);
+        } else if (act === 'download') {
+          const blob = new Blob([reportToText(r, task)], { type: 'text/markdown;charset=utf-8' });
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = 'IELTS_Task' + task.n + '_AI_report.md';
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(() => URL.revokeObjectURL(a.href), 3000);
+        } else if (act === 'retry') {
+          b.disabled = true; b.textContent = '重新批改中…';
+          const body = card.querySelector('.ai-body');
+          if (body) body.innerHTML = '<div class="ai-loading">正在重新调用千问模型…</div>';
+          try {
+            const r2 = await gradeOne(task);
+            const m2 = getModel();
+            card.innerHTML = renderReport(r2, task, m2);
+            bindReportActions(card, r2, task, m2);
+          } catch (e) {
+            card.innerHTML = '<div class="ai-body"><div class="ai-error">重新批改失败：' + esc(e.message) + '</div></div>';
+          }
+        }
+      };
+    });
+  }
+
+  async function runAiMarking() {
+    const btn = $('aiMarkBtn'), host = $('aiReports');
+    if (!btn || !host) return;
+    const tasks = collectAiTasks();
+    if (!tasks.length) { setAiStatus('未找到写作任务，请等待试卷题目与学生文章加载完成后再试。'); return; }
+    btn.disabled = true;
+    host.innerHTML = '';
+    let done = 0;
+    const total = tasks.length;
+    setAiStatus('正在批改 0/' + total + ' …（含 Task 1 图表识别，通常需 30–90 秒）');
+    await Promise.all(tasks.map(async (task) => {
+      const card = document.createElement('div');
+      card.className = 'ai-report no-print';
+      card.innerHTML = '<div class="ai-body"><div class="ai-loading">正在调用千问模型批改 Task ' + esc(task.n) + '…请勿关闭页面。</div></div>';
+      host.appendChild(card);
+      const model = getModel();
+      try {
+        const r = await gradeOne(task);
+        card.innerHTML = renderReport(r, task, model);
+        bindReportActions(card, r, task, model);
+      } catch (e) {
+        card.innerHTML = '<div class="ai-body"><div class="ai-error">批改失败：' + esc(e.message) + '</div></div>';
+      }
+      done++;
+      setAiStatus('已完成 ' + done + '/' + total + (done === total ? ' · 全部完成' : ' …'));
+    }));
+    btn.disabled = false;
+  }
+  /* ================== END OF AI MARKING ================== */
+
   /* ---- detail view ---- */
   async function showSubmission(sub) {
     const currentKey = subKey(sub);
@@ -244,10 +712,11 @@
         <button id="printBtn" type="button" class="no-print">Print</button></div>
       <p>Submitted at: <strong id="submittedTimeVal">${esc(fallbackWhen)}</strong></p>
       <p>Time taken: <strong id="timeTakenVal">Loading from database…</strong></p>
-      <p>Paper ID: ${esc(sub.paper_id)}</p><p id="scoreLine"></p></div>`;
+      <p>Paper ID: ${esc(sub.paper_id)}</p><p id="scoreLine"></p></div>` + aiPanelHtml();
 
     const bindPrint = () => { $('printBtn').onclick = () => window.print(); };
     bindPrint();
+    mountAiPanel(sub);
 
     const timing = await fetchTimingFromDb(sub);
     if (activeId !== currentKey) return;
