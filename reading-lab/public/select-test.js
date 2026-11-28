@@ -1,4 +1,4 @@
-import { api, esc, toast, fmtDate, showLogin } from './shared.js';
+import { api, esc, toast, fmtDate, showLogin, withShareCode } from './shared.js';
 
 const state = { volumes: [], volumeId: 1 };
 
@@ -23,7 +23,7 @@ function renderVolumes() {
 function renderTests() {
   const volume = state.volumes.find(v => v.id === state.volumeId);
   document.getElementById('volumeTitle').textContent = volume?.title || '';
-  const base = `${location.origin}/IELTS%20Reading%20Lab%20-%20Student%20Test.html?volume=${volume?.number || 1}&test=`;
+  const base = withShareCode(`${location.origin}/IELTS%20Reading%20Lab%20-%20Student%20Test.html?volume=${volume?.number || 1}&test=`);
   document.getElementById('tests').innerHTML = (volume?.tests || []).map(t => `
     <div class="test-card">
       <h3>Test ${t.number}</h3>
@@ -37,7 +37,7 @@ function renderTests() {
   document.getElementById('tests').onclick = e => {
     const open = e.target.closest('[data-open]');
     const copy = e.target.closest('[data-copy]');
-    if (open) window.open(`/IELTS%20Reading%20Lab%20-%20Student%20Test.html?volume=${volume.number}&test=${open.dataset.open}`, '_blank');
+    if (open) window.open(withShareCode(`/IELTS%20Reading%20Lab%20-%20Student%20Test.html?volume=${volume.number}&test=${open.dataset.open}`), '_blank');
     if (copy) {
       navigator.clipboard?.writeText(copy.dataset.copy).then(() => toast('链接已复制')).catch(() => toast('请手动复制下方链接'));
     }

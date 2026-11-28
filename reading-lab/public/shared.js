@@ -1,3 +1,23 @@
+const queryShareCode = new URLSearchParams(location.search).get('sharecode');
+if (queryShareCode) localStorage.setItem('ielts_sharecode', queryShareCode);
+
+export function withShareCode(url) {
+  const code = queryShareCode || localStorage.getItem('ielts_sharecode');
+  if (!code) return url;
+  const u = new URL(url, location.href);
+  if (!u.searchParams.has('sharecode')) u.searchParams.set('sharecode', code);
+  return /^(https?:)/i.test(url) ? u.href : u.pathname + u.search + u.hash;
+}
+
+document.addEventListener('click', event => {
+  const link = event.target.closest('a[href]');
+  if (!link) return;
+  const href = link.getAttribute('href');
+  if (!href || href.startsWith('#') || /^(https?:|mailto:|tel:|data:)/i.test(href)) return;
+  const updated = withShareCode(href);
+  if (updated !== href) link.setAttribute('href', updated);
+});
+
 export async function api(path, options = {}) {
   const token = localStorage.getItem('ielts_token');
   const headers = { ...(options.headers || {}) };
